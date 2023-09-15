@@ -24,7 +24,7 @@ include("conexao.php");
 
 
   <title>
-    ANJOS DE 4 PATAS
+  CRM CORBAN
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -49,11 +49,11 @@ include("conexao.php");
     <div class="logo">
         <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="https://i.imgur.com/dx8LGUd.png">
+            <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-File.png">
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
-          ANJOS DE 4 PATAS
+          CRM CORBAN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -65,6 +65,7 @@ include("conexao.php");
         
       
         <ul class="nav">
+          
 
         <li class="">
             <a href="painel_funcionario.php">
@@ -75,42 +76,29 @@ include("conexao.php");
           </li>
 
         <li class="">
-            <a href="animais.php">
-              <i class="fa fa-plus"></i>
-              <p>Cadastrar pet</p>
+            <a href="propostas.php">
+              <i class="fa fa-product-hunt"></i>
+              <p>Propostas</p>
             </a>
           </li>
-
           
-          <li class="">
-            <a href="doacoes-func.php">
-              <i class="fa fa-money"></i>
-              <p>Doações</p>
-            </a>
-          </li>
-
           
 
           <li class="">
             <a href="adocoes.php">
-              <i class="fa fa-users"></i>
-              <p>Tutores</p>
+              <i class="fa fa-search"></i>
+              <p>Consultas</p>
             </a>
           </li>
 
           <li class="">
             <a href="mensagens.php">
-              <i class="fa fa-light fa-envelope"></i>
-              <p>Mensagens</p>
+              <i class="fa fa-users"></i>
+              <p>Bases</p>
             </a>
           </li>
 
-          <li class="">
-          <a href="donate.html"  target="_blank">
-              <i class="fa fa-rocket"></i>
-              <p>CONTRIBUA</p>
-            </a>
-          </li>
+         
 
           <li class="">
             <a href="https://wa.link/1quja8"  target="_blank">
@@ -221,9 +209,61 @@ include("conexao.php");
 
 
 
-                            
+          <!-- Botões dropdowns em cima da dashboard -->                  
+          <div class="btn-group dropright">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Campanhas
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Minhas campanhas</a>
+              <a class="dropdown-item" href="#">Atendimento</a>
+            </div>
+          </div>
 
-                              
+          <div class="btn-group dropright">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Relatórios
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Propostas</a>
+              <a class="dropdown-item" href="#">Campanhas</a>
+            </div>
+          </div>
+
+          <div class="btn-group dropright">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Financeiro
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Comissionamento</a>
+              <a class="dropdown-item" href="#">Lançamentos</a>
+              <a class="dropdown-item" href="#">Pagamentos</a>
+            </div>
+          </div>
+
+          <div class="btn-group dropright">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             Administração
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Usuários</a>
+              <a class="dropdown-item" href="#">Grupos</a>
+              <a class="dropdown-item" href="#">Tabelas</a>
+              <a class="dropdown-item" href="#">Status</a>
+              <a class="dropdown-item" href="#">Promotoras</a>
+              <a class="dropdown-item" href="#">Promotoras</a>
+              <a class="dropdown-item" href="#">Tabulação</a>
+              <a class="dropdown-item" href="#">Canais de vendas</a>
+            </div>
+          </div>
+
+
+          
+
+          
+          
+
+          <!--  final Botões dropdowns em cima da dashboard -->                
 
                               
 
@@ -243,12 +283,12 @@ include("conexao.php");
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
                       <i class="bi bi-cone-striped"></i>
-                      <i class="fa fa-paw text-warning "></i>
+                      <i class="fa fa-cart-arrow-down text-warning "></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Pets cadastrados</p>
+                      <p class="card-category">Total de propostas</p>
                       <p class="card-title">
                         
                       <?php 
@@ -276,7 +316,7 @@ include("conexao.php");
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-paw"></i> Total de pets cadastrados
+                  <i class="fa fa-cart-arrow-down "></i> Quantidade total de propostas
                 </div>
               </div>
             </div>
@@ -289,12 +329,12 @@ include("conexao.php");
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="fa fa-heart text-danger"></i>
+                      <i class="fa fa-money text-danger"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Pets disponíveis </p>
+                      <p class="card-category">Valor total das propostas </p>
                       <p class="card-title">
 
                       <?php 
@@ -321,7 +361,7 @@ include("conexao.php");
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-heart "></i> Disponíveis para adoção
+                  <i class="fa fa-money "></i> Média de vendas diárias
                 </div>
               </div>
             </div>
@@ -334,12 +374,12 @@ include("conexao.php");
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="fa fa-check text-success"></i>
+                      <i class="fa fa-bar-chart text-success"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Pets adotados</p>
+                      <p class="card-category">Média de vendas diárias</p>
                       <p class="card-title">
 
                       <?php 
@@ -366,7 +406,7 @@ include("conexao.php");
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-check"></i> Pets que já foram adotados
+                  <i class="fa fa-bar-chart"></i> Total de média diária
                 </div>
               </div>
             </div>
@@ -379,12 +419,12 @@ include("conexao.php");
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="fa fa-stethoscope text-primary"></i>
+                      <i class="fa fa-circle-o-notch text-primary"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Não vacinados</p>
+                      <p class="card-category">Valor das propostas</p>
                       <p class="card-title"> 
 
                       <?php 
@@ -414,7 +454,7 @@ include("conexao.php");
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-stethoscope "></i> Pets que ainda não foram vacinados
+                  <i class="fa fa-circle-o-notch "></i> Média do valor das propostas
                 </div>
               </div>
             </div>
@@ -439,20 +479,20 @@ include("conexao.php");
               <div class="col-md-12">
                 <div class="card" >
                   <div class="card-header">
-                  <h5>Pets registrados <span  style="color:white;" class="badge bg-secondary" >HOJE</span></h5>
+                  <h5>Propostas registradas <span  style="color:white;" class="badge bg-secondary" >HOJE</span></h5>
 
                     <div class="btn-group" role="group" aria-label="Basic example">
                     <form class="form-inline my-2 my-lg-0">
-                    <button  name= "buttonOcAtendidas" type="submit" class="btn btn-primary">Adotados</button>
+                    <button  name= "buttonOcAtendidas" type="submit" class="btn btn-primary">Mais alta</button>
                     <form>
 
                     <form class="form-inline my-2 my-lg-0">
-                    <button name= "buttonOcNaoAtendidas" type="submit" class="btn btn-primary">Não adotados</button>
+                    <button name= "buttonOcNaoAtendidas" type="submit" class="btn btn-primary">Mais baixa</button>
                     <form>
 
 
                     <form class="form-inline my-2 my-lg-0">
-                    <button name= "buttonPesquisar" type="submit" class="btn btn-primary">Todos</button>
+                    <button name= "buttonPesquisar" type="submit" class="btn btn-primary">Todas</button>
                     <form>
                       
                     </div>
@@ -519,26 +559,26 @@ include("conexao.php");
                         <thead class=" text-primary">
                           
                           <th>
-                            Nome
+                            Campo1
                           </th>
                           <th>
-                            Espécie
+                            Campo2
                           </th>
                           <th>
-                            Vacinas
+                            Campo3
                           </th>
                           <th>
-                            Castrado
+                            Campo4
                           </th>
                            <th>
-                            Observação
+                            Campo5
                           </th>
                             <th>
-                            Idade
+                            Campo6
                           </th>
                            </th>
                           <th>
-                            Situação
+                            Campo7
                           </th>
                            </th>
                             <th>
@@ -667,7 +707,7 @@ include("conexao.php");
                 ©
                 <script>
                   document.write(new Date().getFullYear())
-                </script>, Anjos de quatro patas <i class="fa fa-heart heart"></i> 
+                </script>, CRM CORBAN <i class="fa fa-heart heart"></i> 
               </span>
             </div>
           </div>
