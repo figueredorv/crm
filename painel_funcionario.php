@@ -135,6 +135,18 @@ include("conexao.php");
             <a class="navbar-brand" href="#pablo"></a>
           </div>
          
+          <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            
+
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
            
             <ul class="navbar-nav">
@@ -670,9 +682,14 @@ include("conexao.php");
                 </div>
               </div>
 
+                                
+
+
 </div>
            
 
+           
+           
             
 
 

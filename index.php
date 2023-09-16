@@ -15,7 +15,7 @@ session_start();
 <head>
 
 	<html lang="pt-BR">
-	<title>ANJOS DE QUATRO PATAS</title>
+	<title>CRM CORBAN</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
  
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -33,7 +33,7 @@ session_start();
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
 					<div class="brand_logo_container">
-						<img src="https://i.imgur.com/dx8LGUd.png" class="brand_logo" alt="Logo" >
+						<img src="https://images.vexels.com/media/users/3/142890/isolated/preview/4ea2d7c4bf3cad23a4f18ee58752deb8-logotipo-de-aneis-de-alta-tecnologia.png" class="brand_logo" alt="Logo" >
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
@@ -42,7 +42,8 @@ session_start();
 
 
 					<div class="mx-auto" style="width: 200px;">
-					<img src="https://i.imgur.com/0Z59FAl.png" class="logoinicio" id="logoinicio" alt="Logo" height="70" width="100%">
+					<h3>CRM CORBAN</h3>
+					<br>
 					</div>
 					
 					
