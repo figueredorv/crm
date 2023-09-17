@@ -207,19 +207,23 @@ include("conexao.php");
 
         <?php
 
-        $query = "select * from animais where vacinas = ''";
+        $query = "select * from propostas where status = 'Pendente'";
         $result = mysqli_query($conexao, $query);
         //$dado = mysqli_fetch_array($result);
         $row = mysqli_num_rows($result);
 
         if ($row > 0) : ?>
-          <div class="notice notice-warning"><strong>Atenção!</strong> Existem pets que ainda não foram vacinados.</div>
+          <div class="notice notice-warning"><strong>Atenção!</strong> Existem propostas pendentes.</div>
 
         <?php
 
         endif;
         ?>
 
+
+
+
+        
 
 
 
@@ -307,7 +311,7 @@ include("conexao.php");
 
                           <?php
 
-                          $query = "select * from animais order by nome asc";
+                          $query = "select * from propostas order by nome asc";
                           $result = mysqli_query($conexao, $query);
                           //$dado = mysqli_fetch_array($result);
                           $row = mysqli_num_rows($result);
@@ -335,7 +339,7 @@ include("conexao.php");
               </div>
         </a>
       </div>
-      <a href="animais.php?buttonOcNaoAtendidas=" style="text-decoration:none">
+      <a href="propostas.php?buttonOcNaoAtendidas=" style="text-decoration:none">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-body ">
@@ -352,7 +356,7 @@ include("conexao.php");
 
                       <?php
 
-                      $query = "select * from animais where situacao = 'Disponivel'";
+                      $query = "select * from propostas where nome = 'Ruan'";
                       $result = mysqli_query($conexao, $query);
                       //$dado = mysqli_fetch_array($result);
                       $row = mysqli_num_rows($result);
@@ -379,7 +383,7 @@ include("conexao.php");
           </div>
       </a>
     </div>
-    <a href="animais.php?buttonOcAtendidas=" style="text-decoration:none">
+    <a href="propostas.php?buttonOcAtendidas=" style="text-decoration:none">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-body ">
@@ -396,7 +400,7 @@ include("conexao.php");
 
                     <?php
 
-                    $query = "select * from animais where situacao = 'Adotado'";
+                    $query = "select * from propostas where nome = 'Ruan'";
                     $result = mysqli_query($conexao, $query);
                     //$dado = mysqli_fetch_array($result);
                     $row = mysqli_num_rows($result);
@@ -423,7 +427,7 @@ include("conexao.php");
         </div>
     </a>
   </div>
-  <a href="animais.php?buttonpetsemvacina=" style="text-decoration:none">
+  <a href="propostas.php?buttonpetsemvacina=" style="text-decoration:none">
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
@@ -440,7 +444,7 @@ include("conexao.php");
 
                   <?php
 
-                  $query = "select * from animais where vacinas = ''";
+                  $query = "select * from propostas where status = 'Pendente'";
                   $result = mysqli_query($conexao, $query);
                   //$dado = mysqli_fetch_array($result);
                   $row = mysqli_num_rows($result);
@@ -520,30 +524,30 @@ include("conexao.php");
 
               // novo codigo ( procurar ocorrência pelo nome)
               if (isset($_GET['buttonPesquisar'])) {
-                $query = "select * from animais where data = curdate()";
+                $query = "select * from propostas where data = curdate()";
               }
 
-              // novo codigo ( procurar por animais adotados)
+              // novo codigo ( procurar por propostas pendentes)
               else if (isset($_GET['buttonOcAtendidas'])) {
-                $nome = 'Adotado';
-                $query = "select * from animais where situacao = '$nome'  and data = curdate()";
+                $nome = 'Pendentes';
+                $query = "select * from propostas where status = '$nome'  and data = curdate()";
               }
-              // novo codigo ( procurar por animais nao adotados)
+              // novo codigo ( procurar por propostas nao adotados)
               else if (isset($_GET['buttonOcNaoAtendidas'])) {
-                $nome = 'Disponivel';
-                $query = "select * from animais where situacao = '$nome'  and data = curdate()";
+                $nome = 'Finalizada';
+                $query = "select * from propostas where status = '$nome'  and data = curdate()";
               }
-              // novo codigo ( procurar por animais sem nenhuma vacina)
+              // novo codigo ( procurar por propostas sem nenhuma vacina)
               else if (isset($_GET['buttonpetsemvacina'])) {
                 $nome = '';
-                $query = "select * from animais where vacinas = '$nome'";
+                $query = "select * from propostas where status = '$nome'";
               }
 
 
               //final do código
 
               else {
-                $query = "select * from animais where data = curdate()   order by data asc ";
+                $query = "select * from propostas where data = curdate()   order by data asc ";
               }
 
 
@@ -566,29 +570,43 @@ include("conexao.php");
                 <table class="table">
                   <thead class=" text-primary">
 
-                    <th>
-                      Campo1
+                  <th>
+                      Nome
                     </th>
                     <th>
-                      Campo2
+                     Cpf
                     </th>
                     <th>
-                      Campo3
+                      Operação
                     </th>
                     <th>
-                      Campo4
+                      Tabela
                     </th>
                     <th>
-                      Campo5
+                      Convênio
                     </th>
                     <th>
-                      Campo6
+                      Banco
                     </th>
-                    </th>
+                    
                     <th>
-                      Campo7
+                      Valor
                     </th>
+                    
+                    <th>
+                     Promotora
                     </th>
+                   
+                    <th>
+                      Usuário
+                    </th>
+                   
+                    <th>
+                      Status
+                    </th>
+                    
+                    
+                    
                     <th>
                       Ações
                     </th>
@@ -599,13 +617,16 @@ include("conexao.php");
 
                     while ($res_1 = mysqli_fetch_array($result)) {
                       $nome = $res_1["nome"];
-                      $especie = $res_1["especie"];
-                      $vacinas = $res_1["vacinas"];
-                      $castrado = $res_1["castrado"];
-                      $observacao = $res_1["observacao"];
-                      $idade = $res_1["idade"];
-                      $situacao = $res_1["situacao"];
-                      $id = $res_1["id"];
+                      $cpf = $res_1["cpf"];
+                      $operacao = $res_1["operacao"];
+                      $tabela = $res_1["tabela"];
+                      $convenio = $res_1["covenio"];
+                      $banco = $res_1["banco"];
+                      $valor = $res_1["valor"];
+                      $promotora = $res_1["promotora"];
+                      $usuario = $res_1["idusuario"];
+                      $status = $res_1["status"];
+                      $id = $res_1["idpropostas"];
                       $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
 
 
@@ -615,33 +636,37 @@ include("conexao.php");
                     ?>
 
                       <tr>
-
                         <td><?php echo $nome; ?></td>
-                        <td><?php echo $especie; ?></td>
-                        <td><?php echo $vacinas;  ?></td>
-                        <td><?php echo $castrado;  ?></td>
-                        <td><?php echo $observacao; ?></td>
-                        <td><?php echo $idade; ?></td>
+                        <td><?php echo  $cpf; ?></td>
+                        <td><?php echo  $operacao;  ?></td>
+                        <td><?php echo $tabela;  ?></td>
+                        <td><?php echo $convenio; ?></td>
+                        <td><?php echo $banco; ?></td>
+                        <td><?php echo  $valor; ?></td>
+                        <td><?php echo  $promotora; ?></td>
+                        <td><?php echo  $usuario; ?></td>
+                        
+                        
 
 
 
                         <?php
-                        if ($situacao == "Disponivel") : ?>
-                          <td class="badge badge-pill badge-warning"><?php echo $situacao; ?></td>
-                        <?php
-                        endif;
-
-                        ?>
-                        <?php
-                        if ($situacao == "Adotado") : ?>
-                          <td class="badge badge-pill badge-success"><?php echo $situacao; ?></td>
+                        if ($status == "Pendente") : ?>
+                          <td class="badge badge-pill badge-warning"><?php echo $status; ?></td>
                         <?php
                         endif;
 
                         ?>
                         <?php
-                        if ($situacao == "Cancelada") : ?>
-                          <td class="badge badge-pill badge-danger"><?php echo $situacao; ?></td>
+                        if ($status == "Finalizada") : ?>
+                          <td class="badge badge-pill badge-success"><?php echo $status; ?></td>
+                        <?php
+                        endif;
+
+                        ?>
+                        <?php
+                        if ($status == "Cancelada") : ?>
+                          <td class="badge badge-pill badge-danger"><?php echo $status; ?></td>
                         <?php
                         endif;
 
@@ -650,9 +675,9 @@ include("conexao.php");
 
 
                         <td>
-                          <a class="btn btn-info" href="animais.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
+                          <a class="btn btn-info" href="propostas.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
-                          <a class="btn btn-danger" href="animais.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
+                          <a class="btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
 
                           <br>
 

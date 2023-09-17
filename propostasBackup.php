@@ -17,7 +17,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Propostas</title>
+  <title>Registrar animais</title>
 
 
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -100,14 +100,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
               <div class="container">
               <div class="row">
               <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">   
-              <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus"> NOVA PROPOSTA</i></button>
+              <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus"> NOVO PET</i></button>
               </form>
 
               <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonOcAtendidas" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-check"> STATUS PENDENTE</i></button>
+              <button name="buttonOcAtendidas" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-check"> PETS ADOTADOS</i></button>
               </form>
               <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonOcNaoAtendidas" class="btn btn-success mb-3" type="submit"><i class="fa fa-paw"> STATUS PAGO</i></button>
+              <button name="buttonOcNaoAtendidas" class="btn btn-success mb-3" type="submit"><i class="fa fa-paw"> PETS DISPONÍVEIS</i></button>
               </form>
               
               
@@ -124,7 +124,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title"> Registro de propostas</h4>
+                    <h4 class="card-title"> Registro de animais</h4>
                     
                   </div>
                   <div class="card-body">
