@@ -408,12 +408,107 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
-                    <div href="#cliente" class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">CONTEUDO1</div>
-                    <div href="#contato"  class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">CONTEUDO2</div>
-                    <div  class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="contact-tab">CONTEUDO3</div>
-                    <div href="#dadosbancarios"  class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="dadosbancarios-tab">CONTEUDO4</div>
+                    <div href="#cliente" class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+                      <!-- CONTEÚDO TAB CLIENTE-->
+                      <form>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputEmail4">NOME</label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">CPF</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">RG</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">NASCIMENTO</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">NOME DA MÃE</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">NOME DO PAI</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">CEP</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">RUA</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">NÚMERO</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputPassword4">COMPLEMENTO</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">BAIRRO</label>
+                            <input type="text" class="form-control" id="inputCity">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">CIDADE</label>
+                            <input type="text" class="form-control" id="inputCity">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputEstado">UF</label>
+                            <select id="inputEstado" class="form-control">
+                              <option selected>Escolher...</option>
+                              <option value="AC">Acre (AC)</option>
+                              <option value="AL">Alagoas (AL)</option>
+                              <option value="AP">Amapá (AP)</option>
+                              <option value="AM">Amazonas (AM)</option>
+                              <option value="BA">Bahia (BA)</option>
+                              <option value="CE">Ceará (CE)</option>
+                              <option value="DF">Distrito Federal (DF)</option>
+                              <option value="ES">Espírito Santo (ES)</option>
+                              <option value="GO">Goiás (GO)</option>
+                              <option value="MA">Maranhão (MA)</option>
+                              <option value="MT">Mato Grosso (MT)</option>
+                              <option value="MS">Mato Grosso do Sul (MS)</option>
+                              <option value="MG">Minas Gerais (MG)</option>
+                              <option value="PA">Pará (PA)</option>
+                              <option value="PB">Paraíba (PB)</option>
+                              <option value="PR">Paraná (PR)</option>
+                              <option value="PE">Pernambuco (PE)</option>
+                              <option value="PI">Piauí (PI)</option>
+                              <option value="RJ">Rio de Janeiro (RJ)</option>
+                              <option value="RN">Rio Grande do Norte (RN)</option>
+                              <option value="RS">Rio Grande do Sul (RS)</option>
+                              <option value="RO">Rondônia (RO)</option>
+                              <option value="RR">Roraima (RR)</option>
+                              <option value="SC">Santa Catarina (SC)</option>
+                              <option value="SP">São Paulo (SP)</option>
+                              <option value="SE">Sergipe (SE)</option>
+                              <option value="TO">Tocantins (TO)</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="inputCEP">CEP</label>
+                            <input type="text" class="form-control" id="inputCEP">
+                          </div>
+                        </div>
+                      </form>
+                      <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
+
+                    </div>
+                    <div href="#contato" class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">CONTEUDO2</div>
+                    <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="contact-tab">CONTEUDO3</div>
+                    <div href="#dadosbancarios" class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="dadosbancarios-tab">CONTEUDO4</div>
                   </div>
-                   <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
+                  <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
 
 
 
