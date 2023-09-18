@@ -152,13 +152,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     }
                     // novo codigo ( procurar propostas MAIS NOVA)
                     else if (isset($_GET['buttonpropostamaisnova'])) {
-                      
+
                       $query = "SELECT * FROM propostas
                       ORDER BY `data` ASC;";
                     }
                     // novo codigo ( procurar por propostas MAIS ANTIGA)
                     else if (isset($_GET['buttonpropostamaisantiga'])) {
-                      
+
                       $query = "SELECT * FROM propostas
                       ORDER BY `data` DESC;";
                     } else if (isset($_GET['buttonOcNaoAtendidas'])) {
@@ -282,8 +282,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
-                              
-                              
+
+
 
 
 
@@ -292,14 +292,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                 <td class="badge badge-pill badge-warning"><?php echo $status; ?></td>
                               <?php
                               endif;
-      
+
                               ?>
                               <?php
                               if ($status == "Finalizada") : ?>
                                 <td class="badge badge-pill badge-success"><?php echo $status; ?></td>
                               <?php
                               endif;
-      
+
                               ?>
                               <?php
                               if ($status == "Cancelada") : ?>
@@ -382,85 +382,38 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
           <!-- Modal -->
           <div id="modalExemplo" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
 
-                  <h4 class="modal-title">Cadastrar Animal</h4>
+                  <h4 class="modal-title">Cadastrar uma nova proposta</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                  <form method="POST" action="">
-                    <div class="form-group">
-                      <label for="id_produto">Nome</label>
-                      <input type="text" class="form-control mr-2" name="txtnome" placeholder="Nome do animal">
-                    </div>
-                    <div class="form-group">
-                      <label for="id_produto">Especie</label>
-                      <input type="text" class="form-control mr-2" name="txtespecie" id="txtespecie" placeholder="Informe qual a raça do animal." required>
-                    </div>
 
-                    <div class="form-group">
-                      <label for="fornecedor">Cartão de vacinas</label>
-                      <textarea class="form-control mr-2" name="txtvacinas" placeholder="Informe aqui todas as vacinas que o animal recebeu." rows="6"></textarea>
-                      <small class="text-muted"> Deixar em branco caso não tenha tomado nenhuma vacina </small>
-                    </div>
-
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Castrado</label>
-                      </div>
-                      <select name="castrado" class="custom-select" id="inputGroupSelect01">
-                        <option selected>O animal é castrado?</option>
-                        <option value="1">Sim</option>
-                        <option value="2">Não</option>
-                      </select>
-                    </div>
-
-
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Sexo</label>
-                      </div>
-                      <select name="sexo" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Sexo do animal...</option>
-                        <option value="1">Macho</option>
-                        <option value="2">Fêmea</option>
-                      </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
-                      </div>
-                      <select name="tipo" class="custom-select" id="inputGroupSelect01">
-                        <option selected>Tipo de recebimento...</option>
-                        <option value="1">Resgatado pela ong</option>
-                        <option value="2">Resgatado por terceiros</option>
-                        <option value="3">Doado</option>
-                        <option value="4">Temporário</option>
-                      </select>
-                    </div>
-
-
-                    <div class="form-group">
-                      <label for="fornecedor">Observação</label>
-                      <textarea class="form-control mr-2" name="txtobservacao" placeholder="Observação" rows="3"> </textarea>
-                    </div>
-                    <div class="form-group">
-                      <label for="fornecedor">Idade</label>
-                      <input type="number" class="form-control mr-2" name="txtidade" id="txtidade" placeholder="Idade do animal">
-                    </div>
-                    <div class="form-group">
-                      <label for="fornecedor">Situação</label>
-                      <input type="radio" name="radiosituacao" value="Disponivel" checked> Disponível para adoção
-                      <input type="radio" name="radiosituacao" value="Adotado"> Adotado
-                      <input type="radio" name="radiosituacao" value="Naodisponivel"> Não disponível
-
-                    </div>
-
-
+                  <!-- INÍCIO DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">CLIENTE</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="contato-tab" data-toggle="tab" href="#contato" role="tab" aria-controls="contato" aria-selected="false">CONTATO</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="propostas-tab" data-toggle="tab" href="#propostas" role="tab" aria-controls="propostas" aria-selected="false">PROPOSTAS</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div href="#cliente" class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">CONTEUDO1</div>
+                    <div href="#contato"  class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">CONTEUDO2</div>
+                    <div  class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="contact-tab">CONTEUDO3</div>
+                    <div href="#dadosbancarios"  class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="dadosbancarios-tab">CONTEUDO4</div>
+                  </div>
+                   <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
 
 
 
