@@ -504,7 +504,18 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
 
                     </div>
-                    <div href="#contato" class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">CONTEUDO2</div>
+                    <div href="#contato" class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">
+                      <!-- INÍCIO DO CONTEÚDO TAB CONTATO-->
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">TELEFONE</label>
+                        <input type="text" class="form-control" id="inputPassword4" placeholder="">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputPassword4">EMAIL</label>
+                        <input type="email" class="form-control" id="inputPassword4" placeholder="">
+                      </div>
+                      <!-- FINAL DO CONTEÚDO TAB CONTATO-->
+                    </div>
                     <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="contact-tab">CONTEUDO3</div>
                     <div href="#dadosbancarios" class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="dadosbancarios-tab">CONTEUDO4</div>
                   </div>
@@ -515,7 +526,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                 </div>
 
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-success mb-3" name="button">Salvar </button>
+
+                  <button id="selecionarAba" class="btn btn-primary mb-3">Próximo</button>
+
+                  <button id="salvarBotao" type="submit" class="btn btn-success mb-3" name="button" disabled>Salvar </button>
 
 
                   <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
@@ -529,7 +543,66 @@ $nomeusuario = $_SESSION['nome_usuario'];
             </div>
           </div>
 
+          <script>
+            // código javascript para alternar entre as tabs no cadastro de uma nova proposta
+            var estadoAba = "cliente"; // Inicialmente, a aba "CLIENTE" está ativa
 
+            $("#selecionarAba").click(function() {
+              // Remove a classe 'show active' das abas ativas
+              $(".tab-pane").removeClass('show active');
+              $(".nav-link").removeClass('active');
+
+
+             
+              if (estadoAba != "propostas") {
+
+              }
+
+
+              if (estadoAba === "cliente") {
+                // Se a aba "CLIENTE" estiver ativa, selecione a aba "CONTATO"
+                $("#contato-tab").addClass('active');
+                $("#contato").addClass('show active');
+                estadoAba = "contato";
+              } else if (estadoAba === "contato") {
+                // Se a aba "CONTATO" estiver ativa, selecione a aba "DADOS BANCÁRIOS"
+                $("#dadosbancarios-tab").addClass('active');
+                $("#dadosbancarios").addClass('show active');
+                estadoAba = "dadosbancarios";
+              } else if (estadoAba === "dadosbancarios") {
+                // Se a aba "DADOS BANCÁRIOS" estiver ativa, selecione a aba "PROPOSTAS"
+                $("#propostas-tab").addClass('active');
+                $("#propostas").addClass('show active');
+                estadoAba = "propostas";
+              } else {
+                // Se a aba "PROPOSTAS" estiver ativa, selecione a aba "CLIENTE"
+                $("#cliente-tab").addClass('active');
+                $("#cliente").addClass('show active');
+                estadoAba = "cliente";
+              }
+            });
+          </script>
+
+          <script>
+            $cliquesnatab = 0;
+
+              $("#selecionarAba").click(function() {
+              
+                $cliquesnatab = $cliquesnatab +1;
+
+              if ($cliquesnatab  >= 3) {
+               // se o usuário der 3 cliques na tab, libera o botão de salvar e esconde o botão próximo
+                  $("#salvarBotao").prop('disabled', false);
+              } else{
+                $("#salvarBotao").prop('disabled', true);
+              }
+            });
+
+            <roteiro> _ _
+  const stepper = documento . querySelector ( '#stepper' ) ; 
+  novo CDB . Passo a passo ( passo a passo ) ; 
+</roteiro> _ _
+          </script>
 
 
 </body>
