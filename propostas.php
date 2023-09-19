@@ -598,10 +598,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
               }
             });
 
-            <roteiro> _ _
-  const stepper = documento . querySelector ( '#stepper' ) ; 
-  novo CDB . Passo a passo ( passo a passo ) ; 
-</roteiro> _ _
+            
           </script>
 
 
