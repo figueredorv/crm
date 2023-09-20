@@ -826,8 +826,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">BANCO</label>
-                          <select name="" name="bancos" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                          <label for="inputBanco">BANCO</label>
+                          <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
                             <option value="1">001 - BANCO DO BRASIL </option>
                             <option value="3">003 - BANCO DA AMAZONIA </option>
                             <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
@@ -1050,19 +1050,19 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">PROMOTORA</label>
-                          <select name="" name="promotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <label for="inputPromotora">PROMOTORA</label>
+                          <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                             <option value="1">CREDIBRASIL LOJAS </option>
                             <option value="2">CREDIBRASIL CONSIGNADO </option>
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">MARGEM</label>
-                          <input name="" type="password" class="form-control" id="inputPassword4" placeholder="">
+                          <label for="inputMargem">MARGEM</label>
+                          <input name="inputMargem" type="text" class="form-control" id="inputMargem" placeholder="">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">PRAZO</label>
-                          <select name="parcelas" class="form-control parcelas" data-gtm-form-interact-field-id="1">
+                          <label for="inputPrazo">PRAZO</label>
+                          <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
                             <option value="120">120x</option>
                             <option value="96">96x</option>
                             <option value="84">84x</option>
@@ -1075,23 +1075,23 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">VALOR</label>
-                          <input name="" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
+                          <label for="inputValor">VALOR</label>
+                          <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">VALOR PARCELAS</label>
-                          <input name="" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
+                          <label for="inputValorParcelas">VALOR PARCELAS</label>
+                          <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">FORMALIZAÇÃO</label>
-                          <select name="" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <label for="inputFormalizacao">FORMALIZAÇÃO</label>
+                          <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                             <option value="1">FÍSICO</option>
                             <option value="2">DIGITAL</option>
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">CANAL</label>
-                          <select name="" name="canais" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <label for="inputCanal">CANAL</label>
+                          <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                             <option value="1">TELEMARKETING </option>
                             <option value="2">SMS </option>
                             <option value="3">OUTROS </option>
@@ -1109,17 +1109,18 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPassword4">TABELA</label>
-                          <select name="" name="promotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                          <label for="inputTabela">TABELA</label>
+                          <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                             <option selected value="null">Nada para selecionar</option>
                           </select>
                         </div>
                         <div class="form-group col-md-12">
-                          <label for="exampleFormControlFile1">Deseja anexar algum documento?</label>
-                          <input name="" type="file" class="form-control-file" id="exampleFormControlFile1">
+                          <label for="inputDocumento">Deseja anexar algum documento?</label>
+                          <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
                           <div class="form-group">
+                            <br>
                             <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                            <textarea name="" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
                           </div>
                         </div>
 
@@ -1198,59 +1199,109 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 <?php
 if (isset($_POST['button'])) {
-  $nome = $_POST['txtnome'];
-  $sexo = $_POST["sexo"];
-  $especie = $_POST['txtespecie'];
-  $vacinas = $_POST['txtvacinas'];
-  $castrado = $_POST["castrado"];
-  $observacao = $_POST['txtobservacao'];
-  $tipo = $_POST['tipo'];
-  $idade = $_POST['txtidade'];
+  $nome = $_POST['inputNome'];
+  $cpf = $_POST["inputCpf"];
+  $rg = $_POST['inputRg'];
+  $nascimento = $_POST['inputDataNascimento'];
+  $nomedamae = $_POST["inputNomeMae"];
+  $nomedopai = $_POST['inputNomePai'];
+  $cep = $_POST['inputCep'];
+  $rua = $_POST['inputRua'];
+  $numero = $_POST['inputNumero'];
+  $complemento = $_POST['inputComplemento'];
+  $bairro = $_POST['inputBairro'];
+  $cidade = $_POST['inputCidade'];
+  $uf = $_POST['inputUf'];
+  $telefone = $_POST['inputTelefone'];
+  $email = $_POST['inputEmail'];
+  $covenio = $_POST['inputCovenio'];
+  $banco = $_POST['inputBanco'];
+  $tipodeconta = $_POST['inputTipoConta'];
+  $agencia = $_POST['inputAgencia'];
+  $agenciadigito = $_POST['inputAgenciaDv'];
+  $renda = $_POST['inputRenda'];
+  $operacao = $_POST['inputOperacao'];
+  $tabela = $_POST['inputTabela'];
+  $promotora = $_POST['inputPromotora'];
+  $margem = $_POST['inputMargem'];
+  $prazo = $_POST['inputPrazo'];
+  $valor = $_POST['inputValor'];
+  $valorparcelas = $_POST['inputValorParcelas'];
+  $formalizacao = $_POST['inputFormalizacao'];
+  $canal = $_POST['inputCanal'];
+  $documentoanexado	 = $_POST['inputDocumento'];
+  $status = 'null';
+  $data = date('d/m/Y H:i');
+  
+  
 
 
-
-  //Marcando se o animal esta disponivel ou nao para adoção(RadioButon)
-  if ($_POST["radiosituacao"] == "Disponivel") {
-    $situacao = "Disponivel";
-  } elseif ($_POST["radiosituacao"] == "Disponivel") {
-    $situacao = "Adotado";
-  } elseif ($_POST["radiosituacao"] == "Naodisponivel") {
-    $situacao = "Naodisponivel";
-  }
-
-
-  //Marcando sexo do animal
-  if ($_POST["sexo"] == "1") {
-    $sexo = "Macho";
-  }
-  if ($_POST["sexo"] == "2") {
-    $sexo = "Fêmea";
-  }
-
-
-  //Marcando o tipo de registro do animal
-  if ($_POST["tipo"] == "1") {
-    $tipo = "Resgatado pela ong";
-  }
-  if ($_POST["tipo"] == "2") {
-    $tipo = "Resgatado por terceiros";
-  }
-  if ($_POST["tipo"] == "3") {
-    $tipo = "Doado";
-  }
-  if ($_POST["tipo"] == "4") {
-    $tipo = "Temporário";
-  }
-
-
-  //Marcando se o animal é castrado ou nao antes de cadastrar
-  if ($_POST["castrado"] == "1") {
-    $castrado = "Sim";
-  }
-  if ($_POST["castrado"] == "2") {
-    $Castrado = "Não";
-  }
-
+  //Marcando o bairro com base no valor do input bairro
+  if (isset($_POST["inputUf"])) {
+    $inputUf = $_POST["inputUf"];
+    
+    if ($inputUf == "AC") {
+        $bairro = "Acre (AC)";
+    } elseif ($inputUf == "AL") {
+        $bairro = "Alagoas (AL)";
+    } elseif ($inputUf == "AP") {
+        $bairro = "Amapá (AP)";
+    } elseif ($inputUf == "AM") {
+        $bairro = "Amazonas (AM)";
+    } elseif ($inputUf == "BA") {
+        $bairro = "Bahia (BA)";
+    } elseif ($inputUf == "CE") {
+        $bairro = "Ceará (CE)";
+    } elseif ($inputUf == "DF") {
+        $bairro = "Distrito Federal (DF)";
+    } elseif ($inputUf == "ES") {
+        $bairro = "Espírito Santo (ES)";
+    } elseif ($inputUf == "GO") {
+        $bairro = "Goiás (GO)";
+    } elseif ($inputUf == "MA") {
+        $bairro = "Maranhão (MA)";
+    } elseif ($inputUf == "MT") {
+        $bairro = "Mato Grosso (MT)";
+    } elseif ($inputUf == "MS") {
+        $bairro = "Mato Grosso do Sul (MS)";
+    } elseif ($inputUf == "MG") {
+        $bairro = "Minas Gerais (MG)";
+    } elseif ($inputUf == "PA") {
+        $bairro = "Pará (PA)";
+    } elseif ($inputUf == "PB") {
+        $bairro = "Paraíba (PB)";
+    } elseif ($inputUf == "PR") {
+        $bairro = "Paraná (PR)";
+    } elseif ($inputUf == "PE") {
+        $bairro = "Pernambuco (PE)";
+    } elseif ($inputUf == "PI") {
+        $bairro = "Piauí (PI)";
+    } elseif ($inputUf == "RJ") {
+        $bairro = "Rio de Janeiro (RJ)";
+    } elseif ($inputUf == "RN") {
+        $bairro = "Rio Grande do Norte (RN)";
+    } elseif ($inputUf == "RS") {
+        $bairro = "Rio Grande do Sul (RS)";
+    } elseif ($inputUf == "RO") {
+        $bairro = "Rondônia (RO)";
+    } elseif ($inputUf == "RR") {
+        $bairro = "Roraima (RR)";
+    } elseif ($inputUf == "SC") {
+        $bairro = "Santa Catarina (SC)";
+    } elseif ($inputUf == "SP") {
+        $bairro = "São Paulo (SP)";
+    } elseif ($inputUf == "SE") {
+        $bairro = "Sergipe (SE)";
+    } elseif ($inputUf == "TO") {
+        $bairro = "Tocantins (TO)";
+    } else {
+        // Caso nenhum estado correspondente seja encontrado
+        $bairro = "Estado desconhecido";
+    }
+} else {
+    // Se o campo inputUf não estiver definido no POST
+    $bairro = "UF não especificada";
+}
 
 
 
