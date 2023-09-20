@@ -114,10 +114,20 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
           </div>
-
-
-
         </div>
+
+        <style>
+          /* formatando tabela de propostas */
+          /* Estilo para evitar que a célula de nome quebre a linha */
+          .table td:nth-child(1) {
+            white-space: nowrap;
+            /* Evita que o texto quebre a linha */
+            overflow: hidden;
+            /* Esconde qualquer conteúdo que não caiba */
+            text-overflow: ellipsis;
+            /* Adiciona reticências (...) se o texto for cortado */
+          }
+        </style>
 
 
         <div class="content">
@@ -132,9 +142,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   <div class="table-responsive">
 
 
-                    <!--LISTAR TODos os animais -->
+                    <!--LISTAR TODAS AS PROPOSTAS -->
 
                     <?php
+
+
 
                     // novo codigo ( procurar proposta pelo nome da pessoa)
                     if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
@@ -387,7 +399,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
               <div class="modal-content">
                 <div class="modal-header">
 
-                  <h4 class="modal-title">Cadastrar uma nova proposta</h4>
+                  <h4 class="modal-title">CADASTRAR PROPOSTA</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -401,32 +413,32 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <a class="nav-link" id="contato-tab" data-toggle="tab" href="#contato" role="tab" aria-controls="contato" aria-selected="false">CONTATO</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
+                      <a class="nav-link" id="propostas-tab" data-toggle="tab" href="#propostas" role="tab" aria-controls="propostas" aria-selected="false">PROPOSTAS</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="propostas-tab" data-toggle="tab" href="#propostas" role="tab" aria-controls="propostas" aria-selected="false">PROPOSTAS</a>
+                      <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
-                    <div href="#cliente" class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+                    <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
                       <!-- CONTEÚDO TAB CLIENTE-->
                       <form>
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="inputEmail4">NOME</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="" required>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputPassword4">CPF</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                            <input type="text" class="form-control" id="inputCpf" placeholder="">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputPassword4">RG</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                            <input type="text" class="form-control" id="inputRg" placeholder="">
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputPassword4">NASCIMENTO</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                            <label for="inputPassword4">DATA DE NASCIMENTO</label>
+                            <input type="text" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputPassword4">NOME DA MÃE</label>
@@ -438,7 +450,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputPassword4">CEP</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                            <input type="text" class="form-control" id="inputCep" placeholder="">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputPassword4">RUA</label>
@@ -495,20 +507,16 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <option value="TO">Tocantins (TO)</option>
                             </select>
                           </div>
-                          <div class="form-group col-md-6">
-                            <label for="inputCEP">CEP</label>
-                            <input type="text" class="form-control" id="inputCEP">
-                          </div>
                         </div>
-                      </form>
-                      <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
+
+                        <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
 
                     </div>
-                    <div href="#contato" class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">
+                    <div class="tab-pane fade" id="contato" role="tabpanel" aria-labelledby="contato-tab">
                       <!-- INÍCIO DO CONTEÚDO TAB CONTATO-->
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">TELEFONE</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="">
+                        <input type="text" class="form-control" id="inputTelefone" placeholder="">
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">EMAIL</label>
@@ -516,8 +524,118 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </div>
                       <!-- FINAL DO CONTEÚDO TAB CONTATO-->
                     </div>
-                    <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="contact-tab">CONTEUDO3</div>
-                    <div href="#dadosbancarios" class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="dadosbancarios-tab">CONTEUDO4</div>
+                    <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="dadosbancarios-tab">
+
+                      <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">BANCO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">TIPO DE CONTA</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">AGENCIA</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">AGENCIA DV</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">CONTA</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">DIGITO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">RENDA</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">NÚMERO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">COMPLEMENTO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                      </div>
+
+                      <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+
+
+                    </div>
+                    <div class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="propostas-tab">
+                      <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputEmail4">CONVÊNIO</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                          <option value="1">INSS</option>
+                          <option value="2">FGTS</option>
+                          <option value="3">AUXÍLIO BRASIL</option>
+                          <option value="4">GOVERNO DE SÃO PAULO</option>
+                          <option value="5">PREFEITURA DE SÃO PAULO</option>
+                          <option value="6">GOVERNO DO RIO DE JANEIRO</option>
+                          <option value="7">SIAPE</option>
+                          <option value="8">GOVERNO DA BAHIA</option>
+                          <option value="9">PESSOAL</option>
+                        </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">OPERAÇÃO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">BANCO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">PROMOTORA</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">MARGEM</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">PRAZO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">VALOR</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">VALOR PARCELAS</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">FORMALIZAÇÃO</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="inputPassword4">CANAL</label>
+                          <input type="password" class="form-control" id="inputPassword4" placeholder="">
+                        </div>
+                        <div class="form-group col-md-12">
+                          <label for="exampleFormControlFile1">Deseja anexar algum documento?</label>
+                          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                          <div class="form-group">
+                          <label for="exampleFormControlTextarea1">Observação (opcional)</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        </div>
+                        
+                      </div>
+                      <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+                    </div>
                   </div>
                   <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
 
@@ -527,79 +645,56 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                 <div class="modal-footer">
 
-                  <button id="selecionarAba" class="btn btn-primary mb-3">Próximo</button>
 
-                  <button id="salvarBotao" type="submit" class="btn btn-success mb-3" name="button" disabled>Salvar </button>
+                  <button id="salvarBotao" type="submit" class="btn btn-success mb-3 btn-lg" name="button">Salvar </button>
 
 
-                  <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
-                  </form>
+                  <button type="button" class="btn btn-danger mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
 
 
                   </form>
-
                 </div>
               </div>
             </div>
           </div>
 
           <script>
-            // código javascript para alternar entre as tabs no cadastro de uma nova proposta
             var estadoAba = "cliente"; // Inicialmente, a aba "CLIENTE" está ativa
 
             $("#selecionarAba").click(function() {
-              // Remove a classe 'show active' das abas ativas
-              $(".tab-pane").removeClass('show active');
-              $(".nav-link").removeClass('active');
-
-
-             
-              if (estadoAba != "propostas") {
-
-              }
-
-
               if (estadoAba === "cliente") {
                 // Se a aba "CLIENTE" estiver ativa, selecione a aba "CONTATO"
+                $("#cliente-tab").removeClass('active');
                 $("#contato-tab").addClass('active');
+                $("#cliente").removeClass('show active');
                 $("#contato").addClass('show active');
                 estadoAba = "contato";
               } else if (estadoAba === "contato") {
                 // Se a aba "CONTATO" estiver ativa, selecione a aba "DADOS BANCÁRIOS"
+                $("#contato-tab").removeClass('active');
                 $("#dadosbancarios-tab").addClass('active');
+                $("#contato").removeClass('show active');
                 $("#dadosbancarios").addClass('show active');
                 estadoAba = "dadosbancarios";
               } else if (estadoAba === "dadosbancarios") {
                 // Se a aba "DADOS BANCÁRIOS" estiver ativa, selecione a aba "PROPOSTAS"
+                $("#dadosbancarios-tab").removeClass('active');
                 $("#propostas-tab").addClass('active');
+                $("#dadosbancarios").removeClass('show active');
                 $("#propostas").addClass('show active');
                 estadoAba = "propostas";
               } else {
                 // Se a aba "PROPOSTAS" estiver ativa, selecione a aba "CLIENTE"
+                $("#propostas-tab").removeClass('active');
                 $("#cliente-tab").addClass('active');
+                $("#propostas").removeClass('show active');
                 $("#cliente").addClass('show active');
                 estadoAba = "cliente";
               }
             });
           </script>
 
-          <script>
-            $cliquesnatab = 0;
 
-              $("#selecionarAba").click(function() {
-              
-                $cliquesnatab = $cliquesnatab +1;
-
-              if ($cliquesnatab  >= 3) {
-               // se o usuário der 3 cliques na tab, libera o botão de salvar e esconde o botão próximo
-                  $("#salvarBotao").prop('disabled', false);
-              } else{
-                $("#salvarBotao").prop('disabled', true);
-              }
-            });
-
-            
-          </script>
 
 
 </body>
@@ -1118,3 +1213,35 @@ if (@$_GET['func'] == 'adotar') {
 
 <?php }
 }  ?>
+
+
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#inputTelefone').mask('(00) 00000-0000');
+    $('#inputCpf').mask('000.000.000-00');
+    $("#inputDataNascimento").mask("00/00/0000");
+    $("#inputCep").mask("99999-999");
+  });
+</script>
+
+
+<!--MASCARAS PARA UTILIZAR 
+
+$("#telefone").mask("(99) 9999-9999");     // Máscara para TELEFONE
+
+$("#cep").mask("99999-999");    // Máscara para CEP
+
+$("#data").mask("99/99/9999");    // Máscara para DATA
+
+$("#cnpj").mask("99.999.999/9999-99");    // Máscara para CNPJ
+
+$('#rg').mask('99.999.999-9');    // Máscara para RG<br/>
+
+$('#agencia').mask('9999-9');    // Máscara para AGÊNCIA BANCÁRIA
+
+$('#conta').mask('99.999-9');    // Máscara para CONTA BANCÁRIA
+
+
+-->
