@@ -20,6 +20,7 @@ if($row > 0){
 	$_SESSION['usuario'] = $usuario;
 	$_SESSION['nome_usuario'] = $dado["nome"];
 	$_SESSION['cargo_usuario'] = $dado["cargo"];
+	
 
 
     if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {

@@ -207,7 +207,7 @@ include("conexao.php");
 
         <?php
 
-        $query = "select * from propostas where status = 'Pendente'";
+        $query = "select * from propostas where statusproposta = 'Pendente'";
         $result = mysqli_query($conexao, $query);
         //$dado = mysqli_fetch_array($result);
         $row = mysqli_num_rows($result);
@@ -444,7 +444,7 @@ include("conexao.php");
 
                   <?php
 
-                  $query = "select * from propostas where status = 'Pendente'";
+                  $query = "select * from propostas where statusproposta = 'Pendente'";
                   $result = mysqli_query($conexao, $query);
                   //$dado = mysqli_fetch_array($result);
                   $row = mysqli_num_rows($result);
@@ -530,17 +530,17 @@ include("conexao.php");
               // novo codigo ( procurar por propostas pendentes)
               else if (isset($_GET['buttonOcAtendidas'])) {
                 $nome = 'Pendentes';
-                $query = "select * from propostas where status = '$nome'  and data = curdate()";
+                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
               }
               // novo codigo ( procurar por propostas nao adotados)
               else if (isset($_GET['buttonOcNaoAtendidas'])) {
                 $nome = 'Finalizada';
-                $query = "select * from propostas where status = '$nome'  and data = curdate()";
+                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
               }
               // novo codigo ( procurar por propostas sem nenhuma vacina)
               else if (isset($_GET['buttonpetsemvacina'])) {
                 $nome = '';
-                $query = "select * from propostas where status = '$nome'";
+                $query = "select * from propostas where statusproposta = '$nome'";
               }
 
 
@@ -625,7 +625,7 @@ include("conexao.php");
                       $valor = $res_1["valor"];
                       $promotora = $res_1["promotora"];
                       $usuario = $res_1["idusuario"];
-                      $status = $res_1["status"];
+                      $statusproposta = $res_1["statusproposta"];
                       $id = $res_1["idpropostas"];
                       $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
 
@@ -651,22 +651,22 @@ include("conexao.php");
 
 
                         <?php
-                        if ($status == "Pendente") : ?>
-                          <td class="badge badge-pill badge-warning"><?php echo $status; ?></td>
+                        if ($statusproposta == "Pendente") : ?>
+                          <td class="badge badge-pill badge-warning"><?php echo $statusproposta; ?></td>
                         <?php
                         endif;
 
                         ?>
                         <?php
-                        if ($status == "Finalizada") : ?>
-                          <td class="badge badge-pill badge-success"><?php echo $status; ?></td>
+                        if ($statusproposta == "Finalizada") : ?>
+                          <td class="badge badge-pill badge-success"><?php echo $statusproposta; ?></td>
                         <?php
                         endif;
 
                         ?>
                         <?php
-                        if ($status == "Cancelada") : ?>
-                          <td class="badge badge-pill badge-danger"><?php echo $status; ?></td>
+                        if ($statusproposta == "Cancelada") : ?>
+                          <td class="badge badge-pill badge-danger"><?php echo $statusproposta; ?></td>
                         <?php
                         endif;
 

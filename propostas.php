@@ -11,6 +11,7 @@ include('verificar_login.php');
 
 $nomeusuario = $_SESSION['nome_usuario'];
 
+
 ?>
 
 
@@ -271,7 +272,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $valor = $res_1["valor"];
                             $promotora = $res_1["promotora"];
                             $usuario = $res_1["idusuario"];
-                            $status = $res_1["status"];
+                            $statusproposta = $res_1["statusproposta"];
                             $data = $res_1["data"];
                             $id = $res_1["idpropostas"];
                             $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
@@ -300,22 +301,22 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                               <?php
-                              if ($status == "Pendente") : ?>
-                                <td class="badge badge-pill badge-warning"><?php echo $status; ?></td>
+                              if ($statusproposta == "Pendente") : ?>
+                                <td class="badge badge-pill badge-warning"><?php echo $statusproposta; ?></td>
                               <?php
                               endif;
 
                               ?>
                               <?php
-                              if ($status == "Finalizada") : ?>
-                                <td class="badge badge-pill badge-success"><?php echo $status; ?></td>
+                              if ($statusproposta == "Finalizada") : ?>
+                                <td class="badge badge-pill badge-success"><?php echo $statusproposta; ?></td>
                               <?php
                               endif;
 
                               ?>
                               <?php
-                              if ($status == "Cancelada") : ?>
-                                <td class="badge badge-pill badge-danger"><?php echo $status; ?></td>
+                              if ($statusproposta == "Cancelada") : ?>
+                                <td class="badge badge-pill badge-danger"><?php echo $statusproposta; ?></td>
                               <?php
                               endif;
                               ?>
@@ -334,7 +335,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <?php
-                                  if ($status == "Pendente") : ?>
+                                  if ($statusproposta == "Pendente") : ?>
                                     <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
                                   <?php
 
@@ -344,7 +345,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <?php
-                                  if ($status == "Finalizado") : ?>
+                                  if ($statusproposta == "Finalizado") : ?>
                                     <a class="btn btn-warning btn-sm" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
                                   <?php
 
@@ -354,7 +355,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <?php
-                                  if ($status == "Cancelado") : ?>
+                                  if ($statusproposta == "Cancelado") : ?>
                                     <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
                                   <?php
 
@@ -422,7 +423,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
                       <!-- CONTEÚDO TAB CLIENTE-->
-                      <form>
+                      <form method="POST" action="">
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="inputNome">NOME</label>
@@ -430,7 +431,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputCpf">CPF</label>
-                            <input name="inputcpf" type="text" class="form-control" id="inputCpf" placeholder="">
+                            <input name="inputCpf" type="text" class="form-control" id="inputCpf" placeholder="">
                           </div>
                           <div class="form-group col-md-6">
                             <label for="inputRg">RG</label>
@@ -475,8 +476,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <input name="inputCidade" type="text" class="form-control" id="inputCidade">
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputEstado">UF</label>
-                            <select name="inputEstado" id="inputEstado" class="form-control">
+                            <label for="inputUf">UF</label>
+                            <select name="inputUf" id="inputUf" class="form-control">
                               <option selected>Escolher...</option>
                               <option value="AC">Acre (AC)</option>
                               <option value="AL">Alagoas (AL)</option>
@@ -778,10 +779,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputNumero">NÚMERO</label>
-                          <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="">
-                        </div>
-                        <div class="form-group col-md-6">
                           <label for="inputComplemento">COMPLEMENTO</label>
                           <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
                         </div>
@@ -1058,7 +1055,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputMargem">MARGEM</label>
-                          <input name="inputMargem" type="text" class="form-control" id="inputMargem" placeholder="">
+                          <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputPrazo">PRAZO</label>
@@ -1076,11 +1073,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputValor">VALOR</label>
-                          <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
+                          <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputValorParcelas">VALOR PARCELAS</label>
-                          <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)"  value="">
+                          <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputFormalizacao">FORMALIZAÇÃO</label>
@@ -1199,6 +1196,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 <?php
 if (isset($_POST['button'])) {
+  $usuario = $res_1['$idusuario'];
   $nome = $_POST['inputNome'];
   $cpf = $_POST["inputCpf"];
   $rg = $_POST['inputRg'];
@@ -1214,7 +1212,7 @@ if (isset($_POST['button'])) {
   $uf = $_POST['inputUf'];
   $telefone = $_POST['inputTelefone'];
   $email = $_POST['inputEmail'];
-  $covenio = $_POST['inputCovenio'];
+  $covenio = $_POST['inputConvenio'];
   $banco = $_POST['inputBanco'];
   $tipodeconta = $_POST['inputTipoConta'];
   $agencia = $_POST['inputAgencia'];
@@ -1229,82 +1227,106 @@ if (isset($_POST['button'])) {
   $valorparcelas = $_POST['inputValorParcelas'];
   $formalizacao = $_POST['inputFormalizacao'];
   $canal = $_POST['inputCanal'];
-  $documentoanexado	 = $_POST['inputDocumento'];
-  $status = 'null';
+  $documentoanexado   = $_POST['inputDocumento'];
+  $observacao   = $_POST['inputObservacao'];
+  $statusproposta = 'Pendente';
   $data = date('d/m/Y H:i');
-  
-  
 
 
-  //Marcando o bairro com base no valor do input bairro
+
+
+  //Marcando o uf com base no valor do input bairro
   if (isset($_POST["inputUf"])) {
     $inputUf = $_POST["inputUf"];
-    
-    if ($inputUf == "AC") {
-        $bairro = "Acre (AC)";
-    } elseif ($inputUf == "AL") {
-        $bairro = "Alagoas (AL)";
-    } elseif ($inputUf == "AP") {
-        $bairro = "Amapá (AP)";
-    } elseif ($inputUf == "AM") {
-        $bairro = "Amazonas (AM)";
-    } elseif ($inputUf == "BA") {
-        $bairro = "Bahia (BA)";
-    } elseif ($inputUf == "CE") {
-        $bairro = "Ceará (CE)";
-    } elseif ($inputUf == "DF") {
-        $bairro = "Distrito Federal (DF)";
-    } elseif ($inputUf == "ES") {
-        $bairro = "Espírito Santo (ES)";
-    } elseif ($inputUf == "GO") {
-        $bairro = "Goiás (GO)";
-    } elseif ($inputUf == "MA") {
-        $bairro = "Maranhão (MA)";
-    } elseif ($inputUf == "MT") {
-        $bairro = "Mato Grosso (MT)";
-    } elseif ($inputUf == "MS") {
-        $bairro = "Mato Grosso do Sul (MS)";
-    } elseif ($inputUf == "MG") {
-        $bairro = "Minas Gerais (MG)";
-    } elseif ($inputUf == "PA") {
-        $bairro = "Pará (PA)";
-    } elseif ($inputUf == "PB") {
-        $bairro = "Paraíba (PB)";
-    } elseif ($inputUf == "PR") {
-        $bairro = "Paraná (PR)";
-    } elseif ($inputUf == "PE") {
-        $bairro = "Pernambuco (PE)";
-    } elseif ($inputUf == "PI") {
-        $bairro = "Piauí (PI)";
-    } elseif ($inputUf == "RJ") {
-        $bairro = "Rio de Janeiro (RJ)";
-    } elseif ($inputUf == "RN") {
-        $bairro = "Rio Grande do Norte (RN)";
-    } elseif ($inputUf == "RS") {
-        $bairro = "Rio Grande do Sul (RS)";
-    } elseif ($inputUf == "RO") {
-        $bairro = "Rondônia (RO)";
-    } elseif ($inputUf == "RR") {
-        $bairro = "Roraima (RR)";
-    } elseif ($inputUf == "SC") {
-        $bairro = "Santa Catarina (SC)";
-    } elseif ($inputUf == "SP") {
-        $bairro = "São Paulo (SP)";
-    } elseif ($inputUf == "SE") {
-        $bairro = "Sergipe (SE)";
-    } elseif ($inputUf == "TO") {
-        $bairro = "Tocantins (TO)";
-    } else {
-        // Caso nenhum estado correspondente seja encontrado
-        $bairro = "Estado desconhecido";
-    }
-} else {
-    // Se o campo inputUf não estiver definido no POST
-    $bairro = "UF não especificada";
-}
 
+    if ($uf == "AC") {
+      $uf = "Acre (AC)";
+    } if ($uf == "AL") {
+      $$uf = "Alagoas (AL)";
+    } if ($uf == "AP") {
+      $uf = "Amapá (AP)";
+    } if ($uf == "AM") {
+      $uf = "Amazonas (AM)";
+    } if ($uf == "BA") {
+      $uf = "Bahia (BA)";
+    } if ($uf == "CE") {
+      $uf = "Ceará (CE)";
+    } if ($uf == "DF") {
+      $uf = "Distrito Federal (DF)";
+    } if ($inputUf == "ES") {
+      $bairro = "Espírito Santo (ES)";
+    } if ($uf == "GO") {
+      $uf = "Goiás (GO)";
+    } if ($uf == "MA") {
+      $uf = "Maranhão (MA)";
+    } if ($uf == "MT") {
+      $uf = "Mato Grosso (MT)";
+    } if ($uf == "MS") {
+      $uf = "Mato Grosso do Sul (MS)";
+    } if ($uf == "MG") {
+      $uf = "Minas Gerais (MG)";
+    } if ($uf == "PA") {
+      $uf = "Pará (PA)";
+    } if ($uf == "PB") {
+      $uf = "Paraíba (PB)";
+    } if ($uf == "PR") {
+      $uf = "Paraná (PR)";
+    } if ($uf == "PE") {
+      $uf = "Pernambuco (PE)";
+    } if ($uf == "PI") {
+      $uf = "Piauí (PI)";
+    } if ($uf == "RJ") {
+      $uf = "Rio de Janeiro (RJ)";
+    } if ($uf == "RN") {
+      $uf = "Rio Grande do Norte (RN)";
+    } if ($uf == "RS") {
+      $uf = "Rio Grande do Sul (RS)";
+    } if ($uf == "RO") {
+      $uf = "Rondônia (RO)";
+    } if ($uf == "RR") {
+      $uf = "Roraima (RR)";
+    } if ($uf == "SC") {
+      $uf = "Santa Catarina (SC)";
+    } if ($uf == "SP") {
+      $uf = "São Paulo (SP)";
+    } if ($uf == "SE") {
+      $uf = "Sergipe (SE)";
+    } if ($uf == "TO") {
+      $uf = "Tocantins (TO)";
+    } 
+  } 
+  
 
-
+  //Marcando o tipo de convênio com base no valor do input 
+  if($_POST["inputConvenio"] == "1"){
+    $covenio = "INSS";
+  }
+  if($_POST["inputConvenio"] == "2"){
+    $covenio = "FGTS";
+  }
+  if($_POST["inputConvenio"] == "3"){
+    $covenio = "AUXÍLIO BRASIL";
+  } 
+  if($_POST["inputConvenio"] == "4"){
+    $covenio = "GOVERNO DE SÃO PAULO";
+  }
+  if($_POST["inputConvenio"] == "5"){
+    $covenio = "PREFEITURA DE SÃO PAULO";
+  }
+  if($_POST["inputConvenio"] == "6"){
+    $covenio = "GOVERNO DO RIO DE JANEIRO";
+  }
+  if($_POST["inputConvenio"] == "7"){
+    $covenio = "SIAPE";
+  }
+  if($_POST["inputConvenio"] == "8"){
+    $covenio = "GOVERNO DA BAHIA";
+  }
+  if($_POST["inputConvenio"] == "9"){
+    $covenio = "PESSOAL";
+  }
+  
+  
 
 
 
@@ -1313,19 +1335,19 @@ if (isset($_POST['button'])) {
 
 
   //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
-  $query_verificar = "select * from animais where nome = '$nome' ";
+  $query_verificar = "select * from propostas where nome = '$nome' ";
 
   $result_verificar = mysqli_query($conexao, $query_verificar);
   $row_verificar = mysqli_num_rows($result_verificar);
 
   if ($row_verificar > 0) {
-    echo "<script language='javascript'> window.alert('Nome já Cadastrado!'); </script>";
+    echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </script>";
     exit();
   }
 
 
-
-  $query = "INSERT into animais (sexo,nome, especie, vacinas, castrado, observacao, tipo, idade, situacao, data) VALUES ('$sexo','$nome', '$especie', '$vacinas','$castrado', '$observacao', '$tipo', '$idade', '$situacao', curDate())";
+  //
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
@@ -1336,11 +1358,11 @@ if (isset($_POST['button'])) {
     exit();
   }
 
-
-  $querylog = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Cadastrou um pet de espécie: $especie', curDate())";
+/*
+  $querylog = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Cadastrou uma proposta: $especie', curDate())";
   $resultlog = mysqli_query($conexao, $querylog);
   // Final do LOG de usuário
-
+*/
 
 
 
@@ -1348,8 +1370,8 @@ if (isset($_POST['button'])) {
     echo "<script language='javascript'> window.alert('Ocorreu um erro ao Cadastrar!'); </script>";
   } else {
 
-    echo "<script language='javascript'> window.alert('Salvo com Sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='animais.php'; </script>";
+    echo "<script language='javascript'> window.alert('Proposta cadastrada com sucesso!'); </script>";
+    echo "<script language='javascript'> window.location='propostas.php'; </script>";
   }
 }
 
@@ -1509,7 +1531,7 @@ if (@$_GET['func'] == 'edita') {
               </div>
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success mb-3" name="buttonEditar">Salvar </button>
+                <button type="submit" class="btn btn-success mb-3" name="button">Salvar </button>
 
 
                 <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
@@ -1541,25 +1563,7 @@ if (@$_GET['func'] == 'edita') {
 
 
 
-      //Marcando por onde a solicitação da ocorrência entrou ex: 199, Defesa Civil, e etc. Para realizar o cadastro da oc
-      if ($_POST["sexo"] == "1") {
-        $sexo = "Macho";
-      }
-      if ($_POST["sexo"] == "2") {
-        $sexo = "Fêmea";
-      }
-
-
-      //Marcando o tipo de cadastro do animal
-      if ($_POST["tipo"] == "1") {
-        $tipo = "Resgatado pela ong";
-      } elseif ($_POST["tipo"] == "2") {
-        $tipo = "Resgatado por terceiros";
-      } elseif ($_POST["tipo"] == "3") {
-        $tipo = "Doado";
-      } elseif ($_POST["tipo"] == "4") {
-        $tipo = "Temporário";
-      }
+     
 
 
       //Marcando se o animal é castrado ou não
@@ -1768,25 +1772,25 @@ if (@$_GET['func'] == 'adotar') {
 </script>
 
 <script>
-String.prototype.reverse = function(){
-  return this.split('').reverse().join(''); 
-};
+  String.prototype.reverse = function() {
+    return this.split('').reverse().join('');
+  };
 
-function mascaraMoeda(campo,evento){
-  var tecla = (!evento) ? window.event.keyCode : evento.which;
-  var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
-  var resultado  = "";
-  var mascara = "##.###.###,##".reverse();
-  for (var x=0, y=0; x<mascara.length && y<valor.length;) {
-    if (mascara.charAt(x) != '#') {
-      resultado += mascara.charAt(x);
-      x++;
-    } else {
-      resultado += valor.charAt(y);
-      y++;
-      x++;
+  function mascaraMoeda(campo, evento) {
+    var tecla = (!evento) ? window.event.keyCode : evento.which;
+    var valor = campo.value.replace(/[^\d]+/gi, '').reverse();
+    var resultado = "";
+    var mascara = "##.###.###,##".reverse();
+    for (var x = 0, y = 0; x < mascara.length && y < valor.length;) {
+      if (mascara.charAt(x) != '#') {
+        resultado += mascara.charAt(x);
+        x++;
+      } else {
+        resultado += valor.charAt(y);
+        y++;
+        x++;
+      }
     }
+    campo.value = resultado.reverse();
   }
-  campo.value = resultado.reverse();
-}
 </script>
