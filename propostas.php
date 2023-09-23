@@ -106,10 +106,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
             </form>
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisnova" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> MAIS NOVA</i></button>
+              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search">MAIS ANTIGA</i></button>
             </form>
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisantiga" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> MAIS ANTIGA</i></button>
+              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search">MAIS NOVA</i></button>
             </form>
 
 
@@ -167,13 +167,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     else if (isset($_GET['buttonpropostamaisnova'])) {
 
                       $query = "SELECT * FROM propostas
-                      ORDER BY `data` ASC;";
+                      ORDER BY `data` DESC;";
                     }
                     // novo codigo ( procurar por propostas MAIS ANTIGA)
                     else if (isset($_GET['buttonpropostamaisantiga'])) {
 
                       $query = "SELECT * FROM propostas
-                      ORDER BY `data` DESC;";
+                      ORDER BY `data` ASC;";
                     } else if (isset($_GET['buttonOcNaoAtendidas'])) {
                       $nome = 'Disponivel';
                       $query = "select * from animais where situacao = '$nome'   order by data asc";
@@ -192,7 +192,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     //final do código
 
                     else {
-                      $query = "select * from propostas order by idpropostas desc";
+                      $query = "select * from propostas order by idpropostas ASC";
                     }
 
 
@@ -1196,7 +1196,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 <?php
 if (isset($_POST['button'])) {
-  $usuario = $res_1['$idusuario'];
+  $usuario = $_SESSION['nome_usuario'];
   $nome = $_POST['inputNome'];
   $cpf = $_POST["inputCpf"];
   $rg = $_POST['inputRg'];
@@ -1329,10 +1329,10 @@ if (isset($_POST['button'])) {
   
 //Marcando o tipo de promotora com base no valor do input 
   if($_POST["inputPromotora"] == "1"){
-    $covenio = "CREDIBRASIL LOJAS";
+    $promotora = "CREDIBRASIL LOJAS";
   }
   if($_POST["inputPromotora"] == "2"){
-    $covenio = "CREDIBRASIL CONSIGNADO";
+    $promotora = "CREDIBRASIL CONSIGNADO";
   }
 
 
@@ -1353,7 +1353,7 @@ if (isset($_POST['button'])) {
 
 
   
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('aa','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
