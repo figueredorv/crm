@@ -1327,7 +1327,13 @@ if (isset($_POST['button'])) {
   }
   
   
-
+//Marcando o tipo de promotora com base no valor do input 
+  if($_POST["inputPromotora"] == "1"){
+    $covenio = "CREDIBRASIL LOJAS";
+  }
+  if($_POST["inputPromotora"] == "2"){
+    $covenio = "CREDIBRASIL CONSIGNADO";
+  }
 
 
 
@@ -1346,8 +1352,8 @@ if (isset($_POST['button'])) {
   }
 
 
-  //
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
+  
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('aa','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
