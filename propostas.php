@@ -1210,27 +1210,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 <?php
 if (isset($_POST['button'])) {
-  $usuario = $_SESSION['nome_usuario'];
-  $nome = $_POST['inputNome'];
-  $cpf = $_POST["inputCpf"];
-  $rg = $_POST['inputRg'];
-  $nascimento = $_POST['inputDataNascimento'];
-  $nomedamae = $_POST["inputNomeMae"];
-  $nomedopai = $_POST['inputNomePai'];
-  $cep = $_POST['inputCep'];
-  $rua = $_POST['inputRua'];
-  $numero = $_POST['inputNumero'];
-  $complemento = $_POST['inputComplemento'];
-  $bairro = $_POST['inputBairro'];
-  $cidade = $_POST['inputCidade'];
-  $uf = $_POST['inputUf'];
-  $telefone = $_POST['inputTelefone'];
-  $email = $_POST['inputEmail'];
   $covenio = $_POST['inputConvenio'];
-  $banco = $_POST['inputBanco'];
-  $tipodeconta = $_POST['inputTipoConta'];
-  $agencia = $_POST['inputAgencia'];
-  $agenciadigito = $_POST['inputAgenciaDv'];
   $renda = $_POST['inputRenda'];
   $operacao = $_POST['inputOperacao'];
   $tabela = $_POST['inputTabela'];
@@ -1245,96 +1225,6 @@ if (isset($_POST['button'])) {
   $observacao   = $_POST['inputObservacao'];
   $statusproposta = 'Pendente';
   $data = date('d/m/Y H:i');
-
-
-
-
-  //Marcando o uf com base no valor do input bairro
-  if (isset($_POST["inputUf"])) {
-    $inputUf = $_POST["inputUf"];
-
-    if ($uf == "AC") {
-      $uf = "Acre (AC)";
-    }
-    if ($uf == "AL") {
-      $$uf = "Alagoas (AL)";
-    }
-    if ($uf == "AP") {
-      $uf = "Amapá (AP)";
-    }
-    if ($uf == "AM") {
-      $uf = "Amazonas (AM)";
-    }
-    if ($uf == "BA") {
-      $uf = "Bahia (BA)";
-    }
-    if ($uf == "CE") {
-      $uf = "Ceará (CE)";
-    }
-    if ($uf == "DF") {
-      $uf = "Distrito Federal (DF)";
-    }
-    if ($inputUf == "ES") {
-      $bairro = "Espírito Santo (ES)";
-    }
-    if ($uf == "GO") {
-      $uf = "Goiás (GO)";
-    }
-    if ($uf == "MA") {
-      $uf = "Maranhão (MA)";
-    }
-    if ($uf == "MT") {
-      $uf = "Mato Grosso (MT)";
-    }
-    if ($uf == "MS") {
-      $uf = "Mato Grosso do Sul (MS)";
-    }
-    if ($uf == "MG") {
-      $uf = "Minas Gerais (MG)";
-    }
-    if ($uf == "PA") {
-      $uf = "Pará (PA)";
-    }
-    if ($uf == "PB") {
-      $uf = "Paraíba (PB)";
-    }
-    if ($uf == "PR") {
-      $uf = "Paraná (PR)";
-    }
-    if ($uf == "PE") {
-      $uf = "Pernambuco (PE)";
-    }
-    if ($uf == "PI") {
-      $uf = "Piauí (PI)";
-    }
-    if ($uf == "RJ") {
-      $uf = "Rio de Janeiro (RJ)";
-    }
-    if ($uf == "RN") {
-      $uf = "Rio Grande do Norte (RN)";
-    }
-    if ($uf == "RS") {
-      $uf = "Rio Grande do Sul (RS)";
-    }
-    if ($uf == "RO") {
-      $uf = "Rondônia (RO)";
-    }
-    if ($uf == "RR") {
-      $uf = "Roraima (RR)";
-    }
-    if ($uf == "SC") {
-      $uf = "Santa Catarina (SC)";
-    }
-    if ($uf == "SP") {
-      $uf = "São Paulo (SP)";
-    }
-    if ($uf == "SE") {
-      $uf = "Sergipe (SE)";
-    }
-    if ($uf == "TO") {
-      $uf = "Tocantins (TO)";
-    }
-  }
 
 
   //Marcando o tipo de convênio com base no valor do input 
@@ -1629,26 +1519,6 @@ if (@$_GET['func'] == 'editarcliente') {
       $bairro = $_POST['inputBairro'];
       $cidade = $_POST['inputCidade'];
       $uf = $_POST['inputUf'];
-      $telefone = $_POST['inputTelefone'];
-      $email = $_POST['inputEmail'];
-      $covenio = $_POST['inputConvenio'];
-      $banco = $_POST['inputBanco'];
-      $tipodeconta = $_POST['inputTipoConta'];
-      $agencia = $_POST['inputAgencia'];
-      $agenciadigito = $_POST['inputAgenciaDv'];
-      $renda = $_POST['inputRenda'];
-      $operacao = $_POST['inputOperacao'];
-      $tabela = $_POST['inputTabela'];
-      $promotora = $_POST['inputPromotora'];
-      $margem = $_POST['inputMargem'];
-      $prazo = $_POST['inputPrazo'];
-      $valor = $_POST['inputValor'];
-      $valorparcelas = $_POST['inputValorParcelas'];
-      $formalizacao = $_POST['inputFormalizacao'];
-      $canal = $_POST['inputCanal'];
-      $documentoanexado   = $_POST['inputDocumento'];
-      $observacao   = $_POST['inputObservacao'];
-      $statusproposta = 'Pendente';
       $data = date('d/m/Y H:i');
 
 
@@ -1745,55 +1615,16 @@ if (@$_GET['func'] == 'editarcliente') {
       }
 
 
-      //Marcando o tipo de convênio com base no valor do input 
-      if ($_POST["inputConvenio"] == "1") {
-        $covenio = "INSS";
-      }
-      if ($_POST["inputConvenio"] == "2") {
-        $covenio = "FGTS";
-      }
-      if ($_POST["inputConvenio"] == "3") {
-        $covenio = "AUXÍLIO BRASIL";
-      }
-      if ($_POST["inputConvenio"] == "4") {
-        $covenio = "GOVERNO DE SÃO PAULO";
-      }
-      if ($_POST["inputConvenio"] == "5") {
-        $covenio = "PREFEITURA DE SÃO PAULO";
-      }
-      if ($_POST["inputConvenio"] == "6") {
-        $covenio = "GOVERNO DO RIO DE JANEIRO";
-      }
-      if ($_POST["inputConvenio"] == "7") {
-        $covenio = "SIAPE";
-      }
-      if ($_POST["inputConvenio"] == "8") {
-        $covenio = "GOVERNO DA BAHIA";
-      }
-      if ($_POST["inputConvenio"] == "9") {
-        $covenio = "PESSOAL";
-      }
 
 
-      //Marcando o tipo de promotora com base no valor do input 
-      if ($_POST["inputPromotora"] == "1") {
-        $promotora = "CREDIBRASIL LOJAS";
-      }
-      if ($_POST["inputPromotora"] == "2") {
-        $promotora = "CREDIBRASIL CONSIGNADO";
-      }
+      
 
 
 
 
 
 
-
-
-
-
-
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf', telefone = '$telefone', email = '$email', covenio = '$covenio', banco = '$banco', tipodeconta = '$tipodeconta', agencia = '$agencia', agenciadigito = '$agenciadigito', $renda = '$renda', operacao = '$operacao', tabela = '$tabela', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', documentoanexado = '$documentoanexado', observacao = '$observacao', statusproposta = '$statusproposta' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
