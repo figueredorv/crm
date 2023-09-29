@@ -1248,6 +1248,9 @@ if (isset($_POST['button'])) {
   }
   if ($_POST["inputConvenio"] == "7") {
     $covenio = "SIAPE";
+    $banco = "001 - BANCO DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 3) {
+    $banco = "003 - BANCO DA AMAZÔNIA";
   }
   if ($_POST["inputConvenio"] == "8") {
     $covenio = "GOVERNO DA BAHIA";
@@ -1262,39 +1265,48 @@ if (isset($_POST['button'])) {
     $promotora = "CREDIBRASIL LOJAS";
   }
   if ($_POST["inputPromotora"] == "2") {
+  if ($_POST["inputPromotora"] == 2) {
     $promotora = "CREDIBRASIL CONSIGNADO";
   }
 
 
 
 
+  if ($_POST['inputFormalizacao'] == 1) {
+    $formalização = "DIGITAL";
+  } elseif ($_POST['inputFormalizacao'] == 2) {
 
 
   //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
   $query_verificar = "select * from propostas where nome = '$nome' ";
 
-  $result_verificar = mysqli_query($conexao, $query_verificar);
-  $row_verificar = mysqli_num_rows($result_verificar);
+    //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
+    $query_verificar = "select * from propostas where nome = '$nome' ";
 
-  if ($row_verificar > 0) {
     echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </script>";
     exit();
-  }
+    $result_verificar = mysqli_query($conexao, $query_verificar);
+    $row_verificar = mysqli_num_rows($result_verificar);
+
+    if ($row_verificar > 0) {
+      echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </script>";
+      exit();
+    }
 
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
-  $result = mysqli_query($conexao, $query);
+    $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, covenio, banco, tipodeconta, agencia, agenciadigito, conta, contadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$covenio','$banco','$tipodeconta','$agencia','$agenciadigito','$conta','$contadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
+    $result = mysqli_query($conexao, $query);
 
 
 
-  //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
-  if ($row_verificar > 0) {
-    echo "<script language='javascript'> window.alert('Nome já Cadastrado!'); </script>";
-    exit();
-  }
+    //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
+    if ($row_verificar > 0) {
+      echo "<script language='javascript'> window.alert('Nome já Cadastrado!'); </script>";
+      exit();
+    }
 
-  /*
+    /*
   $querylog = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Cadastrou uma proposta: $especie', curDate())";
   $resultlog = mysqli_query($conexao, $querylog);
   // Final do LOG de usuário
@@ -1302,15 +1314,15 @@ if (isset($_POST['button'])) {
 
 
 
-  if ($result == '') {
-    echo "<script language='javascript'> window.alert('Ocorreu um erro ao Cadastrar!'); </script>";
-  } else {
+    if ($result == '') {
+      echo "<script language='javascript'> window.alert('Ocorreu um erro ao Cadastrar!'); </script>";
+    } else {
 
-    echo "<script language='javascript'> window.alert('Proposta cadastrada com sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='propostas.php'; </script>";
+      echo "<script language='javascript'> window.alert('Proposta cadastrada com sucesso!'); </script>";
+      echo "<script language='javascript'> window.location='propostas.php'; </script>";
+    }
   }
 }
-
 ?>
 
 
@@ -1348,6 +1360,7 @@ if (@$_GET['func'] == 'deleta') {
   echo "<script language='javascript'> window.location='propostas.php'; </script>";
 }
 ?>
+
 
 
 
@@ -1440,7 +1453,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 <div class="form-group col-md-6">
                   <label for="inputUf">UF</label>
                   <select name="inputUf" id="inputUf" class="form-control">
-                  <option selected><?php echo $res_1['uf']; ?></option>
+                    <option selected><?php echo $res_1['uf']; ?></option>
                     <option value="AC">Acre (AC)</option>
                     <option value="AL">Alagoas (AL)</option>
                     <option value="AP">Amapá (AP)</option>
@@ -1617,7 +1630,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 
 
-      
+
 
 
 
@@ -1700,15 +1713,13 @@ if (@$_GET['func'] == 'editarcontato') {
 
             <!-- INÍCIO DO CONTEÚDO TAB CONTATO-->
             <div class="form-group col-md-6">
-            <form method="POST" action="">
-              <label for="inputTelefone">TELEFONE</label>
-              <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>"
-  >
+              <form method="POST" action="">
+                <label for="inputTelefone">TELEFONE</label>
+                <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
             </div>
             <div class="form-group col-md-6">
               <label for="inputEmail">EMAIL</label>
-              <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>"
-  >
+              <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
             </div>
             <!-- FINAL DO CONTEÚDO TAB CONTATO-->
 
@@ -1731,34 +1742,33 @@ if (@$_GET['func'] == 'editarcontato') {
     </script>
 
 
-<?php
-if(isset($_POST['buttonEditarContato'])){
-  $telefone = $_POST['inputTelefone'];
-  $email = $_POST['inputEmail'];
-  
-  
-
-
- 
-
-  $query_editar = "UPDATE propostas set telefone = '$telefone', email = '$email' where idpropostas = '$id' ";
-  $result_editar = mysqli_query($conexao, $query_editar);
-  
+    <?php
+    if (isset($_POST['buttonEditarContato'])) {
+      $telefone = $_POST['inputTelefone'];
+      $email = $_POST['inputEmail'];
 
 
 
 
 
 
-if($result_editar == ''){
-  echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
-}else{
-    echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='propostas.php'; </script>";
-}
+      $query_editar = "UPDATE propostas set telefone = '$telefone', email = '$email' where idpropostas = '$id' ";
+      $result_editar = mysqli_query($conexao, $query_editar);
 
-}
-?>
+
+
+
+
+
+
+      if ($result_editar == '') {
+        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      } else {
+        echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
+        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+      }
+    }
+    ?>
 
 
 
@@ -1776,7 +1786,7 @@ if (@$_GET['func'] == 'editarpropostas') {
   $query = "select * from propostas where idpropostas = '$id'";
   $result = mysqli_query($conexao, $query);
 
-  
+
 
 
   while ($res_1 = mysqli_fetch_array($result)) {
@@ -1802,346 +1812,346 @@ if (@$_GET['func'] == 'editarpropostas') {
           <div class="modal-header">
 
 
-           <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
-           <div class="form-row">
-                  <form method="POST" action="">
-                  <div class="form-group col-md-6">
-                    <label for="inputConvenio">CONVÊNIO</label>
-                    <select name="inputConvenio" class="form-control" id="inputConvenio">
-                      <option selected><?php echo $res_1['covenio']; ?></option>
-                      <option value="1">INSS</option>
-                      <option value="2">FGTS</option>
-                      <option value="3">AUXÍLIO BRASIL</option>
-                      <option value="4">GOVERNO DE SÃO PAULO</option>
-                      <option value="5">PREFEITURA DE SÃO PAULO</option>
-                      <option value="6">GOVERNO DO RIO DE JANEIRO</option>
-                      <option value="7">SIAPE</option>
-                      <option value="8">GOVERNO DA BAHIA</option>
-                      <option value="9">PESSOAL</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputOperacao">OPERAÇÃO</label>
-                    <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+            <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
+            <div class="form-row">
+              <form method="POST" action="">
+                <div class="form-group col-md-6">
+                  <label for="inputConvenio">CONVÊNIO</label>
+                  <select name="inputConvenio" class="form-control" id="inputConvenio">
+                    <option selected><?php echo $res_1['covenio']; ?></option>
+                    <option value="1">INSS</option>
+                    <option value="2">FGTS</option>
+                    <option value="3">AUXÍLIO BRASIL</option>
+                    <option value="4">GOVERNO DE SÃO PAULO</option>
+                    <option value="5">PREFEITURA DE SÃO PAULO</option>
+                    <option value="6">GOVERNO DO RIO DE JANEIRO</option>
+                    <option value="7">SIAPE</option>
+                    <option value="8">GOVERNO DA BAHIA</option>
+                    <option value="9">PESSOAL</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputOperacao">OPERAÇÃO</label>
+                  <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['operacao']; ?></option>
-                      <option value="3">REFINANCIAMENTO </option>
-                      <option value="2">PORTABILIDADE </option>
-                      <option value="1">NOVO </option>
-                      <option value="4">CARTÃO PLÁSTICO </option>
-                      <option value="6">CARTÃO COM SAQUE </option>
-                      <option value="5">PORTABILIDADE COM REFIN </option>
-                      <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
-                      <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
-                      <option value="9">CARTÃO BENEFÍCIO INSS </option>
-                      <option value="10">NOVO REPRESENTANTE LEGAL </option>
-                      <option value="11">NOVO AUMENTO DE SALARIO </option>
-                      <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputBanco">BANCO</label>
-                    <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                    <option value="3">REFINANCIAMENTO </option>
+                    <option value="2">PORTABILIDADE </option>
+                    <option value="1">NOVO </option>
+                    <option value="4">CARTÃO PLÁSTICO </option>
+                    <option value="6">CARTÃO COM SAQUE </option>
+                    <option value="5">PORTABILIDADE COM REFIN </option>
+                    <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
+                    <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
+                    <option value="9">CARTÃO BENEFÍCIO INSS </option>
+                    <option value="10">NOVO REPRESENTANTE LEGAL </option>
+                    <option value="11">NOVO AUMENTO DE SALARIO </option>
+                    <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputBanco">BANCO</label>
+                  <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
                     <option selected><?php echo $res_1['banco']; ?></option>
-                      <option value="1">001 - BANCO DO BRASIL </option>
-                      <option value="3">003 - BANCO DA AMAZONIA </option>
-                      <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
-                      <option value="7">007 - BNDES </option>
-                      <option value="10">010 - CREDICOAMO </option>
-                      <option value="11">011 - Credit Suisse </option>
-                      <option value="12">012 - BANCO INBURSA </option>
-                      <option value="14">014 - NATIXIS BRASIL </option>
-                      <option value="15">015 - UBS BRASIL CCTVM </option>
-                      <option value="16">016 - CCM DESP TRANS SC E RS </option>
-                      <option value="17">017 - BNY MELLON BANCO </option>
-                      <option value="18">018 - BANCO TRICURY </option>
-                      <option value="21">021 - BANCO BANESTES </option>
-                      <option value="24">024 - BCO BANDEPE </option>
-                      <option value="25">025 - BANCO ALFA . </option>
-                      <option value="29">029 - BANCO ITAU CONSIGNADO </option>
-                      <option value="33">033 - BANCO SANTANDER BRASIL </option>
-                      <option value="36">036 - BANCO BBI </option>
-                      <option value="37">037 - BANCO DO ESTADO DO PARA </option>
-                      <option value="40">040 - BANCO CARGILL </option>
-                      <option value="41">041 - BANRISUL </option>
-                      <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
-                      <option value="60">060 - CONFIDENCE CC </option>
-                      <option value="62">062 - HIPERCARD BM </option>
-                      <option value="63">063 - BANCO BRADESCARD </option>
-                      <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
-                      <option value="65">065 - BANCO ANDBANK </option>
-                      <option value="66">066 - BANCO MORGAN STANLEY </option>
-                      <option value="69">069 - BANCO CREFISA </option>
-                      <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
-                      <option value="74">074 - BCO. J.SAFRA </option>
-                      <option value="75">075 - BCO ABN AMRO </option>
-                      <option value="76">076 - BANCO KDB BRASIL . </option>
-                      <option value="77">077 - BANCO INTER </option>
-                      <option value="78">078 - HAITONG BI DO BRASIL </option>
-                      <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
-                      <option value="80">080 - B&amp;T CC LTDA </option>
-                      <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
-                      <option value="82">082 - BANCO TOPAZIO </option>
-                      <option value="83">083 - BANCO DA CHINA BRASIL </option>
-                      <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
-                      <option value="85">085 - COOP CENTRAL AILOS </option>
-                      <option value="89">089 - CCR REG MOGIANA </option>
-                      <option value="91">091 - UNICRED CENTRAL RS </option>
-                      <option value="92">092 - BRK </option>
-                      <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
-                      <option value="94">094 - BANCO FINAXIS </option>
-                      <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
-                      <option value="96">096 - BANCO B3 </option>
-                      <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
-                      <option value="98">098 - CREDIALIANÇA CCR </option>
-                      <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
-                      <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
-                      <option value="101">101 - RENASCENCA DTVM LTDA </option>
-                      <option value="102">102 - XP INVESTIMENTOS </option>
-                      <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
-                      <option value="105">105 - LECCA CFI </option>
-                      <option value="107">107 - BANCO BOCOM BBM </option>
-                      <option value="108">108 - PORTOCRED </option>
-                      <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
-                      <option value="113">113 - MAGLIANO </option>
-                      <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
-                      <option value="117">117 - ADVANCED CC LTDA </option>
-                      <option value="118">118 - STANDARD CHARTERED BI </option>
-                      <option value="119">119 - BANCO WESTERN UNION </option>
-                      <option value="120">120 - BANCO RODOBENS </option>
-                      <option value="121">121 - BANCO AGIBANK </option>
-                      <option value="122">122 - BANCO BRADESCO BERJ </option>
-                      <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
-                      <option value="125">125 - BRASIL PLURAL BANCO </option>
-                      <option value="126">126 - BR PARTNERS BI </option>
-                      <option value="127">127 - CODEPE CVC </option>
-                      <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
-                      <option value="129">129 - UBS BRASIL BI </option>
-                      <option value="130">130 - CARUANA SCFI </option>
-                      <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
-                      <option value="132">132 - ICBC DO BRASIL BM </option>
-                      <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
-                      <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
-                      <option value="136">136 - UNICRED COOPERATIVA </option>
-                      <option value="137">137 - MULTIMONEY CC LTDA </option>
-                      <option value="138">138 - GET MONEY CC LTDA </option>
-                      <option value="139">139 - INTESA SANPAOLO BRASIL </option>
-                      <option value="140">140 - EASYNVEST - TITULO CV </option>
-                      <option value="142">142 - BROKER BRASIL CC LTDA </option>
-                      <option value="143">143 - TREVISO CC </option>
-                      <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
-                      <option value="145">145 - LEVYCAM CCV LTDA </option>
-                      <option value="146">146 - GUITTA CC LTDA </option>
-                      <option value="149">149 - FACTA . CFI </option>
-                      <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
-                      <option value="159">159 - CASA CREDITO </option>
-                      <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
-                      <option value="169">169 - BANCO OLE CONSIGNADO </option>
-                      <option value="172">172 - ALBATROSS CCV </option>
-                      <option value="173">173 - BRL TRUST DTVM SA </option>
-                      <option value="174">174 - PERNAMBUCANAS FINANC </option>
-                      <option value="177">177 - GUIDE </option>
-                      <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
-                      <option value="182">182 - DACASA FINANCEIRA S/A </option>
-                      <option value="183">183 - SOCRED </option>
-                      <option value="184">184 - BANCO ITAU BBA </option>
-                      <option value="188">188 - ATIVA INVESTIMENTOS </option>
-                      <option value="189">189 - HS FINANCEIRA </option>
-                      <option value="190">190 - SERVICOOP </option>
-                      <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
-                      <option value="194">194 - PARMETAL DTVM LTDA </option>
-                      <option value="196">196 - BANCO FAIR CC </option>
-                      <option value="197">197 - STONE PAGAMENTOS </option>
-                      <option value="204">204 - BANCO BRADESCO CARTOES </option>
-                      <option value="208">208 - BANCO BTG PACTUAL </option>
-                      <option value="212">212 - BANCO ORIGINAL </option>
-                      <option value="213">213 - BCO ARBI </option>
-                      <option value="217">217 - BANCO JOHN DEERE </option>
-                      <option value="218">218 - BANCO BS2 </option>
-                      <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
-                      <option value="224">224 - BANCO FIBRA </option>
-                      <option value="233">233 - BANCO CIFRA </option>
-                      <option value="237">237 - BRADESCO </option>
-                      <option value="241">241 - BANCO CLASSICO </option>
-                      <option value="243">243 - BANCO MAXIMA </option>
-                      <option value="246">246 - BANCO ABC BRASIL </option>
-                      <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
-                      <option value="250">250 - BANCO BCV </option>
-                      <option value="253">253 - BEXS CC </option>
-                      <option value="254">254 - PARANA BANCO </option>
-                      <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
-                      <option value="265">265 - BANCO FATOR </option>
-                      <option value="266">266 - BANCO CEDULA </option>
-                      <option value="268">268 - BARIGUI CH </option>
-                      <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
-                      <option value="270">270 - SAGITUR CC LTDA </option>
-                      <option value="271">271 - IB CCTVM LTDA </option>
-                      <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
-                      <option value="276">276 - SENFF </option>
-                      <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
-                      <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
-                      <option value="280">280 - AVISTA </option>
-                      <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
-                      <option value="285">285 - FRENTE CC LTDA </option>
-                      <option value="286">286 - CCR DE OURO </option>
-                      <option value="288">288 - CAROL DTVM LTDA </option>
-                      <option value="290">290 - Pagseguro Internet </option>
-                      <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
-                      <option value="293">293 - LASTRO RDV DTVM LTDA </option>
-                      <option value="298">298 - VIPS CC LTDA </option>
-                      <option value="300">300 - BANCO LA NACION ARGENTINA </option>
-                      <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
-                      <option value="310">310 - VORTX DTVM LTDA </option>
-                      <option value="318">318 - BANCO BMG </option>
-                      <option value="320">320 - BANCO CCB BRASIL </option>
-                      <option value="321">321 - CREFAZ SCMEPP LTDA </option>
-                      <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
-                      <option value="329">329 - Q I Sociedade </option>
-                      <option value="335">335 - Banco Digio </option>
-                      <option value="336">336 - C6 BANK </option>
-                      <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
-                      <option value="341">341 - ITAU UNIBANCO </option>
-                      <option value="348">348 - BANCO XP S/A </option>
-                      <option value="359">359 - ZEMA CFI S/A </option>
-                      <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
-                      <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
-                      <option value="370">370 - BANCO MIZUHO </option>
-                      <option value="376">376 - BANCO J.P. MORGAN </option>
-                      <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
-                      <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
-                      <option value="399">399 - KIRTON BANK </option>
-                      <option value="412">412 - BANCO CAPITAL </option>
-                      <option value="413">413 - BANCO BV </option>
-                      <option value="422">422 - BANCO SAFRA </option>
-                      <option value="456">456 - BANCO MUFG BRASIL </option>
-                      <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
-                      <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
-                      <option value="477">477 - CITIBANK N.A </option>
-                      <option value="479">479 - BANCO ITAUBANK </option>
-                      <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
-                      <option value="488">488 - JPMORGAN CHASE BANK </option>
-                      <option value="492">492 - ING BANK N.V </option>
-                      <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
-                      <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
-                      <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
-                      <option value="545">545 - SENSO CCVM </option>
-                      <option value="600">600 - BANCO LUSO BRASILEIRO </option>
-                      <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
-                      <option value="610">610 - BANCO VR </option>
-                      <option value="611">611 - BANCO PAULISTA </option>
-                      <option value="612">612 - BANCO GUANABARA </option>
-                      <option value="613">613 - OMNI BANCO </option>
-                      <option value="623">623 - BANCO PAN </option>
-                      <option value="626">626 - BANCO FICSA </option>
-                      <option value="630">630 - BANCO INTERCAP </option>
-                      <option value="633">633 - BANCO RENDIMENTO </option>
-                      <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
-                      <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
-                      <option value="641">641 - BANCO ALVORADA </option>
-                      <option value="643">643 - BANCO PINE </option>
-                      <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
-                      <option value="653">653 - BANCO INDUSVAL </option>
-                      <option value="654">654 - BANCO A.J. RENNER </option>
-                      <option value="655">655 - NEON PAGAMENTOS </option>
-                      <option value="707">707 - BANCO DAYCOVAL </option>
-                      <option value="712">712 - BANCO OURINVEST </option>
-                      <option value="739">739 - BANCO CETELEM </option>
-                      <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
-                      <option value="743">743 - BANCO SEMEAR </option>
-                      <option value="745">745 - BANCO CITIBANK </option>
-                      <option value="746">746 - BANCO MODAL </option>
-                      <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
-                      <option value="748">748 - SICREDI </option>
-                      <option value="751">751 - SCOTIABANK BRASIL </option>
-                      <option value="752">752 - BNP PARIBAS BRASIL </option>
-                      <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
-                      <option value="754">754 - BANCO SISTEMA </option>
-                      <option value="755">755 - BOFA MERRILL LYNCH BM </option>
-                      <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
-                      <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
-                      <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
-                      <option value="954">954 - BANCO CBSS </option>
-                      <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPromotora">PROMOTORA</label>
-                    <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                       <option selected><?php echo $res_1['promotora']; ?></option>
-                      <option value="1">CREDIBRASIL LOJAS </option>
-                      <option value="2">CREDIBRASIL CONSIGNADO </option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputMargem">MARGEM</label>
-                    <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputPrazo">PRAZO</label>
-                    <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
+                    <option value="1">001 - BANCO DO BRASIL </option>
+                    <option value="3">003 - BANCO DA AMAZONIA </option>
+                    <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
+                    <option value="7">007 - BNDES </option>
+                    <option value="10">010 - CREDICOAMO </option>
+                    <option value="11">011 - Credit Suisse </option>
+                    <option value="12">012 - BANCO INBURSA </option>
+                    <option value="14">014 - NATIXIS BRASIL </option>
+                    <option value="15">015 - UBS BRASIL CCTVM </option>
+                    <option value="16">016 - CCM DESP TRANS SC E RS </option>
+                    <option value="17">017 - BNY MELLON BANCO </option>
+                    <option value="18">018 - BANCO TRICURY </option>
+                    <option value="21">021 - BANCO BANESTES </option>
+                    <option value="24">024 - BCO BANDEPE </option>
+                    <option value="25">025 - BANCO ALFA . </option>
+                    <option value="29">029 - BANCO ITAU CONSIGNADO </option>
+                    <option value="33">033 - BANCO SANTANDER BRASIL </option>
+                    <option value="36">036 - BANCO BBI </option>
+                    <option value="37">037 - BANCO DO ESTADO DO PARA </option>
+                    <option value="40">040 - BANCO CARGILL </option>
+                    <option value="41">041 - BANRISUL </option>
+                    <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
+                    <option value="60">060 - CONFIDENCE CC </option>
+                    <option value="62">062 - HIPERCARD BM </option>
+                    <option value="63">063 - BANCO BRADESCARD </option>
+                    <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
+                    <option value="65">065 - BANCO ANDBANK </option>
+                    <option value="66">066 - BANCO MORGAN STANLEY </option>
+                    <option value="69">069 - BANCO CREFISA </option>
+                    <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
+                    <option value="74">074 - BCO. J.SAFRA </option>
+                    <option value="75">075 - BCO ABN AMRO </option>
+                    <option value="76">076 - BANCO KDB BRASIL . </option>
+                    <option value="77">077 - BANCO INTER </option>
+                    <option value="78">078 - HAITONG BI DO BRASIL </option>
+                    <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
+                    <option value="80">080 - B&amp;T CC LTDA </option>
+                    <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
+                    <option value="82">082 - BANCO TOPAZIO </option>
+                    <option value="83">083 - BANCO DA CHINA BRASIL </option>
+                    <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
+                    <option value="85">085 - COOP CENTRAL AILOS </option>
+                    <option value="89">089 - CCR REG MOGIANA </option>
+                    <option value="91">091 - UNICRED CENTRAL RS </option>
+                    <option value="92">092 - BRK </option>
+                    <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
+                    <option value="94">094 - BANCO FINAXIS </option>
+                    <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
+                    <option value="96">096 - BANCO B3 </option>
+                    <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
+                    <option value="98">098 - CREDIALIANÇA CCR </option>
+                    <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
+                    <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
+                    <option value="101">101 - RENASCENCA DTVM LTDA </option>
+                    <option value="102">102 - XP INVESTIMENTOS </option>
+                    <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
+                    <option value="105">105 - LECCA CFI </option>
+                    <option value="107">107 - BANCO BOCOM BBM </option>
+                    <option value="108">108 - PORTOCRED </option>
+                    <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
+                    <option value="113">113 - MAGLIANO </option>
+                    <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
+                    <option value="117">117 - ADVANCED CC LTDA </option>
+                    <option value="118">118 - STANDARD CHARTERED BI </option>
+                    <option value="119">119 - BANCO WESTERN UNION </option>
+                    <option value="120">120 - BANCO RODOBENS </option>
+                    <option value="121">121 - BANCO AGIBANK </option>
+                    <option value="122">122 - BANCO BRADESCO BERJ </option>
+                    <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
+                    <option value="125">125 - BRASIL PLURAL BANCO </option>
+                    <option value="126">126 - BR PARTNERS BI </option>
+                    <option value="127">127 - CODEPE CVC </option>
+                    <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
+                    <option value="129">129 - UBS BRASIL BI </option>
+                    <option value="130">130 - CARUANA SCFI </option>
+                    <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
+                    <option value="132">132 - ICBC DO BRASIL BM </option>
+                    <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
+                    <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
+                    <option value="136">136 - UNICRED COOPERATIVA </option>
+                    <option value="137">137 - MULTIMONEY CC LTDA </option>
+                    <option value="138">138 - GET MONEY CC LTDA </option>
+                    <option value="139">139 - INTESA SANPAOLO BRASIL </option>
+                    <option value="140">140 - EASYNVEST - TITULO CV </option>
+                    <option value="142">142 - BROKER BRASIL CC LTDA </option>
+                    <option value="143">143 - TREVISO CC </option>
+                    <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
+                    <option value="145">145 - LEVYCAM CCV LTDA </option>
+                    <option value="146">146 - GUITTA CC LTDA </option>
+                    <option value="149">149 - FACTA . CFI </option>
+                    <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
+                    <option value="159">159 - CASA CREDITO </option>
+                    <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
+                    <option value="169">169 - BANCO OLE CONSIGNADO </option>
+                    <option value="172">172 - ALBATROSS CCV </option>
+                    <option value="173">173 - BRL TRUST DTVM SA </option>
+                    <option value="174">174 - PERNAMBUCANAS FINANC </option>
+                    <option value="177">177 - GUIDE </option>
+                    <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
+                    <option value="182">182 - DACASA FINANCEIRA S/A </option>
+                    <option value="183">183 - SOCRED </option>
+                    <option value="184">184 - BANCO ITAU BBA </option>
+                    <option value="188">188 - ATIVA INVESTIMENTOS </option>
+                    <option value="189">189 - HS FINANCEIRA </option>
+                    <option value="190">190 - SERVICOOP </option>
+                    <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
+                    <option value="194">194 - PARMETAL DTVM LTDA </option>
+                    <option value="196">196 - BANCO FAIR CC </option>
+                    <option value="197">197 - STONE PAGAMENTOS </option>
+                    <option value="204">204 - BANCO BRADESCO CARTOES </option>
+                    <option value="208">208 - BANCO BTG PACTUAL </option>
+                    <option value="212">212 - BANCO ORIGINAL </option>
+                    <option value="213">213 - BCO ARBI </option>
+                    <option value="217">217 - BANCO JOHN DEERE </option>
+                    <option value="218">218 - BANCO BS2 </option>
+                    <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
+                    <option value="224">224 - BANCO FIBRA </option>
+                    <option value="233">233 - BANCO CIFRA </option>
+                    <option value="237">237 - BRADESCO </option>
+                    <option value="241">241 - BANCO CLASSICO </option>
+                    <option value="243">243 - BANCO MAXIMA </option>
+                    <option value="246">246 - BANCO ABC BRASIL </option>
+                    <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
+                    <option value="250">250 - BANCO BCV </option>
+                    <option value="253">253 - BEXS CC </option>
+                    <option value="254">254 - PARANA BANCO </option>
+                    <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
+                    <option value="265">265 - BANCO FATOR </option>
+                    <option value="266">266 - BANCO CEDULA </option>
+                    <option value="268">268 - BARIGUI CH </option>
+                    <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
+                    <option value="270">270 - SAGITUR CC LTDA </option>
+                    <option value="271">271 - IB CCTVM LTDA </option>
+                    <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
+                    <option value="276">276 - SENFF </option>
+                    <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
+                    <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
+                    <option value="280">280 - AVISTA </option>
+                    <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
+                    <option value="285">285 - FRENTE CC LTDA </option>
+                    <option value="286">286 - CCR DE OURO </option>
+                    <option value="288">288 - CAROL DTVM LTDA </option>
+                    <option value="290">290 - Pagseguro Internet </option>
+                    <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
+                    <option value="293">293 - LASTRO RDV DTVM LTDA </option>
+                    <option value="298">298 - VIPS CC LTDA </option>
+                    <option value="300">300 - BANCO LA NACION ARGENTINA </option>
+                    <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
+                    <option value="310">310 - VORTX DTVM LTDA </option>
+                    <option value="318">318 - BANCO BMG </option>
+                    <option value="320">320 - BANCO CCB BRASIL </option>
+                    <option value="321">321 - CREFAZ SCMEPP LTDA </option>
+                    <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
+                    <option value="329">329 - Q I Sociedade </option>
+                    <option value="335">335 - Banco Digio </option>
+                    <option value="336">336 - C6 BANK </option>
+                    <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
+                    <option value="341">341 - ITAU UNIBANCO </option>
+                    <option value="348">348 - BANCO XP S/A </option>
+                    <option value="359">359 - ZEMA CFI S/A </option>
+                    <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
+                    <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
+                    <option value="370">370 - BANCO MIZUHO </option>
+                    <option value="376">376 - BANCO J.P. MORGAN </option>
+                    <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
+                    <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
+                    <option value="399">399 - KIRTON BANK </option>
+                    <option value="412">412 - BANCO CAPITAL </option>
+                    <option value="413">413 - BANCO BV </option>
+                    <option value="422">422 - BANCO SAFRA </option>
+                    <option value="456">456 - BANCO MUFG BRASIL </option>
+                    <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
+                    <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
+                    <option value="477">477 - CITIBANK N.A </option>
+                    <option value="479">479 - BANCO ITAUBANK </option>
+                    <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
+                    <option value="488">488 - JPMORGAN CHASE BANK </option>
+                    <option value="492">492 - ING BANK N.V </option>
+                    <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
+                    <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
+                    <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
+                    <option value="545">545 - SENSO CCVM </option>
+                    <option value="600">600 - BANCO LUSO BRASILEIRO </option>
+                    <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
+                    <option value="610">610 - BANCO VR </option>
+                    <option value="611">611 - BANCO PAULISTA </option>
+                    <option value="612">612 - BANCO GUANABARA </option>
+                    <option value="613">613 - OMNI BANCO </option>
+                    <option value="623">623 - BANCO PAN </option>
+                    <option value="626">626 - BANCO FICSA </option>
+                    <option value="630">630 - BANCO INTERCAP </option>
+                    <option value="633">633 - BANCO RENDIMENTO </option>
+                    <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
+                    <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
+                    <option value="641">641 - BANCO ALVORADA </option>
+                    <option value="643">643 - BANCO PINE </option>
+                    <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
+                    <option value="653">653 - BANCO INDUSVAL </option>
+                    <option value="654">654 - BANCO A.J. RENNER </option>
+                    <option value="655">655 - NEON PAGAMENTOS </option>
+                    <option value="707">707 - BANCO DAYCOVAL </option>
+                    <option value="712">712 - BANCO OURINVEST </option>
+                    <option value="739">739 - BANCO CETELEM </option>
+                    <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
+                    <option value="743">743 - BANCO SEMEAR </option>
+                    <option value="745">745 - BANCO CITIBANK </option>
+                    <option value="746">746 - BANCO MODAL </option>
+                    <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
+                    <option value="748">748 - SICREDI </option>
+                    <option value="751">751 - SCOTIABANK BRASIL </option>
+                    <option value="752">752 - BNP PARIBAS BRASIL </option>
+                    <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
+                    <option value="754">754 - BANCO SISTEMA </option>
+                    <option value="755">755 - BOFA MERRILL LYNCH BM </option>
+                    <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
+                    <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
+                    <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
+                    <option value="954">954 - BANCO CBSS </option>
+                    <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPromotora">PROMOTORA</label>
+                  <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option selected><?php echo $res_1['promotora']; ?></option>
+                    <option value="1">CREDIBRASIL LOJAS </option>
+                    <option value="2">CREDIBRASIL CONSIGNADO </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputMargem">MARGEM</label>
+                  <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPrazo">PRAZO</label>
+                  <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
                     <option selected><?php echo $res_1['prazo']; ?></option>
-                      <option value="120">120x</option>
-                      <option value="96">96x</option>
-                      <option value="84">84x</option>
-                      <option value="72">72x</option>
-                      <option value="60">60x</option>
-                      <option value="48">48x</option>
-                      <option value="36">36x</option>
-                      <option value="24">24x</option>
-                      <option value="12">12x</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputValor">VALOR</label>
-                    <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputValorParcelas">VALOR PARCELAS</label>
-                    <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputFormalizacao">FORMALIZAÇÃO</label>
-                    <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                      <option selected><?php echo $res_1['formalizacao']; ?></option>
-                      <option value="1">FÍSICO</option>
-                      <option value="2">DIGITAL</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputCanal">CANAL</label>
-                    <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option value="120">120x</option>
+                    <option value="96">96x</option>
+                    <option value="84">84x</option>
+                    <option value="72">72x</option>
+                    <option value="60">60x</option>
+                    <option value="48">48x</option>
+                    <option value="36">36x</option>
+                    <option value="24">24x</option>
+                    <option value="12">12x</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputValor">VALOR</label>
+                  <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputValorParcelas">VALOR PARCELAS</label>
+                  <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputFormalizacao">FORMALIZAÇÃO</label>
+                  <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option selected><?php echo $res_1['formalizacao']; ?></option>
+                    <option value="1">FÍSICO</option>
+                    <option value="2">DIGITAL</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputCanal">CANAL</label>
+                  <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['canal']; ?></option>
-                      <option value="1">TELEMARKETING </option>
-                      <option value="2">SMS </option>
-                      <option value="3">OUTROS </option>
-                      <option value="4">WHATSAPP </option>
-                      <option value="5">FACEBOOK </option>
-                      <option value="6">ANUNCIO DANIEL </option>
-                      <option value="7">DISPAROS WATZAP </option>
-                      <option value="8">INDICAÇÃO </option>
-                      <option value="9">LIGAÇÃO </option>
-                      <option value="10">CLIENTE BALCÃO </option>
-                      <option value="11">CLIENTE LIGOU NA LOJA </option>
-                      <option value="12">INSTAGRAM </option>
-                      <option value="13">FACE </option>
-                      <option value="14">CARTEIRA </option>
-                    </select>
+                    <option value="1">TELEMARKETING </option>
+                    <option value="2">SMS </option>
+                    <option value="3">OUTROS </option>
+                    <option value="4">WHATSAPP </option>
+                    <option value="5">FACEBOOK </option>
+                    <option value="6">ANUNCIO DANIEL </option>
+                    <option value="7">DISPAROS WATZAP </option>
+                    <option value="8">INDICAÇÃO </option>
+                    <option value="9">LIGAÇÃO </option>
+                    <option value="10">CLIENTE BALCÃO </option>
+                    <option value="11">CLIENTE LIGOU NA LOJA </option>
+                    <option value="12">INSTAGRAM </option>
+                    <option value="13">FACE </option>
+                    <option value="14">CARTEIRA </option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputTabela">TABELA</label>
+                  <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option selected value="">Nada para selecionar</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="inputDocumento">Deseja anexar algum documento?</label>
+                  <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
+                  <div class="form-group">
+                    <br>
+                    <label for="exampleFormControlTextarea1">Observação (opcional)</label>
+                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputTabela">TABELA</label>
-                    <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                      <option selected value="">Nada para selecionar</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-12">
-                    <label for="inputDocumento">Deseja anexar algum documento?</label>
-                    <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
-                    <div class="form-group">
-                      <br>
-                      <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                      <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
-                    </div>
-                  </div>
-                  </div>
+                </div>
+            </div>
 
           </div>
           <div class="modal-footer">
@@ -2206,266 +2216,262 @@ if (@$_GET['func'] == 'editardadosbancarios') {
           <div class="modal-header">
 
 
-             <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+            <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
 
-             <div class="form-row">
-                  <div class="form-group col-md-6">
-                  <form method="POST" action="">
-                    <label for="inputBanco" id="inputBanco">BANCO</label>
-                    <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <form method="POST" action="">
+                  <label for="inputBanco" id="inputBanco">BANCO</label>
+                  <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
                     <option selected><?php echo $res_1['banco']; ?></option>
-                      <option value="1">001 - BANCO DO BRASIL </option>
-                      <option value="3">003 - BANCO DA AMAZONIA </option>
-                      <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
-                      <option value="7">007 - BNDES </option>
-                      <option value="10">010 - CREDICOAMO </option>
-                      <option value="11">011 - Credit Suisse </option>
-                      <option value="12">012 - BANCO INBURSA </option>
-                      <option value="14">014 - NATIXIS BRASIL </option>
-                      <option value="15">015 - UBS BRASIL CCTVM </option>
-                      <option value="16">016 - CCM DESP TRANS SC E RS </option>
-                      <option value="17">017 - BNY MELLON BANCO </option>
-                      <option value="18">018 - BANCO TRICURY </option>
-                      <option value="21">021 - BANCO BANESTES </option>
-                      <option value="24">024 - BCO BANDEPE </option>
-                      <option value="25">025 - BANCO ALFA . </option>
-                      <option value="29">029 - BANCO ITAU CONSIGNADO </option>
-                      <option value="33">033 - BANCO SANTANDER BRASIL </option>
-                      <option value="36">036 - BANCO BBI </option>
-                      <option value="37">037 - BANCO DO ESTADO DO PARA </option>
-                      <option value="40">040 - BANCO CARGILL </option>
-                      <option value="41">041 - BANRISUL </option>
-                      <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
-                      <option value="60">060 - CONFIDENCE CC </option>
-                      <option value="62">062 - HIPERCARD BM </option>
-                      <option value="63">063 - BANCO BRADESCARD </option>
-                      <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
-                      <option value="65">065 - BANCO ANDBANK </option>
-                      <option value="66">066 - BANCO MORGAN STANLEY </option>
-                      <option value="69">069 - BANCO CREFISA </option>
-                      <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
-                      <option value="74">074 - BCO. J.SAFRA </option>
-                      <option value="75">075 - BCO ABN AMRO </option>
-                      <option value="76">076 - BANCO KDB BRASIL . </option>
-                      <option value="77">077 - BANCO INTER </option>
-                      <option value="78">078 - HAITONG BI DO BRASIL </option>
-                      <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
-                      <option value="80">080 - B&amp;T CC LTDA </option>
-                      <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
-                      <option value="82">082 - BANCO TOPAZIO </option>
-                      <option value="83">083 - BANCO DA CHINA BRASIL </option>
-                      <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
-                      <option value="85">085 - COOP CENTRAL AILOS </option>
-                      <option value="89">089 - CCR REG MOGIANA </option>
-                      <option value="91">091 - UNICRED CENTRAL RS </option>
-                      <option value="92">092 - BRK </option>
-                      <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
-                      <option value="94">094 - BANCO FINAXIS </option>
-                      <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
-                      <option value="96">096 - BANCO B3 </option>
-                      <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
-                      <option value="98">098 - CREDIALIANÇA CCR </option>
-                      <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
-                      <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
-                      <option value="101">101 - RENASCENCA DTVM LTDA </option>
-                      <option value="102">102 - XP INVESTIMENTOS </option>
-                      <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
-                      <option value="105">105 - LECCA CFI </option>
-                      <option value="107">107 - BANCO BOCOM BBM </option>
-                      <option value="108">108 - PORTOCRED </option>
-                      <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
-                      <option value="113">113 - MAGLIANO </option>
-                      <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
-                      <option value="117">117 - ADVANCED CC LTDA </option>
-                      <option value="118">118 - STANDARD CHARTERED BI </option>
-                      <option value="119">119 - BANCO WESTERN UNION </option>
-                      <option value="120">120 - BANCO RODOBENS </option>
-                      <option value="121">121 - BANCO AGIBANK </option>
-                      <option value="122">122 - BANCO BRADESCO BERJ </option>
-                      <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
-                      <option value="125">125 - BRASIL PLURAL BANCO </option>
-                      <option value="126">126 - BR PARTNERS BI </option>
-                      <option value="127">127 - CODEPE CVC </option>
-                      <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
-                      <option value="129">129 - UBS BRASIL BI </option>
-                      <option value="130">130 - CARUANA SCFI </option>
-                      <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
-                      <option value="132">132 - ICBC DO BRASIL BM </option>
-                      <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
-                      <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
-                      <option value="136">136 - UNICRED COOPERATIVA </option>
-                      <option value="137">137 - MULTIMONEY CC LTDA </option>
-                      <option value="138">138 - GET MONEY CC LTDA </option>
-                      <option value="139">139 - INTESA SANPAOLO BRASIL </option>
-                      <option value="140">140 - EASYNVEST - TITULO CV </option>
-                      <option value="142">142 - BROKER BRASIL CC LTDA </option>
-                      <option value="143">143 - TREVISO CC </option>
-                      <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
-                      <option value="145">145 - LEVYCAM CCV LTDA </option>
-                      <option value="146">146 - GUITTA CC LTDA </option>
-                      <option value="149">149 - FACTA . CFI </option>
-                      <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
-                      <option value="159">159 - CASA CREDITO </option>
-                      <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
-                      <option value="169">169 - BANCO OLE CONSIGNADO </option>
-                      <option value="172">172 - ALBATROSS CCV </option>
-                      <option value="173">173 - BRL TRUST DTVM SA </option>
-                      <option value="174">174 - PERNAMBUCANAS FINANC </option>
-                      <option value="177">177 - GUIDE </option>
-                      <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
-                      <option value="182">182 - DACASA FINANCEIRA S/A </option>
-                      <option value="183">183 - SOCRED </option>
-                      <option value="184">184 - BANCO ITAU BBA </option>
-                      <option value="188">188 - ATIVA INVESTIMENTOS </option>
-                      <option value="189">189 - HS FINANCEIRA </option>
-                      <option value="190">190 - SERVICOOP </option>
-                      <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
-                      <option value="194">194 - PARMETAL DTVM LTDA </option>
-                      <option value="196">196 - BANCO FAIR CC </option>
-                      <option value="197">197 - STONE PAGAMENTOS </option>
-                      <option value="204">204 - BANCO BRADESCO CARTOES </option>
-                      <option value="208">208 - BANCO BTG PACTUAL </option>
-                      <option value="212">212 - BANCO ORIGINAL </option>
-                      <option value="213">213 - BCO ARBI </option>
-                      <option value="217">217 - BANCO JOHN DEERE </option>
-                      <option value="218">218 - BANCO BS2 </option>
-                      <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
-                      <option value="224">224 - BANCO FIBRA </option>
-                      <option value="233">233 - BANCO CIFRA </option>
-                      <option value="237">237 - BRADESCO </option>
-                      <option value="241">241 - BANCO CLASSICO </option>
-                      <option value="243">243 - BANCO MAXIMA </option>
-                      <option value="246">246 - BANCO ABC BRASIL </option>
-                      <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
-                      <option value="250">250 - BANCO BCV </option>
-                      <option value="253">253 - BEXS CC </option>
-                      <option value="254">254 - PARANA BANCO </option>
-                      <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
-                      <option value="265">265 - BANCO FATOR </option>
-                      <option value="266">266 - BANCO CEDULA </option>
-                      <option value="268">268 - BARIGUI CH </option>
-                      <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
-                      <option value="270">270 - SAGITUR CC LTDA </option>
-                      <option value="271">271 - IB CCTVM LTDA </option>
-                      <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
-                      <option value="276">276 - SENFF </option>
-                      <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
-                      <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
-                      <option value="280">280 - AVISTA </option>
-                      <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
-                      <option value="285">285 - FRENTE CC LTDA </option>
-                      <option value="286">286 - CCR DE OURO </option>
-                      <option value="288">288 - CAROL DTVM LTDA </option>
-                      <option value="290">290 - Pagseguro Internet </option>
-                      <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
-                      <option value="293">293 - LASTRO RDV DTVM LTDA </option>
-                      <option value="298">298 - VIPS CC LTDA </option>
-                      <option value="300">300 - BANCO LA NACION ARGENTINA </option>
-                      <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
-                      <option value="310">310 - VORTX DTVM LTDA </option>
-                      <option value="318">318 - BANCO BMG </option>
-                      <option value="320">320 - BANCO CCB BRASIL </option>
-                      <option value="321">321 - CREFAZ SCMEPP LTDA </option>
-                      <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
-                      <option value="329">329 - Q I Sociedade </option>
-                      <option value="335">335 - Banco Digio </option>
-                      <option value="336">336 - C6 BANK </option>
-                      <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
-                      <option value="341">341 - ITAU UNIBANCO </option>
-                      <option value="348">348 - BANCO XP S/A </option>
-                      <option value="359">359 - ZEMA CFI S/A </option>
-                      <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
-                      <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
-                      <option value="370">370 - BANCO MIZUHO </option>
-                      <option value="376">376 - BANCO J.P. MORGAN </option>
-                      <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
-                      <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
-                      <option value="399">399 - KIRTON BANK </option>
-                      <option value="412">412 - BANCO CAPITAL </option>
-                      <option value="413">413 - BANCO BV </option>
-                      <option value="422">422 - BANCO SAFRA </option>
-                      <option value="456">456 - BANCO MUFG BRASIL </option>
-                      <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
-                      <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
-                      <option value="477">477 - CITIBANK N.A </option>
-                      <option value="479">479 - BANCO ITAUBANK </option>
-                      <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
-                      <option value="488">488 - JPMORGAN CHASE BANK </option>
-                      <option value="492">492 - ING BANK N.V </option>
-                      <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
-                      <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
-                      <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
-                      <option value="545">545 - SENSO CCVM </option>
-                      <option value="600">600 - BANCO LUSO BRASILEIRO </option>
-                      <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
-                      <option value="610">610 - BANCO VR </option>
-                      <option value="611">611 - BANCO PAULISTA </option>
-                      <option value="612">612 - BANCO GUANABARA </option>
-                      <option value="613">613 - OMNI BANCO </option>
-                      <option value="623">623 - BANCO PAN </option>
-                      <option value="626">626 - BANCO FICSA </option>
-                      <option value="630">630 - BANCO INTERCAP </option>
-                      <option value="633">633 - BANCO RENDIMENTO </option>
-                      <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
-                      <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
-                      <option value="641">641 - BANCO ALVORADA </option>
-                      <option value="643">643 - BANCO PINE </option>
-                      <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
-                      <option value="653">653 - BANCO INDUSVAL </option>
-                      <option value="654">654 - BANCO A.J. RENNER </option>
-                      <option value="655">655 - NEON PAGAMENTOS </option>
-                      <option value="707">707 - BANCO DAYCOVAL </option>
-                      <option value="712">712 - BANCO OURINVEST </option>
-                      <option value="739">739 - BANCO CETELEM </option>
-                      <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
-                      <option value="743">743 - BANCO SEMEAR </option>
-                      <option value="745">745 - BANCO CITIBANK </option>
-                      <option value="746">746 - BANCO MODAL </option>
-                      <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
-                      <option value="748">748 - SICREDI </option>
-                      <option value="751">751 - SCOTIABANK BRASIL </option>
-                      <option value="752">752 - BNP PARIBAS BRASIL </option>
-                      <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
-                      <option value="754">754 - BANCO SISTEMA </option>
-                      <option value="755">755 - BOFA MERRILL LYNCH BM </option>
-                      <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
-                      <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
-                      <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
-                      <option value="954">954 - BANCO CBSS </option>
-                      <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputTipoConta">TIPO DE CONTA</label>
-                    <input name="inputTipoConta" type="text" class="form-control" id="inputTipoConta" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputAgencia">AGENCIA</label>
-                    <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputAgenciaDv">AGENCIA DV</label>
-                    <input name="inputAgenciaDv" type="text" class="form-control" id="inputAgenciaDv" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputConta">CONTA</label>
-                    <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputDigito">DIGITO</label>
-                    <input name="inputDigito" type="text" class="form-control" id="inputDigito" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputRenda">RENDA</label>
-                    <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="inputComplemento">COMPLEMENTO</label>
-                    <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
-                  </div>
-                </div>
+                    <option value="1">001 - BANCO DO BRASIL </option>
+                    <option value="3">003 - BANCO DA AMAZONIA </option>
+                    <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
+                    <option value="7">007 - BNDES </option>
+                    <option value="10">010 - CREDICOAMO </option>
+                    <option value="11">011 - Credit Suisse </option>
+                    <option value="12">012 - BANCO INBURSA </option>
+                    <option value="14">014 - NATIXIS BRASIL </option>
+                    <option value="15">015 - UBS BRASIL CCTVM </option>
+                    <option value="16">016 - CCM DESP TRANS SC E RS </option>
+                    <option value="17">017 - BNY MELLON BANCO </option>
+                    <option value="18">018 - BANCO TRICURY </option>
+                    <option value="21">021 - BANCO BANESTES </option>
+                    <option value="24">024 - BCO BANDEPE </option>
+                    <option value="25">025 - BANCO ALFA . </option>
+                    <option value="29">029 - BANCO ITAU CONSIGNADO </option>
+                    <option value="33">033 - BANCO SANTANDER BRASIL </option>
+                    <option value="36">036 - BANCO BBI </option>
+                    <option value="37">037 - BANCO DO ESTADO DO PARA </option>
+                    <option value="40">040 - BANCO CARGILL </option>
+                    <option value="41">041 - BANRISUL </option>
+                    <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
+                    <option value="60">060 - CONFIDENCE CC </option>
+                    <option value="62">062 - HIPERCARD BM </option>
+                    <option value="63">063 - BANCO BRADESCARD </option>
+                    <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
+                    <option value="65">065 - BANCO ANDBANK </option>
+                    <option value="66">066 - BANCO MORGAN STANLEY </option>
+                    <option value="69">069 - BANCO CREFISA </option>
+                    <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
+                    <option value="74">074 - BCO. J.SAFRA </option>
+                    <option value="75">075 - BCO ABN AMRO </option>
+                    <option value="76">076 - BANCO KDB BRASIL . </option>
+                    <option value="77">077 - BANCO INTER </option>
+                    <option value="78">078 - HAITONG BI DO BRASIL </option>
+                    <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
+                    <option value="80">080 - B&amp;T CC LTDA </option>
+                    <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
+                    <option value="82">082 - BANCO TOPAZIO </option>
+                    <option value="83">083 - BANCO DA CHINA BRASIL </option>
+                    <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
+                    <option value="85">085 - COOP CENTRAL AILOS </option>
+                    <option value="89">089 - CCR REG MOGIANA </option>
+                    <option value="91">091 - UNICRED CENTRAL RS </option>
+                    <option value="92">092 - BRK </option>
+                    <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
+                    <option value="94">094 - BANCO FINAXIS </option>
+                    <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
+                    <option value="96">096 - BANCO B3 </option>
+                    <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
+                    <option value="98">098 - CREDIALIANÇA CCR </option>
+                    <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
+                    <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
+                    <option value="101">101 - RENASCENCA DTVM LTDA </option>
+                    <option value="102">102 - XP INVESTIMENTOS </option>
+                    <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
+                    <option value="105">105 - LECCA CFI </option>
+                    <option value="107">107 - BANCO BOCOM BBM </option>
+                    <option value="108">108 - PORTOCRED </option>
+                    <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
+                    <option value="113">113 - MAGLIANO </option>
+                    <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
+                    <option value="117">117 - ADVANCED CC LTDA </option>
+                    <option value="118">118 - STANDARD CHARTERED BI </option>
+                    <option value="119">119 - BANCO WESTERN UNION </option>
+                    <option value="120">120 - BANCO RODOBENS </option>
+                    <option value="121">121 - BANCO AGIBANK </option>
+                    <option value="122">122 - BANCO BRADESCO BERJ </option>
+                    <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
+                    <option value="125">125 - BRASIL PLURAL BANCO </option>
+                    <option value="126">126 - BR PARTNERS BI </option>
+                    <option value="127">127 - CODEPE CVC </option>
+                    <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
+                    <option value="129">129 - UBS BRASIL BI </option>
+                    <option value="130">130 - CARUANA SCFI </option>
+                    <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
+                    <option value="132">132 - ICBC DO BRASIL BM </option>
+                    <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
+                    <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
+                    <option value="136">136 - UNICRED COOPERATIVA </option>
+                    <option value="137">137 - MULTIMONEY CC LTDA </option>
+                    <option value="138">138 - GET MONEY CC LTDA </option>
+                    <option value="139">139 - INTESA SANPAOLO BRASIL </option>
+                    <option value="140">140 - EASYNVEST - TITULO CV </option>
+                    <option value="142">142 - BROKER BRASIL CC LTDA </option>
+                    <option value="143">143 - TREVISO CC </option>
+                    <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
+                    <option value="145">145 - LEVYCAM CCV LTDA </option>
+                    <option value="146">146 - GUITTA CC LTDA </option>
+                    <option value="149">149 - FACTA . CFI </option>
+                    <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
+                    <option value="159">159 - CASA CREDITO </option>
+                    <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
+                    <option value="169">169 - BANCO OLE CONSIGNADO </option>
+                    <option value="172">172 - ALBATROSS CCV </option>
+                    <option value="173">173 - BRL TRUST DTVM SA </option>
+                    <option value="174">174 - PERNAMBUCANAS FINANC </option>
+                    <option value="177">177 - GUIDE </option>
+                    <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
+                    <option value="182">182 - DACASA FINANCEIRA S/A </option>
+                    <option value="183">183 - SOCRED </option>
+                    <option value="184">184 - BANCO ITAU BBA </option>
+                    <option value="188">188 - ATIVA INVESTIMENTOS </option>
+                    <option value="189">189 - HS FINANCEIRA </option>
+                    <option value="190">190 - SERVICOOP </option>
+                    <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
+                    <option value="194">194 - PARMETAL DTVM LTDA </option>
+                    <option value="196">196 - BANCO FAIR CC </option>
+                    <option value="197">197 - STONE PAGAMENTOS </option>
+                    <option value="204">204 - BANCO BRADESCO CARTOES </option>
+                    <option value="208">208 - BANCO BTG PACTUAL </option>
+                    <option value="212">212 - BANCO ORIGINAL </option>
+                    <option value="213">213 - BCO ARBI </option>
+                    <option value="217">217 - BANCO JOHN DEERE </option>
+                    <option value="218">218 - BANCO BS2 </option>
+                    <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
+                    <option value="224">224 - BANCO FIBRA </option>
+                    <option value="233">233 - BANCO CIFRA </option>
+                    <option value="237">237 - BRADESCO </option>
+                    <option value="241">241 - BANCO CLASSICO </option>
+                    <option value="243">243 - BANCO MAXIMA </option>
+                    <option value="246">246 - BANCO ABC BRASIL </option>
+                    <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
+                    <option value="250">250 - BANCO BCV </option>
+                    <option value="253">253 - BEXS CC </option>
+                    <option value="254">254 - PARANA BANCO </option>
+                    <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
+                    <option value="265">265 - BANCO FATOR </option>
+                    <option value="266">266 - BANCO CEDULA </option>
+                    <option value="268">268 - BARIGUI CH </option>
+                    <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
+                    <option value="270">270 - SAGITUR CC LTDA </option>
+                    <option value="271">271 - IB CCTVM LTDA </option>
+                    <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
+                    <option value="276">276 - SENFF </option>
+                    <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
+                    <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
+                    <option value="280">280 - AVISTA </option>
+                    <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
+                    <option value="285">285 - FRENTE CC LTDA </option>
+                    <option value="286">286 - CCR DE OURO </option>
+                    <option value="288">288 - CAROL DTVM LTDA </option>
+                    <option value="290">290 - Pagseguro Internet </option>
+                    <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
+                    <option value="293">293 - LASTRO RDV DTVM LTDA </option>
+                    <option value="298">298 - VIPS CC LTDA </option>
+                    <option value="300">300 - BANCO LA NACION ARGENTINA </option>
+                    <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
+                    <option value="310">310 - VORTX DTVM LTDA </option>
+                    <option value="318">318 - BANCO BMG </option>
+                    <option value="320">320 - BANCO CCB BRASIL </option>
+                    <option value="321">321 - CREFAZ SCMEPP LTDA </option>
+                    <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
+                    <option value="329">329 - Q I Sociedade </option>
+                    <option value="335">335 - Banco Digio </option>
+                    <option value="336">336 - C6 BANK </option>
+                    <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
+                    <option value="341">341 - ITAU UNIBANCO </option>
+                    <option value="348">348 - BANCO XP S/A </option>
+                    <option value="359">359 - ZEMA CFI S/A </option>
+                    <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
+                    <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
+                    <option value="370">370 - BANCO MIZUHO </option>
+                    <option value="376">376 - BANCO J.P. MORGAN </option>
+                    <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
+                    <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
+                    <option value="399">399 - KIRTON BANK </option>
+                    <option value="412">412 - BANCO CAPITAL </option>
+                    <option value="413">413 - BANCO BV </option>
+                    <option value="422">422 - BANCO SAFRA </option>
+                    <option value="456">456 - BANCO MUFG BRASIL </option>
+                    <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
+                    <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
+                    <option value="477">477 - CITIBANK N.A </option>
+                    <option value="479">479 - BANCO ITAUBANK </option>
+                    <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
+                    <option value="488">488 - JPMORGAN CHASE BANK </option>
+                    <option value="492">492 - ING BANK N.V </option>
+                    <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
+                    <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
+                    <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
+                    <option value="545">545 - SENSO CCVM </option>
+                    <option value="600">600 - BANCO LUSO BRASILEIRO </option>
+                    <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
+                    <option value="610">610 - BANCO VR </option>
+                    <option value="611">611 - BANCO PAULISTA </option>
+                    <option value="612">612 - BANCO GUANABARA </option>
+                    <option value="613">613 - OMNI BANCO </option>
+                    <option value="623">623 - BANCO PAN </option>
+                    <option value="626">626 - BANCO FICSA </option>
+                    <option value="630">630 - BANCO INTERCAP </option>
+                    <option value="633">633 - BANCO RENDIMENTO </option>
+                    <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
+                    <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
+                    <option value="641">641 - BANCO ALVORADA </option>
+                    <option value="643">643 - BANCO PINE </option>
+                    <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
+                    <option value="653">653 - BANCO INDUSVAL </option>
+                    <option value="654">654 - BANCO A.J. RENNER </option>
+                    <option value="655">655 - NEON PAGAMENTOS </option>
+                    <option value="707">707 - BANCO DAYCOVAL </option>
+                    <option value="712">712 - BANCO OURINVEST </option>
+                    <option value="739">739 - BANCO CETELEM </option>
+                    <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
+                    <option value="743">743 - BANCO SEMEAR </option>
+                    <option value="745">745 - BANCO CITIBANK </option>
+                    <option value="746">746 - BANCO MODAL </option>
+                    <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
+                    <option value="748">748 - SICREDI </option>
+                    <option value="751">751 - SCOTIABANK BRASIL </option>
+                    <option value="752">752 - BNP PARIBAS BRASIL </option>
+                    <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
+                    <option value="754">754 - BANCO SISTEMA </option>
+                    <option value="755">755 - BOFA MERRILL LYNCH BM </option>
+                    <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
+                    <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
+                    <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
+                    <option value="954">954 - BANCO CBSS </option>
+                    <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
+                  </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputTipoConta">TIPO DE CONTA</label>
+                <input name="inputTipoConta" type="text" class="form-control" id="inputTipoConta" placeholder="" value="<?php echo $res_1['tipodeconta']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputAgencia">AGENCIA</label>
+                <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="" value="<?php echo $res_1['agencia']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputAgenciaDv">AGENCIA DV</label>
+                <input name="inputAgenciaDv" type="text" class="form-control" id="inputAgenciaDv" placeholder="" value="<?php echo $res_1['agenciadigito']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputConta">CONTA</label>
+                <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="" value="<?php echo $res_1['conta']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputContaDigito">DIGITO</label>
+                <input name="inputDigito" type="text" class="form-control" id="inputDigito" placeholder="" value="<?php echo $res_1['contadigito']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputRenda">RENDA</label>
+                <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="" value="<?php echo $res_1['renda']; ?>">
+              </div>
+            </div>
 
-                <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+            <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
 
           </div>
           <div class="modal-footer">
