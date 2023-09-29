@@ -675,7 +675,7 @@ include("conexao.php");
 
 
                         <td>
-                          <a class="btn btn-info" href="propostas.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
+                          <a class="btn btn-info" href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
                           <a class="btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
 
@@ -711,25 +711,123 @@ include("conexao.php");
     <div class="row">
       <div class="col-md-4">
         <div class="card ">
-          <div class="card-header ">
-            <h5 class="card-title">Email Statistics</h5>
-            <p class="card-category">Last Campaign Performance</p>
+           <!-- início de tabela de usuários mais ativos -->
+
+           <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
+
+            
+
+
+
           </div>
-          <div class="card-body ">
-            <canvas id="chartEmail"></canvas>
-          </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-circle text-primary"></i> Opened
-              <i class="fa fa-circle text-warning"></i> Read
-              <i class="fa fa-circle text-danger"></i> Deleted
-              <i class="fa fa-circle text-gray"></i> Unopened
+          <div class="card-body">
+            <div class="table-responsive">
+
+
+              
+
+              <?php
+
+              
+
+              
+
+
+              
+
+              
+                //contabilizando o usuáio que mais cadastrou propostas
+                $query = "SELECT idusuario, COUNT(idusuario) as propostas
+                FROM propostas
+                GROUP BY idusuario
+                ORDER BY propostas DESC;";
+              
+
+
+
+
+
+              $result = mysqli_query($conexao, $query);
+              //$dado = mysqli_fetch_array($result);
+              $row = mysqli_num_rows($result);
+
+              if ($row == '') {
+
+                echo "<h3> Não existem dados cadastrados no banco </h3>";
+              } else {
+
+              ?>
+
+
+
+                <table class="table">
+                  <thead class=" text-primary">
+
+                  <th>
+                      Usuário
+                    </th>
+                    <th>
+                      Propostas cadastradas
+                    </th>
+                    
+                   
+                   
+                  </thead>
+                  <tbody>
+
+                    <?php
+
+                    while ($res_1 = mysqli_fetch_array($result)) {
+                      $nome = $res_1["idusuario"];
+                      $propostas = $res_1["propostas"];
+                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
+
+
+
+
+
+                    ?>
+
+                      <tr>
+                        <td><?php echo $nome; ?></td>
+                        <td><?php echo $propostas; ?></td>
+                      
+                        
+                        
+
+
+
+                      
+
+
+                      
+                      </tr>
+
+                    <?php
+                    }
+                    ?>
+
+
+
+                  </tbody>
+                </table>
+              <?php
+              }
+              ?>
             </div>
-            <hr>
-            <div class="stats">
-              <i class="fa fa-calendar"></i> Number of emails sent
-            </div>
           </div>
+        </div>
+      </div>
+
+    </div>
+
+
+           <!-- final de tabela de usuários mais ativos -->
+           
         </div>
       </div>
       <div class="col-md-8">
