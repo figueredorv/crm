@@ -1401,46 +1401,46 @@ if (@$_GET['func'] == 'editarcliente') {
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
-                  <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
+                  <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputNomeMae">NOME DA MÃE</label>
-                  <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
+                  <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="" value="<?php echo $res_1['nomedamae']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputNomePai">NOME DO PAI</label>
-                  <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
+                  <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="" value="<?php echo $res_1['nomedopai']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCep">CEP</label>
-                  <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="">
+                  <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="" value="<?php echo $res_1['cep']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputRua">RUA</label>
-                  <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
+                  <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="" value="<?php echo $res_1['rua']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputNumero">NÚMERO</label>
-                  <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="">
+                  <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="" value="<?php echo $res_1['numero']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputComplemento">COMPLEMENTO</label>
-                  <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
+                  <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="" value="<?php echo $res_1['complemento']; ?>">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputBairro">BAIRRO</label>
-                  <input name="inputBairro" type="text" class="form-control" id="inputBairro">
+                  <input name="inputBairro" type="text" class="form-control" id="inputBairro" value="<?php echo $res_1['bairro']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCidade">CIDADE</label>
-                  <input name="inputCidade" type="text" class="form-control" id="inputCidade">
+                  <input name="inputCidade" type="text" class="form-control" id="inputCidade" value="<?php echo $res_1['cidade']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputUf">UF</label>
                   <select name="inputUf" id="inputUf" class="form-control">
-                    <option selected>Escolher...</option>
+                  <option selected><?php echo $res_1['uf']; ?></option>
                     <option value="AC">Acre (AC)</option>
                     <option value="AL">Alagoas (AL)</option>
                     <option value="AP">Amapá (AP)</option>
@@ -1702,11 +1702,13 @@ if (@$_GET['func'] == 'editarcontato') {
             <div class="form-group col-md-6">
             <form method="POST" action="">
               <label for="inputTelefone">TELEFONE</label>
-              <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
+              <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>"
+  >
             </div>
             <div class="form-group col-md-6">
               <label for="inputEmail">EMAIL</label>
-              <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
+              <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>"
+  >
             </div>
             <!-- FINAL DO CONTEÚDO TAB CONTATO-->
 
@@ -1806,6 +1808,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputConvenio">CONVÊNIO</label>
                     <select name="inputConvenio" class="form-control" id="inputConvenio">
+                      <option selected><?php echo $res_1['covenio']; ?></option>
                       <option value="1">INSS</option>
                       <option value="2">FGTS</option>
                       <option value="3">AUXÍLIO BRASIL</option>
@@ -1820,6 +1823,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputOperacao">OPERAÇÃO</label>
                     <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option selected><?php echo $res_1['operacao']; ?></option>
                       <option value="3">REFINANCIAMENTO </option>
                       <option value="2">PORTABILIDADE </option>
                       <option value="1">NOVO </option>
@@ -1837,6 +1841,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputBanco">BANCO</label>
                     <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                    <option selected><?php echo $res_1['banco']; ?></option>
                       <option value="1">001 - BANCO DO BRASIL </option>
                       <option value="3">003 - BANCO DA AMAZONIA </option>
                       <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
@@ -2061,6 +2066,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputPromotora">PROMOTORA</label>
                     <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                       <option selected><?php echo $res_1['promotora']; ?></option>
                       <option value="1">CREDIBRASIL LOJAS </option>
                       <option value="2">CREDIBRASIL CONSIGNADO </option>
                     </select>
@@ -2072,6 +2078,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputPrazo">PRAZO</label>
                     <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
+                    <option selected><?php echo $res_1['prazo']; ?></option>
                       <option value="120">120x</option>
                       <option value="96">96x</option>
                       <option value="84">84x</option>
@@ -2085,15 +2092,16 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputValor">VALOR</label>
-                    <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                    <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputValorParcelas">VALOR PARCELAS</label>
-                    <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                    <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="inputFormalizacao">FORMALIZAÇÃO</label>
                     <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                      <option selected><?php echo $res_1['formalizacao']; ?></option>
                       <option value="1">FÍSICO</option>
                       <option value="2">DIGITAL</option>
                     </select>
@@ -2101,6 +2109,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group col-md-6">
                     <label for="inputCanal">CANAL</label>
                     <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <option selected><?php echo $res_1['canal']; ?></option>
                       <option value="1">TELEMARKETING </option>
                       <option value="2">SMS </option>
                       <option value="3">OUTROS </option>
@@ -2129,7 +2138,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <div class="form-group">
                       <br>
                       <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                      <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
+                      <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
                     </div>
                   </div>
                   </div>
@@ -2204,6 +2213,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
                   <form method="POST" action="">
                     <label for="inputBanco" id="inputBanco">BANCO</label>
                     <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                    <option selected><?php echo $res_1['banco']; ?></option>
                       <option value="1">001 - BANCO DO BRASIL </option>
                       <option value="3">003 - BANCO DA AMAZONIA </option>
                       <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
