@@ -1210,7 +1210,30 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 <?php
 if (isset($_POST['button'])) {
+  $usuario = $_SESSION['nome_usuario'];
+  $nome = $_POST['inputNome'];
+  $cpf = $_POST["inputCpf"];
+  $rg = $_POST['inputRg'];
+  $nascimento = $_POST['inputDataNascimento'];
+  $nomedamae = $_POST["inputNomeMae"];
+  $nomedopai = $_POST['inputNomePai'];
+  $cep = $_POST['inputCep'];
+  $rua = $_POST['inputRua'];
+  $numero = $_POST['inputNumero'];
+  $complemento = $_POST['inputComplemento'];
+  $bairro = $_POST['inputBairro'];
+  $cidade = $_POST['inputCidade'];
+  $uf = $_POST['inputUf'];
+  $telefone = $_POST['inputTelefone'];
+  $email = $_POST['inputEmail'];
   $covenio = $_POST['inputConvenio'];
+  $banco = $_POST['inputBanco'];
+  $tipodeconta = $_POST['inputTipoConta'];
+  $agencia = $_POST['inputAgencia'];
+  $agenciadigito = $_POST['inputAgenciaDv'];
+  $conta = $_POST['inputConta'];
+  //$contadigito = $_POST['inputContaDigito'];
+  $contadigito = 'Funcionou';
   $renda = $_POST['inputRenda'];
   $operacao = $_POST['inputOperacao'];
   $tabela = $_POST['inputTabela'];
@@ -1227,44 +1250,491 @@ if (isset($_POST['button'])) {
   $data = date('d/m/Y H:i');
 
 
-  //Marcando o tipo de convênio com base no valor do input 
-  if ($_POST["inputConvenio"] == "1") {
-    $covenio = "INSS";
+
+  if ($_POST["inputConvenio"] == 1) {
+    $convenio = "NOVO";
+  } elseif ($_POST["inputConvenio"] == 2) {
+    $convenio = "PORTABILIDADE";
+  } elseif ($_POST["inputConvenio"] == 3) {
+    $convenio = "REFINANCIAMENTO";
+  } elseif ($_POST["inputConvenio"] == 4) {
+    $convenio = "CARTÃO PLÁSTICO";
+  } elseif ($_POST["inputConvenio"] == 5) {
+    $convenio = "PORTABILIDADE COM REFIN";
+  } elseif ($_POST["inputConvenio"] == 6) {
+    $convenio = "CARTÃO COM SAQUE";
+  } elseif ($_POST["inputConvenio"] == 7) {
+    $convenio = "CARTÃO BENEFÍCIO COM SEGURO";
+  } elseif ($_POST["inputConvenio"] == 8) {
+    $convenio = "CARTÃO BENEFÍCIO SEM SEGURO";
+  } elseif ($_POST["inputConvenio"] == 9) {
+    $convenio = "CARTÃO BENEFÍCIO INSS";
+  } elseif ($_POST["inputConvenio"] == 10) {
+    $convenio = "NOVO REPRESENTANTE LEGAL";
+  } elseif ($_POST["inputConvenio"] == 11) {
+    $convenio = "NOVO AUMENTO DE SALÁRIO";
+  } elseif ($_POST["inputConvenio"] == 12) {
+    $convenio = "SAQUE CARTÃO BENEFÍCIO";
   }
-  if ($_POST["inputConvenio"] == "2") {
-    $covenio = "FGTS";
-  }
-  if ($_POST["inputConvenio"] == "3") {
-    $covenio = "AUXÍLIO BRASIL";
-  }
-  if ($_POST["inputConvenio"] == "4") {
-    $covenio = "GOVERNO DE SÃO PAULO";
-  }
-  if ($_POST["inputConvenio"] == "5") {
-    $covenio = "PREFEITURA DE SÃO PAULO";
-  }
-  if ($_POST["inputConvenio"] == "6") {
-    $covenio = "GOVERNO DO RIO DE JANEIRO";
-  }
-  if ($_POST["inputConvenio"] == "7") {
-    $covenio = "SIAPE";
+
+
+
+
+  // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
+  if ($_POST["inputBanco"] == 1) {
     $banco = "001 - BANCO DO BRASIL";
   } elseif ($_POST["inputBanco"] == 3) {
     $banco = "003 - BANCO DA AMAZÔNIA";
+  } elseif ($_POST["inputBanco"] == 4) {
+    $banco = "004 - BANCO DO NORDESTE DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 7) {
+    $banco = "007 - BNDES";
+  } elseif ($_POST["inputBanco"] == 10) {
+    $banco = "010 - CREDICOAMO";
+  } elseif ($_POST["inputBanco"] == 11) {
+    $banco = "011 - Credit Suisse";
+  } elseif ($_POST["inputBanco"] == 12) {
+    $banco = "012 - BANCO INBURSA";
+  } elseif ($_POST["inputBanco"] == 14) {
+    $banco = "014 - NATIXIS BRASIL";
+  } elseif ($_POST["inputBanco"] == 15) {
+    $banco = "015 - UBS BRASIL CCTVM";
+  } elseif ($_POST["inputBanco"] == 16) {
+    $banco = "016 - CCM DESP TRANS SC E RS";
+  } elseif ($_POST["inputBanco"] == 17) {
+    $banco = "017 - BNY MELLON BANCO";
+  } elseif ($_POST["inputBanco"] == 18) {
+    $banco = "018 - BANCO TRICURY";
+  } elseif ($_POST["inputBanco"] == 21) {
+    $banco = "021 - BANCO BANESTES";
+  } elseif ($_POST["inputBanco"] == 24) {
+    $banco = "024 - BCO BANDEPE";
+  } elseif ($_POST["inputBanco"] == 25) {
+    $banco = "025 - BANCO ALFA";
+  } elseif ($_POST["inputBanco"] == 29) {
+    $banco = "029 - BANCO ITAU CONSIGNADO";
+  } elseif ($_POST["inputBanco"] == 33) {
+    $banco = "033 - BANCO SANTANDER BRASIL";
+  } elseif ($_POST["inputBanco"] == 36) {
+    $banco = "036 - BANCO BBI";
+  } elseif ($_POST["inputBanco"] == 37) {
+    $banco = "037 - BANCO DO ESTADO DO PARÁ";
+  } elseif ($_POST["inputBanco"] == 40) {
+    $banco = "040 - BANCO CARGILL";
+  } elseif ($_POST["inputBanco"] == 41) {
+    $banco = "041 - BANRISUL";
+  } elseif ($_POST["inputBanco"] == 47) {
+    $banco = "047 - BANCO DO ESTADO DE SERGIPE";
+  } elseif ($_POST["inputBanco"] == 60) {
+    $banco = "060 - CONFIDENCE CC";
+  } elseif ($_POST["inputBanco"] == 62) {
+    $banco = "062 - HIPERCARD BM";
+  } elseif ($_POST["inputBanco"] == 63) {
+    $banco = "063 - BANCO BRADESCARD";
+  } elseif ($_POST["inputBanco"] == 64) {
+    $banco = "064 - GOLDMAN SACHS DO BRASIL BM";
+  } elseif ($_POST["inputBanco"] == 65) {
+    $banco = "065 - BANCO ANDBANK";
+  } elseif ($_POST["inputBanco"] == 66) {
+    $banco = "066 - BANCO MORGAN STANLEY";
+  } elseif ($_POST["inputBanco"] == 69) {
+    $banco = "069 - BANCO CREFISA";
+  } elseif ($_POST["inputBanco"] == 70) {
+    $banco = "070 - BANCO DE BRASÍLIA (BRB)";
+  } elseif ($_POST["inputBanco"] == 74) {
+    $banco = "074 - BCO. J.SAFRA";
+  } elseif ($_POST["inputBanco"] == 75) {
+    $banco = "075 - BCO ABN AMRO";
+  } elseif ($_POST["inputBanco"] == 76) {
+    $banco = "076 - BANCO KDB BRASIL";
+  } elseif ($_POST["inputBanco"] == 77) {
+    $banco = "077 - BANCO INTER";
+  } elseif ($_POST["inputBanco"] == 78) {
+    $banco = "078 - HAITONG BI DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 79) {
+    $banco = "079 - BANCO ORIGINAL DO AGRONEGÓCIO";
+  } elseif ($_POST["inputBanco"] == 80) {
+    $banco = "080 - B&T CC LTDA";
+  } elseif ($_POST["inputBanco"] == 81) {
+    $banco = "081 - BBN BANCO BRASILEIRO DE NEGÓCIOS";
+  } elseif ($_POST["inputBanco"] == 82) {
+    $banco = "082 - BANCO TOPÁZIO";
+  } elseif ($_POST["inputBanco"] == 83) {
+    $banco = "083 - BANCO DA CHINA BRASIL";
+  } elseif ($_POST["inputBanco"] == 84) {
+    $banco = "084 - UNIPRIME NORTE DO PARANÁ";
+  } elseif ($_POST["inputBanco"] == 85) {
+    $banco = "085 - COOP CENTRAL AILOS";
+  } elseif ($_POST["inputBanco"] == 89) {
+    $banco = "089 - CCR REG MOGIANA";
+  } elseif ($_POST["inputBanco"] == 91) {
+    $banco = "091 - UNICRED CENTRAL RS";
+  } elseif ($_POST["inputBanco"] == 92) {
+    $banco = "092 - BRK";
+  } elseif ($_POST["inputBanco"] == 93) {
+    $banco = "093 - PÓLOCRED SCMEPP LTDA";
+  } elseif ($_POST["inputBanco"] == 94) {
+    $banco = "094 - BANCO FINAXIS";
+  } elseif ($_POST["inputBanco"] == 95) {
+    $banco = "095 - BANCO CONFIDENCE DE CÂMBIO";
+  } elseif ($_POST["inputBanco"] == 96) {
+    $banco = "096 - BANCO B3";
+  } elseif ($_POST["inputBanco"] == 97) {
+    $banco = "097 - CCC NOROESTE BRASILEIRO LTDA";
+  } elseif ($_POST["inputBanco"] == 98) {
+    $banco = "098 - CREDIALIANÇA CCR";
+  } elseif ($_POST["inputBanco"] == 99) {
+    $banco = "099 - UNIPRIME CENTRAL CCC LTDA";
+  } elseif ($_POST["inputBanco"] == 100) {
+    $banco = "100 - PLANNER CORRETORA DE VALORES";
+  } elseif ($_POST["inputBanco"] == 101) {
+    $banco = "101 - RENASCENÇA DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 102) {
+    $banco = "102 - XP INVESTIMENTOS";
+  } elseif ($_POST["inputBanco"] == 104) {
+    $banco = "104 - CAIXA ECONÔMICA FEDERAL (CEF)";
+  } elseif ($_POST["inputBanco"] == 105) {
+    $banco = "105 - LECCA CFI";
+  } elseif ($_POST["inputBanco"] == 107) {
+    $banco = "107 - BANCO BOCOM BBM";
+  } elseif ($_POST["inputBanco"] == 108) {
+    $banco = "108 - PORTOCRED";
+  } elseif ($_POST["inputBanco"] == 111) {
+    $banco = "111 - BANCO OLIVEIRA TRUST DTVM";
+  } elseif ($_POST["inputBanco"] == 113) {
+    $banco = "113 - MAGLIANO";
+  } elseif ($_POST["inputBanco"] == 114) {
+    $banco = "114 - CENTRAL COOPERATIVA DE CRÉDITO NO ESTADO DO E";
+  } elseif ($_POST["inputBanco"] == 117) {
+    $banco = "117 - ADVANCED CC LTDA";
+  } elseif ($_POST["inputBanco"] == 118) {
+    $banco = "118 - STANDARD CHARTERED BI";
+  } elseif ($_POST["inputBanco"] == 119) {
+    $banco = "119 - BANCO WESTERN UNION";
+  } elseif ($_POST["inputBanco"] == 120) {
+    $banco = "120 - BANCO RODOBENS";
+  } elseif ($_POST["inputBanco"] == 121) {
+    $banco = "121 - BANCO AGIBANK";
+  } elseif ($_POST["inputBanco"] == 122) {
+    $banco = "122 - BANCO BRADESCO BERJ";
+  } elseif ($_POST["inputBanco"] == 124) {
+    $banco = "124 - BANCO WOORI BANK DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 125) {
+    $banco = "125 - BRASIL PLURAL BANCO";
+  } elseif ($_POST["inputBanco"] == 126) {
+    $banco = "126 - BR PARTNERS BI";
+  } elseif ($_POST["inputBanco"] == 127) {
+    $banco = "127 - CODEPE CVC";
+  } elseif ($_POST["inputBanco"] == 128) {
+    $banco = "128 - MS BANK BANCO DE CÂMBIO";
+  } elseif ($_POST["inputBanco"] == 129) {
+    $banco = "129 - UBS BRASIL BI";
+  } elseif ($_POST["inputBanco"] == 130) {
+    $banco = "130 - CARUANA SCFI";
+  } elseif ($_POST["inputBanco"] == 131) {
+    $banco = "131 - TULLETT PREBON BRASIL CVC LTDA";
+  } elseif ($_POST["inputBanco"] == 132) {
+    $banco = "132 - ICBC DO BRASIL BM";
+  } elseif ($_POST["inputBanco"] == 133) {
+    $banco = "133 - CRESOL CONFEDERAÇÃO";
+  } elseif ($_POST["inputBanco"] == 134) {
+    $banco = "134 - BGC LIQUIDEZ DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 136) {
+    $banco = "136 - UNICRED COOPERATIVA";
+  } elseif ($_POST["inputBanco"] == 137) {
+    $banco = "137 - MULTIMONEY CC LTDA";
+  } elseif ($_POST["inputBanco"] == 138) {
+    $banco = "138 - GET MONEY CC LTDA";
+  } elseif ($_POST["inputBanco"] == 139) {
+    $banco = "139 - INTESA SANPAOLO BRASIL";
+  } elseif ($_POST["inputBanco"] == 140) {
+    $banco = "140 - EASYNVEST - TÍTULO CV";
+  } elseif ($_POST["inputBanco"] == 142) {
+    $banco = "142 - BROKER BRASIL CC LTDA";
+  } elseif ($_POST["inputBanco"] == 143) {
+    $banco = "143 - TREVISO CC";
+  } elseif ($_POST["inputBanco"] == 144) {
+    $banco = "144 - BEXS BANCO DE CÂMBIO";
+  } elseif ($_POST["inputBanco"] == 145) {
+    $banco = "145 - LEVYCAM CCV LTDA";
+  } elseif ($_POST["inputBanco"] == 146) {
+    $banco = "146 - GUITTA CC LTDA";
+  } elseif ($_POST["inputBanco"] == 149) {
+    $banco = "149 - FACTA . CFI";
+  } elseif ($_POST["inputBanco"] == 157) {
+    $banco = "157 - ICAP DO BRASIL CTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 159) {
+    $banco = "159 - CASA CRÉDITO";
+  } elseif ($_POST["inputBanco"] == 163) {
+    $banco = "163 - COMMERZBANK BRASIL BANCO MÚLTIPLO";
+  } elseif ($_POST["inputBanco"] == 169) {
+    $banco = "169 - BANCO OLE CONSIGNADO";
+  } elseif ($_POST["inputBanco"] == 172) {
+    $banco = "172 - ALBATROSS CCV";
+  } elseif ($_POST["inputBanco"] == 173) {
+    $banco = "173 - BRL TRUST DTVM SA";
+  } elseif ($_POST["inputBanco"] == 174) {
+    $banco = "174 - PERNAMBUCANAS FINANC";
+  } elseif ($_POST["inputBanco"] == 177) {
+    $banco = "177 - GUIDE";
+  } elseif ($_POST["inputBanco"] == 180) {
+    $banco = "180 - CM CAPITAL MARKETS CCTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 182) {
+    $banco = "182 - DACASA FINANCEIRA S/A";
+  } elseif ($_POST["inputBanco"] == 183) {
+    $banco = "183 - SOCRED";
+  } elseif ($_POST["inputBanco"] == 184) {
+    $banco = "184 - BANCO ITAÚ BBA";
+  } elseif ($_POST["inputBanco"] == 188) {
+    $banco = "188 - ATIVA INVESTIMENTOS";
+  } elseif ($_POST["inputBanco"] == 189) {
+    $banco = "189 - HS FINANCEIRA";
+  } elseif ($_POST["inputBanco"] == 190) {
+    $banco = "190 - SERVICOOP";
+  } elseif ($_POST["inputBanco"] == 191) {
+    $banco = "191 - NOVA FUTURA CTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 194) {
+    $banco = "194 - PARMETAL DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 196) {
+    $banco = "196 - BANCO FAIR CC";
+  } elseif ($_POST["inputBanco"] == 197) {
+    $banco = "197 - STONE PAGAMENTOS";
+  } elseif ($_POST["inputBanco"] == 204) {
+    $banco = "204 - BANCO BRADESCO CARTÕES";
+  } elseif ($_POST["inputBanco"] == 208) {
+    $banco = "208 - BANCO BTG PACTUAL";
+  } elseif ($_POST["inputBanco"] == 212) {
+    $banco = "212 - BANCO ORIGINAL";
+  } elseif ($_POST["inputBanco"] == 213) {
+    $banco = "213 - BCO ARBI";
+  } elseif ($_POST["inputBanco"] == 217) {
+    $banco = "217 - BANCO JOHN DEERE";
+  } elseif ($_POST["inputBanco"] == 218) {
+    $banco = "218 - BANCO BS2";
+  } elseif ($_POST["inputBanco"] == 222) {
+    $banco = "222 - BANCO CREDIT AGRICOLE BR";
+  } elseif ($_POST["inputBanco"] == 224) {
+    $banco = "224 - BANCO FIBRA";
+  } elseif ($_POST["inputBanco"] == 233) {
+    $banco = "233 - BANCO CIFRA";
+  } elseif ($_POST["inputBanco"] == 237) {
+    $banco = "237 - BRADESCO";
+  } elseif ($_POST["inputBanco"] == 241) {
+    $banco = "241 - BANCO CLÁSSICO";
+  } elseif ($_POST["inputBanco"] == 243) {
+    $banco = "243 - BANCO MÁXIMA";
+  } elseif ($_POST["inputBanco"] == 246) {
+    $banco = "246 - BANCO ABC BRASIL";
+  } elseif ($_POST["inputBanco"] == 249) {
+    $banco = "249 - BANCO INVESTCRED UNIBANCO";
+  } elseif ($_POST["inputBanco"] == 250) {
+    $banco = "250 - BANCO BCV";
+  } elseif ($_POST["inputBanco"] == 253) {
+    $banco = "253 - BEXS CC";
+  } elseif ($_POST["inputBanco"] == 254) {
+    $banco = "254 - PARANÁ BANCO";
+  } elseif ($_POST["inputBanco"] == 260) {
+    $banco = "260 - NU PAGAMENTOS (NUBANK)";
+  } elseif ($_POST["inputBanco"] == 265) {
+    $banco = "265 - BANCO FATOR";
+  } elseif ($_POST["inputBanco"] == 266) {
+    $banco = "266 - BANCO CÉDULA";
+  } elseif ($_POST["inputBanco"] == 268) {
+    $banco = "268 - BARIGUI CH";
+  } elseif ($_POST["inputBanco"] == 269) {
+    $banco = "269 - HSBC BANCO DE INVESTIMENTO";
+  } elseif ($_POST["inputBanco"] == 270) {
+    $banco = "270 - SAGITUR CC LTDA";
+  } elseif ($_POST["inputBanco"] == 271) {
+    $banco = "271 - IB CCTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 273) {
+    $banco = "273 - CCR DE SÃO MIGUEL DO OESTE";
+  } elseif ($_POST["inputBanco"] == 276) {
+    $banco = "276 - SENFF";
+  } elseif ($_POST["inputBanco"] == 278) {
+    $banco = "278 - GENIAL INVESTIMENTOS CVM";
+  } elseif ($_POST["inputBanco"] == 279) {
+    $banco = "279 - CCR DE PRIMAVERA DO LESTE";
+  } elseif ($_POST["inputBanco"] == 280) {
+    $banco = "280 - AVISTA";
+  } elseif ($_POST["inputBanco"] == 283) {
+    $banco = "283 - RB CAPITAL INVESTIMENTOS DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 285) {
+    $banco = "285 - FRENTE CC LTDA";
+  } elseif ($_POST["inputBanco"] == 286) {
+    $banco = "286 - CCR DE OURO";
+  } elseif ($_POST["inputBanco"] == 288) {
+    $banco = "288 - CAROL DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 290) {
+    $banco = "290 - PAGSEGURO INTERNET";
+  } elseif ($_POST["inputBanco"] == 292) {
+    $banco = "292 - BS2 DISTRIBUIDORA DE TÍTULOS E INVESTIMENTOS";
+  } elseif ($_POST["inputBanco"] == 293) {
+    $banco = "293 - LASTRO RDV DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 298) {
+    $banco = "298 - VIPS CC LTDA";
+  } elseif ($_POST["inputBanco"] == 300) {
+    $banco = "300 - BANCO LA NACION ARGENTINA";
+  } elseif ($_POST["inputBanco"] == 301) {
+    $banco = "301 - BPP INSTITUIÇÃO DE PAGAMENTOS";
+  } elseif ($_POST["inputBanco"] == 310) {
+    $banco = "310 - VORTX DTVM LTDA";
+  } elseif ($_POST["inputBanco"] == 318) {
+    $banco = "318 - BANCO BMG";
+  } elseif ($_POST["inputBanco"] == 320) {
+    $banco = "320 - BANCO CCB BRASIL";
+  } elseif ($_POST["inputBanco"] == 321) {
+    $banco = "321 - CREFAZ SCMEPP LTDA";
+  } elseif ($_POST["inputBanco"] == 323) {
+    $banco = "323 - MERCADO PAGO - CONTA DO MERCADO LIVRE";
+  } elseif ($_POST["inputBanco"] == 329) {
+    $banco = "329 - Q I SOC PAULISTA DE CREDITO FINANCIAMENTO E INVESTIMENTO";
+  } elseif ($_POST["inputBanco"] == 341) {
+    $banco = "341 - ITAÚ UNIBANCO";
+  } elseif ($_POST["inputBanco"] == 366) {
+    $banco = "366 - SOCINAL";
+  } elseif ($_POST["inputBanco"] == 370) {
+    $banco = "370 - BANCO MIZUHO";
+  } elseif ($_POST["inputBanco"] == 376) {
+    $banco = "376 - JP MORGAN";
+  } elseif ($_POST["inputBanco"] == 389) {
+    $banco = "389 - BANCO MERCANTIL DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 394) {
+    $banco = "394 - BANCO BMG";
+  } elseif ($_POST["inputBanco"] == 399) {
+    $banco = "399 - HSBC";
+  } elseif ($_POST["inputBanco"] == 409) {
+    $banco = "409 - UNIBANCO - UNIÃO DE BANCOS BRASILEIROS";
+  } elseif ($_POST["inputBanco"] == 412) {
+    $banco = "412 - BANCO CAPITAL";
+  } elseif ($_POST["inputBanco"] == 422) {
+    $banco = "422 - BANCO SAFRA";
+  } elseif ($_POST["inputBanco"] == 453) {
+    $banco = "453 - BANCO RURAL";
+  } elseif ($_POST["inputBanco"] == 456) {
+    $banco = "456 - BANCO BARCLAYS";
+  } elseif ($_POST["inputBanco"] == 464) {
+    $banco = "464 - BANCO SUMITOMO MITSUI BRASILEIRO";
+  } elseif ($_POST["inputBanco"] == 477) {
+    $banco = "477 - CITIBANK";
+  } elseif ($_POST["inputBanco"] == 479) {
+    $banco = "479 - BANCO ITAUBANK";
+  } elseif ($_POST["inputBanco"] == 487) {
+    $banco = "487 - DEUTSCHE BANK";
+  } elseif ($_POST["inputBanco"] == 488) {
+    $banco = "488 - JPMORGAN CHASE BANK";
+  } elseif ($_POST["inputBanco"] == 492) {
+    $banco = "492 - ING BANK";
+  } elseif ($_POST["inputBanco"] == 494) {
+    $banco = "494 - BANCO DE LA NACION ARGENTINA";
+  } elseif ($_POST["inputBanco"] == 495) {
+    $banco = "495 - BANK OF AMERICA";
+  } elseif ($_POST["inputBanco"] == 505) {
+    $banco = "505 - BANCO CREDIT SUISSE";
+  } elseif ($_POST["inputBanco"] == 545) {
+    $banco = "545 - SENSO CCVM SA";
+  } elseif ($_POST["inputBanco"] == 600) {
+    $banco = "600 - BANCO LUSO BRASILEIRO";
+  } elseif ($_POST["inputBanco"] == 604) {
+    $banco = "604 - BANCO INDUSTRIAL DO BRASIL";
+  } elseif ($_POST["inputBanco"] == 610) {
+    $banco = "610 - VR CRED AC";
+  } elseif ($_POST["inputBanco"] == 611) {
+    $banco = "611 - COOPERATIVA UNIPRIME";
+  } elseif ($_POST["inputBanco"] == 612) {
+    $banco = "612 - BANCO GUANABARA";
+  } elseif ($_POST["inputBanco"] == 613) {
+    $banco = "613 - OMNI BANCO";
+  } elseif ($_POST["inputBanco"] == 623) {
+    $banco = "623 - BANCO PAN";
+  } elseif ($_POST["inputBanco"] == 626) {
+    $banco = "626 - BANCO FICSA";
+  } elseif ($_POST["inputBanco"] == 630) {
+    $banco = "630 - BANCO INTERCAP";
+  } elseif ($_POST["inputBanco"] == 633) {
+    $banco = "633 - BANCO REDENTOR";
+  } elseif ($_POST["inputBanco"] == 634) {
+    $banco = "634 - BANCO TRIANGULO";
+  } elseif ($_POST["inputBanco"] == 637) {
+    $banco = "637 - BANCO SOFISA";
+  } elseif ($_POST["inputBanco"] == 641) {
+    $banco = "641 - BANCO ALVORADA";
+  } elseif ($_POST["inputBanco"] == 643) {
+    $banco = "643 - BANCO PINE";
+  } elseif ($_POST["inputBanco"] == 652) {
+    $banco = "652 - ITAÚ UNIBANCO HOLDING BM";
+  } elseif ($_POST["inputBanco"] == 653) {
+    $banco = "653 - BANCO INDUSVAL";
+  } elseif ($_POST["inputBanco"] == 654) {
+    $banco = "654 - BANCO A.J. RENNER";
+  } elseif ($_POST["inputBanco"] == 655) {
+    $banco = "655 - BANCO VOTORANTIM";
+  } elseif ($_POST["inputBanco"] == 707) {
+    $banco = "707 - BANCO DAYCOVAL";
+  } elseif ($_POST["inputBanco"] == 712) {
+    $banco = "712 - BANCO OURINVEST";
+  } elseif ($_POST["inputBanco"] == 756) {
+    $banco = "756 - SICOOB";
+  } elseif ($_POST["inputBanco"] == 999) {
+    $banco = "999 - BANCO COOPERATIVO SICREDI";
   }
-  if ($_POST["inputConvenio"] == "8") {
-    $covenio = "GOVERNO DA BAHIA";
+
+  if ($_POST['inputValorParcelas'] == 120) {
+    $parcela = "120x";
+  } elseif ($_POST['inputValorParcelas'] == 96) {
+    $parcela = "96x";
+  } elseif ($_POST['inputValorParcelas'] == 84) {
+    $parcela = "84x";
+  } elseif ($_POST['inputValorParcelas'] == 72) {
+    $parcela = "72x";
+  } elseif ($_POST['inputValorParcelas'] == 60) {
+    $parcela = "60x";
+  } elseif ($_POST['inputValorParcelas'] == 48) {
+    $parcela = "48x";
+  } elseif ($_POST['inputValorParcelas'] == 36) {
+    $parcela = "36x";
+  } elseif ($_POST['inputValorParcelas'] == 24) {
+    $parcela = "24x";
+  } elseif ($_POST['inputValorParcelas'] == 12) {
+    $parcela = "12x";
   }
-  if ($_POST["inputConvenio"] == "9") {
-    $covenio = "PESSOAL";
+
+
+  if ($_POST['inputCanal'] == 1) {
+    $canal = "TELEMARKETING";
+  } elseif ($_POST['inputCanal'] == 2) {
+    $canal = "SMS";
+  } elseif ($_POST['inputCanal'] == 3) {
+    $canal = "OUTROS";
+  } elseif ($_POST['inputCanal'] == 4) {
+    $canal = "WHATSAPP";
+  } elseif ($_POST['inputCanal'] == 5) {
+    $canal = "FACEBOOK";
+  } elseif ($_POST['inputCanal'] == 6) {
+    $canal = "ANUNCIO";
+  } elseif ($_POST['inputCanal'] == 7) {
+    $canal = "DISPAROS WATZAP";
+  } elseif ($_POST['inputCanal'] == 8) {
+    $canal = "INDICAÇÃO";
+  } elseif ($_POST['inputCanal'] == 9) {
+    $canal = "LIGAÇÃO";
+  } elseif ($_POST['inputCanal'] == 10) {
+    $canal = "CLIENTE BALCÃO";
+  } elseif ($_POST['inputCanal'] == 11) {
+    $canal = "CLIENTE LIGOU NA LOJA";
+  } elseif ($_POST['inputCanal'] == 12) {
+    $canal = "INSTAGRAM";
+  } elseif ($_POST['inputCanal'] == 13) {
+    $canal = "FACE";
+  } elseif ($_POST['inputCanal'] == 14) {
+    $canal = "CARTEIRA";
   }
 
 
   //Marcando o tipo de promotora com base no valor do input 
-  if ($_POST["inputPromotora"] == "1") {
+  if ($_POST["inputPromotora"] == 1) {
     $promotora = "CREDIBRASIL LOJAS";
   }
-  if ($_POST["inputPromotora"] == "2") {
   if ($_POST["inputPromotora"] == 2) {
     $promotora = "CREDIBRASIL CONSIGNADO";
   }
@@ -1275,16 +1745,42 @@ if (isset($_POST['button'])) {
   if ($_POST['inputFormalizacao'] == 1) {
     $formalização = "DIGITAL";
   } elseif ($_POST['inputFormalizacao'] == 2) {
+    $formalização = "FÍSICO";
 
 
-  //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
-  $query_verificar = "select * from propostas where nome = '$nome' ";
+
+
+    if ($_POST['inputOperacao'] == 1) {
+      $operacao = "NOVO";
+    } elseif ($_POST['inputOperacao'] == 2) {
+      $operacao = "PORTABILIDADE";
+    } elseif ($_POST['inputOperacao'] == 3) {
+      $operacao = "REFINANCIAMENTO";
+    } elseif ($_POST['inputOperacao'] == 4) {
+      $operacao = "CARTÃO PLÁSTICO";
+    } elseif ($_POST['inputOperacao'] == 5) {
+      $operacao = "PORTABILIDADE COM REFIN";
+    } elseif ($_POST['inputOperacao'] == 6) {
+      $operacao = "CARTÃO COM SAQUE";
+    } elseif ($_POST['inputOperacao'] == 7) {
+      $operacao = "CARTÃO BENEFÍCIO COM SEGURO";
+    } elseif ($_POST['inputOperacao'] == 8) {
+      $operacao = "CARTÃO BENEFÍCIO SEM SEGURO";
+    } elseif ($_POST['inputOperacao'] == 9) {
+      $operacao = "CARTÃO BENEFÍCIO INSS";
+    } elseif ($_POST['inputOperacao'] == 10) {
+      $operacao = "NOVO REPRESENTANTE LEGAL";
+    } elseif ($_POST['inputOperacao'] == 11) {
+      $operacao = "NOVO AUMENTO DE SALÁRIO";
+    } elseif ($_POST['inputOperacao'] == 12) {
+      $operacao = "SAQUE CARTÃO BENEFÍCIO";
+    }
+
+
 
     //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
     $query_verificar = "select * from propostas where nome = '$nome' ";
 
-    echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </script>";
-    exit();
     $result_verificar = mysqli_query($conexao, $query_verificar);
     $row_verificar = mysqli_num_rows($result_verificar);
 
