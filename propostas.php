@@ -2167,7 +2167,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 
 
-<!--inínio modal clientes-->
+<!--inínio modal editar contatos-->
 <?php
 if (@$_GET['func'] == 'editarcontato') {
   $id = $_GET['id'];
@@ -2264,7 +2264,7 @@ if (@$_GET['func'] == 'editarcontato') {
 
 <?php }
 }  ?>
-<!--final modal clientes -->
+<!--final modal editar contato -->
 
 
 
