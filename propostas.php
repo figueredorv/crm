@@ -2645,7 +2645,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success mb-3" name="buttonEditar">Salvar </button>
+            <button type="submit" class="btn btn-success mb-3" name="buttonEditarProposta">Salvar </button>
 
 
             <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
@@ -2663,7 +2663,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 <?php
-    if (isset($_POST['buttonEditarPropopostas'])) {
+    if (isset($_POST['buttonEditarProposta'])) {
       $convenio = $_POST['inputConvenio'];
       $operacao = $_POST['inputOperacao'];
       $banco = $_POST['inputBanco'];
@@ -3207,8 +3207,8 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-                                      // corrigir campos do update
-      $query_editar = "UPDATE propostas set convenio = '$covenio', banco = '$banco', rg = '$rg', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+                                    
+      $query_editar = "UPDATE propostas set convenio = '$convenio', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = '$documentoanexado', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
