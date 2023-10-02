@@ -326,6 +326,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                               <td>
 
+                                
+
+
+
+                                <div class="btn-group" role="group" aria-label="Exemplo básico">
+                                  
+
                                 <div class="dropdown">
                                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação
                                     <span class="caret"></span></button>
@@ -339,9 +346,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-                                <div class="btn-group" role="group" aria-label="Exemplo básico">
-                                  <a class="btn btn-info btn-sm" href="propostas.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"> Editar</i></a>
-
                                   <a class="btn btn-danger btn-sm" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"> Deletar</i></a>
 
 
@@ -350,7 +354,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                                   <?php
                                   if ($statusproposta == "Pendente") : ?>
-                                    <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
+                                    <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Alterar status</i></a>
                                   <?php
 
                                   endif;
@@ -2676,7 +2680,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       $canal = $_POST['inputCanal'];
       $documentoanexado   = $_POST['inputDocumento'];
       $observacao   = $_POST['inputObservacao'];
-      $statusproposta = $_POST['inputStatus'];
+      
      
 
        // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
@@ -3528,7 +3532,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success mb-3" name="buttonEditar">Salvar </button>
+            <button type="submit" class="btn btn-success mb-3" name="buttonEditarDadosBancarios">Salvar </button>
 
 
             <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
