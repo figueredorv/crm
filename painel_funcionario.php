@@ -620,7 +620,7 @@ include("conexao.php");
                       $cpf = $res_1["cpf"];
                       $operacao = $res_1["operacao"];
                       $tabela = $res_1["tabela"];
-                      $convenio = $res_1["covenio"];
+                      $convenio = $res_1["convenio"];
                       $banco = $res_1["banco"];
                       $valor = $res_1["valor"];
                       $promotora = $res_1["promotora"];

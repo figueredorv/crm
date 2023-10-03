@@ -326,23 +326,23 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                               <td>
 
-                                
+
 
 
 
                                 <div class="btn-group" role="group" aria-label="Exemplo básico">
-                                  
 
-                                <div class="dropdown">
-                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação
-                                    <span class="caret"></span></button>
-                                  <ul class="dropdown-menu">
-                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>">Editar cliente</a></li>
-                                    <li><a href="propostas.php?func=editarcontato&id=<?php echo $id; ?>">Editar contato</a></li>
-                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>">Editar propostas</a></li>
-                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>">Editar dados bancários</a></li>
-                                  </ul>
-                                </div>
+
+                                  <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação
+                                      <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>">Editar cliente</a></li>
+                                      <li><a href="propostas.php?func=editarcontato&id=<?php echo $id; ?>">Editar contato</a></li>
+                                      <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>">Editar propostas</a></li>
+                                      <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>">Editar dados bancários</a></li>
+                                    </ul>
+                                  </div>
 
 
 
@@ -2307,346 +2307,348 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
             <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
-            <div class="form-row">
-              <form method="POST" action="">
-                <div class="form-group col-md-6">
-                  <label for="inputConvenio">CONVÊNIO</label>
-                  <select name="inputConvenio" class="form-control" id="inputConvenio">
-                    <option selected><?php echo $res_1['convenio']; ?></option>
-                    <option value="1">INSS</option>
-                    <option value="2">FGTS</option>
-                    <option value="3">AUXÍLIO BRASIL</option>
-                    <option value="4">GOVERNO DE SÃO PAULO</option>
-                    <option value="5">PREFEITURA DE SÃO PAULO</option>
-                    <option value="6">GOVERNO DO RIO DE JANEIRO</option>
-                    <option value="7">SIAPE</option>
-                    <option value="8">GOVERNO DA BAHIA</option>
-                    <option value="9">PESSOAL</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputOperacao">OPERAÇÃO</label>
-                  <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected><?php echo $res_1['operacao']; ?></option>
-                    <option value="3">REFINANCIAMENTO </option>
-                    <option value="2">PORTABILIDADE </option>
-                    <option value="1">NOVO </option>
-                    <option value="4">CARTÃO PLÁSTICO </option>
-                    <option value="6">CARTÃO COM SAQUE </option>
-                    <option value="5">PORTABILIDADE COM REFIN </option>
-                    <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
-                    <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
-                    <option value="9">CARTÃO BENEFÍCIO INSS </option>
-                    <option value="10">NOVO REPRESENTANTE LEGAL </option>
-                    <option value="11">NOVO AUMENTO DE SALARIO </option>
-                    <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputBanco">BANCO</label>
-                  <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
-                    <option selected><?php echo $res_1['banco']; ?></option>
-                    <option value="1">001 - BANCO DO BRASIL </option>
-                    <option value="3">003 - BANCO DA AMAZONIA </option>
-                    <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
-                    <option value="7">007 - BNDES </option>
-                    <option value="10">010 - CREDICOAMO </option>
-                    <option value="11">011 - Credit Suisse </option>
-                    <option value="12">012 - BANCO INBURSA </option>
-                    <option value="14">014 - NATIXIS BRASIL </option>
-                    <option value="15">015 - UBS BRASIL CCTVM </option>
-                    <option value="16">016 - CCM DESP TRANS SC E RS </option>
-                    <option value="17">017 - BNY MELLON BANCO </option>
-                    <option value="18">018 - BANCO TRICURY </option>
-                    <option value="21">021 - BANCO BANESTES </option>
-                    <option value="24">024 - BCO BANDEPE </option>
-                    <option value="25">025 - BANCO ALFA . </option>
-                    <option value="29">029 - BANCO ITAU CONSIGNADO </option>
-                    <option value="33">033 - BANCO SANTANDER BRASIL </option>
-                    <option value="36">036 - BANCO BBI </option>
-                    <option value="37">037 - BANCO DO ESTADO DO PARA </option>
-                    <option value="40">040 - BANCO CARGILL </option>
-                    <option value="41">041 - BANRISUL </option>
-                    <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
-                    <option value="60">060 - CONFIDENCE CC </option>
-                    <option value="62">062 - HIPERCARD BM </option>
-                    <option value="63">063 - BANCO BRADESCARD </option>
-                    <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
-                    <option value="65">065 - BANCO ANDBANK </option>
-                    <option value="66">066 - BANCO MORGAN STANLEY </option>
-                    <option value="69">069 - BANCO CREFISA </option>
-                    <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
-                    <option value="74">074 - BCO. J.SAFRA </option>
-                    <option value="75">075 - BCO ABN AMRO </option>
-                    <option value="76">076 - BANCO KDB BRASIL . </option>
-                    <option value="77">077 - BANCO INTER </option>
-                    <option value="78">078 - HAITONG BI DO BRASIL </option>
-                    <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
-                    <option value="80">080 - B&amp;T CC LTDA </option>
-                    <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
-                    <option value="82">082 - BANCO TOPAZIO </option>
-                    <option value="83">083 - BANCO DA CHINA BRASIL </option>
-                    <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
-                    <option value="85">085 - COOP CENTRAL AILOS </option>
-                    <option value="89">089 - CCR REG MOGIANA </option>
-                    <option value="91">091 - UNICRED CENTRAL RS </option>
-                    <option value="92">092 - BRK </option>
-                    <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
-                    <option value="94">094 - BANCO FINAXIS </option>
-                    <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
-                    <option value="96">096 - BANCO B3 </option>
-                    <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
-                    <option value="98">098 - CREDIALIANÇA CCR </option>
-                    <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
-                    <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
-                    <option value="101">101 - RENASCENCA DTVM LTDA </option>
-                    <option value="102">102 - XP INVESTIMENTOS </option>
-                    <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
-                    <option value="105">105 - LECCA CFI </option>
-                    <option value="107">107 - BANCO BOCOM BBM </option>
-                    <option value="108">108 - PORTOCRED </option>
-                    <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
-                    <option value="113">113 - MAGLIANO </option>
-                    <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
-                    <option value="117">117 - ADVANCED CC LTDA </option>
-                    <option value="118">118 - STANDARD CHARTERED BI </option>
-                    <option value="119">119 - BANCO WESTERN UNION </option>
-                    <option value="120">120 - BANCO RODOBENS </option>
-                    <option value="121">121 - BANCO AGIBANK </option>
-                    <option value="122">122 - BANCO BRADESCO BERJ </option>
-                    <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
-                    <option value="125">125 - BRASIL PLURAL BANCO </option>
-                    <option value="126">126 - BR PARTNERS BI </option>
-                    <option value="127">127 - CODEPE CVC </option>
-                    <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
-                    <option value="129">129 - UBS BRASIL BI </option>
-                    <option value="130">130 - CARUANA SCFI </option>
-                    <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
-                    <option value="132">132 - ICBC DO BRASIL BM </option>
-                    <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
-                    <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
-                    <option value="136">136 - UNICRED COOPERATIVA </option>
-                    <option value="137">137 - MULTIMONEY CC LTDA </option>
-                    <option value="138">138 - GET MONEY CC LTDA </option>
-                    <option value="139">139 - INTESA SANPAOLO BRASIL </option>
-                    <option value="140">140 - EASYNVEST - TITULO CV </option>
-                    <option value="142">142 - BROKER BRASIL CC LTDA </option>
-                    <option value="143">143 - TREVISO CC </option>
-                    <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
-                    <option value="145">145 - LEVYCAM CCV LTDA </option>
-                    <option value="146">146 - GUITTA CC LTDA </option>
-                    <option value="149">149 - FACTA . CFI </option>
-                    <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
-                    <option value="159">159 - CASA CREDITO </option>
-                    <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
-                    <option value="169">169 - BANCO OLE CONSIGNADO </option>
-                    <option value="172">172 - ALBATROSS CCV </option>
-                    <option value="173">173 - BRL TRUST DTVM SA </option>
-                    <option value="174">174 - PERNAMBUCANAS FINANC </option>
-                    <option value="177">177 - GUIDE </option>
-                    <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
-                    <option value="182">182 - DACASA FINANCEIRA S/A </option>
-                    <option value="183">183 - SOCRED </option>
-                    <option value="184">184 - BANCO ITAU BBA </option>
-                    <option value="188">188 - ATIVA INVESTIMENTOS </option>
-                    <option value="189">189 - HS FINANCEIRA </option>
-                    <option value="190">190 - SERVICOOP </option>
-                    <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
-                    <option value="194">194 - PARMETAL DTVM LTDA </option>
-                    <option value="196">196 - BANCO FAIR CC </option>
-                    <option value="197">197 - STONE PAGAMENTOS </option>
-                    <option value="204">204 - BANCO BRADESCO CARTOES </option>
-                    <option value="208">208 - BANCO BTG PACTUAL </option>
-                    <option value="212">212 - BANCO ORIGINAL </option>
-                    <option value="213">213 - BCO ARBI </option>
-                    <option value="217">217 - BANCO JOHN DEERE </option>
-                    <option value="218">218 - BANCO BS2 </option>
-                    <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
-                    <option value="224">224 - BANCO FIBRA </option>
-                    <option value="233">233 - BANCO CIFRA </option>
-                    <option value="237">237 - BRADESCO </option>
-                    <option value="241">241 - BANCO CLASSICO </option>
-                    <option value="243">243 - BANCO MAXIMA </option>
-                    <option value="246">246 - BANCO ABC BRASIL </option>
-                    <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
-                    <option value="250">250 - BANCO BCV </option>
-                    <option value="253">253 - BEXS CC </option>
-                    <option value="254">254 - PARANA BANCO </option>
-                    <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
-                    <option value="265">265 - BANCO FATOR </option>
-                    <option value="266">266 - BANCO CEDULA </option>
-                    <option value="268">268 - BARIGUI CH </option>
-                    <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
-                    <option value="270">270 - SAGITUR CC LTDA </option>
-                    <option value="271">271 - IB CCTVM LTDA </option>
-                    <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
-                    <option value="276">276 - SENFF </option>
-                    <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
-                    <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
-                    <option value="280">280 - AVISTA </option>
-                    <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
-                    <option value="285">285 - FRENTE CC LTDA </option>
-                    <option value="286">286 - CCR DE OURO </option>
-                    <option value="288">288 - CAROL DTVM LTDA </option>
-                    <option value="290">290 - Pagseguro Internet </option>
-                    <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
-                    <option value="293">293 - LASTRO RDV DTVM LTDA </option>
-                    <option value="298">298 - VIPS CC LTDA </option>
-                    <option value="300">300 - BANCO LA NACION ARGENTINA </option>
-                    <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
-                    <option value="310">310 - VORTX DTVM LTDA </option>
-                    <option value="318">318 - BANCO BMG </option>
-                    <option value="320">320 - BANCO CCB BRASIL </option>
-                    <option value="321">321 - CREFAZ SCMEPP LTDA </option>
-                    <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
-                    <option value="329">329 - Q I Sociedade </option>
-                    <option value="335">335 - Banco Digio </option>
-                    <option value="336">336 - C6 BANK </option>
-                    <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
-                    <option value="341">341 - ITAU UNIBANCO </option>
-                    <option value="348">348 - BANCO XP S/A </option>
-                    <option value="359">359 - ZEMA CFI S/A </option>
-                    <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
-                    <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
-                    <option value="370">370 - BANCO MIZUHO </option>
-                    <option value="376">376 - BANCO J.P. MORGAN </option>
-                    <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
-                    <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
-                    <option value="399">399 - KIRTON BANK </option>
-                    <option value="412">412 - BANCO CAPITAL </option>
-                    <option value="413">413 - BANCO BV </option>
-                    <option value="422">422 - BANCO SAFRA </option>
-                    <option value="456">456 - BANCO MUFG BRASIL </option>
-                    <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
-                    <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
-                    <option value="477">477 - CITIBANK N.A </option>
-                    <option value="479">479 - BANCO ITAUBANK </option>
-                    <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
-                    <option value="488">488 - JPMORGAN CHASE BANK </option>
-                    <option value="492">492 - ING BANK N.V </option>
-                    <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
-                    <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
-                    <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
-                    <option value="545">545 - SENSO CCVM </option>
-                    <option value="600">600 - BANCO LUSO BRASILEIRO </option>
-                    <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
-                    <option value="610">610 - BANCO VR </option>
-                    <option value="611">611 - BANCO PAULISTA </option>
-                    <option value="612">612 - BANCO GUANABARA </option>
-                    <option value="613">613 - OMNI BANCO </option>
-                    <option value="623">623 - BANCO PAN </option>
-                    <option value="626">626 - BANCO FICSA </option>
-                    <option value="630">630 - BANCO INTERCAP </option>
-                    <option value="633">633 - BANCO RENDIMENTO </option>
-                    <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
-                    <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
-                    <option value="641">641 - BANCO ALVORADA </option>
-                    <option value="643">643 - BANCO PINE </option>
-                    <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
-                    <option value="653">653 - BANCO INDUSVAL </option>
-                    <option value="654">654 - BANCO A.J. RENNER </option>
-                    <option value="655">655 - NEON PAGAMENTOS </option>
-                    <option value="707">707 - BANCO DAYCOVAL </option>
-                    <option value="712">712 - BANCO OURINVEST </option>
-                    <option value="739">739 - BANCO CETELEM </option>
-                    <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
-                    <option value="743">743 - BANCO SEMEAR </option>
-                    <option value="745">745 - BANCO CITIBANK </option>
-                    <option value="746">746 - BANCO MODAL </option>
-                    <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
-                    <option value="748">748 - SICREDI </option>
-                    <option value="751">751 - SCOTIABANK BRASIL </option>
-                    <option value="752">752 - BNP PARIBAS BRASIL </option>
-                    <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
-                    <option value="754">754 - BANCO SISTEMA </option>
-                    <option value="755">755 - BOFA MERRILL LYNCH BM </option>
-                    <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
-                    <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
-                    <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
-                    <option value="954">954 - BANCO CBSS </option>
-                    <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPromotora">PROMOTORA</label>
-                  <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected><?php echo $res_1['promotora']; ?></option>
-                    <option value="1">CREDIBRASIL LOJAS </option>
-                    <option value="2">CREDIBRASIL CONSIGNADO </option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputMargem">MARGEM</label>
-                  <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPrazo">PRAZO</label>
-                  <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
-                    <option selected><?php echo $res_1['prazo']; ?></option>
-                    <option value="120">120x</option>
-                    <option value="96">96x</option>
-                    <option value="84">84x</option>
-                    <option value="72">72x</option>
-                    <option value="60">60x</option>
-                    <option value="48">48x</option>
-                    <option value="36">36x</option>
-                    <option value="24">24x</option>
-                    <option value="12">12x</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputValor">VALOR</label>
-                  <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputValorParcelas">VALOR PARCELAS</label>
-                  <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputFormalizacao">FORMALIZAÇÃO</label>
-                  <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected><?php echo $res_1['formalizacao']; ?></option>
-                    <option value="1">FÍSICO</option>
-                    <option value="2">DIGITAL</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputCanal">CANAL</label>
-                  <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected><?php echo $res_1['canal']; ?></option>
-                    <option value="1">TELEMARKETING </option>
-                    <option value="2">SMS </option>
-                    <option value="3">OUTROS </option>
-                    <option value="4">WHATSAPP </option>
-                    <option value="5">FACEBOOK </option>
-                    <option value="6">ANUNCIO DANIEL </option>
-                    <option value="7">DISPAROS WATZAP </option>
-                    <option value="8">INDICAÇÃO </option>
-                    <option value="9">LIGAÇÃO </option>
-                    <option value="10">CLIENTE BALCÃO </option>
-                    <option value="11">CLIENTE LIGOU NA LOJA </option>
-                    <option value="12">INSTAGRAM </option>
-                    <option value="13">FACE </option>
-                    <option value="14">CARTEIRA </option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputTabela">TABELA</label>
-                  <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected value="">Nada para selecionar</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-12">
-                  <label for="inputDocumento">Deseja anexar algum documento?</label>
-                  <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
-                  <div class="form-group">
-                    <br>
-                    <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
-                  </div>
-                </div>
-            </div>
 
+            <form method="POST" action="">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputConvenio">CONVÊNIO</label>
+                <select name="inputConvenio" class="form-control" id="inputConvenio">
+                  <option selected><?php echo $res_1['convenio']; ?></option>
+                  <option value="1">INSS</option>
+                  <option value="2">FGTS</option>
+                  <option value="3">AUXÍLIO BRASIL</option>
+                  <option value="4">GOVERNO DE SÃO PAULO</option>
+                  <option value="5">PREFEITURA DE SÃO PAULO</option>
+                  <option value="6">GOVERNO DO RIO DE JANEIRO</option>
+                  <option value="7">SIAPE</option>
+                  <option value="8">GOVERNO DA BAHIA</option>
+                  <option value="9">PESSOAL</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputOperacao">OPERAÇÃO</label>
+                <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <option selected><?php echo $res_1['operacao']; ?></option>
+                  <option value="3">REFINANCIAMENTO </option>
+                  <option value="2">PORTABILIDADE </option>
+                  <option value="1">NOVO </option>
+                  <option value="4">CARTÃO PLÁSTICO </option>
+                  <option value="6">CARTÃO COM SAQUE </option>
+                  <option value="5">PORTABILIDADE COM REFIN </option>
+                  <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
+                  <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
+                  <option value="9">CARTÃO BENEFÍCIO INSS </option>
+                  <option value="10">NOVO REPRESENTANTE LEGAL </option>
+                  <option value="11">NOVO AUMENTO DE SALARIO </option>
+                  <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputBanco">BANCO</label>
+                <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                  <option selected><?php echo $res_1['banco']; ?></option>
+                  <option value="1">001 - BANCO DO BRASIL </option>
+                  <option value="3">003 - BANCO DA AMAZONIA </option>
+                  <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
+                  <option value="7">007 - BNDES </option>
+                  <option value="10">010 - CREDICOAMO </option>
+                  <option value="11">011 - Credit Suisse </option>
+                  <option value="12">012 - BANCO INBURSA </option>
+                  <option value="14">014 - NATIXIS BRASIL </option>
+                  <option value="15">015 - UBS BRASIL CCTVM </option>
+                  <option value="16">016 - CCM DESP TRANS SC E RS </option>
+                  <option value="17">017 - BNY MELLON BANCO </option>
+                  <option value="18">018 - BANCO TRICURY </option>
+                  <option value="21">021 - BANCO BANESTES </option>
+                  <option value="24">024 - BCO BANDEPE </option>
+                  <option value="25">025 - BANCO ALFA . </option>
+                  <option value="29">029 - BANCO ITAU CONSIGNADO </option>
+                  <option value="33">033 - BANCO SANTANDER BRASIL </option>
+                  <option value="36">036 - BANCO BBI </option>
+                  <option value="37">037 - BANCO DO ESTADO DO PARA </option>
+                  <option value="40">040 - BANCO CARGILL </option>
+                  <option value="41">041 - BANRISUL </option>
+                  <option value="47">047 - BANCO DO ESTADO DE SERGIPE </option>
+                  <option value="60">060 - CONFIDENCE CC </option>
+                  <option value="62">062 - HIPERCARD BM </option>
+                  <option value="63">063 - BANCO BRADESCARD </option>
+                  <option value="64">064 - GOLDMAN SACHS DO BRASIL BM </option>
+                  <option value="65">065 - BANCO ANDBANK </option>
+                  <option value="66">066 - BANCO MORGAN STANLEY </option>
+                  <option value="69">069 - BANCO CREFISA </option>
+                  <option value="70">070 - BANCO DE BRASILIA (BRB) </option>
+                  <option value="74">074 - BCO. J.SAFRA </option>
+                  <option value="75">075 - BCO ABN AMRO </option>
+                  <option value="76">076 - BANCO KDB BRASIL . </option>
+                  <option value="77">077 - BANCO INTER </option>
+                  <option value="78">078 - HAITONG BI DO BRASIL </option>
+                  <option value="79">079 - BANCO ORIGINAL DO AGRONEGÓCIO </option>
+                  <option value="80">080 - B&amp;T CC LTDA </option>
+                  <option value="81">081 - BBN BANCO BRASILEIRO DE NEGOCIOS </option>
+                  <option value="82">082 - BANCO TOPAZIO </option>
+                  <option value="83">083 - BANCO DA CHINA BRASIL </option>
+                  <option value="84">084 - UNIPRIME NORTE DO PARANA </option>
+                  <option value="85">085 - COOP CENTRAL AILOS </option>
+                  <option value="89">089 - CCR REG MOGIANA </option>
+                  <option value="91">091 - UNICRED CENTRAL RS </option>
+                  <option value="92">092 - BRK </option>
+                  <option value="93">093 - PÓLOCRED SCMEPP LTDA </option>
+                  <option value="94">094 - BANCO FINAXIS </option>
+                  <option value="95">095 - BANCO CONFIDENCE DE CAMBIO </option>
+                  <option value="96">096 - BANCO B3 </option>
+                  <option value="97">097 - CCC NOROESTE BRASILEIRO LTDA </option>
+                  <option value="98">098 - CREDIALIANÇA CCR </option>
+                  <option value="99">099 - UNIPRIME CENTRAL CCC LTDA </option>
+                  <option value="100">100 - PLANNER CORRETORA DE VALORES </option>
+                  <option value="101">101 - RENASCENCA DTVM LTDA </option>
+                  <option value="102">102 - XP INVESTIMENTOS </option>
+                  <option value="104">104 - CAIXA ECONOMICA FEDERAL (CEF) </option>
+                  <option value="105">105 - LECCA CFI </option>
+                  <option value="107">107 - BANCO BOCOM BBM </option>
+                  <option value="108">108 - PORTOCRED </option>
+                  <option value="111">111 - BANCO OLIVEIRA TRUST DTVM </option>
+                  <option value="113">113 - MAGLIANO </option>
+                  <option value="114">114 - CENTRAL COOPERATIVA DE CREDITO NO ESTADO DO E </option>
+                  <option value="117">117 - ADVANCED CC LTDA </option>
+                  <option value="118">118 - STANDARD CHARTERED BI </option>
+                  <option value="119">119 - BANCO WESTERN UNION </option>
+                  <option value="120">120 - BANCO RODOBENS </option>
+                  <option value="121">121 - BANCO AGIBANK </option>
+                  <option value="122">122 - BANCO BRADESCO BERJ </option>
+                  <option value="124">124 - BANCO WOORI BANK DO BRASIL </option>
+                  <option value="125">125 - BRASIL PLURAL BANCO </option>
+                  <option value="126">126 - BR PARTNERS BI </option>
+                  <option value="127">127 - CODEPE CVC </option>
+                  <option value="128">128 - MS BANK BANCO DE CAMBIO </option>
+                  <option value="129">129 - UBS BRASIL BI </option>
+                  <option value="130">130 - CARUANA SCFI </option>
+                  <option value="131">131 - TULLETT PREBON BRASIL CVC LTDA </option>
+                  <option value="132">132 - ICBC DO BRASIL BM </option>
+                  <option value="133">133 - CRESOL CONFEDERAÇÃO </option>
+                  <option value="134">134 - BGC LIQUIDEZ DTVM LTDA </option>
+                  <option value="136">136 - UNICRED COOPERATIVA </option>
+                  <option value="137">137 - MULTIMONEY CC LTDA </option>
+                  <option value="138">138 - GET MONEY CC LTDA </option>
+                  <option value="139">139 - INTESA SANPAOLO BRASIL </option>
+                  <option value="140">140 - EASYNVEST - TITULO CV </option>
+                  <option value="142">142 - BROKER BRASIL CC LTDA </option>
+                  <option value="143">143 - TREVISO CC </option>
+                  <option value="144">144 - BEXS BANCO DE CAMBIO . </option>
+                  <option value="145">145 - LEVYCAM CCV LTDA </option>
+                  <option value="146">146 - GUITTA CC LTDA </option>
+                  <option value="149">149 - FACTA . CFI </option>
+                  <option value="157">157 - ICAP DO BRASIL CTVM LTDA </option>
+                  <option value="159">159 - CASA CREDITO </option>
+                  <option value="163">163 - COMMERZBANK BRASIL BANCO MULTIPLO </option>
+                  <option value="169">169 - BANCO OLE CONSIGNADO </option>
+                  <option value="172">172 - ALBATROSS CCV </option>
+                  <option value="173">173 - BRL TRUST DTVM SA </option>
+                  <option value="174">174 - PERNAMBUCANAS FINANC </option>
+                  <option value="177">177 - GUIDE </option>
+                  <option value="180">180 - CM CAPITAL MARKETS CCTVM LTDA </option>
+                  <option value="182">182 - DACASA FINANCEIRA S/A </option>
+                  <option value="183">183 - SOCRED </option>
+                  <option value="184">184 - BANCO ITAU BBA </option>
+                  <option value="188">188 - ATIVA INVESTIMENTOS </option>
+                  <option value="189">189 - HS FINANCEIRA </option>
+                  <option value="190">190 - SERVICOOP </option>
+                  <option value="191">191 - NOVA FUTURA CTVM LTDA </option>
+                  <option value="194">194 - PARMETAL DTVM LTDA </option>
+                  <option value="196">196 - BANCO FAIR CC </option>
+                  <option value="197">197 - STONE PAGAMENTOS </option>
+                  <option value="204">204 - BANCO BRADESCO CARTOES </option>
+                  <option value="208">208 - BANCO BTG PACTUAL </option>
+                  <option value="212">212 - BANCO ORIGINAL </option>
+                  <option value="213">213 - BCO ARBI </option>
+                  <option value="217">217 - BANCO JOHN DEERE </option>
+                  <option value="218">218 - BANCO BS2 </option>
+                  <option value="222">222 - BANCO CREDIT AGRICOLE BR </option>
+                  <option value="224">224 - BANCO FIBRA </option>
+                  <option value="233">233 - BANCO CIFRA </option>
+                  <option value="237">237 - BRADESCO </option>
+                  <option value="241">241 - BANCO CLASSICO </option>
+                  <option value="243">243 - BANCO MAXIMA </option>
+                  <option value="246">246 - BANCO ABC BRASIL </option>
+                  <option value="249">249 - BANCO INVESTCRED UNIBANCO </option>
+                  <option value="250">250 - BANCO BCV </option>
+                  <option value="253">253 - BEXS CC </option>
+                  <option value="254">254 - PARANA BANCO </option>
+                  <option value="260">260 - NU PAGAMENTOS (NUBANK) </option>
+                  <option value="265">265 - BANCO FATOR </option>
+                  <option value="266">266 - BANCO CEDULA </option>
+                  <option value="268">268 - BARIGUI CH </option>
+                  <option value="269">269 - HSBC BANCO DE INVESTIMENTO </option>
+                  <option value="270">270 - SAGITUR CC LTDA </option>
+                  <option value="271">271 - IB CCTVM LTDA </option>
+                  <option value="273">273 - CCR DE SÃO MIGUEL DO OESTE </option>
+                  <option value="276">276 - SENFF </option>
+                  <option value="278">278 - GENIAL INVESTIMENTOS CVM </option>
+                  <option value="279">279 - CCR DE PRIMAVERA DO LESTE </option>
+                  <option value="280">280 - AVISTA </option>
+                  <option value="283">283 - RB CAPITAL INVESTIMENTOS DTVM LTDA </option>
+                  <option value="285">285 - FRENTE CC LTDA </option>
+                  <option value="286">286 - CCR DE OURO </option>
+                  <option value="288">288 - CAROL DTVM LTDA </option>
+                  <option value="290">290 - Pagseguro Internet </option>
+                  <option value="292">292 - BS2 DISTRIBUIDORA DE TITULOS E INVESTIMENTOS </option>
+                  <option value="293">293 - LASTRO RDV DTVM LTDA </option>
+                  <option value="298">298 - VIPS CC LTDA </option>
+                  <option value="300">300 - BANCO LA NACION ARGENTINA </option>
+                  <option value="301">301 - BPP INSTITUIÇÃO DE PAGAMENTOS </option>
+                  <option value="310">310 - VORTX DTVM LTDA </option>
+                  <option value="318">318 - BANCO BMG </option>
+                  <option value="320">320 - BANCO CCB BRASIL </option>
+                  <option value="321">321 - CREFAZ SCMEPP LTDA </option>
+                  <option value="323">323 - Mercado Pago - conta do Mercado Livre </option>
+                  <option value="329">329 - Q I Sociedade </option>
+                  <option value="335">335 - Banco Digio </option>
+                  <option value="336">336 - C6 BANK </option>
+                  <option value="340">340 - SUPER PAGAMENTOS S/A (SUPERDITAL) </option>
+                  <option value="341">341 - ITAU UNIBANCO </option>
+                  <option value="348">348 - BANCO XP S/A </option>
+                  <option value="359">359 - ZEMA CFI S/A </option>
+                  <option value="364">364 - GERENCIANET PAGAMENTOS DO BRASIL </option>
+                  <option value="366">366 - BANCO SOCIETE GENERALE BRASIL </option>
+                  <option value="370">370 - BANCO MIZUHO </option>
+                  <option value="376">376 - BANCO J.P. MORGAN </option>
+                  <option value="389">389 - BANCO MERCANTIL DO BRASIL </option>
+                  <option value="394">394 - BANCO BRADESCO FINANCIAMENTOS </option>
+                  <option value="399">399 - KIRTON BANK </option>
+                  <option value="412">412 - BANCO CAPITAL </option>
+                  <option value="413">413 - BANCO BV </option>
+                  <option value="422">422 - BANCO SAFRA </option>
+                  <option value="456">456 - BANCO MUFG BRASIL </option>
+                  <option value="464">464 - BANCO SUMITOMO MITSUI BRASIL </option>
+                  <option value="473">473 - BANCO CAIXA GERAL BRASIL </option>
+                  <option value="477">477 - CITIBANK N.A </option>
+                  <option value="479">479 - BANCO ITAUBANK </option>
+                  <option value="487">487 - DEUTSCHE BANK BANCO ALEMÃO </option>
+                  <option value="488">488 - JPMORGAN CHASE BANK </option>
+                  <option value="492">492 - ING BANK N.V </option>
+                  <option value="494">494 - BANCO REP ORIENTAL URUGUAY </option>
+                  <option value="495">495 - LA PROVINCIA BUENOS AIRES BANCO </option>
+                  <option value="505">505 - BANCO CREDIT SUISSE (BRL) </option>
+                  <option value="545">545 - SENSO CCVM </option>
+                  <option value="600">600 - BANCO LUSO BRASILEIRO </option>
+                  <option value="604">604 - BANCO INDUSTRIAL DO BRASIL </option>
+                  <option value="610">610 - BANCO VR </option>
+                  <option value="611">611 - BANCO PAULISTA </option>
+                  <option value="612">612 - BANCO GUANABARA </option>
+                  <option value="613">613 - OMNI BANCO </option>
+                  <option value="623">623 - BANCO PAN </option>
+                  <option value="626">626 - BANCO FICSA </option>
+                  <option value="630">630 - BANCO INTERCAP </option>
+                  <option value="633">633 - BANCO RENDIMENTO </option>
+                  <option value="634">634 - BANCO TRIANGULO (BANCO TRIANGULO) </option>
+                  <option value="637">637 - BANCO SOFISA (SOFISA DIRETO) </option>
+                  <option value="641">641 - BANCO ALVORADA </option>
+                  <option value="643">643 - BANCO PINE </option>
+                  <option value="652">652 - ITAU UNIBANCO HOLDING BM </option>
+                  <option value="653">653 - BANCO INDUSVAL </option>
+                  <option value="654">654 - BANCO A.J. RENNER </option>
+                  <option value="655">655 - NEON PAGAMENTOS </option>
+                  <option value="707">707 - BANCO DAYCOVAL </option>
+                  <option value="712">712 - BANCO OURINVEST </option>
+                  <option value="739">739 - BANCO CETELEM </option>
+                  <option value="741">741 - BANCO RIBEIRÃO PRETO </option>
+                  <option value="743">743 - BANCO SEMEAR </option>
+                  <option value="745">745 - BANCO CITIBANK </option>
+                  <option value="746">746 - BANCO MODAL </option>
+                  <option value="747">747 - Banco RABOBANK INTERNACIONAL DO BRASIL </option>
+                  <option value="748">748 - SICREDI </option>
+                  <option value="751">751 - SCOTIABANK BRASIL </option>
+                  <option value="752">752 - BNP PARIBAS BRASIL </option>
+                  <option value="753">753 - NOVO BANCO CONTINENTAL BM </option>
+                  <option value="754">754 - BANCO SISTEMA </option>
+                  <option value="755">755 - BOFA MERRILL LYNCH BM </option>
+                  <option value="756">756 - BANCOOB (BANCO COOPERATIVO DO BRASIL) </option>
+                  <option value="757">757 - BANCO KEB HANA DO BRASIL </option>
+                  <option value="908">908 - PARATI – CREDITO FINANCIAMENTO E INVESTIMENTO </option>
+                  <option value="954">954 - BANCO CBSS </option>
+                  <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPromotora">PROMOTORA</label>
+                <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <option selected><?php echo $res_1['promotora']; ?></option>
+                  <option value="1">CREDIBRASIL LOJAS </option>
+                  <option value="2">CREDIBRASIL CONSIGNADO </option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputMargem">MARGEM</label>
+                <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPrazo">PRAZO</label>
+                <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
+                  <option selected><?php echo $res_1['prazo']; ?></option>
+                  <option value="120">120x</option>
+                  <option value="96">96x</option>
+                  <option value="84">84x</option>
+                  <option value="72">72x</option>
+                  <option value="60">60x</option>
+                  <option value="48">48x</option>
+                  <option value="36">36x</option>
+                  <option value="24">24x</option>
+                  <option value="12">12x</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputValor">VALOR</label>
+                <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputValorParcelas">VALOR PARCELAS</label>
+                <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputFormalizacao">FORMALIZAÇÃO</label>
+                <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <option selected><?php echo $res_1['formalizacao']; ?></option>
+                  <option value="1">FÍSICO</option>
+                  <option value="2">DIGITAL</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputCanal">CANAL</label>
+                <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <option selected><?php echo $res_1['canal']; ?></option>
+                  <option value="1">TELEMARKETING </option>
+                  <option value="2">SMS </option>
+                  <option value="3">OUTROS </option>
+                  <option value="4">WHATSAPP </option>
+                  <option value="5">FACEBOOK </option>
+                  <option value="6">ANUNCIO DANIEL </option>
+                  <option value="7">DISPAROS WATZAP </option>
+                  <option value="8">INDICAÇÃO </option>
+                  <option value="9">LIGAÇÃO </option>
+                  <option value="10">CLIENTE BALCÃO </option>
+                  <option value="11">CLIENTE LIGOU NA LOJA </option>
+                  <option value="12">INSTAGRAM </option>
+                  <option value="13">FACE </option>
+                  <option value="14">CARTEIRA </option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputTabela">TABELA</label>
+                <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                  <option selected value="">Nada para selecionar</option>
+                </select>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="inputDocumento">Deseja anexar algum documento?</label>
+                <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
+                <div class="form-group">
+                  <br>
+                  <label for="exampleFormControlTextarea1">Observação (opcional)</label>
+                  <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
+                </div>
+              </div>
+
+
+          </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-success mb-3" name="buttonEditarProposta">Salvar </button>
@@ -2666,7 +2668,7 @@ if (@$_GET['func'] == 'editarpropostas') {
     </script>
 
 
-<?php
+    <?php
     if (isset($_POST['buttonEditarProposta'])) {
       $convenio = $_POST['inputConvenio'];
       $operacao = $_POST['inputOperacao'];
@@ -2680,538 +2682,538 @@ if (@$_GET['func'] == 'editarpropostas') {
       $canal = $_POST['inputCanal'];
       $documentoanexado   = $_POST['inputDocumento'];
       $observacao   = $_POST['inputObservacao'];
-      
-     
-
-       // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
-  if ($_POST["inputBanco"] == 1) {
-    $banco = "001 - BANCO DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 3) {
-    $banco = "003 - BANCO DA AMAZÔNIA";
-  } elseif ($_POST["inputBanco"] == 4) {
-    $banco = "004 - BANCO DO NORDESTE DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 7) {
-    $banco = "007 - BNDES";
-  } elseif ($_POST["inputBanco"] == 10) {
-    $banco = "010 - CREDICOAMO";
-  } elseif ($_POST["inputBanco"] == 11) {
-    $banco = "011 - Credit Suisse";
-  } elseif ($_POST["inputBanco"] == 12) {
-    $banco = "012 - BANCO INBURSA";
-  } elseif ($_POST["inputBanco"] == 14) {
-    $banco = "014 - NATIXIS BRASIL";
-  } elseif ($_POST["inputBanco"] == 15) {
-    $banco = "015 - UBS BRASIL CCTVM";
-  } elseif ($_POST["inputBanco"] == 16) {
-    $banco = "016 - CCM DESP TRANS SC E RS";
-  } elseif ($_POST["inputBanco"] == 17) {
-    $banco = "017 - BNY MELLON BANCO";
-  } elseif ($_POST["inputBanco"] == 18) {
-    $banco = "018 - BANCO TRICURY";
-  } elseif ($_POST["inputBanco"] == 21) {
-    $banco = "021 - BANCO BANESTES";
-  } elseif ($_POST["inputBanco"] == 24) {
-    $banco = "024 - BCO BANDEPE";
-  } elseif ($_POST["inputBanco"] == 25) {
-    $banco = "025 - BANCO ALFA";
-  } elseif ($_POST["inputBanco"] == 29) {
-    $banco = "029 - BANCO ITAU CONSIGNADO";
-  } elseif ($_POST["inputBanco"] == 33) {
-    $banco = "033 - BANCO SANTANDER BRASIL";
-  } elseif ($_POST["inputBanco"] == 36) {
-    $banco = "036 - BANCO BBI";
-  } elseif ($_POST["inputBanco"] == 37) {
-    $banco = "037 - BANCO DO ESTADO DO PARÁ";
-  } elseif ($_POST["inputBanco"] == 40) {
-    $banco = "040 - BANCO CARGILL";
-  } elseif ($_POST["inputBanco"] == 41) {
-    $banco = "041 - BANRISUL";
-  } elseif ($_POST["inputBanco"] == 47) {
-    $banco = "047 - BANCO DO ESTADO DE SERGIPE";
-  } elseif ($_POST["inputBanco"] == 60) {
-    $banco = "060 - CONFIDENCE CC";
-  } elseif ($_POST["inputBanco"] == 62) {
-    $banco = "062 - HIPERCARD BM";
-  } elseif ($_POST["inputBanco"] == 63) {
-    $banco = "063 - BANCO BRADESCARD";
-  } elseif ($_POST["inputBanco"] == 64) {
-    $banco = "064 - GOLDMAN SACHS DO BRASIL BM";
-  } elseif ($_POST["inputBanco"] == 65) {
-    $banco = "065 - BANCO ANDBANK";
-  } elseif ($_POST["inputBanco"] == 66) {
-    $banco = "066 - BANCO MORGAN STANLEY";
-  } elseif ($_POST["inputBanco"] == 69) {
-    $banco = "069 - BANCO CREFISA";
-  } elseif ($_POST["inputBanco"] == 70) {
-    $banco = "070 - BANCO DE BRASÍLIA (BRB)";
-  } elseif ($_POST["inputBanco"] == 74) {
-    $banco = "074 - BCO. J.SAFRA";
-  } elseif ($_POST["inputBanco"] == 75) {
-    $banco = "075 - BCO ABN AMRO";
-  } elseif ($_POST["inputBanco"] == 76) {
-    $banco = "076 - BANCO KDB BRASIL";
-  } elseif ($_POST["inputBanco"] == 77) {
-    $banco = "077 - BANCO INTER";
-  } elseif ($_POST["inputBanco"] == 78) {
-    $banco = "078 - HAITONG BI DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 79) {
-    $banco = "079 - BANCO ORIGINAL DO AGRONEGÓCIO";
-  } elseif ($_POST["inputBanco"] == 80) {
-    $banco = "080 - B&T CC LTDA";
-  } elseif ($_POST["inputBanco"] == 81) {
-    $banco = "081 - BBN BANCO BRASILEIRO DE NEGÓCIOS";
-  } elseif ($_POST["inputBanco"] == 82) {
-    $banco = "082 - BANCO TOPÁZIO";
-  } elseif ($_POST["inputBanco"] == 83) {
-    $banco = "083 - BANCO DA CHINA BRASIL";
-  } elseif ($_POST["inputBanco"] == 84) {
-    $banco = "084 - UNIPRIME NORTE DO PARANÁ";
-  } elseif ($_POST["inputBanco"] == 85) {
-    $banco = "085 - COOP CENTRAL AILOS";
-  } elseif ($_POST["inputBanco"] == 89) {
-    $banco = "089 - CCR REG MOGIANA";
-  } elseif ($_POST["inputBanco"] == 91) {
-    $banco = "091 - UNICRED CENTRAL RS";
-  } elseif ($_POST["inputBanco"] == 92) {
-    $banco = "092 - BRK";
-  } elseif ($_POST["inputBanco"] == 93) {
-    $banco = "093 - PÓLOCRED SCMEPP LTDA";
-  } elseif ($_POST["inputBanco"] == 94) {
-    $banco = "094 - BANCO FINAXIS";
-  } elseif ($_POST["inputBanco"] == 95) {
-    $banco = "095 - BANCO CONFIDENCE DE CÂMBIO";
-  } elseif ($_POST["inputBanco"] == 96) {
-    $banco = "096 - BANCO B3";
-  } elseif ($_POST["inputBanco"] == 97) {
-    $banco = "097 - CCC NOROESTE BRASILEIRO LTDA";
-  } elseif ($_POST["inputBanco"] == 98) {
-    $banco = "098 - CREDIALIANÇA CCR";
-  } elseif ($_POST["inputBanco"] == 99) {
-    $banco = "099 - UNIPRIME CENTRAL CCC LTDA";
-  } elseif ($_POST["inputBanco"] == 100) {
-    $banco = "100 - PLANNER CORRETORA DE VALORES";
-  } elseif ($_POST["inputBanco"] == 101) {
-    $banco = "101 - RENASCENÇA DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 102) {
-    $banco = "102 - XP INVESTIMENTOS";
-  } elseif ($_POST["inputBanco"] == 104) {
-    $banco = "104 - CAIXA ECONÔMICA FEDERAL (CEF)";
-  } elseif ($_POST["inputBanco"] == 105) {
-    $banco = "105 - LECCA CFI";
-  } elseif ($_POST["inputBanco"] == 107) {
-    $banco = "107 - BANCO BOCOM BBM";
-  } elseif ($_POST["inputBanco"] == 108) {
-    $banco = "108 - PORTOCRED";
-  } elseif ($_POST["inputBanco"] == 111) {
-    $banco = "111 - BANCO OLIVEIRA TRUST DTVM";
-  } elseif ($_POST["inputBanco"] == 113) {
-    $banco = "113 - MAGLIANO";
-  } elseif ($_POST["inputBanco"] == 114) {
-    $banco = "114 - CENTRAL COOPERATIVA DE CRÉDITO NO ESTADO DO E";
-  } elseif ($_POST["inputBanco"] == 117) {
-    $banco = "117 - ADVANCED CC LTDA";
-  } elseif ($_POST["inputBanco"] == 118) {
-    $banco = "118 - STANDARD CHARTERED BI";
-  } elseif ($_POST["inputBanco"] == 119) {
-    $banco = "119 - BANCO WESTERN UNION";
-  } elseif ($_POST["inputBanco"] == 120) {
-    $banco = "120 - BANCO RODOBENS";
-  } elseif ($_POST["inputBanco"] == 121) {
-    $banco = "121 - BANCO AGIBANK";
-  } elseif ($_POST["inputBanco"] == 122) {
-    $banco = "122 - BANCO BRADESCO BERJ";
-  } elseif ($_POST["inputBanco"] == 124) {
-    $banco = "124 - BANCO WOORI BANK DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 125) {
-    $banco = "125 - BRASIL PLURAL BANCO";
-  } elseif ($_POST["inputBanco"] == 126) {
-    $banco = "126 - BR PARTNERS BI";
-  } elseif ($_POST["inputBanco"] == 127) {
-    $banco = "127 - CODEPE CVC";
-  } elseif ($_POST["inputBanco"] == 128) {
-    $banco = "128 - MS BANK BANCO DE CÂMBIO";
-  } elseif ($_POST["inputBanco"] == 129) {
-    $banco = "129 - UBS BRASIL BI";
-  } elseif ($_POST["inputBanco"] == 130) {
-    $banco = "130 - CARUANA SCFI";
-  } elseif ($_POST["inputBanco"] == 131) {
-    $banco = "131 - TULLETT PREBON BRASIL CVC LTDA";
-  } elseif ($_POST["inputBanco"] == 132) {
-    $banco = "132 - ICBC DO BRASIL BM";
-  } elseif ($_POST["inputBanco"] == 133) {
-    $banco = "133 - CRESOL CONFEDERAÇÃO";
-  } elseif ($_POST["inputBanco"] == 134) {
-    $banco = "134 - BGC LIQUIDEZ DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 136) {
-    $banco = "136 - UNICRED COOPERATIVA";
-  } elseif ($_POST["inputBanco"] == 137) {
-    $banco = "137 - MULTIMONEY CC LTDA";
-  } elseif ($_POST["inputBanco"] == 138) {
-    $banco = "138 - GET MONEY CC LTDA";
-  } elseif ($_POST["inputBanco"] == 139) {
-    $banco = "139 - INTESA SANPAOLO BRASIL";
-  } elseif ($_POST["inputBanco"] == 140) {
-    $banco = "140 - EASYNVEST - TÍTULO CV";
-  } elseif ($_POST["inputBanco"] == 142) {
-    $banco = "142 - BROKER BRASIL CC LTDA";
-  } elseif ($_POST["inputBanco"] == 143) {
-    $banco = "143 - TREVISO CC";
-  } elseif ($_POST["inputBanco"] == 144) {
-    $banco = "144 - BEXS BANCO DE CÂMBIO";
-  } elseif ($_POST["inputBanco"] == 145) {
-    $banco = "145 - LEVYCAM CCV LTDA";
-  } elseif ($_POST["inputBanco"] == 146) {
-    $banco = "146 - GUITTA CC LTDA";
-  } elseif ($_POST["inputBanco"] == 149) {
-    $banco = "149 - FACTA . CFI";
-  } elseif ($_POST["inputBanco"] == 157) {
-    $banco = "157 - ICAP DO BRASIL CTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 159) {
-    $banco = "159 - CASA CRÉDITO";
-  } elseif ($_POST["inputBanco"] == 163) {
-    $banco = "163 - COMMERZBANK BRASIL BANCO MÚLTIPLO";
-  } elseif ($_POST["inputBanco"] == 169) {
-    $banco = "169 - BANCO OLE CONSIGNADO";
-  } elseif ($_POST["inputBanco"] == 172) {
-    $banco = "172 - ALBATROSS CCV";
-  } elseif ($_POST["inputBanco"] == 173) {
-    $banco = "173 - BRL TRUST DTVM SA";
-  } elseif ($_POST["inputBanco"] == 174) {
-    $banco = "174 - PERNAMBUCANAS FINANC";
-  } elseif ($_POST["inputBanco"] == 177) {
-    $banco = "177 - GUIDE";
-  } elseif ($_POST["inputBanco"] == 180) {
-    $banco = "180 - CM CAPITAL MARKETS CCTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 182) {
-    $banco = "182 - DACASA FINANCEIRA S/A";
-  } elseif ($_POST["inputBanco"] == 183) {
-    $banco = "183 - SOCRED";
-  } elseif ($_POST["inputBanco"] == 184) {
-    $banco = "184 - BANCO ITAÚ BBA";
-  } elseif ($_POST["inputBanco"] == 188) {
-    $banco = "188 - ATIVA INVESTIMENTOS";
-  } elseif ($_POST["inputBanco"] == 189) {
-    $banco = "189 - HS FINANCEIRA";
-  } elseif ($_POST["inputBanco"] == 190) {
-    $banco = "190 - SERVICOOP";
-  } elseif ($_POST["inputBanco"] == 191) {
-    $banco = "191 - NOVA FUTURA CTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 194) {
-    $banco = "194 - PARMETAL DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 196) {
-    $banco = "196 - BANCO FAIR CC";
-  } elseif ($_POST["inputBanco"] == 197) {
-    $banco = "197 - STONE PAGAMENTOS";
-  } elseif ($_POST["inputBanco"] == 204) {
-    $banco = "204 - BANCO BRADESCO CARTÕES";
-  } elseif ($_POST["inputBanco"] == 208) {
-    $banco = "208 - BANCO BTG PACTUAL";
-  } elseif ($_POST["inputBanco"] == 212) {
-    $banco = "212 - BANCO ORIGINAL";
-  } elseif ($_POST["inputBanco"] == 213) {
-    $banco = "213 - BCO ARBI";
-  } elseif ($_POST["inputBanco"] == 217) {
-    $banco = "217 - BANCO JOHN DEERE";
-  } elseif ($_POST["inputBanco"] == 218) {
-    $banco = "218 - BANCO BS2";
-  } elseif ($_POST["inputBanco"] == 222) {
-    $banco = "222 - BANCO CREDIT AGRICOLE BR";
-  } elseif ($_POST["inputBanco"] == 224) {
-    $banco = "224 - BANCO FIBRA";
-  } elseif ($_POST["inputBanco"] == 233) {
-    $banco = "233 - BANCO CIFRA";
-  } elseif ($_POST["inputBanco"] == 237) {
-    $banco = "237 - BRADESCO";
-  } elseif ($_POST["inputBanco"] == 241) {
-    $banco = "241 - BANCO CLÁSSICO";
-  } elseif ($_POST["inputBanco"] == 243) {
-    $banco = "243 - BANCO MÁXIMA";
-  } elseif ($_POST["inputBanco"] == 246) {
-    $banco = "246 - BANCO ABC BRASIL";
-  } elseif ($_POST["inputBanco"] == 249) {
-    $banco = "249 - BANCO INVESTCRED UNIBANCO";
-  } elseif ($_POST["inputBanco"] == 250) {
-    $banco = "250 - BANCO BCV";
-  } elseif ($_POST["inputBanco"] == 253) {
-    $banco = "253 - BEXS CC";
-  } elseif ($_POST["inputBanco"] == 254) {
-    $banco = "254 - PARANÁ BANCO";
-  } elseif ($_POST["inputBanco"] == 260) {
-    $banco = "260 - NU PAGAMENTOS (NUBANK)";
-  } elseif ($_POST["inputBanco"] == 265) {
-    $banco = "265 - BANCO FATOR";
-  } elseif ($_POST["inputBanco"] == 266) {
-    $banco = "266 - BANCO CÉDULA";
-  } elseif ($_POST["inputBanco"] == 268) {
-    $banco = "268 - BARIGUI CH";
-  } elseif ($_POST["inputBanco"] == 269) {
-    $banco = "269 - HSBC BANCO DE INVESTIMENTO";
-  } elseif ($_POST["inputBanco"] == 270) {
-    $banco = "270 - SAGITUR CC LTDA";
-  } elseif ($_POST["inputBanco"] == 271) {
-    $banco = "271 - IB CCTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 273) {
-    $banco = "273 - CCR DE SÃO MIGUEL DO OESTE";
-  } elseif ($_POST["inputBanco"] == 276) {
-    $banco = "276 - SENFF";
-  } elseif ($_POST["inputBanco"] == 278) {
-    $banco = "278 - GENIAL INVESTIMENTOS CVM";
-  } elseif ($_POST["inputBanco"] == 279) {
-    $banco = "279 - CCR DE PRIMAVERA DO LESTE";
-  } elseif ($_POST["inputBanco"] == 280) {
-    $banco = "280 - AVISTA";
-  } elseif ($_POST["inputBanco"] == 283) {
-    $banco = "283 - RB CAPITAL INVESTIMENTOS DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 285) {
-    $banco = "285 - FRENTE CC LTDA";
-  } elseif ($_POST["inputBanco"] == 286) {
-    $banco = "286 - CCR DE OURO";
-  } elseif ($_POST["inputBanco"] == 288) {
-    $banco = "288 - CAROL DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 290) {
-    $banco = "290 - PAGSEGURO INTERNET";
-  } elseif ($_POST["inputBanco"] == 292) {
-    $banco = "292 - BS2 DISTRIBUIDORA DE TÍTULOS E INVESTIMENTOS";
-  } elseif ($_POST["inputBanco"] == 293) {
-    $banco = "293 - LASTRO RDV DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 298) {
-    $banco = "298 - VIPS CC LTDA";
-  } elseif ($_POST["inputBanco"] == 300) {
-    $banco = "300 - BANCO LA NACION ARGENTINA";
-  } elseif ($_POST["inputBanco"] == 301) {
-    $banco = "301 - BPP INSTITUIÇÃO DE PAGAMENTOS";
-  } elseif ($_POST["inputBanco"] == 310) {
-    $banco = "310 - VORTX DTVM LTDA";
-  } elseif ($_POST["inputBanco"] == 318) {
-    $banco = "318 - BANCO BMG";
-  } elseif ($_POST["inputBanco"] == 320) {
-    $banco = "320 - BANCO CCB BRASIL";
-  } elseif ($_POST["inputBanco"] == 321) {
-    $banco = "321 - CREFAZ SCMEPP LTDA";
-  } elseif ($_POST["inputBanco"] == 323) {
-    $banco = "323 - MERCADO PAGO - CONTA DO MERCADO LIVRE";
-  } elseif ($_POST["inputBanco"] == 329) {
-    $banco = "329 - Q I SOC PAULISTA DE CREDITO FINANCIAMENTO E INVESTIMENTO";
-  } elseif ($_POST["inputBanco"] == 341) {
-    $banco = "341 - ITAÚ UNIBANCO";
-  } elseif ($_POST["inputBanco"] == 366) {
-    $banco = "366 - SOCINAL";
-  } elseif ($_POST["inputBanco"] == 370) {
-    $banco = "370 - BANCO MIZUHO";
-  } elseif ($_POST["inputBanco"] == 376) {
-    $banco = "376 - JP MORGAN";
-  } elseif ($_POST["inputBanco"] == 389) {
-    $banco = "389 - BANCO MERCANTIL DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 394) {
-    $banco = "394 - BANCO BMG";
-  } elseif ($_POST["inputBanco"] == 399) {
-    $banco = "399 - HSBC";
-  } elseif ($_POST["inputBanco"] == 409) {
-    $banco = "409 - UNIBANCO - UNIÃO DE BANCOS BRASILEIROS";
-  } elseif ($_POST["inputBanco"] == 412) {
-    $banco = "412 - BANCO CAPITAL";
-  } elseif ($_POST["inputBanco"] == 422) {
-    $banco = "422 - BANCO SAFRA";
-  } elseif ($_POST["inputBanco"] == 453) {
-    $banco = "453 - BANCO RURAL";
-  } elseif ($_POST["inputBanco"] == 456) {
-    $banco = "456 - BANCO BARCLAYS";
-  } elseif ($_POST["inputBanco"] == 464) {
-    $banco = "464 - BANCO SUMITOMO MITSUI BRASILEIRO";
-  } elseif ($_POST["inputBanco"] == 477) {
-    $banco = "477 - CITIBANK";
-  } elseif ($_POST["inputBanco"] == 479) {
-    $banco = "479 - BANCO ITAUBANK";
-  } elseif ($_POST["inputBanco"] == 487) {
-    $banco = "487 - DEUTSCHE BANK";
-  } elseif ($_POST["inputBanco"] == 488) {
-    $banco = "488 - JPMORGAN CHASE BANK";
-  } elseif ($_POST["inputBanco"] == 492) {
-    $banco = "492 - ING BANK";
-  } elseif ($_POST["inputBanco"] == 494) {
-    $banco = "494 - BANCO DE LA NACION ARGENTINA";
-  } elseif ($_POST["inputBanco"] == 495) {
-    $banco = "495 - BANK OF AMERICA";
-  } elseif ($_POST["inputBanco"] == 505) {
-    $banco = "505 - BANCO CREDIT SUISSE";
-  } elseif ($_POST["inputBanco"] == 545) {
-    $banco = "545 - SENSO CCVM SA";
-  } elseif ($_POST["inputBanco"] == 600) {
-    $banco = "600 - BANCO LUSO BRASILEIRO";
-  } elseif ($_POST["inputBanco"] == 604) {
-    $banco = "604 - BANCO INDUSTRIAL DO BRASIL";
-  } elseif ($_POST["inputBanco"] == 610) {
-    $banco = "610 - VR CRED AC";
-  } elseif ($_POST["inputBanco"] == 611) {
-    $banco = "611 - COOPERATIVA UNIPRIME";
-  } elseif ($_POST["inputBanco"] == 612) {
-    $banco = "612 - BANCO GUANABARA";
-  } elseif ($_POST["inputBanco"] == 613) {
-    $banco = "613 - OMNI BANCO";
-  } elseif ($_POST["inputBanco"] == 623) {
-    $banco = "623 - BANCO PAN";
-  } elseif ($_POST["inputBanco"] == 626) {
-    $banco = "626 - BANCO FICSA";
-  } elseif ($_POST["inputBanco"] == 630) {
-    $banco = "630 - BANCO INTERCAP";
-  } elseif ($_POST["inputBanco"] == 633) {
-    $banco = "633 - BANCO REDENTOR";
-  } elseif ($_POST["inputBanco"] == 634) {
-    $banco = "634 - BANCO TRIANGULO";
-  } elseif ($_POST["inputBanco"] == 637) {
-    $banco = "637 - BANCO SOFISA";
-  } elseif ($_POST["inputBanco"] == 641) {
-    $banco = "641 - BANCO ALVORADA";
-  } elseif ($_POST["inputBanco"] == 643) {
-    $banco = "643 - BANCO PINE";
-  } elseif ($_POST["inputBanco"] == 652) {
-    $banco = "652 - ITAÚ UNIBANCO HOLDING BM";
-  } elseif ($_POST["inputBanco"] == 653) {
-    $banco = "653 - BANCO INDUSVAL";
-  } elseif ($_POST["inputBanco"] == 654) {
-    $banco = "654 - BANCO A.J. RENNER";
-  } elseif ($_POST["inputBanco"] == 655) {
-    $banco = "655 - BANCO VOTORANTIM";
-  } elseif ($_POST["inputBanco"] == 707) {
-    $banco = "707 - BANCO DAYCOVAL";
-  } elseif ($_POST["inputBanco"] == 712) {
-    $banco = "712 - BANCO OURINVEST";
-  } elseif ($_POST["inputBanco"] == 756) {
-    $banco = "756 - SICOOB";
-  } elseif ($_POST["inputBanco"] == 999) {
-    $banco = "999 - BANCO COOPERATIVO SICREDI";
-  }
-
-  if ($_POST['inputValorParcelas'] == 120) {
-    $parcela = "120x";
-  } elseif ($_POST['inputValorParcelas'] == 96) {
-    $parcela = "96x";
-  } elseif ($_POST['inputValorParcelas'] == 84) {
-    $parcela = "84x";
-  } elseif ($_POST['inputValorParcelas'] == 72) {
-    $parcela = "72x";
-  } elseif ($_POST['inputValorParcelas'] == 60) {
-    $parcela = "60x";
-  } elseif ($_POST['inputValorParcelas'] == 48) {
-    $parcela = "48x";
-  } elseif ($_POST['inputValorParcelas'] == 36) {
-    $parcela = "36x";
-  } elseif ($_POST['inputValorParcelas'] == 24) {
-    $parcela = "24x";
-  } elseif ($_POST['inputValorParcelas'] == 12) {
-    $parcela = "12x";
-  }
-
-
-  if ($_POST['inputCanal'] == 1) {
-    $canal = "TELEMARKETING";
-  } elseif ($_POST['inputCanal'] == 2) {
-    $canal = "SMS";
-  } elseif ($_POST['inputCanal'] == 3) {
-    $canal = "OUTROS";
-  } elseif ($_POST['inputCanal'] == 4) {
-    $canal = "WHATSAPP";
-  } elseif ($_POST['inputCanal'] == 5) {
-    $canal = "FACEBOOK";
-  } elseif ($_POST['inputCanal'] == 6) {
-    $canal = "ANUNCIO";
-  } elseif ($_POST['inputCanal'] == 7) {
-    $canal = "DISPAROS WATZAP";
-  } elseif ($_POST['inputCanal'] == 8) {
-    $canal = "INDICAÇÃO";
-  } elseif ($_POST['inputCanal'] == 9) {
-    $canal = "LIGAÇÃO";
-  } elseif ($_POST['inputCanal'] == 10) {
-    $canal = "CLIENTE BALCÃO";
-  } elseif ($_POST['inputCanal'] == 11) {
-    $canal = "CLIENTE LIGOU NA LOJA";
-  } elseif ($_POST['inputCanal'] == 12) {
-    $canal = "INSTAGRAM";
-  } elseif ($_POST['inputCanal'] == 13) {
-    $canal = "FACE";
-  } elseif ($_POST['inputCanal'] == 14) {
-    $canal = "CARTEIRA";
-  }
-
-
-  //Marcando o tipo de promotora com base no valor do input 
-  if ($_POST["inputPromotora"] == 1) {
-    $promotora = "CREDIBRASIL LOJAS";
-  }
-  if ($_POST["inputPromotora"] == 2) {
-    $promotora = "CREDIBRASIL CONSIGNADO";
-  }
-
-
-  if ($_POST['inputFormalizacao'] == 1) {
-    $formalizacao = "DIGITAL";
-  } elseif ($_POST['inputFormalizacao'] == 2) {
-    $formalizacao = "FÍSICO";
-  }
-
-  if ($_POST['inputCanal'] == 1) {
-    $canal = "TELEMARKETING";
-  } elseif ($_POST['inputCanal'] == 2) {
-    $canal = "SMS";
-  }
-
-  if ($_POST['inputConvenio'] == 1) {
-    $convenio = "INSS";
-  } elseif ($_POST['inputConvenio'] == 2) {
-    $convenio = "FGTS";
-  } elseif ($_POST['inputConvenio'] == 3) {
-    $convenio = "AUXÍLIO BRASIL";
-  } elseif ($_POST['inputConvenio'] == 4) {
-    $convenio = "GOVERNO DE SÃO PAULO";
-  } elseif ($_POST['inputConvenio'] == 5) {
-    $convenio = "PREFEITURA DE SÃO PAULO";
-  } elseif ($_POST['inputConvenio'] == 6) {
-    $convenio = "GOVERNO DO RIO DE JANEIRO";
-  } elseif ($_POST['inputConvenio'] == 7) {
-    $convenio = "SIAPE";
-  } elseif ($_POST['inputConvenio'] == 8) {
-    $convenio = "GOVERNO DA BAHIA";
-  } elseif ($_POST['inputConvenio'] == 9) {
-    $convenio = "PESSOAL";
-  }
 
 
 
+      // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
+      if ($_POST["inputBanco"] == 1) {
+        $banco = "001 - BANCO DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 3) {
+        $banco = "003 - BANCO DA AMAZÔNIA";
+      } elseif ($_POST["inputBanco"] == 4) {
+        $banco = "004 - BANCO DO NORDESTE DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 7) {
+        $banco = "007 - BNDES";
+      } elseif ($_POST["inputBanco"] == 10) {
+        $banco = "010 - CREDICOAMO";
+      } elseif ($_POST["inputBanco"] == 11) {
+        $banco = "011 - Credit Suisse";
+      } elseif ($_POST["inputBanco"] == 12) {
+        $banco = "012 - BANCO INBURSA";
+      } elseif ($_POST["inputBanco"] == 14) {
+        $banco = "014 - NATIXIS BRASIL";
+      } elseif ($_POST["inputBanco"] == 15) {
+        $banco = "015 - UBS BRASIL CCTVM";
+      } elseif ($_POST["inputBanco"] == 16) {
+        $banco = "016 - CCM DESP TRANS SC E RS";
+      } elseif ($_POST["inputBanco"] == 17) {
+        $banco = "017 - BNY MELLON BANCO";
+      } elseif ($_POST["inputBanco"] == 18) {
+        $banco = "018 - BANCO TRICURY";
+      } elseif ($_POST["inputBanco"] == 21) {
+        $banco = "021 - BANCO BANESTES";
+      } elseif ($_POST["inputBanco"] == 24) {
+        $banco = "024 - BCO BANDEPE";
+      } elseif ($_POST["inputBanco"] == 25) {
+        $banco = "025 - BANCO ALFA";
+      } elseif ($_POST["inputBanco"] == 29) {
+        $banco = "029 - BANCO ITAU CONSIGNADO";
+      } elseif ($_POST["inputBanco"] == 33) {
+        $banco = "033 - BANCO SANTANDER BRASIL";
+      } elseif ($_POST["inputBanco"] == 36) {
+        $banco = "036 - BANCO BBI";
+      } elseif ($_POST["inputBanco"] == 37) {
+        $banco = "037 - BANCO DO ESTADO DO PARÁ";
+      } elseif ($_POST["inputBanco"] == 40) {
+        $banco = "040 - BANCO CARGILL";
+      } elseif ($_POST["inputBanco"] == 41) {
+        $banco = "041 - BANRISUL";
+      } elseif ($_POST["inputBanco"] == 47) {
+        $banco = "047 - BANCO DO ESTADO DE SERGIPE";
+      } elseif ($_POST["inputBanco"] == 60) {
+        $banco = "060 - CONFIDENCE CC";
+      } elseif ($_POST["inputBanco"] == 62) {
+        $banco = "062 - HIPERCARD BM";
+      } elseif ($_POST["inputBanco"] == 63) {
+        $banco = "063 - BANCO BRADESCARD";
+      } elseif ($_POST["inputBanco"] == 64) {
+        $banco = "064 - GOLDMAN SACHS DO BRASIL BM";
+      } elseif ($_POST["inputBanco"] == 65) {
+        $banco = "065 - BANCO ANDBANK";
+      } elseif ($_POST["inputBanco"] == 66) {
+        $banco = "066 - BANCO MORGAN STANLEY";
+      } elseif ($_POST["inputBanco"] == 69) {
+        $banco = "069 - BANCO CREFISA";
+      } elseif ($_POST["inputBanco"] == 70) {
+        $banco = "070 - BANCO DE BRASÍLIA (BRB)";
+      } elseif ($_POST["inputBanco"] == 74) {
+        $banco = "074 - BCO. J.SAFRA";
+      } elseif ($_POST["inputBanco"] == 75) {
+        $banco = "075 - BCO ABN AMRO";
+      } elseif ($_POST["inputBanco"] == 76) {
+        $banco = "076 - BANCO KDB BRASIL";
+      } elseif ($_POST["inputBanco"] == 77) {
+        $banco = "077 - BANCO INTER";
+      } elseif ($_POST["inputBanco"] == 78) {
+        $banco = "078 - HAITONG BI DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 79) {
+        $banco = "079 - BANCO ORIGINAL DO AGRONEGÓCIO";
+      } elseif ($_POST["inputBanco"] == 80) {
+        $banco = "080 - B&T CC LTDA";
+      } elseif ($_POST["inputBanco"] == 81) {
+        $banco = "081 - BBN BANCO BRASILEIRO DE NEGÓCIOS";
+      } elseif ($_POST["inputBanco"] == 82) {
+        $banco = "082 - BANCO TOPÁZIO";
+      } elseif ($_POST["inputBanco"] == 83) {
+        $banco = "083 - BANCO DA CHINA BRASIL";
+      } elseif ($_POST["inputBanco"] == 84) {
+        $banco = "084 - UNIPRIME NORTE DO PARANÁ";
+      } elseif ($_POST["inputBanco"] == 85) {
+        $banco = "085 - COOP CENTRAL AILOS";
+      } elseif ($_POST["inputBanco"] == 89) {
+        $banco = "089 - CCR REG MOGIANA";
+      } elseif ($_POST["inputBanco"] == 91) {
+        $banco = "091 - UNICRED CENTRAL RS";
+      } elseif ($_POST["inputBanco"] == 92) {
+        $banco = "092 - BRK";
+      } elseif ($_POST["inputBanco"] == 93) {
+        $banco = "093 - PÓLOCRED SCMEPP LTDA";
+      } elseif ($_POST["inputBanco"] == 94) {
+        $banco = "094 - BANCO FINAXIS";
+      } elseif ($_POST["inputBanco"] == 95) {
+        $banco = "095 - BANCO CONFIDENCE DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 96) {
+        $banco = "096 - BANCO B3";
+      } elseif ($_POST["inputBanco"] == 97) {
+        $banco = "097 - CCC NOROESTE BRASILEIRO LTDA";
+      } elseif ($_POST["inputBanco"] == 98) {
+        $banco = "098 - CREDIALIANÇA CCR";
+      } elseif ($_POST["inputBanco"] == 99) {
+        $banco = "099 - UNIPRIME CENTRAL CCC LTDA";
+      } elseif ($_POST["inputBanco"] == 100) {
+        $banco = "100 - PLANNER CORRETORA DE VALORES";
+      } elseif ($_POST["inputBanco"] == 101) {
+        $banco = "101 - RENASCENÇA DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 102) {
+        $banco = "102 - XP INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 104) {
+        $banco = "104 - CAIXA ECONÔMICA FEDERAL (CEF)";
+      } elseif ($_POST["inputBanco"] == 105) {
+        $banco = "105 - LECCA CFI";
+      } elseif ($_POST["inputBanco"] == 107) {
+        $banco = "107 - BANCO BOCOM BBM";
+      } elseif ($_POST["inputBanco"] == 108) {
+        $banco = "108 - PORTOCRED";
+      } elseif ($_POST["inputBanco"] == 111) {
+        $banco = "111 - BANCO OLIVEIRA TRUST DTVM";
+      } elseif ($_POST["inputBanco"] == 113) {
+        $banco = "113 - MAGLIANO";
+      } elseif ($_POST["inputBanco"] == 114) {
+        $banco = "114 - CENTRAL COOPERATIVA DE CRÉDITO NO ESTADO DO E";
+      } elseif ($_POST["inputBanco"] == 117) {
+        $banco = "117 - ADVANCED CC LTDA";
+      } elseif ($_POST["inputBanco"] == 118) {
+        $banco = "118 - STANDARD CHARTERED BI";
+      } elseif ($_POST["inputBanco"] == 119) {
+        $banco = "119 - BANCO WESTERN UNION";
+      } elseif ($_POST["inputBanco"] == 120) {
+        $banco = "120 - BANCO RODOBENS";
+      } elseif ($_POST["inputBanco"] == 121) {
+        $banco = "121 - BANCO AGIBANK";
+      } elseif ($_POST["inputBanco"] == 122) {
+        $banco = "122 - BANCO BRADESCO BERJ";
+      } elseif ($_POST["inputBanco"] == 124) {
+        $banco = "124 - BANCO WOORI BANK DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 125) {
+        $banco = "125 - BRASIL PLURAL BANCO";
+      } elseif ($_POST["inputBanco"] == 126) {
+        $banco = "126 - BR PARTNERS BI";
+      } elseif ($_POST["inputBanco"] == 127) {
+        $banco = "127 - CODEPE CVC";
+      } elseif ($_POST["inputBanco"] == 128) {
+        $banco = "128 - MS BANK BANCO DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 129) {
+        $banco = "129 - UBS BRASIL BI";
+      } elseif ($_POST["inputBanco"] == 130) {
+        $banco = "130 - CARUANA SCFI";
+      } elseif ($_POST["inputBanco"] == 131) {
+        $banco = "131 - TULLETT PREBON BRASIL CVC LTDA";
+      } elseif ($_POST["inputBanco"] == 132) {
+        $banco = "132 - ICBC DO BRASIL BM";
+      } elseif ($_POST["inputBanco"] == 133) {
+        $banco = "133 - CRESOL CONFEDERAÇÃO";
+      } elseif ($_POST["inputBanco"] == 134) {
+        $banco = "134 - BGC LIQUIDEZ DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 136) {
+        $banco = "136 - UNICRED COOPERATIVA";
+      } elseif ($_POST["inputBanco"] == 137) {
+        $banco = "137 - MULTIMONEY CC LTDA";
+      } elseif ($_POST["inputBanco"] == 138) {
+        $banco = "138 - GET MONEY CC LTDA";
+      } elseif ($_POST["inputBanco"] == 139) {
+        $banco = "139 - INTESA SANPAOLO BRASIL";
+      } elseif ($_POST["inputBanco"] == 140) {
+        $banco = "140 - EASYNVEST - TÍTULO CV";
+      } elseif ($_POST["inputBanco"] == 142) {
+        $banco = "142 - BROKER BRASIL CC LTDA";
+      } elseif ($_POST["inputBanco"] == 143) {
+        $banco = "143 - TREVISO CC";
+      } elseif ($_POST["inputBanco"] == 144) {
+        $banco = "144 - BEXS BANCO DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 145) {
+        $banco = "145 - LEVYCAM CCV LTDA";
+      } elseif ($_POST["inputBanco"] == 146) {
+        $banco = "146 - GUITTA CC LTDA";
+      } elseif ($_POST["inputBanco"] == 149) {
+        $banco = "149 - FACTA . CFI";
+      } elseif ($_POST["inputBanco"] == 157) {
+        $banco = "157 - ICAP DO BRASIL CTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 159) {
+        $banco = "159 - CASA CRÉDITO";
+      } elseif ($_POST["inputBanco"] == 163) {
+        $banco = "163 - COMMERZBANK BRASIL BANCO MÚLTIPLO";
+      } elseif ($_POST["inputBanco"] == 169) {
+        $banco = "169 - BANCO OLE CONSIGNADO";
+      } elseif ($_POST["inputBanco"] == 172) {
+        $banco = "172 - ALBATROSS CCV";
+      } elseif ($_POST["inputBanco"] == 173) {
+        $banco = "173 - BRL TRUST DTVM SA";
+      } elseif ($_POST["inputBanco"] == 174) {
+        $banco = "174 - PERNAMBUCANAS FINANC";
+      } elseif ($_POST["inputBanco"] == 177) {
+        $banco = "177 - GUIDE";
+      } elseif ($_POST["inputBanco"] == 180) {
+        $banco = "180 - CM CAPITAL MARKETS CCTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 182) {
+        $banco = "182 - DACASA FINANCEIRA S/A";
+      } elseif ($_POST["inputBanco"] == 183) {
+        $banco = "183 - SOCRED";
+      } elseif ($_POST["inputBanco"] == 184) {
+        $banco = "184 - BANCO ITAÚ BBA";
+      } elseif ($_POST["inputBanco"] == 188) {
+        $banco = "188 - ATIVA INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 189) {
+        $banco = "189 - HS FINANCEIRA";
+      } elseif ($_POST["inputBanco"] == 190) {
+        $banco = "190 - SERVICOOP";
+      } elseif ($_POST["inputBanco"] == 191) {
+        $banco = "191 - NOVA FUTURA CTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 194) {
+        $banco = "194 - PARMETAL DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 196) {
+        $banco = "196 - BANCO FAIR CC";
+      } elseif ($_POST["inputBanco"] == 197) {
+        $banco = "197 - STONE PAGAMENTOS";
+      } elseif ($_POST["inputBanco"] == 204) {
+        $banco = "204 - BANCO BRADESCO CARTÕES";
+      } elseif ($_POST["inputBanco"] == 208) {
+        $banco = "208 - BANCO BTG PACTUAL";
+      } elseif ($_POST["inputBanco"] == 212) {
+        $banco = "212 - BANCO ORIGINAL";
+      } elseif ($_POST["inputBanco"] == 213) {
+        $banco = "213 - BCO ARBI";
+      } elseif ($_POST["inputBanco"] == 217) {
+        $banco = "217 - BANCO JOHN DEERE";
+      } elseif ($_POST["inputBanco"] == 218) {
+        $banco = "218 - BANCO BS2";
+      } elseif ($_POST["inputBanco"] == 222) {
+        $banco = "222 - BANCO CREDIT AGRICOLE BR";
+      } elseif ($_POST["inputBanco"] == 224) {
+        $banco = "224 - BANCO FIBRA";
+      } elseif ($_POST["inputBanco"] == 233) {
+        $banco = "233 - BANCO CIFRA";
+      } elseif ($_POST["inputBanco"] == 237) {
+        $banco = "237 - BRADESCO";
+      } elseif ($_POST["inputBanco"] == 241) {
+        $banco = "241 - BANCO CLÁSSICO";
+      } elseif ($_POST["inputBanco"] == 243) {
+        $banco = "243 - BANCO MÁXIMA";
+      } elseif ($_POST["inputBanco"] == 246) {
+        $banco = "246 - BANCO ABC BRASIL";
+      } elseif ($_POST["inputBanco"] == 249) {
+        $banco = "249 - BANCO INVESTCRED UNIBANCO";
+      } elseif ($_POST["inputBanco"] == 250) {
+        $banco = "250 - BANCO BCV";
+      } elseif ($_POST["inputBanco"] == 253) {
+        $banco = "253 - BEXS CC";
+      } elseif ($_POST["inputBanco"] == 254) {
+        $banco = "254 - PARANÁ BANCO";
+      } elseif ($_POST["inputBanco"] == 260) {
+        $banco = "260 - NU PAGAMENTOS (NUBANK)";
+      } elseif ($_POST["inputBanco"] == 265) {
+        $banco = "265 - BANCO FATOR";
+      } elseif ($_POST["inputBanco"] == 266) {
+        $banco = "266 - BANCO CÉDULA";
+      } elseif ($_POST["inputBanco"] == 268) {
+        $banco = "268 - BARIGUI CH";
+      } elseif ($_POST["inputBanco"] == 269) {
+        $banco = "269 - HSBC BANCO DE INVESTIMENTO";
+      } elseif ($_POST["inputBanco"] == 270) {
+        $banco = "270 - SAGITUR CC LTDA";
+      } elseif ($_POST["inputBanco"] == 271) {
+        $banco = "271 - IB CCTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 273) {
+        $banco = "273 - CCR DE SÃO MIGUEL DO OESTE";
+      } elseif ($_POST["inputBanco"] == 276) {
+        $banco = "276 - SENFF";
+      } elseif ($_POST["inputBanco"] == 278) {
+        $banco = "278 - GENIAL INVESTIMENTOS CVM";
+      } elseif ($_POST["inputBanco"] == 279) {
+        $banco = "279 - CCR DE PRIMAVERA DO LESTE";
+      } elseif ($_POST["inputBanco"] == 280) {
+        $banco = "280 - AVISTA";
+      } elseif ($_POST["inputBanco"] == 283) {
+        $banco = "283 - RB CAPITAL INVESTIMENTOS DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 285) {
+        $banco = "285 - FRENTE CC LTDA";
+      } elseif ($_POST["inputBanco"] == 286) {
+        $banco = "286 - CCR DE OURO";
+      } elseif ($_POST["inputBanco"] == 288) {
+        $banco = "288 - CAROL DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 290) {
+        $banco = "290 - PAGSEGURO INTERNET";
+      } elseif ($_POST["inputBanco"] == 292) {
+        $banco = "292 - BS2 DISTRIBUIDORA DE TÍTULOS E INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 293) {
+        $banco = "293 - LASTRO RDV DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 298) {
+        $banco = "298 - VIPS CC LTDA";
+      } elseif ($_POST["inputBanco"] == 300) {
+        $banco = "300 - BANCO LA NACION ARGENTINA";
+      } elseif ($_POST["inputBanco"] == 301) {
+        $banco = "301 - BPP INSTITUIÇÃO DE PAGAMENTOS";
+      } elseif ($_POST["inputBanco"] == 310) {
+        $banco = "310 - VORTX DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 318) {
+        $banco = "318 - BANCO BMG";
+      } elseif ($_POST["inputBanco"] == 320) {
+        $banco = "320 - BANCO CCB BRASIL";
+      } elseif ($_POST["inputBanco"] == 321) {
+        $banco = "321 - CREFAZ SCMEPP LTDA";
+      } elseif ($_POST["inputBanco"] == 323) {
+        $banco = "323 - MERCADO PAGO - CONTA DO MERCADO LIVRE";
+      } elseif ($_POST["inputBanco"] == 329) {
+        $banco = "329 - Q I SOC PAULISTA DE CREDITO FINANCIAMENTO E INVESTIMENTO";
+      } elseif ($_POST["inputBanco"] == 341) {
+        $banco = "341 - ITAÚ UNIBANCO";
+      } elseif ($_POST["inputBanco"] == 366) {
+        $banco = "366 - SOCINAL";
+      } elseif ($_POST["inputBanco"] == 370) {
+        $banco = "370 - BANCO MIZUHO";
+      } elseif ($_POST["inputBanco"] == 376) {
+        $banco = "376 - JP MORGAN";
+      } elseif ($_POST["inputBanco"] == 389) {
+        $banco = "389 - BANCO MERCANTIL DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 394) {
+        $banco = "394 - BANCO BMG";
+      } elseif ($_POST["inputBanco"] == 399) {
+        $banco = "399 - HSBC";
+      } elseif ($_POST["inputBanco"] == 409) {
+        $banco = "409 - UNIBANCO - UNIÃO DE BANCOS BRASILEIROS";
+      } elseif ($_POST["inputBanco"] == 412) {
+        $banco = "412 - BANCO CAPITAL";
+      } elseif ($_POST["inputBanco"] == 422) {
+        $banco = "422 - BANCO SAFRA";
+      } elseif ($_POST["inputBanco"] == 453) {
+        $banco = "453 - BANCO RURAL";
+      } elseif ($_POST["inputBanco"] == 456) {
+        $banco = "456 - BANCO BARCLAYS";
+      } elseif ($_POST["inputBanco"] == 464) {
+        $banco = "464 - BANCO SUMITOMO MITSUI BRASILEIRO";
+      } elseif ($_POST["inputBanco"] == 477) {
+        $banco = "477 - CITIBANK";
+      } elseif ($_POST["inputBanco"] == 479) {
+        $banco = "479 - BANCO ITAUBANK";
+      } elseif ($_POST["inputBanco"] == 487) {
+        $banco = "487 - DEUTSCHE BANK";
+      } elseif ($_POST["inputBanco"] == 488) {
+        $banco = "488 - JPMORGAN CHASE BANK";
+      } elseif ($_POST["inputBanco"] == 492) {
+        $banco = "492 - ING BANK";
+      } elseif ($_POST["inputBanco"] == 494) {
+        $banco = "494 - BANCO DE LA NACION ARGENTINA";
+      } elseif ($_POST["inputBanco"] == 495) {
+        $banco = "495 - BANK OF AMERICA";
+      } elseif ($_POST["inputBanco"] == 505) {
+        $banco = "505 - BANCO CREDIT SUISSE";
+      } elseif ($_POST["inputBanco"] == 545) {
+        $banco = "545 - SENSO CCVM SA";
+      } elseif ($_POST["inputBanco"] == 600) {
+        $banco = "600 - BANCO LUSO BRASILEIRO";
+      } elseif ($_POST["inputBanco"] == 604) {
+        $banco = "604 - BANCO INDUSTRIAL DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 610) {
+        $banco = "610 - VR CRED AC";
+      } elseif ($_POST["inputBanco"] == 611) {
+        $banco = "611 - COOPERATIVA UNIPRIME";
+      } elseif ($_POST["inputBanco"] == 612) {
+        $banco = "612 - BANCO GUANABARA";
+      } elseif ($_POST["inputBanco"] == 613) {
+        $banco = "613 - OMNI BANCO";
+      } elseif ($_POST["inputBanco"] == 623) {
+        $banco = "623 - BANCO PAN";
+      } elseif ($_POST["inputBanco"] == 626) {
+        $banco = "626 - BANCO FICSA";
+      } elseif ($_POST["inputBanco"] == 630) {
+        $banco = "630 - BANCO INTERCAP";
+      } elseif ($_POST["inputBanco"] == 633) {
+        $banco = "633 - BANCO REDENTOR";
+      } elseif ($_POST["inputBanco"] == 634) {
+        $banco = "634 - BANCO TRIANGULO";
+      } elseif ($_POST["inputBanco"] == 637) {
+        $banco = "637 - BANCO SOFISA";
+      } elseif ($_POST["inputBanco"] == 641) {
+        $banco = "641 - BANCO ALVORADA";
+      } elseif ($_POST["inputBanco"] == 643) {
+        $banco = "643 - BANCO PINE";
+      } elseif ($_POST["inputBanco"] == 652) {
+        $banco = "652 - ITAÚ UNIBANCO HOLDING BM";
+      } elseif ($_POST["inputBanco"] == 653) {
+        $banco = "653 - BANCO INDUSVAL";
+      } elseif ($_POST["inputBanco"] == 654) {
+        $banco = "654 - BANCO A.J. RENNER";
+      } elseif ($_POST["inputBanco"] == 655) {
+        $banco = "655 - BANCO VOTORANTIM";
+      } elseif ($_POST["inputBanco"] == 707) {
+        $banco = "707 - BANCO DAYCOVAL";
+      } elseif ($_POST["inputBanco"] == 712) {
+        $banco = "712 - BANCO OURINVEST";
+      } elseif ($_POST["inputBanco"] == 756) {
+        $banco = "756 - SICOOB";
+      } elseif ($_POST["inputBanco"] == 999) {
+        $banco = "999 - BANCO COOPERATIVO SICREDI";
+      }
 
-  if ($_POST['inputOperacao'] == 1) {
-    $operacao = "NOVO";
-  } elseif ($_POST['inputOperacao'] == 2) {
-    $operacao = "PORTABILIDADE";
-  } elseif ($_POST['inputOperacao'] == 3) {
-    $operacao = "REFINANCIAMENTO";
-  } elseif ($_POST['inputOperacao'] == 4) {
-    $operacao = "CARTÃO PLÁSTICO";
-  } elseif ($_POST['inputOperacao'] == 5) {
-    $operacao = "PORTABILIDADE COM REFIN";
-  } elseif ($_POST['inputOperacao'] == 6) {
-    $operacao = "CARTÃO COM SAQUE";
-  } elseif ($_POST['inputOperacao'] == 7) {
-    $operacao = "CARTÃO BENEFÍCIO COM SEGURO";
-  } elseif ($_POST['inputOperacao'] == 8) {
-    $operacao = "CARTÃO BENEFÍCIO SEM SEGURO";
-  } elseif ($_POST['inputOperacao'] == 9) {
-    $operacao = "CARTÃO BENEFÍCIO INSS";
-  } elseif ($_POST['inputOperacao'] == 10) {
-    $operacao = "NOVO REPRESENTANTE LEGAL";
-  } elseif ($_POST['inputOperacao'] == 11) {
-    $operacao = "NOVO AUMENTO DE SALÁRIO";
-  } elseif ($_POST['inputOperacao'] == 12) {
-    $operacao = "SAQUE CARTÃO BENEFÍCIO";
-  }
+      if ($_POST['inputValorParcelas'] == 120) {
+        $parcela = "120x";
+      } elseif ($_POST['inputValorParcelas'] == 96) {
+        $parcela = "96x";
+      } elseif ($_POST['inputValorParcelas'] == 84) {
+        $parcela = "84x";
+      } elseif ($_POST['inputValorParcelas'] == 72) {
+        $parcela = "72x";
+      } elseif ($_POST['inputValorParcelas'] == 60) {
+        $parcela = "60x";
+      } elseif ($_POST['inputValorParcelas'] == 48) {
+        $parcela = "48x";
+      } elseif ($_POST['inputValorParcelas'] == 36) {
+        $parcela = "36x";
+      } elseif ($_POST['inputValorParcelas'] == 24) {
+        $parcela = "24x";
+      } elseif ($_POST['inputValorParcelas'] == 12) {
+        $parcela = "12x";
+      }
 
 
+      if ($_POST['inputCanal'] == 1) {
+        $canal = "TELEMARKETING";
+      } elseif ($_POST['inputCanal'] == 2) {
+        $canal = "SMS";
+      } elseif ($_POST['inputCanal'] == 3) {
+        $canal = "OUTROS";
+      } elseif ($_POST['inputCanal'] == 4) {
+        $canal = "WHATSAPP";
+      } elseif ($_POST['inputCanal'] == 5) {
+        $canal = "FACEBOOK";
+      } elseif ($_POST['inputCanal'] == 6) {
+        $canal = "ANUNCIO";
+      } elseif ($_POST['inputCanal'] == 7) {
+        $canal = "DISPAROS WATZAP";
+      } elseif ($_POST['inputCanal'] == 8) {
+        $canal = "INDICAÇÃO";
+      } elseif ($_POST['inputCanal'] == 9) {
+        $canal = "LIGAÇÃO";
+      } elseif ($_POST['inputCanal'] == 10) {
+        $canal = "CLIENTE BALCÃO";
+      } elseif ($_POST['inputCanal'] == 11) {
+        $canal = "CLIENTE LIGOU NA LOJA";
+      } elseif ($_POST['inputCanal'] == 12) {
+        $canal = "INSTAGRAM";
+      } elseif ($_POST['inputCanal'] == 13) {
+        $canal = "FACE";
+      } elseif ($_POST['inputCanal'] == 14) {
+        $canal = "CARTEIRA";
+      }
+
+
+      //Marcando o tipo de promotora com base no valor do input 
+      if ($_POST["inputPromotora"] == 1) {
+        $promotora = "CREDIBRASIL LOJAS";
+      }
+      if ($_POST["inputPromotora"] == 2) {
+        $promotora = "CREDIBRASIL CONSIGNADO";
+      }
+
+
+      if ($_POST['inputFormalizacao'] == 1) {
+        $formalizacao = "DIGITAL";
+      } elseif ($_POST['inputFormalizacao'] == 2) {
+        $formalizacao = "FÍSICO";
+      }
+
+      if ($_POST['inputCanal'] == 1) {
+        $canal = "TELEMARKETING";
+      } elseif ($_POST['inputCanal'] == 2) {
+        $canal = "SMS";
+      }
+
+      if ($_POST['inputConvenio'] == 1) {
+        $convenio = "INSS";
+      } elseif ($_POST['inputConvenio'] == 2) {
+        $convenio = "FGTS";
+      } elseif ($_POST['inputConvenio'] == 3) {
+        $convenio = "AUXÍLIO BRASIL";
+      } elseif ($_POST['inputConvenio'] == 4) {
+        $convenio = "GOVERNO DE SÃO PAULO";
+      } elseif ($_POST['inputConvenio'] == 5) {
+        $convenio = "PREFEITURA DE SÃO PAULO";
+      } elseif ($_POST['inputConvenio'] == 6) {
+        $convenio = "GOVERNO DO RIO DE JANEIRO";
+      } elseif ($_POST['inputConvenio'] == 7) {
+        $convenio = "SIAPE";
+      } elseif ($_POST['inputConvenio'] == 8) {
+        $convenio = "GOVERNO DA BAHIA";
+      } elseif ($_POST['inputConvenio'] == 9) {
+        $convenio = "PESSOAL";
+      }
+
+
+
+
+      if ($_POST['inputOperacao'] == 1) {
+        $operacao = "NOVO";
+      } elseif ($_POST['inputOperacao'] == 2) {
+        $operacao = "PORTABILIDADE";
+      } elseif ($_POST['inputOperacao'] == 3) {
+        $operacao = "REFINANCIAMENTO";
+      } elseif ($_POST['inputOperacao'] == 4) {
+        $operacao = "CARTÃO PLÁSTICO";
+      } elseif ($_POST['inputOperacao'] == 5) {
+        $operacao = "PORTABILIDADE COM REFIN";
+      } elseif ($_POST['inputOperacao'] == 6) {
+        $operacao = "CARTÃO COM SAQUE";
+      } elseif ($_POST['inputOperacao'] == 7) {
+        $operacao = "CARTÃO BENEFÍCIO COM SEGURO";
+      } elseif ($_POST['inputOperacao'] == 8) {
+        $operacao = "CARTÃO BENEFÍCIO SEM SEGURO";
+      } elseif ($_POST['inputOperacao'] == 9) {
+        $operacao = "CARTÃO BENEFÍCIO INSS";
+      } elseif ($_POST['inputOperacao'] == 10) {
+        $operacao = "NOVO REPRESENTANTE LEGAL";
+      } elseif ($_POST['inputOperacao'] == 11) {
+        $operacao = "NOVO AUMENTO DE SALÁRIO";
+      } elseif ($_POST['inputOperacao'] == 12) {
+        $operacao = "SAQUE CARTÃO BENEFÍCIO";
+      }
 
 
 
 
 
 
-                                    
+
+
+
       $query_editar = "UPDATE propostas set convenio = '$convenio', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = '$documentoanexado', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
