@@ -3458,6 +3458,44 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
+<?php
+    if (isset($_POST['buttonEditar'])) {
+      $usuario = $_SESSION['nome_usuario'];
+      $nome = $_POST['inputNome'];
+      
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+
+      $result_editar = mysqli_query($conexao, $query_editar);
+
+      /*
+      $queryeditar = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Editou um pet de espécie: $especie', curDate())";
+      $resulteditar = mysqli_query($conexao, $queryeditar);
+      */
+      if ($result_editar == '') {
+        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      } else {
+        echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
+        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+      }
+    }
+    ?>
 
 
 
