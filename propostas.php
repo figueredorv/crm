@@ -83,7 +83,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-  <div class="container">
+  <div class=col-sm-12>
 
 
 
@@ -95,7 +95,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
       <div class="col-sm-12">
 
 
-        <div class="container">
+        <div class="d-flex align-items-left">
           <div class="row">
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
               <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus"> NOVA PROPOSTA</i></button>
@@ -136,7 +136,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
+                  <div class="table-responsive h-100">
 
 
                     <!--LISTAR TODAS AS PROPOSTAS -->
