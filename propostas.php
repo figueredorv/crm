@@ -287,7 +287,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo  $valor; ?></td>
+                              <td><?php echo  $valor." R$"; ?></td>
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
@@ -2194,7 +2194,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
     <!-- Modal  -->
     <div id="modalpropostas" class="modal fade" role="dialog">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -3162,7 +3162,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
     <!-- Modal  -->
     <div id="modaldadosbancarios" class="modal fade" role="dialog">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">

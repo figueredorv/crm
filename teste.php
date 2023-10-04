@@ -44,3 +44,27 @@
   </div>
   <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
+
+
+
+
+
+
+<li class="">
+  <a href="usuarios.php">
+    <i class="nc-icon nc-single-02"></i>
+    <p>Usuarios</p>
+  </a>
+</li>
+
+
+
+
+
+<ul class="nav">
+  <li class="">
+    <a href="log.php">
+      <i class="fa fa-file-text-o"></i>
+      <p>LOG DE USUÁRIOS</p>
+    </a>
+  </li>

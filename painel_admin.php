@@ -1,17 +1,9 @@
-<?php 
+<?php
 
 session_start();
 include('verificar_login.php');
-include('conexao.php');
-
-
-if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] != 'Desenvolvedor'){
-	header('Location:index.php');
-	exit();
-}
-
- ?>
-
+include("conexao.php");
+?>
 
 
 
@@ -25,10 +17,14 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <link rel="stylesheet" href="css/style.css">
- 
+
+
+
+
+
 
   <title>
-    DEFESA CIVIL
+    CRM CORBAN
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -40,7 +36,8 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
 
-  
+
+
 </head>
 
 <body class="">
@@ -52,50 +49,54 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
       <div class="logo">
         <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="https://cdn-icons-png.flaticon.com/512/6941/6941697.png">
+            <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-File.png">
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
-          PAINEL ADMIN
+          CRM CORBAN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
         </a>
       </div>
+
+
       <div class="sidebar-wrapper">
-      
+
+
         <ul class="nav">
 
 
           <li class="">
-          <a href="usuarios.php">
-          <i class="nc-icon nc-single-02"></i>
-          <p>Usuarios</p>
-          </a>
+            <a href="usuarios.php">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Usuarios</p>
+            </a>
           </li>
 
 
 
-        
-          
+
+
           <ul class="nav">
-        <li class="">
-            <a href="log.php">
-              <i class="fa fa-file-text-o"></i>
-              <p>LOG DE USUÁRIOS</p>
-            </a>
-          </li>
-          
+            <li class="">
+              <a href="log.php">
+                <i class="fa fa-file-text-o"></i>
+                <p>LOG DE USUÁRIOS</p>
+              </a>
+            </li>
 
-          
-          
-          <li class="active-pro">
-            <a href="logout.php">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-              <p>SAIR</p>
-            </a>
-          </li>
-        </ul>
+
+
+
+
+            <li class="active-pro">
+              <a href="logout.php">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <p>SAIR</p>
+              </a>
+            </li>
+          </ul>
       </div>
     </div>
     <div class="main-panel">
@@ -112,14 +113,27 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
             </div>
             <a class="navbar-brand" href="#pablo"></a>
           </div>
-         
+
+          <form>
+            <div class="input-group no-border">
+              <input type="text" value="" class="form-control" placeholder="Search...">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="nc-icon nc-zoom-split"></i>
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-           
+
             <ul class="navbar-nav">
-             
+
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                	<?php echo $_SESSION['nome_usuario']; ?>
+                  <?php echo $_SESSION['nome_usuario']; ?>
                   <i class="nc-icon nc-single-02"></i>
                   <p>
 
@@ -127,22 +141,29 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <?php 
-                if($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor'){
-                  
 
-                 ?>
 
-                  <a class="dropdown-item" href="painel_admin.php">Painél do Administrador</a>
-                 <a class="dropdown-item" href="painel_funcionario.php">Painél do Funcionário</a>
+                  <?php
+                  if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {
 
-                 <?php } ?>
-                 
+
+                  ?>
+
+                    <a class="dropdown-item" href="painel_admin.php">Painél do Administrador</a>
+                    <a class="dropdown-item" href="painel_funcionario.php">Painél do Funcionário</a>
+
+                  <?php } ?>
+
                   <a class="dropdown-item" href="logout.php">Sair</a>
 
+
+
                 </div>
+
+
+
               </li>
-             
+
             </ul>
           </div>
         </div>
@@ -158,309 +179,720 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
 
 
 
+      <div class="content">
 
-<div class="content">
 
 
-<a href ="" style="text-decoration:none"> 
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="bi bi-cone-striped"></i>
-                      <i class="fa fa-money text-success "></i>
+
+        <?php
+
+        $query = "select * from propostas where statusproposta = 'Pendente'";
+        $result = mysqli_query($conexao, $query);
+        //$dado = mysqli_fetch_array($result);
+        $row = mysqli_num_rows($result);
+
+        if ($row > 0) : ?>
+          <div class="notice notice-warning"><strong>Atenção!</strong> Existem propostas pendentes.</div>
+
+        <?php
+
+        endif;
+        ?>
+
+
+
+
+
+
+
+
+
+
+        <a href="propostas.php" style="text-decoration:none">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="row">
+                    <div class="col-5 col-md-4">
+                      <div class="icon-big text-center icon-warning">
+                        <i class="bi bi-cone-striped"></i>
+                        <i class="fa fa-cart-arrow-down text-warning "></i>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Entradas</p>
-                      <p class="card-title">
+                    <div class="col-7 col-md-8">
+                      <div class="numbers">
+                        <p class="card-category">Total de propostas</p>
+                        <p class="card-title">
 
-                      <?php 
+                          <?php
 
-                      $resultado = mysqli_query($conexao, "SELECT sum(valor) FROM financeiro WHERE tipo = 'Entrada'");
-                      $linhas = mysqli_num_rows($resultado);
+                          $query = "select * from propostas order by nome asc";
+                          $result = mysqli_query($conexao, $query);
+                          //$dado = mysqli_fetch_array($result);
+                          $row = mysqli_num_rows($result);
 
+                          if ($row == '') {
 
-                      while($linhas = mysqli_fetch_array($resultado)){
-                       $linha = $linhas['sum(valor)'];
-                        echo 'R$'. number_format($linha, 0, ',', '.');
-                              
-                              ?>
-
-                              <?php
+                            echo "<h5> 0 </h5>";
+                          } else {
+                            echo "<h5> $row </h5>";
                           }
-                      ?>
+                          ?>
 
 
-                      </p>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-money "></i> Total de entradas
-                </div>
-              </div>
-            </div>
-            </a>
-          </div>
-          <a href ="" style="text-decoration:none">          
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="fa fa-external-link-square text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Saídas </p>
-                      <p class="card-title">
-                        
-                      <?php 
-
-                    $resultado = mysqli_query($conexao, "SELECT sum(valor) FROM financeiro WHERE tipo = 'Saida'");
-                    $linhas = mysqli_num_rows($resultado);
-                    
-
-                      while($linhas = mysqli_fetch_array($resultado)){
-                        $linha = $linhas['sum(valor)'];
-                        echo 'R$'. number_format($linha, 2, ',', '.');
-                              
-                              ?>
-
-                              <?php
-                          }
-                      ?>
-                      
-                      <p>
-                    </div>
+                <div class="card-footer ">
+                  <hr>
+                  <div class="stats">
+                    <i class="fa fa-cart-arrow-down "></i> Quantidade total de propostas
                   </div>
                 </div>
               </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-external-link-square "></i> Total de despesas
-                </div>
-              </div>
-            </div>
-            </a>
-          </div>
-          
-          <a href ="" style="text-decoration:none"> 
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="fa fa-handshake-o text-primary"></i>
-                    </div>
+        </a>
+      </div>
+      <a href="propostas.php?buttonOcNaoAtendidas=" style="text-decoration:none">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-body ">
+              <div class="row">
+                <div class="col-5 col-md-4">
+                  <div class="icon-big text-center icon-warning">
+                    <i class="fa fa-money text-danger"></i>
                   </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Doações</p>
-                      <p class="card-title"> 
-                        
-                      <?php 
-
-                      $resultado = mysqli_query($conexao, "SELECT sum(valor) FROM doacoes");
-                      $linhas = mysqli_num_rows($resultado);
-
-
-                      while($linhas = mysqli_fetch_array($resultado)){
-                        $linha = $linhas['sum(valor)'];
-                        echo 'R$'. number_format($linha, 1, ',', '.');
-                              
-                              ?>
-
-                              <?php
-                          }
-                      ?>
-                      
-                      
-                      <p>    
-                    </div>
-                  </div>
-                </div>  
-              </div>
-             
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-handshake-o"></i> Total de doações
                 </div>
-              </div>
-            </div>
-            </a> 
-          </div>
-        </div>
-        
-        
-      
-        <a class="btn btn-primary" href="financeiro.php" role="button">Financeiro</a> 
-        <a class="btn btn-primary" href="doacoes-adm.php" role="button">Doações</a>
-                          
-       
+                <div class="col-7 col-md-8">
+                  <div class="numbers">
+                    <p class="card-category">Valor total das propostas </p>
+                    <p class="card-title">
 
+                      <?php
 
-
-<!-- Content Row -->
-<div class="row">
-
-
-<!-- Content Column -->
-<div class="col-lg-6 mb-4">
-
-
-
-    <!-- Project Card Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Dashboard</h6>
-        </div>
-        <div class="card-body">
-            <h4 class="small font-weight-bold">Total de animais registrados <span
-                    class="float-right">
-                  
-                  
-                    <?php 
-
-                      $query = "select * from animais order by nome asc"; 
+                      $query = "select * from propostas where nome = 'Ruan'";
                       $result = mysqli_query($conexao, $query);
                       //$dado = mysqli_fetch_array($result);
                       $row = mysqli_num_rows($result);
-                      
-                      if($row == ''){
 
-                          echo "<h5> 0 </h5>";
+                      if ($row == '') {
 
-                      }else{
+                        echo "<h5> 0 </h5>";
+                      } else {
                         echo "<h5> $row </h5>";
                       }
+                      ?>
+
+                    <p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <hr>
+              <div class="stats">
+                <i class="fa fa-money "></i> Média de vendas diárias
+              </div>
+            </div>
+          </div>
+      </a>
+    </div>
+    <a href="propostas.php?buttonOcAtendidas=" style="text-decoration:none">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-bar-chart text-success"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">Média de vendas diárias</p>
+                  <p class="card-title">
+
+                    <?php
+
+                    $query = "select * from propostas where nome = 'Ruan'";
+                    $result = mysqli_query($conexao, $query);
+                    //$dado = mysqli_fetch_array($result);
+                    $row = mysqli_num_rows($result);
+
+                    if ($row == '') {
+
+                      echo "<h5> 0 </h5>";
+                    } else {
+                      echo "<h5> $row </h5>";
+                    }
+                    ?>
+
+                  <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-bar-chart"></i> Total de média diária
+            </div>
+          </div>
+        </div>
+    </a>
+  </div>
+  <a href="propostas.php?buttonpetsemvacina=" style="text-decoration:none">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-5 col-md-4">
+              <div class="icon-big text-center icon-warning">
+                <i class="fa fa-circle-o-notch text-primary"></i>
+              </div>
+            </div>
+            <div class="col-7 col-md-8">
+              <div class="numbers">
+                <p class="card-category">Valor das propostas</p>
+                <p class="card-title">
+
+                  <?php
+
+                  $query = "select * from propostas where statusproposta = 'Pendente'";
+                  $result = mysqli_query($conexao, $query);
+                  //$dado = mysqli_fetch_array($result);
+                  $row = mysqli_num_rows($result);
+
+                  if ($row == '') {
+
+                    echo "<h5> 0 </h5>";
+                  } else {
+                    echo "<h5> $row </h5>";
+                  }
+                  ?>
+
+
+                <p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-circle-o-notch "></i> Média do valor das propostas
+          </div>
+        </div>
+      </div>
+  </a>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">HOJE</span></h5>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <form class="form-inline my-2 my-lg-0">
+                <button name="buttonOcAtendidas" type="submit" class="btn btn-primary">Mais alta</button>
+                <form>
+
+                  <form class="form-inline my-2 my-lg-0">
+                    <button name="buttonOcNaoAtendidas" type="submit" class="btn btn-primary">Mais baixa</button>
+                    <form>
+
+
+                      <form class="form-inline my-2 my-lg-0">
+                        <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas</button>
+                        <form>
+
+            </div>
+
+
+
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+
+
+              <!--LISTAR TODAS AS OCORRÊNCIAS -->
+
+              <?php
+
+              // novo codigo ( procurar ocorrência pelo nome)
+              if (isset($_GET['buttonPesquisar'])) {
+                $query = "select * from propostas where data = curdate()";
+              }
+
+              // novo codigo ( procurar por propostas pendentes)
+              else if (isset($_GET['buttonOcAtendidas'])) {
+                $nome = 'Pendentes';
+                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
+              }
+              // novo codigo ( procurar por propostas nao adotados)
+              else if (isset($_GET['buttonOcNaoAtendidas'])) {
+                $nome = 'Finalizada';
+                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
+              }
+              // novo codigo ( procurar por propostas sem nenhuma vacina)
+              else if (isset($_GET['buttonpetsemvacina'])) {
+                $nome = '';
+                $query = "select * from propostas where statusproposta = '$nome'";
+              }
+
+
+              //final do código
+
+              else {
+                $query = "select * from propostas where data = curdate()   order by data asc ";
+              }
+
+
+
+
+
+              $result = mysqli_query($conexao, $query);
+              //$dado = mysqli_fetch_array($result);
+              $row = mysqli_num_rows($result);
+
+              if ($row == '') {
+
+                echo "<h3> Não existem dados cadastrados no banco </h3>";
+              } else {
+
+              ?>
+
+
+
+                <table class="table">
+                  <thead class=" text-primary">
+
+                    <th>
+                      Nome
+                    </th>
+                    <th>
+                      Cpf
+                    </th>
+                    <th>
+                      Operação
+                    </th>
+                    <th>
+                      Tabela
+                    </th>
+                    <th>
+                      Convênio
+                    </th>
+                    <th>
+                      Banco
+                    </th>
+
+                    <th>
+                      Valor
+                    </th>
+
+                    <th>
+                      Promotora
+                    </th>
+
+                    <th>
+                      Usuário
+                    </th>
+
+                    <th>
+                      Status
+                    </th>
+
+
+
+                    <th>
+                      Ações
+                    </th>
+                  </thead>
+                  <tbody>
+
+                    <?php
+
+                    while ($res_1 = mysqli_fetch_array($result)) {
+                      $nome = $res_1["nome"];
+                      $cpf = $res_1["cpf"];
+                      $operacao = $res_1["operacao"];
+                      $tabela = $res_1["tabela"];
+                      $convenio = $res_1["convenio"];
+                      $banco = $res_1["banco"];
+                      $valor = $res_1["valor"];
+                      $promotora = $res_1["promotora"];
+                      $usuario = $res_1["idusuario"];
+                      $statusproposta = $res_1["statusproposta"];
+                      $id = $res_1["idpropostas"];
+                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
+
+
+
+
+
+                    ?>
+
+                      <tr>
+                        <td><?php echo $nome; ?></td>
+                        <td><?php echo  $cpf; ?></td>
+                        <td><?php echo  $operacao;  ?></td>
+                        <td><?php echo $tabela;  ?></td>
+                        <td><?php echo $convenio; ?></td>
+                        <td><?php echo $banco; ?></td>
+                        <td><?php echo  $valor; ?></td>
+                        <td><?php echo  $promotora; ?></td>
+                        <td><?php echo  $usuario; ?></td>
+
+
+
+
+
+                        <?php
+                        if ($statusproposta == "Pendente") : ?>
+                          <td class="badge badge-pill badge-warning"><?php echo $statusproposta; ?></td>
+                        <?php
+                        endif;
+
                         ?>
-                  
-                  
-                  </span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo "$row"."%" ?>"
-                    aria-valuenow="<?php echo "$row"."%" ?>" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <h4 class="small font-weight-bold">Total de animais disponíveis para adoção <span
-                    class="float-right">
-                  
-                    <?php 
+                        <?php
+                        if ($statusproposta == "Finalizada") : ?>
+                          <td class="badge badge-pill badge-success"><?php echo $statusproposta; ?></td>
+                        <?php
+                        endif;
 
-                    $query = "select * from animais where situacao = 'Disponivel'"; 
-                    $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
+                        ?>
+                        <?php
+                        if ($statusproposta == "Cancelada") : ?>
+                          <td class="badge badge-pill badge-danger"><?php echo $statusproposta; ?></td>
+                        <?php
+                        endif;
 
-                    if($row == ''){
+                        ?>
 
-                      echo "<h5> 0 </h5>";
 
-                    }else{
-                      echo "<h5> $row </h5>";
+
+                        <td>
+                          <a class="btn btn-info" href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
+
+                          <a class="btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
+
+                          <br>
+
+
+
+
+                        </td>
+                      </tr>
+
+                    <?php
                     }
-                      ?>
-                  
-                  
-                  </span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar bg-warning" role="progressbar" style="width:  <?php echo "$row"."%" ?>"
-                    aria-valuenow="<?php echo "$row"."%" ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                    ?>
+
+
+
+                  </tbody>
+                </table>
+              <?php
+              }
+              ?>
             </div>
-            <h4 class="small font-weight-bold">Total de animais adotados <span
-                    class="float-right">
-                  
-                    <?php 
-
-                    $query = "select * from animais where situacao = 'Adotado'"; 
-                    $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
-
-                    if($row == ''){
-
-                      echo "<h5> 0 </h5>";
-
-                    }else{
-                      echo "<h5> $row </h5>";
-                    }
-                      ?>
-                  
-                  </span></h4>
-            <div class="progress mb-4">
-                <div class="progress-bar" role="progressbar"  style="width:  <?php echo "$row"."%" ?>"
-                    aria-valuenow="<?php echo "$row"."%"?>" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <h4 class="small font-weight-bold">Total de animais castrados<span
-                    class="float-right">
-                  
-                    <?php 
-
-                    $query = "select * from animais where castrado = 'Sim'"; 
-                    $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
-
-                    if($row == ''){
-
-                      echo "<h5> 0 </h5>";
-
-                    }else{
-                      echo "<h5> $row </h5>";
-                    }
-                      ?>
-                  
-                  </span></h4>
-            <div class="progress mb-4">
-            <div class="progress-bar bg-success" role="progressbar"  style="width:  <?php echo "$row"."%" ?>"
-                    aria-valuenow="<?php echo "$row"."%" ?>" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
 
-
-
-<div class="col-lg-6 mb-4">
-
-    <!-- Illustrations -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Informações</h6>
-        </div>
-        <div class="card-body">
-            <div class="text-center">
-                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                    src="img/undraw_posting_photo.svg" alt="...">
-            </div>
-            <p>Aqui é o seu painel administrativo. 
-                Nessa página é onde você encontra as informações de gerenciamento do seu sistema! 
-                Caso precise de ajuda, entre em contato com o suporte no link abaixo.</p>
-            <a target="_blank" rel="nofollow" href="https://wa.link/1quja8">Preciso de ajuda! &rarr;</a>
-        </div>
     </div>
 
 
-</div>
-</div>
+    <!-- início de tabelas que ficam em baixo de Propostas registradas -->
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card ">
+          <!-- início de tabela de usuários mais ativos -->
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
 
 
 
 
 
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+
+
+
+
+                    <?php
+
+
+
+
+
+
+
+
+
+                    //contabilizando o usuáio que mais cadastrou propostas
+                    $query = "SELECT idusuario, COUNT(idusuario) as propostas
+                FROM propostas
+                GROUP BY idusuario
+                ORDER BY propostas DESC;";
+
+
+
+
+
+
+                    $result = mysqli_query($conexao, $query);
+                    //$dado = mysqli_fetch_array($result);
+                    $row = mysqli_num_rows($result);
+
+                    if ($row == '') {
+
+                      echo "<h3> Não existem dados cadastrados no banco </h3>";
+                    } else {
+
+                    ?>
+
+
+
+                      <table class="table">
+                        <thead class=" text-primary">
+
+                          <th>
+                            Usuário
+                          </th>
+                          <th>
+                            Propostas cadastradas
+                          </th>
+
+
+
+                        </thead>
+                        <tbody>
+
+                          <?php
+
+                          while ($res_1 = mysqli_fetch_array($result)) {
+                            $nome = $res_1["idusuario"];
+                            $propostas = $res_1["propostas"];
+                            $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
+
+
+
+
+
+                          ?>
+
+                            <tr>
+                              <td><?php echo $nome; ?></td>
+                              <td><?php echo $propostas; ?></td>
+
+
+
+
+
+
+
+
+
+
+                            </tr>
+
+                          <?php
+                          }
+                          ?>
+
+
+
+                        </tbody>
+                      </table>
+                    <?php
+                    }
+                    ?>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!-- final de tabela de usuários mais ativos -->
+
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-title">NASDAQ: AAPL</h5>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title"> Simple Table</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class=" text-primary">
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Country
+                          </th>
+                          <th>
+                            City
+                          </th>
+                          <th class="text-right">
+                            Salary
+                          </th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              Dakota Rice
+                            </td>
+                            <td>
+                              Niger
+                            </td>
+                            <td>
+                              Oud-Turnhout
+                            </td>
+                            <td class="text-right">
+                              $36,738
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Minerva Hooper
+                            </td>
+                            <td>
+                              Curaçao
+                            </td>
+                            <td>
+                              Sinaai-Waas
+                            </td>
+                            <td class="text-right">
+                              $23,789
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Sage Rodriguez
+                            </td>
+                            <td>
+                              Netherlands
+                            </td>
+                            <td>
+                              Baileux
+                            </td>
+                            <td class="text-right">
+                              $56,142
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Philip Chaney
+                            </td>
+                            <td>
+                              Korea, South
+                            </td>
+                            <td>
+                              Overland Park
+                            </td>
+                            <td class="text-right">
+                              $38,735
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Doris Greene
+                            </td>
+                            <td>
+                              Malawi
+                            </td>
+                            <td>
+                              Feldkirchen in Kärnten
+                            </td>
+                            <td class="text-right">
+                              $63,542
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Mason Porter
+                            </td>
+                            <td>
+                              Chile
+                            </td>
+                            <td>
+                              Gloucester
+                            </td>
+                            <td class="text-right">
+                              $78,615
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Jon Porter
+                            </td>
+                            <td>
+                              Portugal
+                            </td>
+                            <td>
+                              Gloucester
+                            </td>
+                            <td class="text-right">
+                              $98,615
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Final de tabelas que ficam em baixo de Propostas registradas -->
+
+
+
+
+    </head>
+
+    <body>
 
 
 
@@ -473,10 +905,7 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
             <nav class="footer-nav">
               <ul>
                 <li>
-                  <a href="" target="_blank"></a>
-                </li>
-                <li>
-                  <a href="" target="_blank"></a>
+                  <a href="https://wa.link/1quja8" target="_blank">SUPORTE</a>
                 </li>
               </ul>
             </nav>
@@ -485,13 +914,13 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
                 ©
                 <script>
                   document.write(new Date().getFullYear())
-                </script>,  Anjos de quatro patas <i class="fa fa-heart heart"></i> 
+                </script>, CRM CORBAN <i class="fa fa-heart heart"></i>
               </span>
             </div>
           </div>
         </div>
       </footer>
-    </div>
+  </div>
   </div>
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
@@ -516,7 +945,7 @@ if($_SESSION['cargo_usuario'] != 'Administrador' && $_SESSION['cargo_usuario'] !
   </script>
 
 
- 
+
 
 
 

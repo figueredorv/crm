@@ -172,7 +172,7 @@ include('verificar_login.php');
                             $usuario = $res_1["usuario"];
                             $senha = $res_1["senha"];
                             $cargo = $res_1["cargo"];
-                            $id = $res_1["id"];
+                            $id = $res_1["idusuarios"];
 
                             
 
@@ -342,7 +342,7 @@ if(@$_GET['func'] == 'deleta'){
 <?php
 if(@$_GET['func'] == 'edita'){  
 $id = $_GET['id'];
-$query = "select * from usuarios where id = '$id'";
+$query = "select * from usuarios where idusuarios = '$id'";
 $result = mysqli_query($conexao, $query);
 
  while($res_1 = mysqli_fetch_array($result)){
@@ -439,7 +439,7 @@ if(isset($_POST['buttonEditar'])){
  
 
 
-$query_editar = "UPDATE usuarios set nome = '$nome', usuario = '$usuario', senha = '$senha', cargo = '$cargo' where id = '$id' ";
+$query_editar = "UPDATE usuarios set nome = '$nome', usuario = '$usuario', senha = '$senha', cargo = '$cargo' where idusuarios = '$id' ";
 
 $result_editar = mysqli_query($conexao, $query_editar);
 

@@ -77,19 +77,12 @@ include("conexao.php");
 
           <li class="">
             <a href="propostas.php">
-              <i class="fa fa-product-hunt"></i>
+              <i class="fa fa-search"></i>
               <p>Propostas</p>
             </a>
           </li>
 
 
-
-          <li class="">
-            <a href="propostas.php">
-              <i class="fa fa-search"></i>
-              <p>Consultas</p>
-            </a>
-          </li>
 
           <li class="">
             <a href="mensagens.php">
@@ -223,7 +216,7 @@ include("conexao.php");
 
 
 
-        
+
 
 
 
@@ -356,16 +349,19 @@ include("conexao.php");
 
                       <?php
 
-                      $query = "select * from propostas where nome = 'Ruan'";
+                      $query = "SELECT SUM(valor) AS total_valor
+                      FROM propostas;";
                       $result = mysqli_query($conexao, $query);
                       //$dado = mysqli_fetch_array($result);
                       $row = mysqli_num_rows($result);
+                      $dado = mysqli_fetch_array($result);
+                      $resultado = $dado["total_valor"];
 
                       if ($row == '') {
 
                         echo "<h5> 0 </h5>";
                       } else {
-                        echo "<h5> $row </h5>";
+                        echo  "<h5> $resultado </h5";
                       }
                       ?>
 
@@ -506,8 +502,10 @@ include("conexao.php");
 
 
                       <form class="form-inline my-2 my-lg-0">
-                        <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas</button>
+                        <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas </button>
                         <form>
+
+                         
 
             </div>
 
@@ -570,11 +568,11 @@ include("conexao.php");
                 <table class="table">
                   <thead class=" text-primary">
 
-                  <th>
+                    <th>
                       Nome
                     </th>
                     <th>
-                     Cpf
+                      Cpf
                     </th>
                     <th>
                       Operação
@@ -588,25 +586,25 @@ include("conexao.php");
                     <th>
                       Banco
                     </th>
-                    
+
                     <th>
                       Valor
                     </th>
-                    
+
                     <th>
-                     Promotora
+                      Promotora
                     </th>
-                   
+
                     <th>
                       Usuário
                     </th>
-                   
+
                     <th>
                       Status
                     </th>
-                    
-                    
-                    
+
+
+
                     <th>
                       Ações
                     </th>
@@ -642,11 +640,11 @@ include("conexao.php");
                         <td><?php echo $tabela;  ?></td>
                         <td><?php echo $convenio; ?></td>
                         <td><?php echo $banco; ?></td>
-                        <td><?php echo  $valor; ?></td>
+                        <td><?php echo  $valor . " R$"; ?></td>
                         <td><?php echo  $promotora; ?></td>
                         <td><?php echo  $usuario; ?></td>
-                        
-                        
+
+
 
 
 
@@ -711,123 +709,123 @@ include("conexao.php");
     <div class="row">
       <div class="col-md-4">
         <div class="card ">
-           <!-- início de tabela de usuários mais ativos -->
+          <!-- início de tabela de usuários mais ativos -->
 
-           <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
-
-            
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
 
 
 
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
 
 
-              
-
-              <?php
-
-              
-
-              
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
 
 
-              
 
-              
-                //contabilizando o usuáio que mais cadastrou propostas
-                $query = "SELECT idusuario, COUNT(idusuario) as propostas
+
+                    <?php
+
+
+
+
+
+
+
+
+
+                    //contabilizando o usuáio que mais cadastrou propostas
+                    $query = "SELECT idusuario, COUNT(idusuario) as propostas
                 FROM propostas
                 GROUP BY idusuario
                 ORDER BY propostas DESC;";
-              
 
 
 
 
 
-              $result = mysqli_query($conexao, $query);
-              //$dado = mysqli_fetch_array($result);
-              $row = mysqli_num_rows($result);
 
-              if ($row == '') {
+                    $result = mysqli_query($conexao, $query);
+                    //$dado = mysqli_fetch_array($result);
+                    $row = mysqli_num_rows($result);
 
-                echo "<h3> Não existem dados cadastrados no banco </h3>";
-              } else {
+                    if ($row == '') {
 
-              ?>
-
-
-
-                <table class="table">
-                  <thead class=" text-primary">
-
-                  <th>
-                      Usuário
-                    </th>
-                    <th>
-                      Propostas cadastradas
-                    </th>
-                    
-                   
-                   
-                  </thead>
-                  <tbody>
-
-                    <?php
-
-                    while ($res_1 = mysqli_fetch_array($result)) {
-                      $nome = $res_1["idusuario"];
-                      $propostas = $res_1["propostas"];
-                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
-
-
-
-
+                      echo "<h3> Não existem dados cadastrados no banco </h3>";
+                    } else {
 
                     ?>
 
-                      <tr>
-                        <td><?php echo $nome; ?></td>
-                        <td><?php echo $propostas; ?></td>
-                      
-                        
-                        
+
+
+                      <table class="table">
+                        <thead class=" text-primary">
+
+                          <th>
+                            Usuário
+                          </th>
+                          <th>
+                            Propostas cadastradas
+                          </th>
 
 
 
-                      
+                        </thead>
+                        <tbody>
+
+                          <?php
+
+                          while ($res_1 = mysqli_fetch_array($result)) {
+                            $nome = $res_1["idusuario"];
+                            $propostas = $res_1["propostas"];
+                            $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
 
 
-                      
-                      </tr>
 
+
+
+                          ?>
+
+                            <tr>
+                              <td><?php echo $nome; ?></td>
+                              <td><?php echo $propostas; ?></td>
+
+
+
+
+
+
+
+
+
+
+                            </tr>
+
+                          <?php
+                          }
+                          ?>
+
+
+
+                        </tbody>
+                      </table>
                     <?php
                     }
                     ?>
-
-
-
-                  </tbody>
-                </table>
-              <?php
-              }
-              ?>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
-        </div>
-      </div>
-
-    </div>
 
 
-           <!-- final de tabela de usuários mais ativos -->
-           
+          <!-- final de tabela de usuários mais ativos -->
+
         </div>
       </div>
       <div class="col-md-8">
@@ -983,7 +981,7 @@ include("conexao.php");
 
 
 
-      <footer class="footer footer-black  footer-white ">
+    <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
             <nav class="footer-nav">
