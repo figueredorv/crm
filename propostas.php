@@ -438,11 +438,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <label for="inputNome">NOME</label>
                             <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputCpf">CPF</label>
                             <input name="inputCpf" type="text" class="form-control" id="inputCpf" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputRg">RG</label>
                             <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
                           </div>
@@ -456,19 +456,19 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
                           </div>
                           <!-- FINAL DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                             <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputNomeMae">NOME DA MÃE</label>
                             <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputNomePai">NOME DO PAI</label>
                             <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputCep">CEP</label>
                             <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="">
                           </div>
@@ -476,25 +476,25 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <label for="inputRua">RUA</label>
                             <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputNumero">NÚMERO</label>
                             <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputComplemento">COMPLEMENTO</label>
                             <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
                           </div>
                         </div>
                         <div class="form-row">
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputBairro">BAIRRO</label>
                             <input name="inputBairro" type="text" class="form-control" id="inputBairro">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputCidade">CIDADE</label>
                             <input name="inputCidade" type="text" class="form-control" id="inputCidade">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputUf">UF</label>
                             <select name="inputUf" id="inputUf" class="form-control">
                               <option selected>Escolher...</option>
