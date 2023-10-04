@@ -102,11 +102,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
             </form>
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search">MAIS ANTIGA</i></button>
+              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> MAIS NOVA</i></button>
             </form>
+
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search">MAIS NOVA</i></button>
+              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> MAIS ANTIGA</i></button>
             </form>
+            
 
 
 
