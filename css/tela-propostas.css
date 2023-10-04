@@ -1,0 +1,4 @@
+/* Estilo para remover o sublinhado dos links */
+.dropdown-menu a {
+    text-decoration: none;
+  }

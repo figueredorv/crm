@@ -30,14 +30,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-
+<link rel="stylesheet" href="css/tela-propostas.css">
 
 </head>
 
@@ -334,12 +330,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação
-                                      <span class="caret"></span></button>
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                      <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>">Editar cliente</a></li>
-                                      <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>">Editar propostas</a></li>
-                                      <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>">Editar dados bancários</a></li>
+                                      <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                      <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                      <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
                                     </ul>
                                   </div>
 
@@ -536,7 +531,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                         <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
                     </div>
-                    
+
                     <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="dadosbancarios-tab">
 
                       <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
@@ -784,7 +779,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputContaDigito">DIGITO</label>
-                          <input name="inputContaDigito" type="text" class="form-control" id="inputDigito" placeholder="">
+                          <input name="inputContaDigito" type="text" class="form-control" id="inputContaDigito" placeholder="">
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputRenda">RENDA</label>
@@ -1840,15 +1835,13 @@ if (@$_GET['func'] == 'deleta') {
   $resultexcluir = mysqli_query($conexao, $queryexcluir);
   // Final do registro de log
 */
-if($result == ''){
-  echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
-}else{
-  
+  if ($result == '') {
+    echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
+  } else {
+
     echo "<script language='javascript'> window.alert('Excluído com Sucesso!'); </script>";
     echo "<script language='javascript'> window.location='propostas.php'; </script>";
-}
-
-
+  }
 }
 ?>
 
@@ -1903,14 +1896,14 @@ if (@$_GET['func'] == 'editarcliente') {
                   <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="" value="<?php echo $res_1['rg']; ?>">
                 </div>
                 <div class="form-group col-md-6">
-              <form method="POST" action="">
-                <label for="inputTelefone">TELEFONE</label>
-                <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputEmail">EMAIL</label>
-              <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
-            </div>
+                  <form method="POST" action="">
+                    <label for="inputTelefone">TELEFONE</label>
+                    <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputEmail">EMAIL</label>
+                  <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
+                </div>
                 <div class="form-group col-md-6">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                   <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
@@ -3120,7 +3113,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-      $query_editar = "UPDATE propostas set convenio = '$convenio', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = '$documentoanexado', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = '$documentoanexado', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -3428,7 +3421,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
               </div>
               <div class="form-group col-md-6">
                 <label for="inputContaDigito">DIGITO</label>
-                <input name="inputDigito" type="text" class="form-control" id="inputDigito" placeholder="" value="<?php echo $res_1['contadigito']; ?>">
+                <input name="inputContaDigito" type="text" class="form-control" id="inputContaDigito" placeholder="" value="<?php echo $res_1['contadigito']; ?>">
               </div>
               <div class="form-group col-md-6">
                 <label for="inputRenda">RENDA</label>
@@ -3458,11 +3451,416 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
-<?php
-    if (isset($_POST['buttonEditar'])) {
-      $usuario = $_SESSION['nome_usuario'];
-      $nome = $_POST['inputNome'];
-      
+    <?php
+    if (isset($_POST['buttonEditarDadosBancarios'])) {
+      $banco = $_POST['inputBanco'];
+      $tipodeconta = $_POST['inputTipoConta'];
+      $agencia = $_POST['inputAgencia'];
+      $agenciadigito = $_POST['inputAgenciaDv'];
+      $conta = $_POST['inputConta'];
+      $contadigito = $_POST['inputContaDigito'];
+      $renda = $_POST['inputRenda'];
+
+
+
+      // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
+      if ($_POST["inputBanco"] == 1) {
+        $banco = "001 - BANCO DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 3) {
+        $banco = "003 - BANCO DA AMAZÔNIA";
+      } elseif ($_POST["inputBanco"] == 4) {
+        $banco = "004 - BANCO DO NORDESTE DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 7) {
+        $banco = "007 - BNDES";
+      } elseif ($_POST["inputBanco"] == 10) {
+        $banco = "010 - CREDICOAMO";
+      } elseif ($_POST["inputBanco"] == 11) {
+        $banco = "011 - Credit Suisse";
+      } elseif ($_POST["inputBanco"] == 12) {
+        $banco = "012 - BANCO INBURSA";
+      } elseif ($_POST["inputBanco"] == 14) {
+        $banco = "014 - NATIXIS BRASIL";
+      } elseif ($_POST["inputBanco"] == 15) {
+        $banco = "015 - UBS BRASIL CCTVM";
+      } elseif ($_POST["inputBanco"] == 16) {
+        $banco = "016 - CCM DESP TRANS SC E RS";
+      } elseif ($_POST["inputBanco"] == 17) {
+        $banco = "017 - BNY MELLON BANCO";
+      } elseif ($_POST["inputBanco"] == 18) {
+        $banco = "018 - BANCO TRICURY";
+      } elseif ($_POST["inputBanco"] == 21) {
+        $banco = "021 - BANCO BANESTES";
+      } elseif ($_POST["inputBanco"] == 24) {
+        $banco = "024 - BCO BANDEPE";
+      } elseif ($_POST["inputBanco"] == 25) {
+        $banco = "025 - BANCO ALFA";
+      } elseif ($_POST["inputBanco"] == 29) {
+        $banco = "029 - BANCO ITAU CONSIGNADO";
+      } elseif ($_POST["inputBanco"] == 33) {
+        $banco = "033 - BANCO SANTANDER BRASIL";
+      } elseif ($_POST["inputBanco"] == 36) {
+        $banco = "036 - BANCO BBI";
+      } elseif ($_POST["inputBanco"] == 37) {
+        $banco = "037 - BANCO DO ESTADO DO PARÁ";
+      } elseif ($_POST["inputBanco"] == 40) {
+        $banco = "040 - BANCO CARGILL";
+      } elseif ($_POST["inputBanco"] == 41) {
+        $banco = "041 - BANRISUL";
+      } elseif ($_POST["inputBanco"] == 47) {
+        $banco = "047 - BANCO DO ESTADO DE SERGIPE";
+      } elseif ($_POST["inputBanco"] == 60) {
+        $banco = "060 - CONFIDENCE CC";
+      } elseif ($_POST["inputBanco"] == 62) {
+        $banco = "062 - HIPERCARD BM";
+      } elseif ($_POST["inputBanco"] == 63) {
+        $banco = "063 - BANCO BRADESCARD";
+      } elseif ($_POST["inputBanco"] == 64) {
+        $banco = "064 - GOLDMAN SACHS DO BRASIL BM";
+      } elseif ($_POST["inputBanco"] == 65) {
+        $banco = "065 - BANCO ANDBANK";
+      } elseif ($_POST["inputBanco"] == 66) {
+        $banco = "066 - BANCO MORGAN STANLEY";
+      } elseif ($_POST["inputBanco"] == 69) {
+        $banco = "069 - BANCO CREFISA";
+      } elseif ($_POST["inputBanco"] == 70) {
+        $banco = "070 - BANCO DE BRASÍLIA (BRB)";
+      } elseif ($_POST["inputBanco"] == 74) {
+        $banco = "074 - BCO. J.SAFRA";
+      } elseif ($_POST["inputBanco"] == 75) {
+        $banco = "075 - BCO ABN AMRO";
+      } elseif ($_POST["inputBanco"] == 76) {
+        $banco = "076 - BANCO KDB BRASIL";
+      } elseif ($_POST["inputBanco"] == 77) {
+        $banco = "077 - BANCO INTER";
+      } elseif ($_POST["inputBanco"] == 78) {
+        $banco = "078 - HAITONG BI DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 79) {
+        $banco = "079 - BANCO ORIGINAL DO AGRONEGÓCIO";
+      } elseif ($_POST["inputBanco"] == 80) {
+        $banco = "080 - B&T CC LTDA";
+      } elseif ($_POST["inputBanco"] == 81) {
+        $banco = "081 - BBN BANCO BRASILEIRO DE NEGÓCIOS";
+      } elseif ($_POST["inputBanco"] == 82) {
+        $banco = "082 - BANCO TOPÁZIO";
+      } elseif ($_POST["inputBanco"] == 83) {
+        $banco = "083 - BANCO DA CHINA BRASIL";
+      } elseif ($_POST["inputBanco"] == 84) {
+        $banco = "084 - UNIPRIME NORTE DO PARANÁ";
+      } elseif ($_POST["inputBanco"] == 85) {
+        $banco = "085 - COOP CENTRAL AILOS";
+      } elseif ($_POST["inputBanco"] == 89) {
+        $banco = "089 - CCR REG MOGIANA";
+      } elseif ($_POST["inputBanco"] == 91) {
+        $banco = "091 - UNICRED CENTRAL RS";
+      } elseif ($_POST["inputBanco"] == 92) {
+        $banco = "092 - BRK";
+      } elseif ($_POST["inputBanco"] == 93) {
+        $banco = "093 - PÓLOCRED SCMEPP LTDA";
+      } elseif ($_POST["inputBanco"] == 94) {
+        $banco = "094 - BANCO FINAXIS";
+      } elseif ($_POST["inputBanco"] == 95) {
+        $banco = "095 - BANCO CONFIDENCE DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 96) {
+        $banco = "096 - BANCO B3";
+      } elseif ($_POST["inputBanco"] == 97) {
+        $banco = "097 - CCC NOROESTE BRASILEIRO LTDA";
+      } elseif ($_POST["inputBanco"] == 98) {
+        $banco = "098 - CREDIALIANÇA CCR";
+      } elseif ($_POST["inputBanco"] == 99) {
+        $banco = "099 - UNIPRIME CENTRAL CCC LTDA";
+      } elseif ($_POST["inputBanco"] == 100) {
+        $banco = "100 - PLANNER CORRETORA DE VALORES";
+      } elseif ($_POST["inputBanco"] == 101) {
+        $banco = "101 - RENASCENÇA DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 102) {
+        $banco = "102 - XP INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 104) {
+        $banco = "104 - CAIXA ECONÔMICA FEDERAL (CEF)";
+      } elseif ($_POST["inputBanco"] == 105) {
+        $banco = "105 - LECCA CFI";
+      } elseif ($_POST["inputBanco"] == 107) {
+        $banco = "107 - BANCO BOCOM BBM";
+      } elseif ($_POST["inputBanco"] == 108) {
+        $banco = "108 - PORTOCRED";
+      } elseif ($_POST["inputBanco"] == 111) {
+        $banco = "111 - BANCO OLIVEIRA TRUST DTVM";
+      } elseif ($_POST["inputBanco"] == 113) {
+        $banco = "113 - MAGLIANO";
+      } elseif ($_POST["inputBanco"] == 114) {
+        $banco = "114 - CENTRAL COOPERATIVA DE CRÉDITO NO ESTADO DO E";
+      } elseif ($_POST["inputBanco"] == 117) {
+        $banco = "117 - ADVANCED CC LTDA";
+      } elseif ($_POST["inputBanco"] == 118) {
+        $banco = "118 - STANDARD CHARTERED BI";
+      } elseif ($_POST["inputBanco"] == 119) {
+        $banco = "119 - BANCO WESTERN UNION";
+      } elseif ($_POST["inputBanco"] == 120) {
+        $banco = "120 - BANCO RODOBENS";
+      } elseif ($_POST["inputBanco"] == 121) {
+        $banco = "121 - BANCO AGIBANK";
+      } elseif ($_POST["inputBanco"] == 122) {
+        $banco = "122 - BANCO BRADESCO BERJ";
+      } elseif ($_POST["inputBanco"] == 124) {
+        $banco = "124 - BANCO WOORI BANK DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 125) {
+        $banco = "125 - BRASIL PLURAL BANCO";
+      } elseif ($_POST["inputBanco"] == 126) {
+        $banco = "126 - BR PARTNERS BI";
+      } elseif ($_POST["inputBanco"] == 127) {
+        $banco = "127 - CODEPE CVC";
+      } elseif ($_POST["inputBanco"] == 128) {
+        $banco = "128 - MS BANK BANCO DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 129) {
+        $banco = "129 - UBS BRASIL BI";
+      } elseif ($_POST["inputBanco"] == 130) {
+        $banco = "130 - CARUANA SCFI";
+      } elseif ($_POST["inputBanco"] == 131) {
+        $banco = "131 - TULLETT PREBON BRASIL CVC LTDA";
+      } elseif ($_POST["inputBanco"] == 132) {
+        $banco = "132 - ICBC DO BRASIL BM";
+      } elseif ($_POST["inputBanco"] == 133) {
+        $banco = "133 - CRESOL CONFEDERAÇÃO";
+      } elseif ($_POST["inputBanco"] == 134) {
+        $banco = "134 - BGC LIQUIDEZ DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 136) {
+        $banco = "136 - UNICRED COOPERATIVA";
+      } elseif ($_POST["inputBanco"] == 137) {
+        $banco = "137 - MULTIMONEY CC LTDA";
+      } elseif ($_POST["inputBanco"] == 138) {
+        $banco = "138 - GET MONEY CC LTDA";
+      } elseif ($_POST["inputBanco"] == 139) {
+        $banco = "139 - INTESA SANPAOLO BRASIL";
+      } elseif ($_POST["inputBanco"] == 140) {
+        $banco = "140 - EASYNVEST - TÍTULO CV";
+      } elseif ($_POST["inputBanco"] == 142) {
+        $banco = "142 - BROKER BRASIL CC LTDA";
+      } elseif ($_POST["inputBanco"] == 143) {
+        $banco = "143 - TREVISO CC";
+      } elseif ($_POST["inputBanco"] == 144) {
+        $banco = "144 - BEXS BANCO DE CÂMBIO";
+      } elseif ($_POST["inputBanco"] == 145) {
+        $banco = "145 - LEVYCAM CCV LTDA";
+      } elseif ($_POST["inputBanco"] == 146) {
+        $banco = "146 - GUITTA CC LTDA";
+      } elseif ($_POST["inputBanco"] == 149) {
+        $banco = "149 - FACTA . CFI";
+      } elseif ($_POST["inputBanco"] == 157) {
+        $banco = "157 - ICAP DO BRASIL CTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 159) {
+        $banco = "159 - CASA CRÉDITO";
+      } elseif ($_POST["inputBanco"] == 163) {
+        $banco = "163 - COMMERZBANK BRASIL BANCO MÚLTIPLO";
+      } elseif ($_POST["inputBanco"] == 169) {
+        $banco = "169 - BANCO OLE CONSIGNADO";
+      } elseif ($_POST["inputBanco"] == 172) {
+        $banco = "172 - ALBATROSS CCV";
+      } elseif ($_POST["inputBanco"] == 173) {
+        $banco = "173 - BRL TRUST DTVM SA";
+      } elseif ($_POST["inputBanco"] == 174) {
+        $banco = "174 - PERNAMBUCANAS FINANC";
+      } elseif ($_POST["inputBanco"] == 177) {
+        $banco = "177 - GUIDE";
+      } elseif ($_POST["inputBanco"] == 180) {
+        $banco = "180 - CM CAPITAL MARKETS CCTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 182) {
+        $banco = "182 - DACASA FINANCEIRA S/A";
+      } elseif ($_POST["inputBanco"] == 183) {
+        $banco = "183 - SOCRED";
+      } elseif ($_POST["inputBanco"] == 184) {
+        $banco = "184 - BANCO ITAÚ BBA";
+      } elseif ($_POST["inputBanco"] == 188) {
+        $banco = "188 - ATIVA INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 189) {
+        $banco = "189 - HS FINANCEIRA";
+      } elseif ($_POST["inputBanco"] == 190) {
+        $banco = "190 - SERVICOOP";
+      } elseif ($_POST["inputBanco"] == 191) {
+        $banco = "191 - NOVA FUTURA CTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 194) {
+        $banco = "194 - PARMETAL DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 196) {
+        $banco = "196 - BANCO FAIR CC";
+      } elseif ($_POST["inputBanco"] == 197) {
+        $banco = "197 - STONE PAGAMENTOS";
+      } elseif ($_POST["inputBanco"] == 204) {
+        $banco = "204 - BANCO BRADESCO CARTÕES";
+      } elseif ($_POST["inputBanco"] == 208) {
+        $banco = "208 - BANCO BTG PACTUAL";
+      } elseif ($_POST["inputBanco"] == 212) {
+        $banco = "212 - BANCO ORIGINAL";
+      } elseif ($_POST["inputBanco"] == 213) {
+        $banco = "213 - BCO ARBI";
+      } elseif ($_POST["inputBanco"] == 217) {
+        $banco = "217 - BANCO JOHN DEERE";
+      } elseif ($_POST["inputBanco"] == 218) {
+        $banco = "218 - BANCO BS2";
+      } elseif ($_POST["inputBanco"] == 222) {
+        $banco = "222 - BANCO CREDIT AGRICOLE BR";
+      } elseif ($_POST["inputBanco"] == 224) {
+        $banco = "224 - BANCO FIBRA";
+      } elseif ($_POST["inputBanco"] == 233) {
+        $banco = "233 - BANCO CIFRA";
+      } elseif ($_POST["inputBanco"] == 237) {
+        $banco = "237 - BRADESCO";
+      } elseif ($_POST["inputBanco"] == 241) {
+        $banco = "241 - BANCO CLÁSSICO";
+      } elseif ($_POST["inputBanco"] == 243) {
+        $banco = "243 - BANCO MÁXIMA";
+      } elseif ($_POST["inputBanco"] == 246) {
+        $banco = "246 - BANCO ABC BRASIL";
+      } elseif ($_POST["inputBanco"] == 249) {
+        $banco = "249 - BANCO INVESTCRED UNIBANCO";
+      } elseif ($_POST["inputBanco"] == 250) {
+        $banco = "250 - BANCO BCV";
+      } elseif ($_POST["inputBanco"] == 253) {
+        $banco = "253 - BEXS CC";
+      } elseif ($_POST["inputBanco"] == 254) {
+        $banco = "254 - PARANÁ BANCO";
+      } elseif ($_POST["inputBanco"] == 260) {
+        $banco = "260 - NU PAGAMENTOS (NUBANK)";
+      } elseif ($_POST["inputBanco"] == 265) {
+        $banco = "265 - BANCO FATOR";
+      } elseif ($_POST["inputBanco"] == 266) {
+        $banco = "266 - BANCO CÉDULA";
+      } elseif ($_POST["inputBanco"] == 268) {
+        $banco = "268 - BARIGUI CH";
+      } elseif ($_POST["inputBanco"] == 269) {
+        $banco = "269 - HSBC BANCO DE INVESTIMENTO";
+      } elseif ($_POST["inputBanco"] == 270) {
+        $banco = "270 - SAGITUR CC LTDA";
+      } elseif ($_POST["inputBanco"] == 271) {
+        $banco = "271 - IB CCTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 273) {
+        $banco = "273 - CCR DE SÃO MIGUEL DO OESTE";
+      } elseif ($_POST["inputBanco"] == 276) {
+        $banco = "276 - SENFF";
+      } elseif ($_POST["inputBanco"] == 278) {
+        $banco = "278 - GENIAL INVESTIMENTOS CVM";
+      } elseif ($_POST["inputBanco"] == 279) {
+        $banco = "279 - CCR DE PRIMAVERA DO LESTE";
+      } elseif ($_POST["inputBanco"] == 280) {
+        $banco = "280 - AVISTA";
+      } elseif ($_POST["inputBanco"] == 283) {
+        $banco = "283 - RB CAPITAL INVESTIMENTOS DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 285) {
+        $banco = "285 - FRENTE CC LTDA";
+      } elseif ($_POST["inputBanco"] == 286) {
+        $banco = "286 - CCR DE OURO";
+      } elseif ($_POST["inputBanco"] == 288) {
+        $banco = "288 - CAROL DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 290) {
+        $banco = "290 - PAGSEGURO INTERNET";
+      } elseif ($_POST["inputBanco"] == 292) {
+        $banco = "292 - BS2 DISTRIBUIDORA DE TÍTULOS E INVESTIMENTOS";
+      } elseif ($_POST["inputBanco"] == 293) {
+        $banco = "293 - LASTRO RDV DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 298) {
+        $banco = "298 - VIPS CC LTDA";
+      } elseif ($_POST["inputBanco"] == 300) {
+        $banco = "300 - BANCO LA NACION ARGENTINA";
+      } elseif ($_POST["inputBanco"] == 301) {
+        $banco = "301 - BPP INSTITUIÇÃO DE PAGAMENTOS";
+      } elseif ($_POST["inputBanco"] == 310) {
+        $banco = "310 - VORTX DTVM LTDA";
+      } elseif ($_POST["inputBanco"] == 318) {
+        $banco = "318 - BANCO BMG";
+      } elseif ($_POST["inputBanco"] == 320) {
+        $banco = "320 - BANCO CCB BRASIL";
+      } elseif ($_POST["inputBanco"] == 321) {
+        $banco = "321 - CREFAZ SCMEPP LTDA";
+      } elseif ($_POST["inputBanco"] == 323) {
+        $banco = "323 - MERCADO PAGO - CONTA DO MERCADO LIVRE";
+      } elseif ($_POST["inputBanco"] == 329) {
+        $banco = "329 - Q I SOC PAULISTA DE CREDITO FINANCIAMENTO E INVESTIMENTO";
+      } elseif ($_POST["inputBanco"] == 341) {
+        $banco = "341 - ITAÚ UNIBANCO";
+      } elseif ($_POST["inputBanco"] == 366) {
+        $banco = "366 - SOCINAL";
+      } elseif ($_POST["inputBanco"] == 370) {
+        $banco = "370 - BANCO MIZUHO";
+      } elseif ($_POST["inputBanco"] == 376) {
+        $banco = "376 - JP MORGAN";
+      } elseif ($_POST["inputBanco"] == 389) {
+        $banco = "389 - BANCO MERCANTIL DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 394) {
+        $banco = "394 - BANCO BMG";
+      } elseif ($_POST["inputBanco"] == 399) {
+        $banco = "399 - HSBC";
+      } elseif ($_POST["inputBanco"] == 409) {
+        $banco = "409 - UNIBANCO - UNIÃO DE BANCOS BRASILEIROS";
+      } elseif ($_POST["inputBanco"] == 412) {
+        $banco = "412 - BANCO CAPITAL";
+      } elseif ($_POST["inputBanco"] == 422) {
+        $banco = "422 - BANCO SAFRA";
+      } elseif ($_POST["inputBanco"] == 453) {
+        $banco = "453 - BANCO RURAL";
+      } elseif ($_POST["inputBanco"] == 456) {
+        $banco = "456 - BANCO BARCLAYS";
+      } elseif ($_POST["inputBanco"] == 464) {
+        $banco = "464 - BANCO SUMITOMO MITSUI BRASILEIRO";
+      } elseif ($_POST["inputBanco"] == 477) {
+        $banco = "477 - CITIBANK";
+      } elseif ($_POST["inputBanco"] == 479) {
+        $banco = "479 - BANCO ITAUBANK";
+      } elseif ($_POST["inputBanco"] == 487) {
+        $banco = "487 - DEUTSCHE BANK";
+      } elseif ($_POST["inputBanco"] == 488) {
+        $banco = "488 - JPMORGAN CHASE BANK";
+      } elseif ($_POST["inputBanco"] == 492) {
+        $banco = "492 - ING BANK";
+      } elseif ($_POST["inputBanco"] == 494) {
+        $banco = "494 - BANCO DE LA NACION ARGENTINA";
+      } elseif ($_POST["inputBanco"] == 495) {
+        $banco = "495 - BANK OF AMERICA";
+      } elseif ($_POST["inputBanco"] == 505) {
+        $banco = "505 - BANCO CREDIT SUISSE";
+      } elseif ($_POST["inputBanco"] == 545) {
+        $banco = "545 - SENSO CCVM SA";
+      } elseif ($_POST["inputBanco"] == 600) {
+        $banco = "600 - BANCO LUSO BRASILEIRO";
+      } elseif ($_POST["inputBanco"] == 604) {
+        $banco = "604 - BANCO INDUSTRIAL DO BRASIL";
+      } elseif ($_POST["inputBanco"] == 610) {
+        $banco = "610 - VR CRED AC";
+      } elseif ($_POST["inputBanco"] == 611) {
+        $banco = "611 - COOPERATIVA UNIPRIME";
+      } elseif ($_POST["inputBanco"] == 612) {
+        $banco = "612 - BANCO GUANABARA";
+      } elseif ($_POST["inputBanco"] == 613) {
+        $banco = "613 - OMNI BANCO";
+      } elseif ($_POST["inputBanco"] == 623) {
+        $banco = "623 - BANCO PAN";
+      } elseif ($_POST["inputBanco"] == 626) {
+        $banco = "626 - BANCO FICSA";
+      } elseif ($_POST["inputBanco"] == 630) {
+        $banco = "630 - BANCO INTERCAP";
+      } elseif ($_POST["inputBanco"] == 633) {
+        $banco = "633 - BANCO REDENTOR";
+      } elseif ($_POST["inputBanco"] == 634) {
+        $banco = "634 - BANCO TRIANGULO";
+      } elseif ($_POST["inputBanco"] == 637) {
+        $banco = "637 - BANCO SOFISA";
+      } elseif ($_POST["inputBanco"] == 641) {
+        $banco = "641 - BANCO ALVORADA";
+      } elseif ($_POST["inputBanco"] == 643) {
+        $banco = "643 - BANCO PINE";
+      } elseif ($_POST["inputBanco"] == 652) {
+        $banco = "652 - ITAÚ UNIBANCO HOLDING BM";
+      } elseif ($_POST["inputBanco"] == 653) {
+        $banco = "653 - BANCO INDUSVAL";
+      } elseif ($_POST["inputBanco"] == 654) {
+        $banco = "654 - BANCO A.J. RENNER";
+      } elseif ($_POST["inputBanco"] == 655) {
+        $banco = "655 - BANCO VOTORANTIM";
+      } elseif ($_POST["inputBanco"] == 707) {
+        $banco = "707 - BANCO DAYCOVAL";
+      } elseif ($_POST["inputBanco"] == 712) {
+        $banco = "712 - BANCO OURINVEST";
+      } elseif ($_POST["inputBanco"] == 756) {
+        $banco = "756 - SICOOB";
+      } elseif ($_POST["inputBanco"] == 999) {
+        $banco = "999 - BANCO COOPERATIVO SICREDI";
+      }
 
 
 
@@ -3470,7 +3868,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
-      
 
 
 
@@ -3480,7 +3877,8 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+
+      $query_editar = "UPDATE propostas set banco = '$banco', tipodeconta = '$tipodeconta', agencia = '$agencia', agenciadigito = '$agenciadigito', conta = '$conta', contadigito = '$contadigito',renda = '$renda' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
