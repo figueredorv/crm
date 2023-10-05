@@ -355,13 +355,14 @@ include("conexao.php");
                       //$dado = mysqli_fetch_array($result);
                       $row = mysqli_num_rows($result);
                       $dado = mysqli_fetch_array($result);
-                      $resultado = $dado["total_valor"];
+                      $resultado = $dado["total_valor"]; // Valor a ser formatado
+                      $resultadoFormatado = number_format($resultado, 2, ',', '.');
 
                       if ($row == '') {
 
                         echo "<h5> 0 </h5>";
                       } else {
-                        echo  "<h5> $resultado </h5";
+                        echo  "<h5> $resultadoFormatado R$ </h5";
                       }
                       ?>
 
@@ -373,7 +374,7 @@ include("conexao.php");
             <div class="card-footer ">
               <hr>
               <div class="stats">
-                <i class="fa fa-money "></i> Média de vendas diárias
+                <i class="fa fa-money "></i> Valor das propostas cadastradas
               </div>
             </div>
           </div>
