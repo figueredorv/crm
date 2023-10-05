@@ -434,7 +434,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
                       <!-- CONTEÚDO TAB CLIENTE-->
-                      <form method="POST" action="">
+                      <form method="POST" action="propostas.php" enctype="multipart/form-data">
                         <div class="form-row">
                           <div class="form-group col-md-6">
                             <label for="inputNome">NOME</label>
@@ -1223,10 +1223,29 @@ if (isset($_POST['button'])) {
   $valorparcelas = $_POST['inputValorParcelas'];
   $formalizacao = $_POST['inputFormalizacao'];
   $canal = $_POST['inputCanal'];
-  $documentoanexado   = $_POST['inputDocumento'];
+  $documentoanexado   = $_FILES['inputDocumento'];
   $observacao   = $_POST['inputObservacao'];
   $statusproposta = 'Pendente';
   $data = date('d/m/Y H:i');
+
+
+  if (isset($_FILES['inputDocumento'])) {
+    $extensao = strtolower(substr($_FILES['inputDocumento']['name'], -4));
+    $novo_nome = md5(time()) . $extensao;
+    $diretorio = "documentos/";
+
+    if (move_uploaded_file($_FILES['inputDocumento']['tmp_name'], $diretorio . $novo_nome)) {
+        // Upload bem-sucedido, agora você pode inserir o nome do arquivo no banco de dados
+        $documentoanexado = $novo_nome;
+
+        // Resto do seu código de inserção SQL
+        // Certifique-se de usar $documentoanexado no lugar correto na consulta SQL
+        // Exemplo: ('$usuario','$nome','$cpf', ... '$documentoanexado', ... curDate())
+    } else {
+        // Trate o erro de upload, se necessário
+        $documentoanexado = "Nenhum documento enviado!";
+    }
+}
 
 
 
@@ -1767,7 +1786,7 @@ if (isset($_POST['button'])) {
   $row_verificar = mysqli_num_rows($result_verificar);
 
   if ($row_verificar > 0) {
-    echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </script>";
+    echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </scrip>";
     exit();
   }
 
