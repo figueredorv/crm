@@ -772,10 +772,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputAgenciaDv">AGENCIA DV</label>
-                          <input name="inputAgenciaDv" type="text" class="form-control" id="inputAgenciaDv" placeholder="">
-                        </div>
-                        <div class="form-group col-md-6">
                           <label for="inputConta">CONTA</label>
                           <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="">
                         </div>
@@ -1214,7 +1210,6 @@ if (isset($_POST['button'])) {
   $banco = $_POST['inputBanco'];
   $tipodeconta = $_POST['inputTipoConta'];
   $agencia = $_POST['inputAgencia'];
-  $agenciadigito = $_POST['inputAgenciaDv'];
   $conta = $_POST['inputConta'];
   $contadigito = $_POST['inputContaDigito'];
   $renda = $_POST['inputRenda'];
@@ -1774,7 +1769,7 @@ if (isset($_POST['button'])) {
 
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, tipodeconta, agencia, agenciadigito, conta, contadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$tipodeconta','$agencia','$agenciadigito','$conta','$contadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, tipodeconta, agencia, conta, contadigito, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$tipodeconta','$agencia','$conta','$contadigito','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
@@ -3414,10 +3409,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
                 <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="" value="<?php echo $res_1['agencia']; ?>">
               </div>
               <div class="form-group col-md-6">
-                <label for="inputAgenciaDv">AGENCIA DV</label>
-                <input name="inputAgenciaDv" type="text" class="form-control" id="inputAgenciaDv" placeholder="" value="<?php echo $res_1['agenciadigito']; ?>">
-              </div>
-              <div class="form-group col-md-6">
                 <label for="inputConta">CONTA</label>
                 <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="" value="<?php echo $res_1['conta']; ?>">
               </div>
@@ -3458,7 +3449,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
       $banco = $_POST['inputBanco'];
       $tipodeconta = $_POST['inputTipoConta'];
       $agencia = $_POST['inputAgencia'];
-      $agenciadigito = $_POST['inputAgenciaDv'];
       $conta = $_POST['inputConta'];
       $contadigito = $_POST['inputContaDigito'];
       $renda = $_POST['inputRenda'];
@@ -3880,7 +3870,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
-      $query_editar = "UPDATE propostas set banco = '$banco', tipodeconta = '$tipodeconta', agencia = '$agencia', agenciadigito = '$agenciadigito', conta = '$conta', contadigito = '$contadigito',renda = '$renda' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set banco = '$banco', tipodeconta = '$tipodeconta', agencia = '$agencia', conta = '$conta', contadigito = '$contadigito',renda = '$renda' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -3906,6 +3896,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 
+<!-- Scripts de máscara dos inputs -->
 <script type="text/javascript">
   $(document).ready(function() {
     $('#inputTelefone').mask('(00) 00000-0000');
@@ -3916,6 +3907,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 </script>
 
 <script>
+  // máscara para input da valor R$
   String.prototype.reverse = function() {
     return this.split('').reverse().join('');
   };
@@ -3938,3 +3930,8 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     campo.value = resultado.reverse();
   }
 </script>
+
+
+
+
+<!-- final dos Scripts de máscara dos inputs -->
