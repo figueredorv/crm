@@ -3,6 +3,7 @@ session_start();
 include('conexao.php');
 include('verificar_login.php');
 
+
 ?>
 
 
@@ -1191,8 +1192,12 @@ $nomeusuario = $_SESSION['nome_usuario'];
 <!--CADASTRAR -->
 
 <?php
+
+
+
+
 if (isset($_POST['button'])) {
-  $usuario = $_SESSION['nome_usuario'];
+  $usuario = $_SESSION['idusuarios'];
   $nome = $_POST['inputNome'];
   $cpf = $_POST["inputCpf"];
   $rg = $_POST['inputRg'];
