@@ -37,7 +37,6 @@ include("conexao.php");
   <link href="assets/demo/demo.css" rel="stylesheet" />
 
 
-
 </head>
 
 <body class="">
@@ -85,7 +84,7 @@ include("conexao.php");
 
 
           <li class="">
-            <a href="mensagens.php">
+            <a href="">
               <i class="fa fa-users"></i>
               <p>Bases</p>
             </a>
@@ -94,7 +93,7 @@ include("conexao.php");
 
 
           <li class="">
-            <a href="https://wa.link/1quja8" target="_blank">
+            <a href="https://jivo.chat/NYZp8NPK3K" target="_blank">
               <i class="fa fa-life-ring"></i>
               <p>Suporte</p>
             </a>
@@ -198,15 +197,15 @@ include("conexao.php");
 
 
 
-        <?php
-
-        $query = "select * from propostas where statusproposta = 'Pendente'";
+        <?php 
+        // verificando se a coluna status da tabela usuários tem o valor = 0 para mostrar a informação no topo da página de conta DEMO
+        $id = $_SESSION['idusuarios']; // recebendo o id
+        $query = "SELECT status FROM usuarios WHERE idusuarios = '$id' AND status = 0;";
         $result = mysqli_query($conexao, $query);
-        //$dado = mysqli_fetch_array($result);
         $row = mysqli_num_rows($result);
 
         if ($row > 0) : ?>
-          <div class="notice notice-warning"><strong>Atenção!</strong> Existem propostas pendentes.</div>
+          <div class="notice notice-warning"><strong>Atenção!</strong> Você está em uma conta de teste, todos os dados são apenas fictícios.</div>
 
         <?php
 
@@ -441,7 +440,7 @@ include("conexao.php");
 
                   <?php
 
-                  $query = "select * from propostas where statusproposta = 'Pendente'";
+                  $query = "select * from propostas where nome = 'Ruan'";
                   $result = mysqli_query($conexao, $query);
                   //$dado = mysqli_fetch_array($result);
                   $row = mysqli_num_rows($result);
@@ -506,7 +505,7 @@ include("conexao.php");
                         <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas </button>
                         <form>
 
-                         
+
 
             </div>
 
@@ -623,13 +622,16 @@ include("conexao.php");
                       $banco = $res_1["banco"];
                       $valor = $res_1["valor"];
                       $promotora = $res_1["promotora"];
-                      $usuario = $res_1["idusuario"];
+                      $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                       $statusproposta = $res_1["statusproposta"];
                       $id = $res_1["idpropostas"];
-                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
 
 
-
+                      // Agora, vamos buscar o nome do usuário com base no ID
+                      $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
+                      $result_usuario = mysqli_query($conexao, $query_usuario);
+                      $row_usuario = mysqli_fetch_assoc($result_usuario);
+                      $nome_usuario = $row_usuario['usuario'];
 
 
                     ?>
@@ -643,7 +645,7 @@ include("conexao.php");
                         <td><?php echo $banco; ?></td>
                         <td><?php echo  $valor . " R$"; ?></td>
                         <td><?php echo  $promotora; ?></td>
-                        <td><?php echo  $usuario; ?></td>
+                        <td><?php echo  $nome_usuario; ?></td>
 
 
 
@@ -740,10 +742,11 @@ include("conexao.php");
 
 
                     //contabilizando o usuáio que mais cadastrou propostas
-                    $query = "SELECT idusuario, COUNT(idusuario) as propostas
-                FROM propostas
-                GROUP BY idusuario
-                ORDER BY propostas DESC;";
+                    $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+                    FROM usuarios u
+                    LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+                    GROUP BY u.usuario
+                    ORDER BY propostas DESC;";
 
 
 
@@ -781,7 +784,7 @@ include("conexao.php");
                           <?php
 
                           while ($res_1 = mysqli_fetch_array($result)) {
-                            $nome = $res_1["idusuario"];
+                            $nome = $res_1["usuario"];
                             $propostas = $res_1["propostas"];
                             $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
 
@@ -982,7 +985,7 @@ include("conexao.php");
 
 
 
-    <footer class="footer footer-black  footer-white ">
+      <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
             <nav class="footer-nav">
@@ -1026,6 +1029,10 @@ include("conexao.php");
       demo.initChartsPages();
     });
   </script>
+
+
+
+
 
 
 

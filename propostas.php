@@ -34,7 +34,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-<link rel="stylesheet" href="css/tela-propostas.css">
+  <link rel="stylesheet" href="css/tela-propostas.css">
 
 </head>
 
@@ -109,7 +109,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
               <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> MAIS ANTIGA</i></button>
             </form>
-            
+
 
 
 
@@ -270,13 +270,18 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $banco = $res_1["banco"];
                             $valor = $res_1["valor"];
                             $promotora = $res_1["promotora"];
-                            $usuario = $res_1["idusuario"];
+                            $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                             $statusproposta = $res_1["statusproposta"];
                             $data = $res_1["data"];
                             $id = $res_1["idpropostas"];
-                            $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
+
+                            // Agora, vamos buscar o nome do usuário com base no ID
+                            $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
+                            $result_usuario = mysqli_query($conexao, $query_usuario);
+                            $row_usuario = mysqli_fetch_assoc($result_usuario);
+                            $nome_usuario = $row_usuario['usuario'];
 
 
 
@@ -290,9 +295,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo  $valor." R$"; ?></td>
+                              <td><?php echo  $valor . " R$"; ?></td>
                               <td><?php echo  $promotora; ?></td>
-                              <td><?php echo  $usuario; ?></td>
+                              <td><?php echo  $nome_usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
 
 
@@ -773,8 +778,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputAgencia">AGENCIA</label>
-                          <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" 
-                          placeholder="">
+                          <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
                           <small class="text-muted">Com o dígito verificador se existir</small>
                         </div>
                         <div class="form-group col-md-6">
@@ -1240,17 +1244,17 @@ if (isset($_POST['button'])) {
     $diretorio = "documentos/";
 
     if (move_uploaded_file($_FILES['inputDocumento']['tmp_name'], $diretorio . $novo_nome)) {
-        // Upload bem-sucedido, agora você pode inserir o nome do arquivo no banco de dados
-        $documentoanexado = $novo_nome;
+      // Upload bem-sucedido, agora você pode inserir o nome do arquivo no banco de dados
+      $documentoanexado = $novo_nome;
 
-        // Resto do seu código de inserção SQL
-        // Certifique-se de usar $documentoanexado no lugar correto na consulta SQL
-        // Exemplo: ('$usuario','$nome','$cpf', ... '$documentoanexado', ... curDate())
+      // Resto do seu código de inserção SQL
+      // Certifique-se de usar $documentoanexado no lugar correto na consulta SQL
+      // Exemplo: ('$usuario','$nome','$cpf', ... '$documentoanexado', ... curDate())
     } else {
-        // Trate o erro de upload, se necessário
-        $documentoanexado = "Nenhum documento enviado!";
+      // Trate o erro de upload, se necessário
+      $documentoanexado = "Nenhum documento enviado!";
     }
-}
+  }
 
 
 
@@ -3957,34 +3961,34 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  var inputAgencia = document.getElementById("inputAgencia");
+  document.addEventListener("DOMContentLoaded", function() {
+    var inputAgencia = document.getElementById("inputAgencia");
 
-  inputAgencia.addEventListener("input", function () {
-    // Remove todos os caracteres que não são números
-    this.value = this.value.replace(/[^0-9]/g, "");
+    inputAgencia.addEventListener("input", function() {
+      // Remove todos os caracteres que não são números
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
   });
-});
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  var inputAgencia = document.getElementById("inputConta");
+  document.addEventListener("DOMContentLoaded", function() {
+    var inputAgencia = document.getElementById("inputConta");
 
-  inputAgencia.addEventListener("input", function () {
-    // Remove todos os caracteres que não são números
-    this.value = this.value.replace(/[^0-9]/g, "");
+    inputAgencia.addEventListener("input", function() {
+      // Remove todos os caracteres que não são números
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
   });
-});
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  var inputAgencia = document.getElementById("inputRenda");
+  document.addEventListener("DOMContentLoaded", function() {
+    var inputAgencia = document.getElementById("inputRenda");
 
-  inputAgencia.addEventListener("input", function () {
-    // Remove todos os caracteres que não são números
-    this.value = this.value.replace(/[^0-9]/g, "");
+    inputAgencia.addEventListener("input", function() {
+      // Remove todos os caracteres que não são números
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
   });
-});
 </script>

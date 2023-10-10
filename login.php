@@ -89,3 +89,48 @@ if($row > 0){
 }
 
 ?>
+
+
+
+
+<?PHP
+
+session_start();
+
+
+
+
+$query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+FROM usuarios u
+LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+GROUP BY u.usuario
+ORDER BY propostas DESC;";
+
+
+$result = mysqli_query($conexao, $query);
+$dado = mysqli_fetch_array($result);
+$row = mysqli_num_rows($result);
+
+if($row > 0){
+	
+	$usuario = $res_1["usuario"];
+
+	
+
+	exit();
+}else{
+	$_SESSION['nao_autenticado'] = true;
+	header('Location: index.php');
+
+	exit();
+}
+
+?>
+
+
+
+
+
+
+
+
