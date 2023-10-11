@@ -81,6 +81,13 @@ include("conexao.php");
             </a>
           </li>
 
+          <li class="">
+            <a href="documentos.php">
+              <i class="fa fa-file"></i>
+              <p>Documentos</p>
+            </a>
+          </li>
+
 
 
           <li class="">
