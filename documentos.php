@@ -3,10 +3,10 @@ include 'conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nomePesquisado = $_POST['nome'];
-    $query = "SELECT propostas.idusuario, propostas.nome AS nome_proposta, propostas.documentoanexado 
+    $query = "SELECT documentos.idusuario, documentos.idusuario AS nome_proposta, documentos.caminho 
     FROM usuarios 
-    JOIN propostas ON usuarios.idusuarios = propostas.idusuario 
-    WHERE propostas.nome LIKE '%$nomePesquisado%'";
+    JOIN documentos ON usuarios.idusuarios = documentos.idusuario 
+    WHERE documentos.idusuario LIKE '%$nomePesquisado%'";
 
     $result = mysqli_query($conexao, $query);
 }
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (isset($result)) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $nomeProposta = $row['nome_proposta'];
-                        $documentoAnexado = $row['documentoanexado'];
+                        $documentoAnexado = $row['caminho'];
 
                         echo "<tr>";
                         echo "<td>$nomeProposta</td>";

@@ -1122,7 +1122,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-12">
                           <label for="inputDocumento">Deseja anexar algum documento?</label>
-                          <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
+                          <input name="imagens[]"  multiple type="file" class="form-control-file" id="inputDocumento">
                           <div class="form-group">
                             <br>
                             <label for="exampleFormControlTextarea1">Observação (opcional)</label>
@@ -1233,29 +1233,28 @@ if (isset($_POST['button'])) {
   $valorparcelas = $_POST['inputValorParcelas'];
   $formalizacao = $_POST['inputFormalizacao'];
   $canal = $_POST['inputCanal'];
-  $documentoanexado   = $_FILES['inputDocumento'];
+  $documentoanexado   = $_FILES['imagens'];
   $observacao   = $_POST['inputObservacao'];
   $statusproposta = 'Pendente';
   $data = date('d/m/Y H:i');
 
 
-  if (isset($_FILES['inputDocumento'])) {
-    $extensao = strtolower(substr($_FILES['inputDocumento']['name'], -4));
-    $novo_nome = md5(time()) . $extensao;
-    $diretorio = "documentos/";
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imagens = $_FILES['imagens'];
 
-    if (move_uploaded_file($_FILES['inputDocumento']['tmp_name'], $diretorio . $novo_nome)) {
-      // Upload bem-sucedido, agora você pode inserir o nome do arquivo no banco de dados
-      $documentoanexado = $novo_nome;
+    foreach ($imagens['name'] as $key => $nome) {
+        if ($imagens['error'][$key] === 0) {
+            $extensao = pathinfo($nome, PATHINFO_EXTENSION);
+            $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-      // Resto do seu código de inserção SQL
-      // Certifique-se de usar $documentoanexado no lugar correto na consulta SQL
-      // Exemplo: ('$usuario','$nome','$cpf', ... '$documentoanexado', ... curDate())
-    } else {
-      // Trate o erro de upload, se necessário
-      $documentoanexado = "Nenhum documento enviado!";
+            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                // Insira o nome do arquivo no banco de dados
+                $query = "INSERT INTO documentos (idusuario, caminho) VALUES ('$usuario','$novo_nome')";
+                mysqli_query($conexao, $query);
+            }
+        }
     }
-  }
+} //marcador
 
 
 
@@ -1802,7 +1801,7 @@ if (isset($_POST['button'])) {
 
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$documentoanexado','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
@@ -2568,7 +2567,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 </div>
                 <div class="form-group col-md-12">
                   <label for="inputDocumento">Deseja anexar algum documento?</label>
-                  <input name="inputDocumento" type="file" class="form-control-file" id="inputDocumento">
+                  <input name="imagens[]" type="file" class="form-control-file" id="inputDocumento">
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
@@ -2609,7 +2608,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       $valorparcelas = $_POST['inputValorParcelas'];
       $formalizacao = $_POST['inputFormalizacao'];
       $canal = $_POST['inputCanal'];
-      $documentoanexado   = $_POST['inputDocumento'];
+      $documentoanexado   = $_FILES['imagens'];
       $observacao   = $_POST['inputObservacao'];
 
 
@@ -3143,7 +3142,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = '$documentoanexado', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = ' $novo_nome', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 

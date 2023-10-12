@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 10/10/2023 às 01:08
+-- Tempo de geração: 12/10/2023 às 03:59
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -82,8 +82,12 @@ CREATE TABLE `propostas` (
 --
 
 INSERT INTO `propostas` (`idpropostas`, `idusuario`, `nome`, `cpf`, `rg`, `nascimento`, `nomedamae`, `nomedopai`, `cep`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `uf`, `telefone`, `email`, `convenio`, `banco`, `tipodeconta`, `agencia`, `conta`, `renda`, `operacao`, `tabela`, `promotora`, `margem`, `prazo`, `valor`, `valorparcelas`, `formalizacao`, `canal`, `documentoanexado`, `observacao`, `statusproposta`, `data`) VALUES
-(194, 1, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '111.111.111-11', '36262471', '24/02/1997', 'Ivaneide Vieira de Figueredo', 'Edelsio Porto dos Santos', '49097-190', 'Rua Desembargador Gervásio Prata', '33', '', 'Jabotiana', 'Aracaju', 'SE', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '000', '1', 3, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '11,11', '120', 22, 122, 'DIGITAL', 'TELEMARKETING', 'Nenhum documento enviado!', 'Teste', 'Pendente', '2023-10-06'),
-(195, 6, 'FERNANDO DE JESUS', '222.222.222-22', '36262472', '24/02/1997', 'Ivaneide Vieira de Figueredo', 'Edelsio Porto dos Santos', '49097-190', 'Rua Desembargador Gervásio Prata', '33', '', 'Jabotiana', 'Aracaju', 'SE', '(55) 79998-4450', 'vitinhomusic2014@gmail.com', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '11111', '1', 26, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '1.000,00', '120', 200, 100, 'DIGITAL', 'TELEMARKETING', 'Nenhum documento enviado!', 'TESTE', 'Pendente', '2023-10-09');
+(194, 1, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '111.111.111-11', '36262471', '24/02/1997', 'Ivaneide Vieira de Figueredo', 'Edelsio Porto dos Santos', '49097-190', 'Rua Desembargador Gervásio Prata', '175', '', 'Jabotiana', 'Aracaju', 'Sergipe (SE)', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '000', '1', 3, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '11,11', '120', 22, 122, 'DIGITAL', 'TELEMARKETING', '83fd4ec05b7ebd3c6fd254dac8b305c1.png', 'Teste', 'Pendente', '2023-10-06'),
+(195, 6, 'FERNANDO DE JESUS FIGUEREDO', '222.222.222-22', '36262472', '24/02/1997', 'Ivaneide Vieira de Figueredo', 'Edelsio Porto dos Santos', '49097-190', 'Rua Desembargador Gervásio Prata', '33', '', 'Jabotiana', 'Aracaju', 'Sergipe (SE)', '(55) 79998-4450', 'vitinhomusic2014@gmail.com', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '11111', '1', 26, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '1.000,00', '120', 200, 100, 'DIGITAL', 'TELEMARKETING', '83fd4ec05b7ebd3c6fd254dac8b305c1.png', 'TESTE', 'Pendente', '2023-10-09'),
+(196, 6, 'LUIZ FELIPE ALENCAR', '111.111.111-11', '36262471', '24/02/1997', 'Ivaneide Vieira de Figueredo', 'Edelsio Porto dos Santos', '49097-190', 'Rua Desembargador Gervásio Prata', '33', 'CASA 06', 'Jabotiana', 'Aracaju', 'SE', '(55) 79998-4450', 'vitinhomusic2014@gmail.com', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '11111', '1', 2.6, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '1.111,22', '120', 22, 2.222, 'DIGITAL', 'TELEMARKETING', '83fd4ec05b7ebd3c6fd254dac8b305c1.png', 'TESTE', 'Pendente', '2023-10-09'),
+(197, 1, 'Teste', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '', '', 0, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '', '120', 0, 0, 'DIGITAL', 'TELEMARKETING', '5dccfcb6e8df8c98f73c1643633355b7.jpg', '', 'Pendente', '2023-10-11'),
+(198, 1, 'teste2', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '', '', 0, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '', '120', 0, 0, 'DIGITAL', 'TELEMARKETING', 'Array', '', 'Pendente', '2023-10-11'),
+(199, 1, '2.jpg', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', '001 - BANCO DO BRASIL', 'CONTA CORRENTE', '', '', 0, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJAS', '', '120', 0, 0, 'DIGITAL', 'TELEMARKETING', '', '', 'Pendente', '2023-10-11');
 
 -- --------------------------------------------------------
 
@@ -106,7 +110,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idusuarios`, `nome`, `usuario`, `senha`, `cargo`, `status`) VALUES
 (1, 'Admin', 'admin', 'admin', 'Desenvolvedor', 1),
-(6, 'Ruan', 'ruan.victor', 'batera15456', 'Funcionário', 1);
+(6, 'DEMO', 'demo', 'demo', 'Funcionário', 0);
 
 --
 -- Índices para tabelas despejadas
@@ -145,7 +149,7 @@ ALTER TABLE `cargos`
 -- AUTO_INCREMENT de tabela `propostas`
 --
 ALTER TABLE `propostas`
-  MODIFY `idpropostas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `idpropostas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
