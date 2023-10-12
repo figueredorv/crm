@@ -99,15 +99,16 @@ $nomeusuario = $_SESSION['nome_usuario'];
         <div class="d-flex align-items-left">
           <div class="row">
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus"> NOVA PROPOSTA</i></button>
+              <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus-square"> ADICIONAR </i></button>
+            </form>
+            
+
+            <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
+              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> BUCAR POR MAIS NOVA</i></button>
             </form>
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> MAIS NOVA</i></button>
-            </form>
-
-            <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> MAIS ANTIGA</i></button>
+              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> BUCAR POR MAIS ANTIGA</i></button>
             </form>
 
 
@@ -338,7 +339,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Ação <span class="caret"></span></button>
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                       <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
                                       <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
@@ -346,14 +347,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                     </ul>
                                   </div>
 
+                                  <span style="margin-right: 10px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
 
-                                  <a class="btn btn-danger btn-sm" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"> Deletar</i></a>
+                                  <a class="btn btn-danger btn-sm" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"> Excluir</i></a>
 
-
-
-
-
+                                  <span style="margin-right: 10px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+                                  
+                                  
                                   <?php
                                   if ($statusproposta == "Pendente") : ?>
                                     <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Alterar status</i></a>
