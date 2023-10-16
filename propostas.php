@@ -54,7 +54,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
       </ul>
       <form class="form-inline my-2 my-lg-0 mr-5">
-        <input name="txtpesquisaridade" id="txtidade" class="form-control mr-sm-2" type="search" placeholder="Buscar pelo cpf" aria-label="Pesquisar">
+        <input name="txtpesquisarcpf" id="txtcpf" class="form-control mr-sm-2" type="search" placeholder="Buscar pelo cpf" aria-label="Pesquisar">
         <button name="buttonPesquisarcpf" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
       </form>
 
@@ -154,9 +154,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $nome = $_GET['txtpesquisar'] . '%';
                       $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
                       // novo codigo ( procurar proposta pelo cpf)
-                    } else if (isset($_GET['buttonPesquisarcpf']) and $_GET['buttonPesquisarcpf'] != '') {
-                      $nome = $_GET['txtpesquisaridade'];
-                      $query = "select * from propostas where idade = '$nome'  order by cpf asc";
+                    } else if (isset($_GET['buttonPesquisarcpf'])) {
+                      $nome = $_GET['txtpesquisarcpf'];
+                      $query = "select * from propostas where cpf = '$nome'  order by cpf asc";
                     }
                     // novo codigo ( procurar proposta pela data)
                     else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
@@ -178,11 +178,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $nome = 'Disponivel';
                       $query = "select * from animais where situacao = '$nome'   order by data asc";
                     }
-                    // novo codigo ( procurar por animais não adotados)
-                    else if (isset($_GET['buttonpetsemvacina'])) {
-                      $nome = '';
-                      $query = "select * from animais where vacinas = '$nome'   order by data asc";
-                    }
+                   
 
 
 
@@ -2145,7 +2141,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#txtcpftutor').mask('000.000.000-00'); // Másrcara para o input do cpf da pessoa que irá adotar o animal.
+    $('#txtcpf').mask('000.000.000-00'); // Másrcara para o input do cpf da pessoa que irá adotar o animal.
     //$('#txtdata').mask('0000-00-00'); 
   });
 </script>
