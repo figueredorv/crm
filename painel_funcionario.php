@@ -663,25 +663,15 @@ include("conexao.php");
 
 
                         <?php
-                        if ($statusproposta == "Pendente") : ?>
-                          <td class="badge badge-pill badge-warning"><?php echo $statusproposta; ?></td>
-                        <?php
-                        endif;
-
-                        ?>
-                        <?php
-                        if ($statusproposta == "Finalizada") : ?>
-                          <td class="badge badge-pill badge-success"><?php echo $statusproposta; ?></td>
-                        <?php
-                        endif;
-
-                        ?>
-                        <?php
-                        if ($statusproposta == "Cancelada") : ?>
-                          <td class="badge badge-pill badge-danger"><?php echo $statusproposta; ?></td>
-                        <?php
-                        endif;
-
+                        if ($statusproposta == "PENDENTE") {
+                          echo '<td class="badge badge-pill badge-warning">' . $statusproposta . '</td>';
+                        } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGA") {
+                          echo '<td class="badge badge-pill badge-success">' . $statusproposta . '</td>';
+                        } elseif ($statusproposta == "CANCELADO" || $statusproposta == "SALDO RETORNADO") {
+                          echo '<td class="badge badge-pill badge-danger">' . $statusproposta . '</td>';
+                        } else {
+                          echo '<td class="badge badge-pill badge-info">' . $statusproposta . '</td>';
+                        }
                         ?>
 
 

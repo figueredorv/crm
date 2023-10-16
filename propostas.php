@@ -306,25 +306,17 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                               <?php
-                              if ($statusproposta == "Pendente") : ?>
-                                <td class="badge badge-pill badge-warning"><?php echo $statusproposta; ?></td>
-                              <?php
-                              endif;
+                              if ($statusproposta == "PENDENTE") {
+                                echo '<td class="badge badge-pill badge-warning">' . $statusproposta . '</td>';
+                              } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGA") {
+                                echo '<td class="badge badge-pill badge-success">' . $statusproposta . '</td>';
+                              } elseif ($statusproposta == "CANCELADO" || $statusproposta == "SALDO RETORNADO") {
+                                echo '<td class="badge badge-pill badge-danger">' . $statusproposta . '</td>';
+                              } else {
+                                echo '<td class="badge badge-pill badge-info">' . $statusproposta . '</td>';
+                              }
+                              ?>
 
-                              ?>
-                              <?php
-                              if ($statusproposta == "Finalizada") : ?>
-                                <td class="badge badge-pill badge-success"><?php echo $statusproposta; ?></td>
-                              <?php
-                              endif;
-
-                              ?>
-                              <?php
-                              if ($statusproposta == "Cancelada") : ?>
-                                <td class="badge badge-pill badge-danger"><?php echo $statusproposta; ?></td>
-                              <?php
-                              endif;
-                              ?>
 
 
 
@@ -360,8 +352,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                                   <?php
-                                  if ($statusproposta == "Pendente") : ?>
-                                    <a class='btn btn-primary disabled' href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+                                  // lógica para só conseguir alterar o status da proposta quem for Administrador ou Desenvolvedor do sistema
+                                  if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') : ?>
+                                    <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
                                   <?php
 
                                   endif;
@@ -369,24 +362,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   ?>
 
 
-                                  <?php
-                                  if ($statusproposta == "Finalizado") : ?>
-                                    <a class="btn btn-warning btn-sm" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
-                                  <?php
-
-                                  endif;
-                                  ?>
 
 
 
-                                  <?php
-                                  if ($statusproposta == "Cancelado") : ?>
-                                    <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Adotar</i></a>
-                                  <?php
 
-                                  endif;
-
-                                  ?>
 
 
 
@@ -4021,3 +4000,139 @@ if (isset($_GET['func']) && $_GET['func'] == 'deleta') {
   echo "<script language='javascript'> window.location='propostas.php'; </script>";
 }
 ?>
+
+
+
+<!--EDITAR -->
+<?php
+if (@$_GET['func'] == 'editarstatus') {
+  $id = $_GET['id'];
+  $query = "select * from propostas where idpropostas = '$id'";
+  $result = mysqli_query($conexao, $query);
+
+  while ($res_1 = mysqli_fetch_array($result)) {
+
+
+?>
+
+    <!-- Modal Editar Status -->
+    <div id="modalEditarStatus" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Alterar status</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="">
+              <div class="form-group">
+                <label for="id_produto">Cliente</label>
+                <input type="text" class="form-control mr-2" name="txtnome" placeholder="Nome" value="<?php echo $res_1['nome']; ?>" required disabled>
+              </div>
+
+
+
+              <div class="form-group">
+              <label for="id_produto">Status</label>
+              <select name="statusproposta" class="custom-select" id="statusproposta">
+                <option selected><?php echo $res_1['statusproposta']; ?></option>
+                <option value="1">PENDENTE</option>
+                <option value="2">AVERBADA</option>
+                <option value="3">INTEGRADO</option>
+                <option value="4">AGUARDANDO AVERBAÇÃO</option>
+                <option value="5">CANCELADO</option>
+                <option value="6">PAGA</option>
+                <option value="7">DIGITADO</option>
+                <option value="8">SALDO RETORNADO</option>
+                <option value="9">EM DIGITAÇÃO</option>
+                <option value="10">FORMALIZAÇÃO CONCLUÍDA</option>
+              </select>
+              <small class="text-muted">Selecione o novo status da proposta</small>
+              </div>
+
+              
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success mb-3" name="buttonEditarStatus">Salvar </button>
+
+
+            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script>
+      $("#modalEditarStatus").modal("show");
+    </script>
+
+    <!--Comando para editar os dados UPDATE -->
+    <?php
+    if (isset($_POST['buttonEditarStatus'])) {
+      $statusproposta = $_POST['statusproposta'];
+
+
+
+      if ($_POST["statusproposta"] == "1") {
+        $statusproposta = "PENDENTE";
+      }
+      if ($_POST["statusproposta"] == "2") {
+        $statusproposta = "AVERBADA";
+      }
+      if ($_POST["statusproposta"] == "3") {
+        $statusproposta = "INTEGRADO";
+      }
+      if ($_POST["statusproposta"] == "4") {
+        $statusproposta = "AGUARDANDO AVERBAÇÃO";
+      }
+      if ($_POST["statusproposta"] == "5") {
+        $statusproposta = "CANCELADO";
+      }
+      if ($_POST["statusproposta"] == "6") {
+        $statusproposta = "PAGA";
+      }
+      if ($_POST["statusproposta"] == "7") {
+        $statusproposta = "DIGITADO";
+      }
+      if ($_POST["statusproposta"] == "8") {
+        $statusproposta = "SALDO RETORNADO";
+      }
+      if ($_POST["statusproposta"] == "9") {
+        $statusproposta = "EM DIGITAÇÃO";
+      }
+      if ($_POST["statusproposta"] == "10") {
+        $statusproposta = "CONCLUÍDA";
+      }
+      
+
+
+
+
+
+
+
+
+      $query_editar = "UPDATE propostas set statusproposta = '$statusproposta' where idpropostas = '$id' ";
+
+      $result_editar = mysqli_query($conexao, $query_editar);
+
+      if ($result_editar == '') {
+        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      } else {
+        echo "<script language='javascript'> window.alert('Status alterado com Sucesso!'); </script>";
+        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+      }
+    }
+    ?>
+
+
+<?php }
+}  ?>
