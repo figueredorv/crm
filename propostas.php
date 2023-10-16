@@ -296,7 +296,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo  $valor . " R$"; ?></td>
+                              <td><?php echo number_format($valor,2,",","."); ?></td>
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $nome_usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
@@ -2238,7 +2238,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
             <form method="POST" action="">
               <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputConvenio">CONVÊNIO</label>
                   <select name="inputConvenio" class="form-control" id="inputConvenio">
                     <option selected><?php echo $res_1['convenio']; ?></option>
@@ -2253,7 +2253,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="9">PESSOAL</option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputOperacao">OPERAÇÃO</label>
                   <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['operacao']; ?></option>
@@ -2271,7 +2271,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputBanco">BANCO</label>
                   <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
                     <option selected><?php echo $res_1['banco']; ?></option>
@@ -2496,7 +2496,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="955">955 - BANCO BONSUCESSO CONSIGNADO </option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputPromotora">PROMOTORA</label>
                   <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['promotora']; ?></option>
@@ -2504,11 +2504,11 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="2">CREDIBRASIL CONSIGNADO </option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputMargem">MARGEM</label>
                   <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputPrazo">PRAZO</label>
                   <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
                     <option selected><?php echo $res_1['prazo']; ?></option>
@@ -2523,15 +2523,15 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="12">12x</option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputValor">VALOR</label>
                   <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valor']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputValorParcelas">VALOR PARCELAS</label>
                   <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['valorparcelas']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputFormalizacao">FORMALIZAÇÃO</label>
                   <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['formalizacao']; ?></option>
@@ -2539,7 +2539,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="2">DIGITAL</option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputCanal">CANAL</label>
                   <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected><?php echo $res_1['canal']; ?></option>
@@ -2559,7 +2559,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                     <option value="14">CARTEIRA </option>
                   </select>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputTabela">TABELA</label>
                   <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                     <option selected value="">Nada para selecionar</option>

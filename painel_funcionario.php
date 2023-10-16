@@ -204,7 +204,7 @@ include("conexao.php");
 
 
 
-        <?php 
+        <?php
         // verificando se a coluna status da tabela usuários tem o valor = 0 para mostrar a informação no topo da página de conta DEMO
         $id = $_SESSION['idusuarios']; // recebendo o id
         $query = "SELECT status FROM usuarios WHERE idusuarios = '$id' AND status = 0;";
@@ -403,16 +403,19 @@ include("conexao.php");
 
                     <?php
 
-                    $query = "select * from propostas where nome = 'Ruan'";
+                    $query = "SELECT AVG(valor) AS media FROM propostas";
                     $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
 
-                    if ($row == '') {
 
-                      echo "<h5> 0 </h5>";
+                    if ($result) {
+                      $row = mysqli_fetch_assoc($result); // Use mysqli_fetch_assoc para obter o resultado como um array associativo
+                      $media = $row['media'];
+                      $mediaFormatada = number_format($media, 2, ',', '.');
+
+                      echo "<h5>$mediaFormatada R$</h5>";
                     } else {
-                      echo "<h5> $row </h5>";
+                      // Trate possíveis erros na consulta
+                      echo "Erro na consulta: " . mysqli_error($conexao);
                     }
                     ?>
 
@@ -437,17 +440,17 @@ include("conexao.php");
           <div class="row">
             <div class="col-5 col-md-4">
               <div class="icon-big text-center icon-warning">
-                <i class="fa fa-circle-o-notch text-primary"></i>
+                <i class="fa fa-users text-primary"></i>
               </div>
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
-                <p class="card-category">Valor das propostas</p>
+                <p class="card-category">Total de usuários</p>
                 <p class="card-title">
 
                   <?php
 
-                  $query = "select * from propostas where nome = 'Ruan'";
+                  $query = "select * from usuarios";
                   $result = mysqli_query($conexao, $query);
                   //$dado = mysqli_fetch_array($result);
                   $row = mysqli_num_rows($result);
@@ -471,7 +474,7 @@ include("conexao.php");
         <div class="card-footer ">
           <hr>
           <div class="stats">
-            <i class="fa fa-circle-o-notch "></i> Média do valor das propostas
+            <i class="fa fa-users"></i> Usuários cadastrados na plataforma
           </div>
         </div>
       </div>
@@ -842,134 +845,44 @@ include("conexao.php");
       <div class="col-md-8">
         <div class="card card-chart">
           <div class="card-header">
-            <h5 class="card-title">NASDAQ: AAPL</h5>
+            <h5 class="card-title">GRÁFICO</h5>
 
             <div class="row">
               <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title"> Simple Table</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead class=" text-primary">
-                          <th>
-                            Name
-                          </th>
-                          <th>
-                            Country
-                          </th>
-                          <th>
-                            City
-                          </th>
-                          <th class="text-right">
-                            Salary
-                          </th>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              Dakota Rice
-                            </td>
-                            <td>
-                              Niger
-                            </td>
-                            <td>
-                              Oud-Turnhout
-                            </td>
-                            <td class="text-right">
-                              $36,738
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Minerva Hooper
-                            </td>
-                            <td>
-                              Curaçao
-                            </td>
-                            <td>
-                              Sinaai-Waas
-                            </td>
-                            <td class="text-right">
-                              $23,789
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Sage Rodriguez
-                            </td>
-                            <td>
-                              Netherlands
-                            </td>
-                            <td>
-                              Baileux
-                            </td>
-                            <td class="text-right">
-                              $56,142
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Philip Chaney
-                            </td>
-                            <td>
-                              Korea, South
-                            </td>
-                            <td>
-                              Overland Park
-                            </td>
-                            <td class="text-right">
-                              $38,735
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Doris Greene
-                            </td>
-                            <td>
-                              Malawi
-                            </td>
-                            <td>
-                              Feldkirchen in Kärnten
-                            </td>
-                            <td class="text-right">
-                              $63,542
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Mason Porter
-                            </td>
-                            <td>
-                              Chile
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $78,615
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Jon Porter
-                            </td>
-                            <td>
-                              Portugal
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $98,615
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+               
+                
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                      google.charts.load('current', {
+                        'packages': ['corechart']
+                      });
+                      google.charts.setOnLoadCallback(drawChart);
+
+                      function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                          ['Métrica', 'Valor'],
+                          ['Média das Propostas', <?php echo $media; ?>]
+                        ]);
+
+                        var options = {
+                          title: 'Média do Valor das Propostas',
+                          hAxis: {
+                            title: 'Métrica',
+                            titleTextStyle: {
+                              color: '#333'
+                            }
+                          },
+                          vAxis: {
+                            minValue: 0
+                          }
+                        };
+
+                        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                        chart.draw(data, options);
+                      }
+                    </script>
+                    <div id="chart_div" style="width: 900px; height: 500px;"></div>  
+
                 </div>
               </div>
 
