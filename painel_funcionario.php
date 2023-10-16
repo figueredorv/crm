@@ -81,6 +81,65 @@ include("conexao.php");
             </a>
           </li>
 
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Campanhas <i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="propostas.php">Minhas campanhas</a></li>
+              <li><a href="atendimento.php">Atendimento</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Relatórios<i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <a class="dropdown-item" href="#">Propostas</a>
+              <a class="dropdown-item" href="#">Campanhas</a>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Financeiro<i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <a class="dropdown-item" href="#">Comissionamento</a>
+              <a class="dropdown-item" href="#">Lançamentos</a>
+              <a class="dropdown-item" href="#">Pagamentos</a>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Administração<i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <a class="dropdown-item" href="#">Usuários</a>
+              <a class="dropdown-item" href="#">Grupos</a>
+              <a class="dropdown-item" href="#">Tabelas</a>
+              <a class="dropdown-item" href="#">Status</a>
+              <a class="dropdown-item" href="#">Promotoras</a>
+              <a class="dropdown-item" href="#">Promotoras</a>
+              <a class="dropdown-item" href="#">Tabulação</a>
+              <a class="dropdown-item" href="#">Canais de vendas</a>
+            </ul>
+          </li>
+
+          <style>
+            .dropdown-toggle::after {
+              display: none;
+            }
+          </style>
+
+          <style>
+            .dropdown-menu a {
+              text-align: right;
+            }
+          </style>
+
           <li class="">
             <a href="documentos.php">
               <i class="fa fa-file"></i>
@@ -218,72 +277,6 @@ include("conexao.php");
 
         endif;
         ?>
-
-
-
-
-
-
-
-
-        <!-- Botões dropdowns em cima da dashboard -->
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Campanhas
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Minhas campanhas</a>
-            <a class="dropdown-item" href="#">Atendimento</a>
-          </div>
-        </div>
-
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Relatórios
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Propostas</a>
-            <a class="dropdown-item" href="#">Campanhas</a>
-          </div>
-        </div>
-
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Financeiro
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Comissionamento</a>
-            <a class="dropdown-item" href="#">Lançamentos</a>
-            <a class="dropdown-item" href="#">Pagamentos</a>
-          </div>
-        </div>
-
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Administração
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Usuários</a>
-            <a class="dropdown-item" href="#">Grupos</a>
-            <a class="dropdown-item" href="#">Tabelas</a>
-            <a class="dropdown-item" href="#">Status</a>
-            <a class="dropdown-item" href="#">Promotoras</a>
-            <a class="dropdown-item" href="#">Promotoras</a>
-            <a class="dropdown-item" href="#">Tabulação</a>
-            <a class="dropdown-item" href="#">Canais de vendas</a>
-          </div>
-        </div>
-
-
-
-
-
-
-
-        <!--  final Botões dropdowns em cima da dashboard -->
-
-
-
 
 
 
@@ -688,7 +681,7 @@ include("conexao.php");
                         <td>
                           <a class="btn btn-info" href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
-                          <a class="btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
+                          <a class="btn btn-danger" href="painel_funcionario.php?func=deletaproposta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
 
                           <br>
 
@@ -849,106 +842,106 @@ include("conexao.php");
 
             <div class="row">
               <div class="col-md-12">
-               
-                
+
+
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
-                      google.charts.load('current', {
-                        'packages': ['corechart']
-                      });
-                      google.charts.setOnLoadCallback(drawChart);
+                <script type="text/javascript">
+                  google.charts.load('current', {
+                    'packages': ['corechart']
+                  });
+                  google.charts.setOnLoadCallback(drawChart);
 
-                      function drawChart() {
-                        var data = google.visualization.arrayToDataTable([
-                          ['Métrica', 'Valor'],
-                          ['Média das Propostas', <?php echo $media; ?>]
-                        ]);
+                  function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Métrica', 'Valor'],
+                      ['Média das Propostas', <?php echo $media; ?>]
+                    ]);
 
-                        var options = {
-                          title: 'Média do Valor das Propostas',
-                          hAxis: {
-                            title: 'Métrica',
-                            titleTextStyle: {
-                              color: '#333'
-                            }
-                          },
-                          vAxis: {
-                            minValue: 0
-                          }
-                        };
-
-                        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-                        chart.draw(data, options);
+                    var options = {
+                      title: 'Média do Valor das Propostas',
+                      hAxis: {
+                        title: 'Métrica',
+                        titleTextStyle: {
+                          color: '#333'
+                        }
+                      },
+                      vAxis: {
+                        minValue: 0
                       }
-                    </script>
-                    <div id="chart_div" style="width: 900px; height: 500px;"></div>  
+                    };
 
-                </div>
+                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                  }
+                </script>
+                <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
               </div>
-
             </div>
+
           </div>
         </div>
       </div>
     </div>
-    <!-- Final de tabelas que ficam em baixo de Propostas registradas -->
+  </div>
+  <!-- Final de tabelas que ficam em baixo de Propostas registradas -->
 
 
 
 
-    </head>
+  </head>
 
-    <body>
-
-
+  <body>
 
 
 
 
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li>
-                  <a href="https://wa.link/1quja8" target="_blank">SUPORTE</a>
-                </li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>, CRM CORBAN <i class="fa fa-heart heart"></i>
-              </span>
-            </div>
+
+
+    <footer class="footer footer-black  footer-white ">
+      <div class="container-fluid">
+        <div class="row">
+          <nav class="footer-nav">
+            <ul>
+              <li>
+                <a href="https://wa.link/1quja8" target="_blank">SUPORTE</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="credits ml-auto">
+            <span class="copyright">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>, CRM CORBAN <i class="fa fa-heart heart"></i>
+            </span>
           </div>
         </div>
-      </footer>
-  </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+      </div>
+    </footer>
+    </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chart JS -->
+    <script src="assets/js/plugins/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="assets/demo/demo.js"></script>
+    <script>
+      $(document).ready(function() {
+        // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+        demo.initChartsPages();
+      });
+    </script>
 
 
 
@@ -959,6 +952,24 @@ include("conexao.php");
 
 
 
-</body>
+  </body>
 
 </html>
+
+
+<!--EXCLUIR PROPOSTA DO CARD DAS PROPOSTAS CRIADAS HOJE DO PAINEL FUNCIONÁRIO -->
+<?php
+if (@$_GET['func'] == 'deletaproposta') {
+  $id = $_GET['id'];
+  $query = "DELETE FROM propostas where idpropostas = '$id'";
+  mysqli_query($conexao, $query);
+
+  if ($result == '') {
+    echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
+  } else {
+
+    echo "<script language='javascript'> window.alert('Excluído com Sucesso!'); </script>";
+    echo "<script language='javascript'> window.location='painel_funcionario.php'; </script>";
+  }
+}
+?>

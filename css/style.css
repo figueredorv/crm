@@ -77,28 +77,6 @@ ul.timeline > li:before {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .card-pricing.popular {
     z-index: 1;
     border: 3px solid #007bff;
@@ -107,3 +85,10 @@ ul.timeline > li:before {
     padding: .5rem 0;
     color: #6c757d;
 }
+
+
+
+
+.dropdown-toggle::after {
+    display: none;
+  }

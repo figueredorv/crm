@@ -101,7 +101,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
               <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus-square"> ADICIONAR </i></button>
             </form>
-            
+
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
               <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> BUCAR POR MAIS NOVA</i></button>
@@ -296,7 +296,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo number_format($valor,2,",","."); ?></td>
+                              <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $nome_usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
@@ -347,17 +347,21 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                     </ul>
                                   </div>
 
-                                  <span style="margin-right: 10px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                                  <!-- Botão de exclusão de proposta -->
+                                  <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
+                                    <i class="fa fa-minus-square text-white"></i>
+                                  </a>
+
+                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
 
-                                  <a class="btn btn-danger btn-sm" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"> Excluir</i></a>
 
-                                  <span style="margin-right: 10px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
-                                  
-                                  
+
                                   <?php
                                   if ($statusproposta == "Pendente") : ?>
-                                    <a class="btn btn-warning btn-sm disabled" href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class="fa fa-check-square-o"> Alterar status</i></a>
+                                    <a class='btn btn-primary disabled' href="animais.php?func=adotar&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
                                   <?php
 
                                   endif;
@@ -1122,7 +1126,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-12">
                           <label for="inputDocumento">Deseja anexar algum documento?</label>
-                          <input name="imagens[]"  multiple type="file" class="form-control-file" id="inputDocumento">
+                          <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento">
                           <div class="form-group">
                             <br>
                             <label for="exampleFormControlTextarea1">Observação (opcional)</label>
@@ -1241,20 +1245,21 @@ if (isset($_POST['button'])) {
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
+    $novo_nome = '';
 
-    foreach ($imagens['name'] as $key => $nome) {
-        if ($imagens['error'][$key] === 0) {
-            $extensao = pathinfo($nome, PATHINFO_EXTENSION);
-            $novo_nome = md5(uniqid()) . '.' . $extensao;
+    foreach ($imagens['name'] as $key => $nomedocumento) {
+      if ($imagens['error'][$key] === 0) {
+        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+        $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-                // Insira o nome do arquivo no banco de dados
-                $query = "INSERT INTO documentos (idusuario, caminho) VALUES ('$usuario','$novo_nome')";
-                mysqli_query($conexao, $query);
-            }
+        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+          // Insira o nome do arquivo no banco de dados
+          $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+          mysqli_query($conexao, $query);
         }
+      }
     }
-} //marcador
+  } //marcador
 
 
 
@@ -1847,32 +1852,7 @@ if (isset($_POST['button'])) {
 
 
 
-<!--EXCLUIR -->
-<?php
-if (@$_GET['func'] == 'deleta') {
-  $id = $_GET['id'];
-  $query = "DELETE FROM propostas where idpropostas = '$id'";
-  mysqli_query($conexao, $query);
 
-
-  // inicio do registro de log
-  /*
-  $nome = $_SESSION['nome_usuario'];
-
-
-  $queryexcluir = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Excluiu um pet de espécie: $especie', curDate())";
-  $resultexcluir = mysqli_query($conexao, $queryexcluir);
-  // Final do registro de log
-*/
-  if ($result == '') {
-    echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
-  } else {
-
-    echo "<script language='javascript'> window.alert('Excluído com Sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='propostas.php'; </script>";
-  }
-}
-?>
 
 
 
@@ -3992,3 +3972,55 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     });
   });
 </script>
+
+
+
+
+
+
+<!-- Modal de confirmação de exclusão de registro -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmação de Exclusão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza de que deseja excluir este registro?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- lógica para exclusão de registro -->
+<?php
+if (isset($_GET['func']) && $_GET['func'] == 'deleta') {
+  $id = isset($_GET['id']) ? $_GET['id'] : null;
+
+  if ($id !== null) {
+    $query = "DELETE FROM propostas where idpropostas = '$id'";
+    $result = mysqli_query($conexao, $query);
+
+    if ($result) {
+      echo "<script language='javascript'> window.alert('Excluído com Sucesso!'); </script>";
+    } else {
+      echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
+    }
+  } else {
+    echo "<script language='javascript'> window.alert('ID não foi capturado corretamente. Exclusão não é possível.'); </script>";
+  }
+
+  echo "<script language='javascript'> window.location='propostas.php'; </script>";
+}
+?>
+
+
+
+
