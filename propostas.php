@@ -1126,13 +1126,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         </div>
                         <div class="form-group col-md-12">
                           <label for="inputDocumento">Deseja anexar algum documento?</label>
-                          <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento">
+                          <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
                           <div class="form-group">
                             <br>
                             <label for="exampleFormControlTextarea1">Observação (opcional)</label>
                             <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
                           </div>
                         </div>
+
 
                       </div>
                       <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
@@ -4020,7 +4021,3 @@ if (isset($_GET['func']) && $_GET['func'] == 'deleta') {
   echo "<script language='javascript'> window.location='propostas.php'; </script>";
 }
 ?>
-
-
-
-

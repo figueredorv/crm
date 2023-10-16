@@ -86,8 +86,8 @@ include("conexao.php");
               <p>Campanhas <i class="fa fa-angle-right"></i></p>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="propostas.php">Minhas campanhas</a></li>
-              <li><a href="atendimento.php">Atendimento</a></li>
+              <li><a href="#">Minhas campanhas</a></li>
+              <li><a href="#">Atendimento</a></li>
             </ul>
           </li>
 
@@ -331,7 +331,7 @@ include("conexao.php");
               </div>
         </a>
       </div>
-      <a href="propostas.php?buttonOcNaoAtendidas=" style="text-decoration:none">
+      <a href="#" style="text-decoration:none">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-body ">
@@ -361,7 +361,7 @@ include("conexao.php");
 
                         echo "<h5> 0 </h5>";
                       } else {
-                        echo  "<h5> $resultadoFormatado R$ </h5";
+                        echo  "<h5> $resultadoFormatado</h5";
                       }
                       ?>
 
@@ -379,7 +379,7 @@ include("conexao.php");
           </div>
       </a>
     </div>
-    <a href="propostas.php?buttonOcAtendidas=" style="text-decoration:none">
+    <a href="#" style="text-decoration:none">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-body ">
@@ -405,7 +405,7 @@ include("conexao.php");
                       $media = $row['media'];
                       $mediaFormatada = number_format($media, 2, ',', '.');
 
-                      echo "<h5>$mediaFormatada R$</h5>";
+                      echo "<h5>$mediaFormatada</h5>";
                     } else {
                       // Trate possíveis erros na consulta
                       echo "Erro na consulta: " . mysqli_error($conexao);
@@ -426,7 +426,7 @@ include("conexao.php");
         </div>
     </a>
   </div>
-  <a href="propostas.php?buttonpetsemvacina=" style="text-decoration:none">
+  <a href="#" style="text-decoration:none">
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
@@ -874,7 +874,8 @@ include("conexao.php");
                     chart.draw(data, options);
                   }
                 </script>
-                <div id="chart_div" style="width: 900px; height: 500px;"></div>
+                
+                <div id="chart_div" style="width: 100%; height: auto;"></div>
 
               </div>
             </div>

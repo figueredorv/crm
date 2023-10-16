@@ -92,3 +92,21 @@ ul.timeline > li:before {
 .dropdown-toggle::after {
     display: none;
   }
+
+
+
+  /* Estilos para telas médias */
+@media (max-width: 768px) {
+    .card-chart {
+      /* Estilos para telas médias aqui */
+      width: 100%; height: 400px;
+    }
+  }
+  
+  /* Estilos para telas pequenas (dispositivos móveis) */
+  @media (max-width: 480px) {
+    .card-chart {
+      /* Estilos para telas pequenas aqui */
+      width: auto; height: 400px;
+    }
+  }
