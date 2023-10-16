@@ -195,7 +195,7 @@ include("conexao.php");
 
           <form>
             <div class="input-group no-border">
-              <input type="text" value="" class="form-control" placeholder="Search...">
+              <input type="text" value="" class="form-control" placeholder="Procurar..." name="buttonPesquisar">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="nc-icon nc-zoom-split"></i>
@@ -492,28 +492,25 @@ include("conexao.php");
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">HOJE</span></h5>
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <form class="form-inline my-2 my-lg-0">
-                <button name="buttonOcAtendidas" type="submit" class="btn btn-primary">Mais alta</button>
-                <form>
-
+            <div class="row">
+              <div class="col-12">
+                <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">HOJE</span></h5>
+                <small class="text-muted">Filtrar por valores mais altos e mais baixos</small>
+              </div>
+              <div class="col-4">
+                <div class="btn-group" role="group" aria-label="Basic example">
                   <form class="form-inline my-2 my-lg-0">
-                    <button name="buttonOcNaoAtendidas" type="submit" class="btn btn-primary">Mais baixa</button>
-                    <form>
-
-
-                      <form class="form-inline my-2 my-lg-0">
-                        <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas </button>
-                        <form>
-
-
-
+                    <button name="buttonMaisAlta" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-asc" aria-hidden="true"></i></button>
+                  </form>
+                  <form class="form-inline my-2 my-lg-0">
+                    <button name="buttonMaisBaixa" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
+                  </form>
+                  <form class="form-inline my-2 my-lg-0">
+                    <button name="buttonPesquisar" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                  </form>
+                </div>
+              </div>
             </div>
-
-
-
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -522,21 +519,32 @@ include("conexao.php");
               <!--LISTAR TODAS AS OCORRÊNCIAS -->
 
               <?php
-
-              // novo codigo ( procurar ocorrência pelo nome)
               if (isset($_GET['buttonPesquisar'])) {
+                $nome = $_GET['buttonPesquisar'] . '%';
+                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
+              }
+              // novo codigo ( procurar ocorrência pelo nome)
+              else if (isset($_GET['buttonPesquisar'])) {
                 $query = "select * from propostas where data = curdate()";
               }
 
               // novo codigo ( procurar por propostas pendentes)
-              else if (isset($_GET['buttonOcAtendidas'])) {
-                $nome = 'Pendentes';
-                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
+              else if (isset($_GET['buttonMaisAlta'])) {
+
+                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor DESC
+                LIMIT 1;";
               }
               // novo codigo ( procurar por propostas nao adotados)
-              else if (isset($_GET['buttonOcNaoAtendidas'])) {
-                $nome = 'Finalizada';
-                $query = "select * from propostas where statusproposta = '$nome'  and data = curdate()";
+              else if (isset($_GET['buttonMaisBaixa'])) {
+
+                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor ASC
+                LIMIT 1;";
               }
               // novo codigo ( procurar por propostas sem nenhuma vacina)
               else if (isset($_GET['buttonpetsemvacina'])) {
@@ -874,7 +882,7 @@ include("conexao.php");
                     chart.draw(data, options);
                   }
                 </script>
-                
+
                 <div id="chart_div" style="width: 100%; height: auto;"></div>
 
               </div>
