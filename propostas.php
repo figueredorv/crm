@@ -178,7 +178,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $nome = 'Disponivel';
                       $query = "select * from animais where situacao = '$nome'   order by data asc";
                     }
-                   
+
 
 
 
@@ -1218,16 +1218,16 @@ if (isset($_POST['button'])) {
   $statusproposta = 'Pendente';
   $data = date('d/m/Y H:i');
 
+  
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
     $novo_nome = '';
-
     foreach ($imagens['name'] as $key => $nomedocumento) {
       if ($imagens['error'][$key] === 0) {
         $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
         $novo_nome = md5(uniqid()) . '.' . $extensao;
-
+    
         if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
           // Insira o nome do arquivo no banco de dados
           $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
@@ -1235,7 +1235,7 @@ if (isset($_POST['button'])) {
         }
       }
     }
-  } //marcador
+  }
 
 
 
@@ -2523,7 +2523,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 </div>
                 <div class="form-group col-md-12">
                   <label for="inputDocumento">Deseja anexar algum documento?</label>
-                  <input name="imagens[]" type="file" class="form-control-file" id="inputDocumento">
+                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
@@ -2555,18 +2555,44 @@ if (@$_GET['func'] == 'editarpropostas') {
     <?php
     if (isset($_POST['buttonEditarProposta'])) {
       $convenio = $_POST['inputConvenio'];
-      $operacao = $_POST['inputOperacao'];
-      $banco = $_POST['inputBanco'];
-      $promotora = $_POST['inputPromotora'];
-      $margem = $_POST['inputMargem'];
-      $prazo = $_POST['inputPrazo'];
-      $valor = $_POST['inputValor'];
-      $valorparcelas = $_POST['inputValorParcelas'];
-      $formalizacao = $_POST['inputFormalizacao'];
-      $canal = $_POST['inputCanal'];
-      $documentoanexado   = $_FILES['imagens'];
-      $observacao   = $_POST['inputObservacao'];
+    $operacao = $_POST['inputOperacao'];
+    $banco = $_POST['inputBanco'];
+    $promotora = $_POST['inputPromotora'];
+    $margem = $_POST['inputMargem'];
+    $prazo = $_POST['inputPrazo'];
+    $valor = $_POST['inputValor'];
+    $valorparcelas = $_POST['inputValorParcelas'];
+    $formalizacao = $_POST['inputFormalizacao'];
+    $canal = $_POST['inputCanal'];
+    $documentoanexado   = $_FILES['imagens'];
+    $observacao   = $_POST['inputObservacao'];
+     
 
+
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $imagens = $_FILES['name'];
+        $novo_nome = '';
+    
+        foreach ($imagens['name'] as $key => $nomedocumento) {
+          if ($imagens['error'][$key] === 0) {
+            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+            $novo_nome = md5(uniqid()) . '.' . $extensao;
+
+            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                // Insira o nome do arquivo no banco de dados
+                $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+                mysqli_query($conexao, $query);
+                }
+            }
+        }
+    }
+   // $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+    //mysqli_query($conexao, $query);
+
+
+    $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+    
+    $result_editar = mysqli_query($conexao, $query_editar);
 
 
       // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
@@ -4031,24 +4057,24 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
               <div class="form-group">
-              <label for="id_produto">Status</label>
-              <select name="statusproposta" class="custom-select" id="statusproposta">
-                <option selected><?php echo $res_1['statusproposta']; ?></option>
-                <option value="1">PENDENTE</option>
-                <option value="2">AVERBADA</option>
-                <option value="3">INTEGRADO</option>
-                <option value="4">AGUARDANDO AVERBAÇÃO</option>
-                <option value="5">CANCELADO</option>
-                <option value="6">PAGA</option>
-                <option value="7">DIGITADO</option>
-                <option value="8">SALDO RETORNADO</option>
-                <option value="9">EM DIGITAÇÃO</option>
-                <option value="10">FORMALIZAÇÃO CONCLUÍDA</option>
-              </select>
-              <small class="text-muted">Selecione o novo status da proposta</small>
+                <label for="id_produto">Status</label>
+                <select name="statusproposta" class="custom-select" id="statusproposta">
+                  <option selected><?php echo $res_1['statusproposta']; ?></option>
+                  <option value="1">PENDENTE</option>
+                  <option value="2">AVERBADA</option>
+                  <option value="3">INTEGRADO</option>
+                  <option value="4">AGUARDANDO AVERBAÇÃO</option>
+                  <option value="5">CANCELADO</option>
+                  <option value="6">PAGA</option>
+                  <option value="7">DIGITADO</option>
+                  <option value="8">SALDO RETORNADO</option>
+                  <option value="9">EM DIGITAÇÃO</option>
+                  <option value="10">FORMALIZAÇÃO CONCLUÍDA</option>
+                </select>
+                <small class="text-muted">Selecione o novo status da proposta</small>
               </div>
 
-              
+
           </div>
 
 
@@ -4107,7 +4133,7 @@ if (@$_GET['func'] == 'editarstatus') {
       if ($_POST["statusproposta"] == "10") {
         $statusproposta = "CONCLUÍDA";
       }
-      
+
 
 
 
