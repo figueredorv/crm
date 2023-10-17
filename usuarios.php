@@ -388,26 +388,14 @@ if (@$_GET['func'] == 'edita') {
                 <input type="text" class="form-control mr-2" name="txtsenha" placeholder="Senha" value="<?php echo $res_1['senha']; ?>" required>
               </div>
 
+              <div class="form-group">
+                <label for="quantidade">Cargo</label>
+                <input type="text" class="form-control mr-2" name="txtcargo" placeholder="Cargo" value="<?php echo $res_1['cargo']; ?>" required>
+              </div>
 
 
-              <select name="tipo" class="custom-select" id="tipo">
 
-                <?php
-                // Query para buscar os valores do banco de dados
-                $sql = "SELECT idcargos, cargo FROM cargos";
-                $result = $conexao->query($sql);
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    $id = $row["idcargos"];
-                    $cargo = $row["cargo"];
-                    echo "<option value=\"$id\">$cargo</option>";
-                  }
-                } else {
-                  echo "<option value=\"\">Nenhum resultado encontrado</option>";
-                }
-                ?>
-              </select>
-              <small class="text-muted"> Nível de acesso ao sistema</small>
+             
           </div>
 
 
@@ -435,19 +423,14 @@ if (@$_GET['func'] == 'edita') {
       $nome = $_POST['txtnome'];
       $usuario = $_POST['txtusuario'];
       $senha = $_POST['txtsenha'];
-      $cargo = $_POST['tipo'];
-
-
-      if ($_POST["tipo"] == "1") {
-        $cargo = "Funcionário";
-      }
-      if ($_POST["tipo"] == "2") {
-        $cargo = "Administrador";
-      }
-
+      $cargo = $_POST['txtcargo'];
 
 
       
+
+
+
+
 
 
 
