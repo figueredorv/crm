@@ -304,7 +304,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <?php
                               if ($statusproposta == "PENDENTE") {
                                 echo '<td class="badge badge-pill badge-warning">' . $statusproposta . '</td>';
-                              } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGA") {
+                              } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGO") {
                                 echo '<td class="badge badge-pill badge-success">' . $statusproposta . '</td>';
                               } elseif ($statusproposta == "CANCELADO" || $statusproposta == "SALDO RETORNADO") {
                                 echo '<td class="badge badge-pill badge-danger">' . $statusproposta . '</td>';
@@ -1215,7 +1215,7 @@ if (isset($_POST['button'])) {
   $canal = $_POST['inputCanal'];
   $documentoanexado   = $_FILES['imagens'];
   $observacao   = $_POST['inputObservacao'];
-  $statusproposta = 'Pendente';
+  $statusproposta = 'PENDENTE';
   $data = date('d/m/Y H:i');
 
   
@@ -4119,7 +4119,7 @@ if (@$_GET['func'] == 'editarstatus') {
         $statusproposta = "CANCELADO";
       }
       if ($_POST["statusproposta"] == "6") {
-        $statusproposta = "PAGA";
+        $statusproposta = "PAGO";
       }
       if ($_POST["statusproposta"] == "7") {
         $statusproposta = "DIGITADO";

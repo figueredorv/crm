@@ -117,7 +117,7 @@ include("conexao.php");
               <p>Administração<i class="fa fa-angle-right"></i></p>
             </a>
             <ul class="dropdown-menu">
-              <a class="dropdown-item" href="#">Usuários</a>
+              <a class="dropdown-item" href="usuarios.php">Usuários</a>
               <a class="dropdown-item" href="#">Grupos</a>
               <a class="dropdown-item" href="#">Tabelas</a>
               <a class="dropdown-item" href="#">Status</a>
@@ -525,7 +525,8 @@ include("conexao.php");
               }
               // novo codigo ( procurar ocorrência pelo nome)
               else if (isset($_GET['buttonPesquisar'])) {
-                $query = "select * from propostas where data = curdate()";
+                $nome = $_GET['buttonPesquisar'] . '%';
+                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc where curdate()";
               }
 
               // novo codigo ( procurar por propostas pendentes)
@@ -569,7 +570,7 @@ include("conexao.php");
 
               if ($row == '') {
 
-                echo "<h3> Não existem dados cadastrados no banco </h3>";
+                echo "<h3> Não existem propostas cadastradas na data de hoje! </h3>";
               } else {
 
               ?>
@@ -665,7 +666,7 @@ include("conexao.php");
                         <?php
                         if ($statusproposta == "PENDENTE") {
                           echo '<td class="badge badge-pill badge-warning">' . $statusproposta . '</td>';
-                        } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGA") {
+                        } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGO") {
                           echo '<td class="badge badge-pill badge-success">' . $statusproposta . '</td>';
                         } elseif ($statusproposta == "CANCELADO" || $statusproposta == "SALDO RETORNADO") {
                           echo '<td class="badge badge-pill badge-danger">' . $statusproposta . '</td>';
