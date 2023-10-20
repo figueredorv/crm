@@ -428,7 +428,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputCpf">CPF</label>
-                            <input name="inputCpf" type="text" class="form-control" id="inputCpf" placeholder="">
+                            <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder=""  >
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputRg">RG</label>
@@ -1874,7 +1874,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCpf">CPF</label>
-                  <input name="inputCpf" type="text" class="form-control" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>">
+                  <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>"  >
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputRg">RG</label>
@@ -1883,7 +1883,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 <div class="form-group col-md-6">
                   <form method="POST" action="">
                     <label for="inputTelefone">TELEFONE</label>
-                    <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
+                    <input name="inputTelefone" type="text" class="form-control inputTelefone" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputEmail">EMAIL</label>
@@ -1891,7 +1891,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
-                  <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
+                  <input name="inputDataNascimento" type="text" class="form-control inputDataNascimento" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputNomeMae">NOME DA MÃE</label>
@@ -2141,7 +2141,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#txtcpf').mask('000.000.000-00'); // Másrcara para o input do cpf da pessoa que irá adotar o animal.
+    $('#txtcpf').mask('000.000.000-00'); // Másrcara para o input do cpf 
     //$('#txtdata').mask('0000-00-00'); 
   });
 </script>
@@ -3909,8 +3909,10 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 <script type="text/javascript">
   $(document).ready(function() {
     $('#inputTelefone').mask('(00) 00000-0000');
-    $('#inputCpf').mask('000.000.000-00');
+    $(".inputTelefone").mask("(00) 00000-0000");
+    $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
     $("#inputDataNascimento").mask("00/00/0000");
+    $(".inputDataNascimento").mask("00/00/0000");
     $("#inputCep").mask("99999-999");
   });
 </script>
