@@ -208,7 +208,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-                      <table class="table">
+                      <table class="table table-borderless">
                         <thead class=" text-primary">
 
                           <th>
