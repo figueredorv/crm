@@ -13,8 +13,8 @@ include("conexao.php");
 
 <head>
   <meta charset="utf-8" />
-  
- 
+
+
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -114,21 +114,33 @@ include("conexao.php");
             </ul>
           </li>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-              <p>Administração<i class="fa fa-angle-right"></i></p>
-            </a>
-            <ul class="dropdown-menu">
-              <a class="dropdown-item" href="usuarios.php">Usuários</a>
-              <a class="dropdown-item" href="#">Grupos</a>
-              <a class="dropdown-item" href="#">Tabelas</a>
-              <a class="dropdown-item" href="#">Status</a>
-              <a class="dropdown-item" href="#">Promotoras</a>
-              <a class="dropdown-item" href="#">Promotoras</a>
-              <a class="dropdown-item" href="#">Tabulação</a>
-              <a class="dropdown-item" href="#">Canais de vendas</a>
-            </ul>
-          </li>
+
+
+          <?php
+          // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
+          if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <p>Administração<i class="fa fa-angle-right"></i></p>
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="usuarios.php">Usuários</a>
+                <a class="dropdown-item" href="#">Grupos</a>
+                <a class="dropdown-item" href="#">Tabelas</a>
+                <a class="dropdown-item" href="#">Status</a>
+                <a class="dropdown-item" href="#">Promotoras</a>
+                <a class="dropdown-item" href="#">Promotoras</a>
+                <a class="dropdown-item" href="#">Tabulação</a>
+                <a class="dropdown-item" href="#">Canais de vendas</a>
+              </ul>
+            </li>
+
+          <?php
+          endif;
+          ?>
+
+
+
 
           <style>
             .dropdown-toggle::after {
@@ -225,12 +237,12 @@ include("conexao.php");
 
 
                   <?php
-                  if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {
+                  if ($_SESSION['cargo_usuario'] == 'Master') {
 
 
                   ?>
 
-                    <a class="dropdown-item" href="painel_admin.php">Painél do Administrador</a>
+                    <a class="dropdown-item" href="#">Painél Financeiro</a>
                     <a class="dropdown-item" href="painel_funcionario.php">Painél do Funcionário</a>
 
                   <?php } ?>
@@ -283,7 +295,7 @@ include("conexao.php");
 
 
 
-        
+
 
         <a href="propostas.php" style="text-decoration:none">
           <div class="row">

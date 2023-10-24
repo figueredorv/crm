@@ -307,10 +307,13 @@ if (isset($_POST['button'])) {
 
 
   if ($_POST["tipo"] == "1") {
-    $cargo = "Funcionário";
+    $cargo = "Operador";
   }
   if ($_POST["tipo"] == "2") {
-    $cargo = "Administrador";
+    $cargo = "Adm";
+  }
+  if ($_POST["tipo"] == "3") {
+    $cargo = "Master";
   }
 
   //VERIFICAR SE O PROTOCOLO JÁ ESTÁ CADASTRADO
@@ -389,10 +392,24 @@ if (@$_GET['func'] == 'edita') {
               </div>
 
               <div class="form-group">
-                <label for="quantidade">Cargo</label>
-                <input type="text" class="form-control mr-2" name="txtcargo" placeholder="Cargo" value="<?php echo $res_1['cargo']; ?>" required>
-              </div>
-
+                    <label for="inputCanal">Cargo</label>
+                    <select name="tipo" id="tipo" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                    <?php
+                        // Query para buscar os valores do banco de dados
+                        $sql = "SELECT idcargos, cargo FROM cargos";
+                        $result = $conexao->query($sql);
+                        if ($result->num_rows > 0) {
+                          while ($row = $result->fetch_assoc()) {
+                            $idcargos = $row["idcargos"];
+                            $cargo = $row["cargo"];
+                            echo "<option value=\"$idcargos\">$cargo</option>";
+                          }
+                        } else {
+                          echo "<option value=\"\">Nenhum resultado encontrado</option>";
+                        }
+                        ?>
+                    </select>
+                  </div>
 
 
              
@@ -423,10 +440,18 @@ if (@$_GET['func'] == 'edita') {
       $nome = $_POST['txtnome'];
       $usuario = $_POST['txtusuario'];
       $senha = $_POST['txtsenha'];
-      $cargo = $_POST['txtcargo'];
+      $cargo = $_POST['tipo'];
 
 
-      
+      if ($_POST["tipo"] == "1") {
+        $cargo = "Operador";
+      }
+      if ($_POST["tipo"] == "2") {
+        $cargo = "Adm";
+      }
+      if ($_POST["tipo"] == "3") {
+        $cargo = "Master";
+      }      
 
 
 

@@ -348,7 +348,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                                   <?php
-                                  // lógica para só conseguir alterar o status da proposta quem for Administrador ou Desenvolvedor do sistema
+                                  // lógica para só conseguir alterar o status da proposta quem for master do sistema
                                   if ($_SESSION['cargo_usuario'] == 'Master') : ?>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
                                       <i class="fa fa-minus-square text-white"></i>
