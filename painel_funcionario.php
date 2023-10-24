@@ -13,10 +13,11 @@ include("conexao.php");
 
 <head>
   <meta charset="utf-8" />
+  
+ 
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <link rel="stylesheet" href="css/style.css">
 
 
 
@@ -35,7 +36,8 @@ include("conexao.php");
   <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="css/painel-funcionario.css">
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -281,8 +283,7 @@ include("conexao.php");
 
 
 
-
-
+        
 
         <a href="propostas.php" style="text-decoration:none">
           <div class="row">
@@ -343,7 +344,7 @@ include("conexao.php");
                 </div>
                 <div class="col-7 col-md-8">
                   <div class="numbers">
-                    <p class="card-category">Valor total das propostas </p>
+                    <p class="card-category">Valor das propostas </p>
                     <p class="card-title">
 
                       <?php
@@ -391,7 +392,7 @@ include("conexao.php");
               </div>
               <div class="col-7 col-md-8">
                 <div class="numbers">
-                  <p class="card-category">Média de vendas diárias</p>
+                  <p class="card-category">Média de vendas</p>
                   <p class="card-title">
 
                     <?php
@@ -420,7 +421,7 @@ include("conexao.php");
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-bar-chart"></i> Total de média diária
+              <i class="fa fa-bar-chart"></i> Média de vendas diária
             </div>
           </div>
         </div>
