@@ -224,6 +224,8 @@ include("conexao.php");
 
             <ul class="navbar-nav">
 
+
+
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php echo $_SESSION['nome_usuario']; ?>
@@ -278,17 +280,18 @@ include("conexao.php");
 
 
         <?php
-        // verificando se a coluna status da tabela usuários tem o valor = 0 para mostrar a informação no topo da página de conta DEMO
-        $id = $_SESSION['idusuarios']; // recebendo o id
-        $query = "SELECT status FROM usuarios WHERE idusuarios = '$id' AND status = 0;";
+        $query = "select * from propostas where data = curdate()   order by data asc ";
         $result = mysqli_query($conexao, $query);
         $row = mysqli_num_rows($result);
 
         if ($row > 0) : ?>
-          <div class="notice notice-warning"><strong>Atenção!</strong> Você está em uma conta de teste, todos os dados são apenas fictícios.</div>
-
+          <div class="alert alert-success alert-dismissible fade show text-dark">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                          <span><b>Muito bem!</b> Você possui <?php echo "$row";?> nova proposta!</span>
+                        </div>
         <?php
-
         endif;
         ?>
 
@@ -729,25 +732,21 @@ include("conexao.php");
         <div class="card ">
           <!-- início de tabela de usuários mais ativos -->
 
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
+          <div class="card-header">
+            <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
 
 
 
 
 
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
 
 
 
 
-                    <?php
-
+              <?php
 
 
 
@@ -756,8 +755,9 @@ include("conexao.php");
 
 
 
-                    //contabilizando o usuáio que mais cadastrou propostas
-                    $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+
+              //contabilizando o usuáio que mais cadastrou propostas
+              $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
                     FROM usuarios u
                     LEFT JOIN propostas p ON u.idusuarios = p.idusuario
                     GROUP BY u.usuario
@@ -768,50 +768,50 @@ include("conexao.php");
 
 
 
-                    $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
+              $result = mysqli_query($conexao, $query);
+              //$dado = mysqli_fetch_array($result);
+              $row = mysqli_num_rows($result);
 
-                    if ($row == '') {
+              if ($row == '') {
 
-                      echo "<h3> Não existem dados cadastrados no banco </h3>";
-                    } else {
+                echo "<h3> Não existem dados cadastrados no banco </h3>";
+              } else {
+
+              ?>
+
+
+
+                <table class="table">
+                  <thead class=" text-primary">
+
+                    <th>
+                      Usuário
+                    </th>
+                    <th>
+                      Propostas cadastradas
+                    </th>
+
+
+
+                  </thead>
+                  <tbody>
+
+                    <?php
+
+                    while ($res_1 = mysqli_fetch_array($result)) {
+                      $nome = $res_1["usuario"];
+                      $propostas = $res_1["propostas"];
+                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
+
+
+
+
 
                     ?>
 
-
-
-                      <table class="table">
-                        <thead class=" text-primary">
-
-                          <th>
-                            Usuário
-                          </th>
-                          <th>
-                            Propostas cadastradas
-                          </th>
-
-
-
-                        </thead>
-                        <tbody>
-
-                          <?php
-
-                          while ($res_1 = mysqli_fetch_array($result)) {
-                            $nome = $res_1["usuario"];
-                            $propostas = $res_1["propostas"];
-                            $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
-
-
-
-
-
-                          ?>
-
-                            <tr>
-                              <td><?php echo $nome; ?></td>
-                              <td><?php echo $propostas; ?></td>
+                      <tr>
+                        <td><?php echo $nome; ?></td>
+                        <td><?php echo $propostas; ?></td>
 
 
 
@@ -822,24 +822,20 @@ include("conexao.php");
 
 
 
-                            </tr>
+                      </tr>
 
-                          <?php
-                          }
-                          ?>
-
-
-
-                        </tbody>
-                      </table>
                     <?php
                     }
                     ?>
-                  </div>
-                </div>
-              </div>
-            </div>
 
+
+
+                  </tbody>
+                </table>
+              <?php
+              }
+              ?>
+            </div>
           </div>
 
 
