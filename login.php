@@ -25,7 +25,7 @@ if($row > 0){
 	
 
 
-    if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {
+    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {
     	header('Location: painel_funcionario.php');
     	exit();
     }
@@ -35,7 +35,7 @@ if($row > 0){
     	exit();
     }*/
 
-    if ($_SESSION['cargo_usuario'] == 'Funcionário') {
+    if ($_SESSION['cargo_usuario'] == 'Operador') {
     	header('Location: painel_funcionario.php');
     	exit();
     }

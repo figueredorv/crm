@@ -338,19 +338,22 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                                   <!-- Botão de exclusão de proposta -->
-                                  <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
-                                    <i class="fa fa-minus-square text-white"></i>
-                                  </a>
+
 
                                   <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
+                                  <!-- Botão de edição de status da proposta -->
+                                  <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
 
-
+                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                                   <?php
                                   // lógica para só conseguir alterar o status da proposta quem for Administrador ou Desenvolvedor do sistema
-                                  if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') : ?>
-                                    <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+                                  if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                                    <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
+                                      <i class="fa fa-minus-square text-white"></i>
+                                    </a>
+                                  
                                   <?php
 
                                   endif;
@@ -428,7 +431,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputCpf">CPF</label>
-                            <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder=""  >
+                            <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputRg">RG</label>
@@ -1218,7 +1221,7 @@ if (isset($_POST['button'])) {
   $statusproposta = 'PENDENTE';
   $data = date('d/m/Y H:i');
 
-  
+
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
@@ -1227,7 +1230,7 @@ if (isset($_POST['button'])) {
       if ($imagens['error'][$key] === 0) {
         $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
         $novo_nome = md5(uniqid()) . '.' . $extensao;
-    
+
         if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
           // Insira o nome do arquivo no banco de dados
           $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
@@ -1874,7 +1877,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCpf">CPF</label>
-                  <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>"  >
+                  <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputRg">RG</label>
@@ -2555,44 +2558,44 @@ if (@$_GET['func'] == 'editarpropostas') {
     <?php
     if (isset($_POST['buttonEditarProposta'])) {
       $convenio = $_POST['inputConvenio'];
-    $operacao = $_POST['inputOperacao'];
-    $banco = $_POST['inputBanco'];
-    $promotora = $_POST['inputPromotora'];
-    $margem = $_POST['inputMargem'];
-    $prazo = $_POST['inputPrazo'];
-    $valor = $_POST['inputValor'];
-    $valorparcelas = $_POST['inputValorParcelas'];
-    $formalizacao = $_POST['inputFormalizacao'];
-    $canal = $_POST['inputCanal'];
-    $documentoanexado   = $_FILES['imagens'];
-    $observacao   = $_POST['inputObservacao'];
-     
+      $operacao = $_POST['inputOperacao'];
+      $banco = $_POST['inputBanco'];
+      $promotora = $_POST['inputPromotora'];
+      $margem = $_POST['inputMargem'];
+      $prazo = $_POST['inputPrazo'];
+      $valor = $_POST['inputValor'];
+      $valorparcelas = $_POST['inputValorParcelas'];
+      $formalizacao = $_POST['inputFormalizacao'];
+      $canal = $_POST['inputCanal'];
+      $documentoanexado   = $_FILES['imagens'];
+      $observacao   = $_POST['inputObservacao'];
+
 
 
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagens = $_FILES['name'];
         $novo_nome = '';
-    
+
         foreach ($imagens['name'] as $key => $nomedocumento) {
           if ($imagens['error'][$key] === 0) {
             $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
             $novo_nome = md5(uniqid()) . '.' . $extensao;
 
             if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-                // Insira o nome do arquivo no banco de dados
-                $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-                mysqli_query($conexao, $query);
-                }
+              // Insira o nome do arquivo no banco de dados
+              $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+              mysqli_query($conexao, $query);
             }
+          }
         }
-    }
-   // $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-    //mysqli_query($conexao, $query);
+      }
+      // $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+      //mysqli_query($conexao, $query);
 
 
-    $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
-    
-    $result_editar = mysqli_query($conexao, $query_editar);
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+
+      $result_editar = mysqli_query($conexao, $query_editar);
 
 
       // Verifica o valor selecionado e atualiza a variável $banco conforme necessário
@@ -4159,4 +4162,4 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
 <?php }
-}  ?>
+} ?>

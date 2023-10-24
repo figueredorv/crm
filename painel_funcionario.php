@@ -144,7 +144,7 @@ include("conexao.php");
 
           <li class="">
             <a href="documentos.php">
-              <i class="fa fa-file"></i>
+              <i class="fa fa-id-card-o"></i>
               <p>Documentos</p>
             </a>
           </li>
