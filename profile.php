@@ -242,8 +242,39 @@ include("conexao.php");
 
                                         <div>
                                             <div class="form-group col-md-12">
-                                                <img id="imagem-preview" class="avatar border-gray" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" alt="...">
-                                                <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
+                                                <?php
+
+
+
+
+                                                // Verifique se o usuário está logado
+                                                if (isset($_SESSION['idusuarios'])) {
+                                                    $idUsuario = $_SESSION['idusuarios'];
+
+                                                    // Consulta SQL para buscar o caminho da imagem do usuário
+                                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+
+                                                    // Executa a consulta
+                                                    $resultado = mysqli_query($conexao, $sql);
+
+                                                    if ($resultado) {
+                                                        $linha = mysqli_fetch_assoc($resultado);
+
+                                                        if ($linha && !empty($linha['imagem'])) {
+                                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+
+                                                            // Agora, $caminhoDaImagem contém o caminho da imagem do usuário logado
+                                                        }
+                                                    }
+                                                }
+
+                                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+                                                ?>
+
+                                                <!-- Exibir a imagem -->
+                                                <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+
+
                                             </div>
                                         </div>
                                         <h5 class="title"><?php echo $_SESSION['nome_usuario']; ?></h5>
@@ -345,7 +376,7 @@ include("conexao.php");
                                 <h5 class="card-title">Editar perfil</h5>
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="">
+                                <form method="POST" action="" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-5 pr-1">
                                             <div class="form-group">
@@ -376,11 +407,13 @@ include("conexao.php");
                                                 <textarea name="inputSobreMim" class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
                                             </div>
                                             <small class="text-muted">Ao atualizar seus dados você precisará fazer o login novamente.</small>
+                                            <input name="imagens[]" type="file" class="form-control-file" id="imagem-preview" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
                                         </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="update ml-auto mr-auto">
-                                            <button type="salvar" name="salvar" class="btn btn-primary btn-round">Atualizar perfil</button>
+                                            <button type="salvar" name="salvar" id="salvar" class="btn btn-primary btn-round">Atualizar perfil</button>
                                         </div>
                                     </div>
                                 </form>
@@ -436,52 +469,33 @@ include("conexao.php");
 <?php
 if (isset($_POST['salvar'])) {
     $id = $_SESSION['idusuarios'];
-    $query = "select * from usuarios where idusuarios = '$id'";
-    $result = mysqli_query($conexao, $query);
-
-    while ($res_1 = mysqli_fetch_array($result)) {
-
-
-?>
+    $usuario = $_POST['inputUsuario'];
+    $senha = $_POST['inputSenha'];
+    $imagens = $_FILES['imagens'];
 
 
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $imagens = $_FILES['imagens'];
+        $novo_nome = '';
+        foreach ($imagens['name'] as $key => $nomedocumento) {
+            if ($imagens['error'][$key] === 0) {
+                $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+                $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-
-        <!--Comando para editar os dados UPDATE -->
-        <?php
-        if (isset($_POST['salvar'])) {
-
-            $usuario = $_POST['inputUsuario'];
-            $senha = $_POST['inputSenha'];
-
-            
-            
-
-
-
-
-
-
-
-            $query_editar = "UPDATE usuarios set usuario = '$usuario', senha = '$senha' where idusuarios = '$id'";
-
-            $result_editar = mysqli_query($conexao, $query_editar);
-
-            if ($result_editar == '') {
-                echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
-            } else {
-                echo "<script language='javascript'> window.alert('Editado com Sucesso, você precisará fazer login novamente!'); </script>";
-                echo "<script language='javascript'> window.location='profile.php'; </script>";
-                session_destroy();
+                if (move_uploaded_file($imagens['tmp_name'][$key], 'assets/img/faces/' . $novo_nome)) {
+                    // Insira o nome do arquivo no banco de dados
+                    $query = "UPDATE usuarios set imagem = '$novo_nome' where idusuarios = '$id'";
+                    mysqli_query($conexao, $query);
+                }
             }
         }
-        ?>
+    }
 
 
-<?php }
-}  ?>
-
+    echo "<script language='javascript'> window.location='profile.php'; </script>";
+}
+?>
 
 <script>
     // função para mostrar imagem ao usuário selecionar e fazer upload.
