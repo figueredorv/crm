@@ -104,7 +104,7 @@ include("conexao.php");
           </li>
 
           <?php
-          // lógica para só conseguir alterar o status da proposta quem for master do sistema
+          // lógica para só conseguir visualizar o dropdown financeiro quem for master ou Adm do sistema
           if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
             <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">

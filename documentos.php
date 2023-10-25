@@ -1,5 +1,7 @@
 <?php
 include 'conexao.php';
+session_start();
+
 
 // Verifique se o formulário de pesquisa foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -88,15 +90,19 @@ function excluirDocumento($conexao, $id)
                             $documentoAnexado = $row['caminho'];
                             $id = $row["id"];
 
+
+
                             echo "<tr>";
                             echo "<td>$nome</td>";
                             echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
                             echo "<td>$documentoAnexado</td>";
-                            echo "<td>
-                            <a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a>
-                            <a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a>
-                            <a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>
-                            </td>";
+                            echo "<td>";
+                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a>";
+                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a>";
+                            if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                                echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
+                            }
+                            echo "</td>";
                             echo "</tr>";
                         }
                     }
@@ -123,66 +129,66 @@ function excluirDocumento($conexao, $id)
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                <form method="POST" action="" enctype="multipart/form-data">
-                         
-                    <!-- Campo de pesquisa dentro do modal -->
-<input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Digite o nome do cliente">
-<!-- Lista suspensa para resultados da pesquisa -->
-<ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
+                    <form method="POST" action="" enctype="multipart/form-data">
 
-<script>
-    // Função para atualizar a lista suspensa com os resultados da pesquisa
-    function atualizarListaSuspensa(resultados) {
-        var listaSuspensa = document.getElementById("lista-resultados");
+                        <!-- Campo de pesquisa dentro do modal -->
+                        <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Digite o nome do cliente">
+                        <!-- Lista suspensa para resultados da pesquisa -->
+                        <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
 
-        // Limpa a lista suspensa
-        listaSuspensa.innerHTML = "";
+                        <script>
+                            // Função para atualizar a lista suspensa com os resultados da pesquisa
+                            function atualizarListaSuspensa(resultados) {
+                                var listaSuspensa = document.getElementById("lista-resultados");
 
-        // Preenche a lista suspensa com os resultados
-        resultados.forEach(function (resultado) {
-            var listItem = document.createElement("li");
-            listItem.classList.add("dropdown-item");
-            listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
-            listaSuspensa.appendChild(listItem);
-        });
+                                // Limpa a lista suspensa
+                                listaSuspensa.innerHTML = "";
 
-        // Exibe a lista suspensa
-        listaSuspensa.style.display = "block";
-    }
+                                // Preenche a lista suspensa com os resultados
+                                resultados.forEach(function(resultado) {
+                                    var listItem = document.createElement("li");
+                                    listItem.classList.add("dropdown-item");
+                                    listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
+                                    listaSuspensa.appendChild(listItem);
+                                });
 
-    // Função para preencher o campo de entrada com o nome selecionado
-    function selecionarNome(e) {
-        var nomeSelecionado = e.target.textContent;
-        document.getElementById("nome-modal").value = nomeSelecionado;
-        document.getElementById("lista-resultados").style.display = "none";
-    }
+                                // Exibe a lista suspensa
+                                listaSuspensa.style.display = "block";
+                            }
 
-    // Adiciona um evento de entrada ao campo de pesquisa
-    document.getElementById("nome-modal").addEventListener("input", function () {
-        var nomePesquisa = document.getElementById("nome-modal").value;
-        var listaSuspensa = document.getElementById("lista-resultados");
+                            // Função para preencher o campo de entrada com o nome selecionado
+                            function selecionarNome(e) {
+                                var nomeSelecionado = e.target.textContent;
+                                document.getElementById("nome-modal").value = nomeSelecionado;
+                                document.getElementById("lista-resultados").style.display = "none";
+                            }
 
-        if (nomePesquisa !== "") {
-            // Fazer uma solicitação AJAX para buscar os registros em tempo real
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
+                            // Adiciona um evento de entrada ao campo de pesquisa
+                            document.getElementById("nome-modal").addEventListener("input", function() {
+                                var nomePesquisa = document.getElementById("nome-modal").value;
+                                var listaSuspensa = document.getElementById("lista-resultados");
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var registros = JSON.parse(xhr.responseText);
-                    atualizarListaSuspensa(registros);
-                }
-            };
+                                if (nomePesquisa !== "") {
+                                    // Fazer uma solicitação AJAX para buscar os registros em tempo real
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
 
-            xhr.send();
-        } else {
-            listaSuspensa.style.display = "none";
-        }
-    });
+                                    xhr.onreadystatechange = function() {
+                                        if (xhr.readyState == 4 && xhr.status == 200) {
+                                            var registros = JSON.parse(xhr.responseText);
+                                            atualizarListaSuspensa(registros);
+                                        }
+                                    };
 
-    // Adicionar um evento de clique aos itens da lista suspensa
-    document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
-</script>
+                                    xhr.send();
+                                } else {
+                                    listaSuspensa.style.display = "none";
+                                }
+                            });
+
+                            // Adicionar um evento de clique aos itens da lista suspensa
+                            document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
+                        </script>
 
 
                         <div class="form-group col-md-12">
@@ -219,40 +225,36 @@ function excluirDocumento($conexao, $id)
 <?php
 if (isset($_POST['button'])) {
     $nome = $_POST['nome'];
-  $documentoanexado = $_FILES['imagens'];
+    $documentoanexado = $_FILES['imagens'];
 
 
 
 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $imagens = $_FILES['imagens'];
-    $novo_nome = '';
-    foreach ($imagens['name'] as $key => $nomedocumento) {
-      if ($imagens['error'][$key] === 0) {
-        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-        $novo_nome = md5(uniqid()) . '.' . $extensao;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $imagens = $_FILES['imagens'];
+        $novo_nome = '';
+        foreach ($imagens['name'] as $key => $nomedocumento) {
+            if ($imagens['error'][$key] === 0) {
+                $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+                $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-          // Insira o nome do arquivo no banco de dados
-          $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-          mysqli_query($conexao, $query);
+                if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                    // Insira o nome do arquivo no banco de dados
+                    $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+                    mysqli_query($conexao, $query);
+                }
+            }
         }
-      }
     }
-  }
 
 
-  echo "<script language='javascript'> window.location='documentos.php'; </script>";
-
-
-
- 
+    echo "<script language='javascript'> window.location='documentos.php'; </script>";
 }
 ?>
 
 
 
-<?php 
+<?php
 
 if (@$_GET['func'] == 'deletar') {
     $id = $_GET['id'];
