@@ -107,15 +107,15 @@ include("conexao.php");
           // lógica para só conseguir visualizar o dropdown financeiro quem for master ou Adm do sistema
           if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
             <li class="dropdown">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-              <p>Financeiro<i class="fa fa-angle-right"></i></p>
-            </a>
-            <ul class="dropdown-menu">
-              <a class="dropdown-item" href="#">Comissionamento</a>
-              <a class="dropdown-item" href="#">Lançamentos</a>
-              <a class="dropdown-item" href="#">Pagamentos</a>
-            </ul>
-          </li>
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <p>Financeiro<i class="fa fa-angle-right"></i></p>
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="#">Comissionamento</a>
+                <a class="dropdown-item" href="#">Lançamentos</a>
+                <a class="dropdown-item" href="#">Pagamentos</a>
+              </ul>
+            </li>
 
           <?php
 
@@ -123,7 +123,7 @@ include("conexao.php");
 
           ?>
 
-          
+
 
 
 
@@ -248,17 +248,9 @@ include("conexao.php");
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 
+                  <a class="dropdown-item" href="painel_funcionario.php">Dashboard</a>
+                  <a class="dropdown-item" href="profile.php">Minha conta</a>
 
-                  <?php
-                  if ($_SESSION['cargo_usuario'] == 'Master') {
-
-
-                  ?>
-
-                    <a class="dropdown-item" href="#">Painél Financeiro</a>
-                    <a class="dropdown-item" href="painel_funcionario.php">Painél do Funcionário</a>
-
-                  <?php } ?>
 
                   <a class="dropdown-item" href="logout.php">Sair</a>
 
