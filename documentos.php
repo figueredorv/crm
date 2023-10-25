@@ -123,11 +123,67 @@ function excluirDocumento($conexao, $id)
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="">
-                        <div class="form-group">
-                            <label for="id_produto">Nome do cliente</label>
-                            <input type="text" class="form-control mr-2" name="txtnome" placeholder="Nome completo" required>
-                        </div>
+                <form method="POST" action="" enctype="multipart/form-data">
+                         
+                    <!-- Campo de pesquisa dentro do modal -->
+<input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Digite o nome do cliente">
+<!-- Lista suspensa para resultados da pesquisa -->
+<ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
+
+<script>
+    // Função para atualizar a lista suspensa com os resultados da pesquisa
+    function atualizarListaSuspensa(resultados) {
+        var listaSuspensa = document.getElementById("lista-resultados");
+
+        // Limpa a lista suspensa
+        listaSuspensa.innerHTML = "";
+
+        // Preenche a lista suspensa com os resultados
+        resultados.forEach(function (resultado) {
+            var listItem = document.createElement("li");
+            listItem.classList.add("dropdown-item");
+            listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
+            listaSuspensa.appendChild(listItem);
+        });
+
+        // Exibe a lista suspensa
+        listaSuspensa.style.display = "block";
+    }
+
+    // Função para preencher o campo de entrada com o nome selecionado
+    function selecionarNome(e) {
+        var nomeSelecionado = e.target.textContent;
+        document.getElementById("nome-modal").value = nomeSelecionado;
+        document.getElementById("lista-resultados").style.display = "none";
+    }
+
+    // Adiciona um evento de entrada ao campo de pesquisa
+    document.getElementById("nome-modal").addEventListener("input", function () {
+        var nomePesquisa = document.getElementById("nome-modal").value;
+        var listaSuspensa = document.getElementById("lista-resultados");
+
+        if (nomePesquisa !== "") {
+            // Fazer uma solicitação AJAX para buscar os registros em tempo real
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var registros = JSON.parse(xhr.responseText);
+                    atualizarListaSuspensa(registros);
+                }
+            };
+
+            xhr.send();
+        } else {
+            listaSuspensa.style.display = "none";
+        }
+    });
+
+    // Adicionar um evento de clique aos itens da lista suspensa
+    document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
+</script>
+
 
                         <div class="form-group col-md-12">
                             <label for="inputDocumento">Deseja anexar algum documento?</label>
@@ -155,14 +211,41 @@ function excluirDocumento($conexao, $id)
     </div>
 
 
-
-
-
-
-
-
-
-
 </body>
 
 </html>
+
+
+<?php
+if (isset($_POST['button'])) {
+    $nome = $_POST['nome'];
+  $documentoanexado = $_FILES['imagens'];
+
+
+
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imagens = $_FILES['imagens'];
+    $novo_nome = '';
+    foreach ($imagens['name'] as $key => $nomedocumento) {
+      if ($imagens['error'][$key] === 0) {
+        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+        $novo_nome = md5(uniqid()) . '.' . $extensao;
+
+        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+          // Insira o nome do arquivo no banco de dados
+          $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+          mysqli_query($conexao, $query);
+        }
+      }
+    }
+  }
+
+
+  echo "<script language='javascript'> window.location='documentos.php'; </script>";
+
+
+
+ 
+}
+?>
