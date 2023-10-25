@@ -94,7 +94,7 @@ function excluirDocumento($conexao, $id)
                             echo "<td>$documentoAnexado</td>";
                             echo "<td>
                             <a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a>
-                            <a class='btn btn-primary' href='documentos/$documentoAnexado'><i class='fa fa-download'></i></a>
+                            <a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a>
                             <a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>
                             </td>";
                             echo "</tr>";
