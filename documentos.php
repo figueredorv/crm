@@ -1,13 +1,32 @@
 <?php
 include 'conexao.php';
 
+// Verifique se o formulário de pesquisa foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nomePesquisado = $_POST['nome'];
     $query = "SELECT *
     FROM documentos 
     WHERE nome LIKE '%$nomePesquisado%'";
-
     $result = mysqli_query($conexao, $query);
+}
+
+// Função para excluir um documento
+function excluirDocumento($conexao, $id)
+{
+    $consulta = "SELECT caminho FROM documentos WHERE id = $id";
+    $resultado = mysqli_query($conexao, $consulta);
+
+    if ($resultado) {
+        $linha = mysqli_fetch_assoc($resultado);
+        $novo_nome = $linha['caminho'];
+
+        if (file_exists('documentos/' . $novo_nome)) {
+            unlink('documentos/' . $novo_nome);
+        }
+
+        $consulta_exclusao = "DELETE FROM documentos WHERE id = $id";
+        mysqli_query($conexao, $consulta_exclusao);
+    }
 }
 
 ?>
@@ -48,6 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </form>
+
+            <!-- Botão para cadastrar um novo documento -->
+            <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalExemplo">Novo documento </button>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -63,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $nome = $row['nome'];
                             $documentoAnexado = $row['caminho'];
-                            $id =  $row["id"];
+                            $id = $row["id"];
 
                             echo "<tr>";
                             echo "<td>$nome</td>";
@@ -82,39 +105,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </table>
         </div>
     </div>
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div id="modalExemplo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Cadastrar documento</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="">
+                        <div class="form-group">
+                            <label for="id_produto">Nome do cliente</label>
+                            <input type="text" class="form-control mr-2" name="txtnome" placeholder="Nome completo" required>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="inputDocumento">Deseja anexar algum documento?</label>
+                            <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                        </div>
+
+
+
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success mb-3" name="button">Salvar </button>
+
+
+                    <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+                    </form>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
-
-
-<!--EXCLUIR DOCUMENTO -->
-<?php
-if(@$_GET['func'] == 'deletar'){
-  $id = $_GET['id'];
-  $query = "DELETE FROM documentos where id = '$id'";
-
-  $registro_id = $id; // O ID do registro a ser excluído
-
-  // Consulta para recuperar o nome do arquivo associado ao registro
-  $consulta = "SELECT caminho FROM documentos WHERE id = $registro_id";
-  $resultado = mysqli_query($conexao, $consulta);
-
-  if ($resultado) {
-      $linha = mysqli_fetch_assoc($resultado);
-      $novo_nome = $linha['caminho']; // Usando o mesmo nome da variável
-
-      // Excluir o arquivo do servidor
-      if (file_exists('documentos/' . $novo_nome)) {
-          unlink('documentos/' . $novo_nome);
-      }
-
-      // Excluir o registro do banco de dados
-      $consulta_exclusao = "DELETE FROM documentos WHERE id = $registro_id";
-      mysqli_query($conexao, $consulta_exclusao);
-  }
-
-  mysqli_query($conexao, $query);
-  echo "<script language='javascript'> window.alert('Documento excluído com Sucesso!'); </script>";
-  echo "<script language='javascript'> window.location='documentos.php'; </script>";
-}
-?>
