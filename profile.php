@@ -212,46 +212,18 @@ include("conexao.php");
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <form>
-                            <div class="input-group no-border">
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="nc-icon nc-zoom-split"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link btn-magnify" href="javascript:;">
+                                <a class="nav-link btn-magnify" href="painel_funcionario.php">
                                     <i class="nc-icon nc-layout-11"></i>
                                     <p>
                                         <span class="d-lg-none d-md-block">Stats</span>
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item btn-rotate dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="nc-icon nc-bell-55"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Some Actions</span>
-                                    </p>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-rotate" href="javascript:;">
-                                    <i class="nc-icon nc-settings-gear-65"></i>
-                                    <p>
-                                        <span class="d-lg-none d-md-block">Account</span>
-                                    </p>
-                                </a>
-                            </li>
+                            
+                           
                         </ul>
                     </div>
                 </div>
@@ -271,15 +243,15 @@ include("conexao.php");
                                         <h5 class="title"><?php echo $_SESSION['nome_usuario']; ?></h5>
                                     </a>
                                     <p class="description">
-                                    <?php echo "Usuário: ".$_SESSION['usuario']; ?>
+                                        <?php echo "Usuário: " . $_SESSION['usuario']; ?>
                                     </p>
                                     <p class="description">
-                                    <?php echo "Nível: ".$_SESSION['cargo_usuario']; ?>
+                                        <?php echo "Nível: " . $_SESSION['cargo_usuario']; ?>
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                    "Apenas 
-                                    Boa 
+                                    "Apenas
+                                    Boa
                                     Bibrações"
                                 </p>
                             </div>
@@ -367,37 +339,37 @@ include("conexao.php");
                                 <h5 class="card-title">Editar perfil</h5>
                             </div>
                             <div class="card-body">
-                            <form method="POST" action="">
+                                <form method="POST" action="">
                                     <div class="row">
                                         <div class="col-md-5 pr-1">
                                             <div class="form-group">
                                                 <label>Nome</label>
-                                                <input type="text" class="form-control" disabled="" placeholder="Company" value="<?php echo $_SESSION['nome_usuario'];?>">
+                                                <input type="text" class="form-control" disabled="" placeholder="Company" value="<?php echo $_SESSION['nome_usuario']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3 px-1">
                                             <div class="form-group">
                                                 <label>Usuário</label>
-                                                <input type="text" name="inputUsuario" class="form-control" placeholder="Username"  value="<?php echo $_SESSION['usuario'];?>">
+                                                <input type="text" name="inputUsuario" class="form-control" placeholder="Username" value="<?php echo $_SESSION['usuario']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-1">
                                             <div class="form-group">
                                                 <label for="InputSenha">Senha</label>
-                                                <input type="" name="inputSenha" class="form-control" placeholder="" value="<?php echo $_SESSION['senha'];?>">
+                                                <input type="" name="inputSenha" class="form-control" placeholder="" value="<?php echo $_SESSION['senha']; ?>">
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Sobre mim</label>
                                                 <textarea name="inputSobreMim" class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
                                             </div>
-                                            <small class="text-muted">Ao atualizar seus dados você precisará fazer  o login novamente.</small>
+                                            <small class="text-muted">Ao atualizar seus dados você precisará fazer o login novamente.</small>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -457,52 +429,48 @@ include("conexao.php");
 <!--EDITAR -->
 <?php
 if (isset($_POST['salvar'])) {
-  $id = $_SESSION['idusuarios'];
-  $query = "select * from usuarios where idusuarios = '$id'";
-  $result = mysqli_query($conexao, $query);
+    $id = $_SESSION['idusuarios'];
+    $query = "select * from usuarios where idusuarios = '$id'";
+    $result = mysqli_query($conexao, $query);
 
-  while ($res_1 = mysqli_fetch_array($result)) {
+    while ($res_1 = mysqli_fetch_array($result)) {
 
 
 ?>
 
 
 
-    
-
-    <!--Comando para editar os dados UPDATE -->
-    <?php
-    if (isset($_POST['salvar'])) {
-      
-      $usuario = $_POST['inputUsuario'];
-      $senha = $_POST['inputSenha'];
-      
 
 
-     
+        <!--Comando para editar os dados UPDATE -->
+        <?php
+        if (isset($_POST['salvar'])) {
+
+            $usuario = $_POST['inputUsuario'];
+            $senha = $_POST['inputSenha'];
 
 
 
 
 
-      $query_editar = "UPDATE usuarios set usuario = '$usuario', senha = '$senha' where idusuarios = '$id'";
 
-      $result_editar = mysqli_query($conexao, $query_editar);
 
-      if ($result_editar == '') {
-        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
-      } else {
-        echo "<script language='javascript'> window.alert('Editado com Sucesso, você precisará fazer login novamente!'); </script>";
-        echo "<script language='javascript'> window.location='profile.php'; </script>";
-       session_destroy();
-      }
-    }
-    ?>
+
+
+            $query_editar = "UPDATE usuarios set usuario = '$usuario', senha = '$senha' where idusuarios = '$id'";
+
+            $result_editar = mysqli_query($conexao, $query_editar);
+
+            if ($result_editar == '') {
+                echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+            } else {
+                echo "<script language='javascript'> window.alert('Editado com Sucesso, você precisará fazer login novamente!'); </script>";
+                echo "<script language='javascript'> window.location='profile.php'; </script>";
+                session_destroy();
+            }
+        }
+        ?>
 
 
 <?php }
 }  ?>
-
-
-
-
