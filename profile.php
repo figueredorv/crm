@@ -212,7 +212,7 @@ include("conexao.php");
                         <span class="navbar-toggler-bar navbar-kebab"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        
+
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link btn-magnify" href="painel_funcionario.php">
@@ -222,8 +222,8 @@ include("conexao.php");
                                     </p>
                                 </a>
                             </li>
-                            
-                           
+
+
                         </ul>
                     </div>
                 </div>
@@ -239,7 +239,13 @@ include("conexao.php");
                             <div class="card-body">
                                 <div class="author">
                                     <a href="#">
-                                        <img class="avatar border-gray" src="assets/img/mike.jpg" alt="...">
+
+                                        <div>
+                                            <div class="form-group col-md-12">
+                                                <img id="imagem-preview" class="avatar border-gray" src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" alt="...">
+                                                <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
+                                            </div>
+                                        </div>
                                         <h5 class="title"><?php echo $_SESSION['nome_usuario']; ?></h5>
                                     </a>
                                     <p class="description">
@@ -449,7 +455,8 @@ if (isset($_POST['salvar'])) {
             $usuario = $_POST['inputUsuario'];
             $senha = $_POST['inputSenha'];
 
-
+            
+            
 
 
 
@@ -474,3 +481,20 @@ if (isset($_POST['salvar'])) {
 
 <?php }
 }  ?>
+
+
+<script>
+    // função para mostrar imagem ao usuário selecionar e fazer upload.
+    function mostrarImagem(input) {
+        if (input.files && input.files[0]) {
+            var leitor = new FileReader();
+
+            leitor.onload = function(e) {
+                // Define a imagem selecionada como src da imagem de pré-visualização
+                document.getElementById('imagem-preview').src = e.target.result;
+            };
+
+            leitor.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
