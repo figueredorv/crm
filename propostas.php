@@ -2525,8 +2525,8 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-12">
-                  <label for="inputDocumento">Deseja anexar algum documento?</label>
-                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                <small class="text-muted">Para adicionar novos documentos a esse cliente vá para a área de documentos na página principal.</small>
+                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" disabled>
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>

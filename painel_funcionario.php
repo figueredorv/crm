@@ -103,7 +103,10 @@ include("conexao.php");
             </ul>
           </li>
 
-          <li class="dropdown">
+          <?php
+          // lógica para só conseguir alterar o status da proposta quem for master do sistema
+          if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+            <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
               <p>Financeiro<i class="fa fa-angle-right"></i></p>
             </a>
@@ -113,6 +116,14 @@ include("conexao.php");
               <a class="dropdown-item" href="#">Pagamentos</a>
             </ul>
           </li>
+
+          <?php
+
+          endif;
+
+          ?>
+
+          
 
 
 
@@ -286,11 +297,11 @@ include("conexao.php");
 
         if ($row > 0) : ?>
           <div class="alert alert-success alert-dismissible fade show text-dark">
-                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="nc-icon nc-simple-remove"></i>
-                          </button>
-                          <span><b>Muito bem!</b> Você possui <?php echo "$row";?> nova proposta!</span>
-                        </div>
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="nc-icon nc-simple-remove"></i>
+            </button>
+            <span><b>Muito bem!</b> Você possui <?php echo "$row"; ?> nova proposta!</span>
+          </div>
         <?php
         endif;
         ?>
@@ -593,7 +604,7 @@ include("conexao.php");
 
 
 
-                <table class="table">
+                <table class="table table-borderless">
                   <thead class=" text-primary">
 
                     <th>
@@ -628,10 +639,12 @@ include("conexao.php");
                     </th>
 
                     <th>
-                      Status
+                      Data
                     </th>
 
-
+                    <th>
+                      Status
+                    </th>
 
                     <th>
                       Ações
@@ -652,8 +665,10 @@ include("conexao.php");
                       $promotora = $res_1["promotora"];
                       $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                       $statusproposta = $res_1["statusproposta"];
+                      $data = $res_1["data"];
                       $id = $res_1["idpropostas"];
 
+                      $data2 = implode('/', array_reverse(explode('-', $data)));
 
                       // Agora, vamos buscar o nome do usuário com base no ID
                       $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
@@ -662,18 +677,21 @@ include("conexao.php");
                       $nome_usuario = $row_usuario['usuario'];
 
 
+
                     ?>
 
                       <tr>
+
                         <td><?php echo $nome; ?></td>
                         <td><?php echo  $cpf; ?></td>
                         <td><?php echo  $operacao;  ?></td>
                         <td><?php echo $tabela;  ?></td>
                         <td><?php echo $convenio; ?></td>
                         <td><?php echo $banco; ?></td>
-                        <td><?php echo  $valor . " R$"; ?></td>
+                        <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                         <td><?php echo  $promotora; ?></td>
                         <td><?php echo  $nome_usuario; ?></td>
+                        <td><?php echo  $data2; ?></td>
 
 
 
@@ -693,15 +711,63 @@ include("conexao.php");
 
 
 
+
+
                         <td>
-                          <a class="btn btn-info" href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
-
-                          <a class="btn btn-danger" href="painel_funcionario.php?func=deletaproposta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
-
-                          <br>
 
 
 
+
+
+                          <div class="btn-group" role="group" aria-label="Exemplo básico">
+
+
+                            <div class="dropdown">
+                              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-right dropdown-menu-up">
+                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                              </ul>
+                            </div>
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <!-- Botão de exclusão de proposta -->
+
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <!-- Botão de edição de status da proposta -->
+                            <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <?php
+                            // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                            if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                              <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
+                                <i class="fa fa-minus-square text-white"></i>
+                              </a>
+
+                            <?php
+
+                            endif;
+
+                            ?>
+
+
+
+
+
+
+
+
+
+
+                          </div>
 
                         </td>
                       </tr>
