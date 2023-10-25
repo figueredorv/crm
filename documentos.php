@@ -249,3 +249,39 @@ if (isset($_POST['button'])) {
  
 }
 ?>
+
+
+
+<?php 
+
+if (@$_GET['func'] == 'deletar') {
+    $id = $_GET['id'];
+    $query = "DELETE FROM documentos where id = '$id'";
+
+    $registro_id = $id; // O ID do registro a ser excluído
+
+    // Consulta para recuperar o nome do arquivo associado ao registro
+    $consulta = "SELECT caminho FROM documentos WHERE id = $registro_id";
+    $resultado = mysqli_query($conexao, $consulta);
+
+    if ($resultado) {
+        $linha = mysqli_fetch_assoc($resultado);
+        $novo_nome = $linha['caminho']; // Usando o mesmo nome da variável
+
+        // Excluir o arquivo do servidor
+        if (file_exists('documentos/' . $novo_nome)) {
+            unlink('documentos/' . $novo_nome);
+        }
+
+        // Excluir o registro do banco de dados
+        $consulta_exclusao = "DELETE FROM documentos WHERE id = $registro_id";
+        mysqli_query($conexao, $consulta_exclusao);
+    }
+
+    mysqli_query($conexao, $query);
+    echo "<script language='javascript'> window.alert('Documento excluído com Sucesso!'); </script>";
+    echo "<script language='javascript'> window.location='documentos.php'; </script>";
+}
+
+
+?>
