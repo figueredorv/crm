@@ -204,7 +204,7 @@ include("conexao.php");
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="javascript:;">Paper Dashboard 2</a>
+                        <a class="navbar-brand" href="javascript:;">Meu perfil</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -374,6 +374,7 @@ include("conexao.php");
                         <div class="card card-user">
                             <div class="card-header">
                                 <h5 class="card-title">Editar perfil</h5>
+                                <small class="text-muted">Ao atualizar seus dados você precisará fazer o login novamente.</small>
                             </div>
                             <div class="card-body">
                                 <form method="POST" action="" enctype="multipart/form-data">
@@ -406,7 +407,8 @@ include("conexao.php");
                                                 <label>Sobre mim</label>
                                                 <textarea name="inputSobreMim" class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
                                             </div>
-                                            <small class="text-muted">Ao atualizar seus dados você precisará fazer o login novamente.</small>
+                                            
+                                            <label>Atualizar imagem do perfil</label>
                                             <input name="imagens[]" type="file" class="form-control-file" id="imagem-preview" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
                                         </div>
 
@@ -472,6 +474,7 @@ if (isset($_POST['salvar'])) {
     $usuario = $_POST['inputUsuario'];
     $senha = $_POST['inputSenha'];
     $imagens = $_FILES['imagens'];
+    $sobremim = $_FILES['inputSobreMim'];
 
 
 
@@ -492,9 +495,11 @@ if (isset($_POST['salvar'])) {
         }
     }
 
-
+    echo "<script language='javascript'> window.alert('Atualizado com Sucesso!'); </script>";
     echo "<script language='javascript'> window.location='profile.php'; </script>";
 }
+    $query = "UPDATE usuarios set usuario = '$usuario', senha = '$senha' where idusuarios = '$id'";
+    mysqli_query($conexao, $query);
 ?>
 
 <script>
