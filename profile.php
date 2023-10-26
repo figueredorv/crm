@@ -437,7 +437,7 @@ include("conexao.php");
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Sobre mim</label>
-                                                <textarea name="inputSobreMim" class="form-control textarea"></textarea>
+                                                <textarea name="inputSobreMim" class="form-control textarea"><?php echo $_SESSION['sobremim']; ?></textarea>
                                             </div>
                                             <label>Atualizar imagem do perfil</label>
                                             <input name="imagens[]" type="file" class="form-control-file" id="imagem-preview" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
@@ -504,10 +504,13 @@ if (isset($_POST['salvar'])) {
     $id = $_SESSION['idusuarios'];
     $usuario = $_POST['inputUsuario'];
     $senha = $_POST['inputSenha'];
-    $senha = $_POST['inputSobreMim'];
+    $sobremim = $_POST['inputSobreMim'];
     $imagens = $_FILES['imagens'];
 
+    $query = "SELECT * FROM usuarios WHERE idusuarios = '$id'";
+    $resultado = mysqli_query($conexao, $query);
 
+    
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagens = $_FILES['imagens'];
@@ -526,8 +529,12 @@ if (isset($_POST['salvar'])) {
         }
     }
 
-    echo "<script language='javascript'> window.alert('Atualizado com sucesso!'); </script>";
+    $query = "UPDATE usuarios set usuario = '$usuario', senha = '$senha', sobremim = '$sobremim' where idusuarios = '$id'";
+    mysqli_query($conexao, $query);
+
+    echo "<script language='javascript'> window.alert('Atualizado com sucesso! Você precisa fazer login novamente.'); </script>";
     echo "<script language='javascript'> window.location='profile.php'; </script>";
+    session_destroy();
 }
 ?>
 

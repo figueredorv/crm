@@ -37,14 +37,21 @@ session_start();
 					</div>
 				</div>
 				<div class="d-flex justify-content-center form_container">
-					<form action="login.php" method="post">
+				<form action="login.php" method="post">
+                    <div class="mx-auto" style="width: 200px;">
+                        <h3>CRM CORBAN</h3>
+                        <br>
+                    </div>
 
-
-
-					<div class="mx-auto" style="width: 200px;">
-					<h3>CRM CORBAN</h3>
-					<br>
-					</div>
+                    <!-- Exibir mensagem de erro -->
+                    <?php if (isset($_SESSION['erro_login'])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php echo $_SESSION['erro_login']; ?>
+                        </div>
+                    <?php
+                        unset($_SESSION['erro_login']); // Limpa a mensagem de erro após exibição
+                    endif;
+                    ?>
 					
 					
 					
