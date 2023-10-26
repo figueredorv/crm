@@ -24,6 +24,7 @@ if($row > 0){
 	$_SESSION['idusuarios'] = $dado["idusuarios"];
 	$_SESSION['senha'] = $dado["senha"];
 	$_SESSION['imagem'] = $dado["imagem"];
+	$_SESSION['sobremim'] = $dado["sobremim"];
 	
 
 

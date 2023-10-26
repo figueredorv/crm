@@ -2822,31 +2822,12 @@ if (@$_GET['func'] == 'editarpropostas') {
       $valorparcelas = $_POST['inputValorParcelas'];
       $formalizacao = $_POST['inputFormalizacao'];
       $canal = $_POST['inputCanal'];
-      $documentoanexado   = $_FILES['imagens'];
+      
       $observacao   = $_POST['inputObservacao'];
 
 
 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $imagens = $_FILES['name'];
-        $novo_nome = '';
-
-        foreach ($imagens['name'] as $key => $nomedocumento) {
-          if ($imagens['error'][$key] === 0) {
-            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-            $novo_nome = md5(uniqid()) . '.' . $extensao;
-
-            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-              // Insira o nome do arquivo no banco de dados
-              $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-              mysqli_query($conexao, $query);
-            }
-          }
-        }
-      }
-      // $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-      //mysqli_query($conexao, $query);
-
+      
 
       $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
@@ -3382,7 +3363,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', documentoanexado = ' $novo_nome', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 

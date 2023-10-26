@@ -548,7 +548,7 @@ include("conexao.php");
                 $query = "select * from propostas where nome LIKE '$nome'  order by nome asc where curdate()";
               }
 
-              // novo codigo ( procurar por propostas pendentes)
+              // novo codigo ( procurar por propostas mais altas)
               else if (isset($_GET['buttonMaisAlta'])) {
 
                 $query = "SELECT *
@@ -557,7 +557,7 @@ include("conexao.php");
                 ORDER BY valor DESC
                 LIMIT 1;";
               }
-              // novo codigo ( procurar por propostas nao adotados)
+              // novo codigo ( procurar por propostas mais baixa)
               else if (isset($_GET['buttonMaisBaixa'])) {
 
                 $query = "SELECT *

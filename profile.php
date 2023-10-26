@@ -204,7 +204,7 @@ include("conexao.php");
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="javascript:;">Meu perfil</a>
+                        <a class="navbar-brand" href="javascript:;">Paper Dashboard 2</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -246,6 +246,8 @@ include("conexao.php");
 
 
 
+                                                // Defina um caminho padrão para a imagem de placeholder
+                                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 
                                                 // Verifique se o usuário está logado
                                                 if (isset($_SESSION['idusuarios'])) {
@@ -262,8 +264,9 @@ include("conexao.php");
 
                                                         if ($linha && !empty($linha['imagem'])) {
                                                             $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
-
-                                                            // Agora, $caminhoDaImagem contém o caminho da imagem do usuário logado
+                                                        } else {
+                                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
                                                         }
                                                     }
                                                 }
@@ -287,9 +290,7 @@ include("conexao.php");
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                    "Apenas
-                                    Boa
-                                    Bibrações"
+                                    "<?php echo $_SESSION['sobremim']; ?>"
                                 </p>
                             </div>
                             <div class="card-footer">
@@ -297,10 +298,41 @@ include("conexao.php");
                                 <div class="button-container">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-6 col-6 ml-auto">
-                                            <h5>12<br><small>Files</small></h5>
+                                            <?php
+
+                                            $query = "SELECT * FROM `propostas` WHERE `idusuario` = '$idUsuario';";
+                                            $result = mysqli_query($conexao, $query);
+                                            //$dado = mysqli_fetch_array($result);
+                                            $row = mysqli_num_rows($result);
+
+                                            if ($row == '') {
+
+                                                echo "<h5> 0 </h5>";
+                                            } else {
+                                                echo "<h5> $row </h5>";
+                                            }
+                                            ?><small>Minhas propotas</small></h5>
                                         </div>
                                         <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                                            <h5>2GB<br><small>Used</small></h5>
+                                            <?php
+                                            $query = "SELECT MAX(valor) AS max_valor FROM propostas WHERE idusuario = '$idUsuario'";
+                                            $result = mysqli_query($conexao, $query);
+
+                                            if ($result) {
+                                                $row = mysqli_fetch_assoc($result);
+                                                $max_valor = $row['max_valor'];
+
+                                                if ($max_valor !== null) {
+                                                    $max_valor_em_reais = number_format($max_valor, 2, ",", "."); // Dividimos por 100 para converter de centavos para reais
+                                                    echo "<h5>R$ $max_valor_em_reais</h5>";
+                                                } else {
+                                                    echo "<h5>R$ 0,00</h5>";
+                                                }
+                                            } else {
+                                                echo "<h5>R$ 0,00</h5>";
+                                            }
+                                            ?>
+                                            <small>Proposta mais alta</small></h5>
                                         </div>
                                         <div class="col-lg-3 mr-auto">
                                             <h5>24,6$<br><small>Spent</small></h5>
@@ -323,7 +355,7 @@ include("conexao.php");
                                                 </div>
                                             </div>
                                             <div class="col-md-7 col-7">
-                                                DJ Khaled
+                                                TESTE1
                                                 <br />
                                                 <span class="text-muted"><small>Offline</small></span>
                                             </div>
@@ -340,7 +372,7 @@ include("conexao.php");
                                                 </div>
                                             </div>
                                             <div class="col-md-7 col-7">
-                                                Creative Tim
+                                                TESTE2
                                                 <br />
                                                 <span class="text-success"><small>Available</small></span>
                                             </div>
@@ -357,7 +389,7 @@ include("conexao.php");
                                                 </div>
                                             </div>
                                             <div class="col-ms-7 col-7">
-                                                Flume
+                                                TESTE3
                                                 <br />
                                                 <span class="text-danger"><small>Busy</small></span>
                                             </div>
@@ -405,9 +437,8 @@ include("conexao.php");
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Sobre mim</label>
-                                                <textarea name="inputSobreMim" class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+                                                <textarea name="inputSobreMim" class="form-control textarea"></textarea>
                                             </div>
-                                            
                                             <label>Atualizar imagem do perfil</label>
                                             <input name="imagens[]" type="file" class="form-control-file" id="imagem-preview" accept=".pdf, .jpg, jpeg, .png" onchange="mostrarImagem(this)">
                                         </div>
@@ -473,8 +504,8 @@ if (isset($_POST['salvar'])) {
     $id = $_SESSION['idusuarios'];
     $usuario = $_POST['inputUsuario'];
     $senha = $_POST['inputSenha'];
+    $senha = $_POST['inputSobreMim'];
     $imagens = $_FILES['imagens'];
-    $sobremim = $_FILES['inputSobreMim'];
 
 
 
@@ -495,11 +526,9 @@ if (isset($_POST['salvar'])) {
         }
     }
 
-    echo "<script language='javascript'> window.alert('Atualizado com Sucesso!'); </script>";
+    echo "<script language='javascript'> window.alert('Atualizado com sucesso!'); </script>";
     echo "<script language='javascript'> window.location='profile.php'; </script>";
 }
-    $query = "UPDATE usuarios set usuario = '$usuario', senha = '$senha' where idusuarios = '$id'";
-    mysqli_query($conexao, $query);
 ?>
 
 <script>
