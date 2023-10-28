@@ -815,11 +815,20 @@ include("conexao.php");
 
 
               //contabilizando o usuáio que mais cadastrou propostas
-              $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+              /*$query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
                     FROM usuarios u
                     LEFT JOIN propostas p ON u.idusuarios = p.idusuario
                     GROUP BY u.usuario
-                    ORDER BY propostas DESC;";
+                    ORDER BY propostas DESC LIMIT 1;";*/
+
+
+
+                    $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+                    FROM usuarios u
+                    LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+                    GROUP BY u.usuario
+                    ORDER BY propostas DESC
+                    LIMIT 3 OFFSET 0;";
 
 
 
