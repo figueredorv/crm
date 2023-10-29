@@ -791,7 +791,7 @@ include("conexao.php");
           <!-- início de tabela de usuários mais ativos -->
 
           <div class="card-header">
-            <h5>Usuário que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
+            <h5 style="font-size: 30px;" >Top 3 usuários que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
 
 
 
