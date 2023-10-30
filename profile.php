@@ -286,7 +286,7 @@ include("conexao.php");
                                         <?php echo "Usuário: " . $_SESSION['usuario']; ?>
                                     </p>
                                     <p class="description">
-                                        <?php echo "Nível: " . $_SESSION['cargo_usuario']; ?>
+                                        <?php echo "Nível: " . $_SESSION['cargo_usuario'];?>
                                     </p>
                                 </div>
                                 <p class="description text-center">
