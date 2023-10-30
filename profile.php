@@ -332,10 +332,27 @@ include("conexao.php");
                                                 echo "<h5>R$ 0,00</h5>";
                                             }
                                             ?>
-                                            <small>Proposta mais alta</small></h5>
+                                            <small>Proposta mais alta que cadastrei</small></h5>
                                         </div>
                                         <div class="col-lg-3 mr-auto">
-                                            <h5>24,6$<br><small>Spent</small></h5>
+                                            <?php
+                                            $query = "SELECT SUM(valor) AS soma_valor FROM propostas WHERE idusuario = '$idUsuario'";
+                                            $result = mysqli_query($conexao, $query);
+
+                                            if ($result) {
+                                                $row = mysqli_fetch_assoc($result);
+                                                $somaValor = $row['soma_valor']; // Alterei de $maxValor para $somaValor
+
+                                                if (isset($somaValor)) {
+                                                    echo "<h5>R$ " . number_format($somaValor, 2, ',', '.') . "</h5>";
+                                                } else {
+                                                    echo "<h5>R$ 0,00</h5>";
+                                                }
+                                            } else {
+                                                echo "<h5>R$ 0,00</h5>";
+                                            }
+                                            ?>
+                                            <small>Valor total que cadastrei</small></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -393,9 +410,9 @@ include("conexao.php");
                                                                     <td>
                                                                         <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
                                                                     </td>
-                                                                    
+
                                                                     <td><?php echo $nome; ?></td>
-                                                                   
+
                                                                 </tr>
                                                             <?php
                                                             }
