@@ -2,6 +2,8 @@
 session_start();
 include('conexao.php');
 
+
+
 if (isset($_POST['btn'])) {
     $usuario = mysqli_real_escape_string($conexao, $_POST['usuario']);
     $senha = mysqli_real_escape_string($conexao, $_POST['senha']);
@@ -28,6 +30,8 @@ if (isset($_POST['btn'])) {
             $_SESSION['senha'] = $dado["senha"];
             $_SESSION['imagem'] = $dado["imagem"];
             $_SESSION['sobremim'] = $dado["sobremim"];
+          
+            
 
             if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                 header('Location: painel_funcionario.php');

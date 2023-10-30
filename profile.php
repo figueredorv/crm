@@ -243,9 +243,6 @@ include("conexao.php");
                                         <div>
                                             <div class="form-group col-md-12">
                                                 <?php
-
-
-
                                                 // Defina um caminho padrão para a imagem de placeholder
                                                 $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 
@@ -269,6 +266,9 @@ include("conexao.php");
                                                             $caminhoDaImagem = $caminhoDaImagemPadrao;
                                                         }
                                                     }
+                                                } else {
+                                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+                                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
                                                 }
 
                                                 // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
@@ -347,57 +347,72 @@ include("conexao.php");
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled team-members">
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 col-2">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-7">
-                                                TESTE1
-                                                <br />
-                                                <span class="text-muted"><small>Offline</small></span>
-                                            </div>
-                                            <div class="col-md-3 col-3 text-right">
-                                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
+                                    <div class="card ">
+                                        <!-- início de tabela de usuários mais ativos -->
+
+
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <?php
+                                                $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+                                                FROM usuarios u
+                                                LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+                                                GROUP BY u.idusuarios, u.usuario
+                                                ORDER BY propostas DESC;";
+
+                                                $result = mysqli_query($conexao, $query);
+                                                $row = mysqli_num_rows($result);
+
+                                                if ($row == 0) {
+                                                    echo "<h3>Não existem dados cadastrados no banco</h3>";
+                                                } else {
+                                                ?>
+                                                    <table class="table table-borderless">
+                                                        <thead class="text-primary">
+
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            while ($res_1 = mysqli_fetch_array($result)) {
+                                                                $nome = $res_1["usuario"];
+                                                                $propostas = $res_1["propostas"];
+                                                                $idUsuario = $res_1["idusuarios"];
+                                                                $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
+
+                                                                // Verifique se o usuário tem uma imagem de perfil
+                                                                $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+                                                                $resultImagem = mysqli_query($conexao, $sql);
+                                                                if ($resultImagem && mysqli_num_rows($resultImagem) > 0) {
+                                                                    $linhaImagem = mysqli_fetch_assoc($resultImagem);
+                                                                    if (!empty($linhaImagem['imagem'])) {
+                                                                        $caminhoDaImagem = 'assets/img/faces/' . $linhaImagem['imagem'];
+                                                                    }
+                                                                }
+                                                            ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+                                                                    </td>
+                                                                    
+                                                                    <td><?php echo $nome; ?></td>
+                                                                   
+                                                                </tr>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 col-2">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-7 col-7">
-                                                TESTE2
-                                                <br />
-                                                <span class="text-success"><small>Available</small></span>
-                                            </div>
-                                            <div class="col-md-3 col-3 text-right">
-                                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2 col-2">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-ms-7 col-7">
-                                                TESTE3
-                                                <br />
-                                                <span class="text-danger"><small>Busy</small></span>
-                                            </div>
-                                            <div class="col-md-3 col-3 text-right">
-                                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                                            </div>
-                                        </div>
-                                    </li>
+
+
+
+                                        <!-- final de tabela de usuários mais ativos -->
+
+                                    </div>
                                 </ul>
                             </div>
                         </div>
@@ -510,7 +525,7 @@ if (isset($_POST['salvar'])) {
     $query = "SELECT * FROM usuarios WHERE idusuarios = '$id'";
     $resultado = mysqli_query($conexao, $query);
 
-    
+
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagens = $_FILES['imagens'];

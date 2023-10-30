@@ -791,7 +791,7 @@ include("conexao.php");
           <!-- início de tabela de usuários mais ativos -->
 
           <div class="card-header">
-            <h5 style="font-size: 30px;" >Top 3 usuários que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
+            <h5 style="font-size: 30px;">Top 3 usuários que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
 
 
 
@@ -800,103 +800,55 @@ include("conexao.php");
           </div>
           <div class="card-body">
             <div class="table-responsive">
-
-
-
-
               <?php
-
-
-
-
-
-
-
-
-
-              //contabilizando o usuáio que mais cadastrou propostas
-              /*$query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
-                    FROM usuarios u
-                    LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-                    GROUP BY u.usuario
-                    ORDER BY propostas DESC LIMIT 1;";*/
-
-
-
-                    $query = "SELECT u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
-                    FROM usuarios u
-                    LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-                    GROUP BY u.usuario
-                    ORDER BY propostas DESC
-                    LIMIT 3 OFFSET 0;";
-
-
-
-
-
+              $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+            FROM usuarios u
+            LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+            GROUP BY u.idusuarios, u.usuario
+            ORDER BY propostas DESC
+            LIMIT 3 OFFSET 0;";
 
               $result = mysqli_query($conexao, $query);
-              //$dado = mysqli_fetch_array($result);
               $row = mysqli_num_rows($result);
 
-              if ($row == '') {
-
-                echo "<h3> Não existem dados cadastrados no banco </h3>";
+              if ($row == 0) {
+                echo "<h3>Não existem dados cadastrados no banco</h3>";
               } else {
-
               ?>
-
-
-
                 <table class="table">
-                  <thead class=" text-primary">
-
-                    <th>
-                      Usuário
-                    </th>
-                    <th>
-                      Propostas cadastradas
-                    </th>
-
-
-
+                  <thead class="text-primary">
+                    <th>Imagem</th>
+                    <th>Usuário</th>
+                    <th>Propostas cadastradas</th>
                   </thead>
                   <tbody>
-
                     <?php
-
                     while ($res_1 = mysqli_fetch_array($result)) {
                       $nome = $res_1["usuario"];
                       $propostas = $res_1["propostas"];
-                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome da proposta que foi excluída
+                      $idUsuario = $res_1["idusuarios"];
+                      $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
 
-
-
-
-
+                      // Verifique se o usuário tem uma imagem de perfil
+                      $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+                      $resultImagem = mysqli_query($conexao, $sql);
+                      if ($resultImagem && mysqli_num_rows($resultImagem) > 0) {
+                        $linhaImagem = mysqli_fetch_assoc($resultImagem);
+                        if (!empty($linhaImagem['imagem'])) {
+                          $caminhoDaImagem = 'assets/img/faces/' . $linhaImagem['imagem'];
+                        }
+                      }
                     ?>
-
                       <tr>
+                        <td>
+                          <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+                        </td>
                         <td><?php echo $nome; ?></td>
                         <td><?php echo $propostas; ?></td>
-
-
-
-
-
-
-
-
-
-
                       </tr>
-
                     <?php
                     }
                     ?>
-
-
-
                   </tbody>
                 </table>
               <?php
@@ -904,6 +856,7 @@ include("conexao.php");
               ?>
             </div>
           </div>
+
 
 
           <!-- final de tabela de usuários mais ativos -->
