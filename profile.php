@@ -36,6 +36,7 @@ include("conexao.php");
     <link href="assets/demo/demo.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/painel-funcionario.css">
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body class="">
@@ -394,7 +395,12 @@ include("conexao.php");
                                                                 $nome = $res_1["usuario"];
                                                                 $propostas = $res_1["propostas"];
                                                                 $idUsuario = $res_1["idusuarios"];
+
+
+
+
                                                                 $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
+
 
                                                                 // Verifique se o usuário tem uma imagem de perfil
                                                                 $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
@@ -408,10 +414,13 @@ include("conexao.php");
                                                             ?>
                                                                 <tr>
                                                                     <td>
-                                                                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+                                                                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="vertical-align: middle;">
+                                                                        <span style="vertical-align: middle; margin-right: 5px;"></span>
                                                                     </td>
+                                                                    <td><?php echo $nome ?></td>
 
-                                                                    <td><?php echo $nome; ?></td>
+
+
 
                                                                 </tr>
                                                             <?php

@@ -30,6 +30,8 @@ if (isset($_POST['btn'])) {
             $_SESSION['senha'] = $dado["senha"];
             $_SESSION['imagem'] = $dado["imagem"];
             $_SESSION['sobremim'] = $dado["sobremim"];
+            $_SESSION['ultima_autenticacao'] = $dado["ultima_autenticacao"];
+           
           
             
 
@@ -95,6 +97,11 @@ if($row > 0){
 }
 
 ?>
+
+
+
+
+
 
 
 
