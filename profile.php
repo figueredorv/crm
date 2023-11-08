@@ -372,14 +372,20 @@ include("conexao.php");
                                         <div class="card-body">
                                             <div class="table-responsive">
                                                 <?php
-                                                $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+                                                $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas, u.ultima_autenticacao
                                                 FROM usuarios u
                                                 LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-                                                GROUP BY u.idusuarios, u.usuario
+                                                GROUP BY u.idusuarios, u.usuario, u.ultima_autenticacao
                                                 ORDER BY propostas DESC;";
+
+
+
+
 
                                                 $result = mysqli_query($conexao, $query);
                                                 $row = mysqli_num_rows($result);
+
+
 
                                                 if ($row == 0) {
                                                     echo "<h3>Não existem dados cadastrados no banco</h3>";
@@ -395,6 +401,9 @@ include("conexao.php");
                                                                 $nome = $res_1["usuario"];
                                                                 $propostas = $res_1["propostas"];
                                                                 $idUsuario = $res_1["idusuarios"];
+                                                                $ultima_autenticacao = $res_1["ultima_autenticacao"];
+
+
 
 
 
@@ -418,6 +427,31 @@ include("conexao.php");
                                                                         <span style="vertical-align: middle; margin-right: 5px;"></span>
                                                                     </td>
                                                                     <td><?php echo $nome ?></td>
+                                                                    <td><?php
+                                                                        $ultima_autenticacao = strtotime($ultima_autenticacao); // Converte a última autenticação para um timestamp
+
+                                                                        // Obtém a data atual
+                                                                        $data_atual = strtotime(date('Y-m-d'));
+
+                                                                        if ($ultima_autenticacao >= $data_atual) {
+                                                                            // O usuário foi ativo hoje, então o badge será verde
+                                                                            $badge_color = 'badge-success';
+                                                                            $status_text = 'Ativo hoje';
+                                                                        } else {
+                                                                            // O usuário não foi ativo hoje, o badge será vermelho
+                                                                            $badge_color = 'badge-danger';
+                                                                            $status_text = 'Inativo';
+                                                                        }
+                                                                        ?>
+
+                                                                        <span class="badge <?php echo $badge_color; ?>">
+                                                                            <?php echo $status_text; ?>
+                                                                        </span>
+
+                                                                    </td>
+
+
+
 
 
 
@@ -501,7 +535,7 @@ include("conexao.php");
                     <div class="row">
                         <nav class="footer-nav">
                             <ul>
-                                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
+                                <li><a href="https://www.creative-tim.com" target="_blank">CRMCORBAN</a></li>
                                 <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
                                 <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
                             </ul>
@@ -510,7 +544,7 @@ include("conexao.php");
                             <span class="copyright">
                                 © <script>
                                     document.write(new Date().getFullYear())
-                                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                                </script>, made with <i class="fa fa-heart heart"></i> by figueiredorv
                             </span>
                         </div>
                     </div>
