@@ -30,10 +30,19 @@ if (isset($_POST['btn'])) {
             $_SESSION['senha'] = $dado["senha"];
             $_SESSION['imagem'] = $dado["imagem"];
             $_SESSION['sobremim'] = $dado["sobremim"];
-            $_SESSION['ultima_autenticacao'] = $dado["ultima_autenticacao"];
-           
-          
-            
+            $_SESSION['status'] = $dado["status"];
+
+            if ($_SESSION['status'] == '0' || $_SESSION['status'] == '0') {
+                $_SESSION['erro_login'] = 'Sua conta está temporariamente bloqueada.';
+                header('Location: index.php');
+                exit();
+            }
+
+            // Atualize a coluna 'ultima_autenticacao' com a data e hora atuais
+            $idUsuario = $dado["idusuarios"];
+            $query = "UPDATE usuarios SET ultima_autenticacao = NOW() WHERE idusuarios = $idUsuario";
+            mysqli_query($conexao, $query);
+
 
             if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                 header('Location: painel_funcionario.php');
@@ -59,6 +68,7 @@ if (isset($_POST['btn'])) {
     header('Location: index.php');
     exit();
 }
+
 ?>
 
 
@@ -82,18 +92,18 @@ $result = mysqli_query($conexao, $query);
 $dado = mysqli_fetch_array($result);
 $row = mysqli_num_rows($result);
 
-if($row > 0){
-	
-	$usuario = $res_1["usuario"];
+if ($row > 0) {
 
-	
+    $usuario = $res_1["usuario"];
 
-	exit();
-}else{
-	$_SESSION['nao_autenticado'] = true;
-	header('Location: index.php');
 
-	exit();
+
+    exit();
+} else {
+    $_SESSION['nao_autenticado'] = true;
+    header('Location: index.php');
+
+    exit();
 }
 
 ?>
