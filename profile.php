@@ -501,7 +501,7 @@ include("conexao.php");
                                         <div class="col-md-4 pl-1">
                                             <div class="form-group">
                                                 <label for="InputSenha">Senha</label>
-                                                <input type="" name="inputSenha" class="form-control" placeholder="" value="<?php echo $_SESSION['senha']; ?>">
+                                                <input type="password" name="inputSenha" class="form-control" placeholder="" value="<?php echo $_SESSION['senha']; ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -535,9 +535,9 @@ include("conexao.php");
                     <div class="row">
                         <nav class="footer-nav">
                             <ul>
-                                <li><a href="https://www.creative-tim.com" target="_blank">CRMCORBAN</a></li>
-                                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
+                                <li><a href="" target="_blank">CRMCORBAN</a></li>
+                                <li><a href="" target="_blank">Blog</a></li>
+                                <li><a href="" target="_blank">Licenses</a></li>
                             </ul>
                         </nav>
                         <div class="credits ml-auto">
