@@ -421,7 +421,7 @@ include("conexao.php");
                                                             ?>
                                                                 <tr>
                                                                     <td>
-                                                                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 70px; height: 70px;">
+                                                                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
                                                                         <span style="vertical-align: middle; margin-right: 5px;"></span>
                                                                     </td>
                                                                     <td><?php echo $nome ?></td>

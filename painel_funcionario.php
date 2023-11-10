@@ -50,40 +50,40 @@ include("conexao.php");
       <div class="logo">
         <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
-          <?php
-                                                // Defina um caminho padrão para a imagem de placeholder
-                                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+            <?php
+            // Defina um caminho padrão para a imagem de placeholder
+            $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 
-                                                // Verifique se o usuário está logado
-                                                if (isset($_SESSION['idusuarios'])) {
-                                                    $idUsuario = $_SESSION['idusuarios'];
+            // Verifique se o usuário está logado
+            if (isset($_SESSION['idusuarios'])) {
+              $idUsuario = $_SESSION['idusuarios'];
 
-                                                    // Consulta SQL para buscar o caminho da imagem do usuário
-                                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+              // Consulta SQL para buscar o caminho da imagem do usuário
+              $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
 
-                                                    // Executa a consulta
-                                                    $resultado = mysqli_query($conexao, $sql);
+              // Executa a consulta
+              $resultado = mysqli_query($conexao, $sql);
 
-                                                    if ($resultado) {
-                                                        $linha = mysqli_fetch_assoc($resultado);
+              if ($resultado) {
+                $linha = mysqli_fetch_assoc($resultado);
 
-                                                        if ($linha && !empty($linha['imagem'])) {
-                                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
-                                                        } else {
-                                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
-                                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
-                                                        }
-                                                    }
-                                                } else {
-                                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
-                                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
-                                                }
+                if ($linha && !empty($linha['imagem'])) {
+                  $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+                } else {
+                  // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                  $caminhoDaImagem = $caminhoDaImagemPadrao;
+                }
+              }
+            } else {
+              // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+              $caminhoDaImagem = $caminhoDaImagemPadrao;
+            }
 
-                                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
-                                                ?>
+            // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+            ?>
 
-                                                <!-- Exibir a imagem -->
-                                                <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+            <!-- Exibir a imagem -->
+            <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
 
           </div>
         </a>
@@ -317,20 +317,23 @@ include("conexao.php");
 
 
         <?php
-        $query = "select * from propostas where data = curdate()   order by data asc ";
+        $query = "SELECT * FROM propostas WHERE data = CURDATE() ORDER BY data ASC";
         $result = mysqli_query($conexao, $query);
         $row = mysqli_num_rows($result);
 
-        if ($row > 0) : ?>
+        if ($row > 0) :
+        ?>
           <div class="alert alert-success alert-dismissible fade show text-dark">
             <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
               <i class="nc-icon nc-simple-remove"></i>
             </button>
-            <span><b>Muito bem!</b> Você possui <?php echo "$row"; ?> nova proposta!</span>
+            <span>
+              <b>Muito bem!</b> Você possui <?php echo $row; ?>
+              <?php echo ($row === 1) ? 'nova proposta!' : 'novas propostas!'; ?>
+            </span>
           </div>
-        <?php
-        endif;
-        ?>
+        <?php endif; ?>
+
 
 
 
@@ -875,7 +878,7 @@ include("conexao.php");
                     ?>
                       <tr>
                         <td>
-                        <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 70px; height: 70px;">
+                          <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
 
                         </td>
                         <td><?php echo $nome; ?></td>
