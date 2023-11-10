@@ -46,6 +46,7 @@ function excluirDocumento($conexao, $id)
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 </head>
 
 <body>
@@ -71,8 +72,11 @@ function excluirDocumento($conexao, $id)
             </form>
 
             <!-- Botão para cadastrar um novo documento -->
-            <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalExemplo">Novo documento </button>
-
+            
+                <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modalExemplo" style="background-color: #FF4D75;">
+                    <i class="fa fa-cloud-upload"></i> Upload
+                </button>
+            
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -97,8 +101,8 @@ function excluirDocumento($conexao, $id)
                             echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
                             echo "<td>$documentoAnexado</td>";
                             echo "<td>";
-                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a>";
-                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a>";
+                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a> ";
+                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a> ";
                             if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                                 echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
                             }

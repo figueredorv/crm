@@ -36,7 +36,7 @@ include("conexao.php");
     <link href="assets/demo/demo.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/painel-funcionario.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 </head>
 
 <body class="">
@@ -166,15 +166,6 @@ include("conexao.php");
                         <a href="">
                             <i class="fa fa-users"></i>
                             <p>Bases</p>
-                        </a>
-                    </li>
-
-
-
-                    <li class="">
-                        <a href="https://jivo.chat/NYZp8NPK3K" target="_blank">
-                            <i class="fa fa-life-ring"></i>
-                            <p>Suporte</p>
                         </a>
                     </li>
 

@@ -38,6 +38,7 @@ include("conexao.php");
   <link href="assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/painel-funcionario.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 
 </head>
 
@@ -215,14 +216,6 @@ include("conexao.php");
             </a>
           </li>
 
-
-
-          <li class="">
-            <a href="https://jivo.chat/NYZp8NPK3K" target="_blank">
-              <i class="fa fa-life-ring"></i>
-              <p>Suporte</p>
-            </a>
-          </li>
 
 
 
@@ -971,7 +964,7 @@ include("conexao.php");
           <nav class="footer-nav">
             <ul>
               <li>
-                <a href="https://wa.link/1quja8" target="_blank">SUPORTE</a>
+                <a href="" target="_blank">SUPORTE</a>
               </li>
             </ul>
           </nav>
