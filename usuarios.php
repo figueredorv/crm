@@ -153,9 +153,6 @@ include('verificar_login.php');
                             Usuário
                           </th>
                           <th>
-                            Senha
-                          </th>
-                          <th>
                             Cargo
                           </th>
                           </th>
@@ -184,7 +181,6 @@ include('verificar_login.php');
 
                               <td><?php echo $nome; ?></td>
                               <td><?php echo $usuario; ?></td>
-                              <td><?php echo $senha; ?></td>
                               <td><?php echo $cargo; ?></td>
 
 
@@ -243,7 +239,7 @@ include('verificar_login.php');
                     </div>
                     <div class="form-group">
                       <label for="quantidade">Senha</label>
-                      <input type="text" class="form-control mr-2" name="txtsenha" placeholder="Senha" required>
+                      <input type="password" class="form-control mr-2" name="txtsenha" placeholder="Senha" required>
                     </div>
 
                     <div class="input-group mb-3">
@@ -388,7 +384,7 @@ if (@$_GET['func'] == 'edita') {
               </div>
               <div class="form-group">
                 <label for="quantidade">Senha</label>
-                <input type="text" class="form-control mr-2" name="txtsenha" placeholder="Senha" value="<?php echo $res_1['senha']; ?>" required>
+                <input type="password" class="form-control mr-2" name="txtsenha" placeholder="Senha" value="<?php echo $res_1['senha']; ?>" required>
               </div>
 
               <div class="form-group">
