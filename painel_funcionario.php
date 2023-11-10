@@ -50,7 +50,40 @@ include("conexao.php");
       <div class="logo">
         <a href="" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-File.png">
+          <?php
+                                                // Defina um caminho padrão para a imagem de placeholder
+                                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+
+                                                // Verifique se o usuário está logado
+                                                if (isset($_SESSION['idusuarios'])) {
+                                                    $idUsuario = $_SESSION['idusuarios'];
+
+                                                    // Consulta SQL para buscar o caminho da imagem do usuário
+                                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+
+                                                    // Executa a consulta
+                                                    $resultado = mysqli_query($conexao, $sql);
+
+                                                    if ($resultado) {
+                                                        $linha = mysqli_fetch_assoc($resultado);
+
+                                                        if ($linha && !empty($linha['imagem'])) {
+                                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+                                                        } else {
+                                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                                        }
+                                                    }
+                                                } else {
+                                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+                                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                                }
+
+                                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+                                                ?>
+
+                                                <!-- Exibir a imagem -->
+                                                <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
