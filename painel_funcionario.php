@@ -84,6 +84,7 @@ include("conexao.php");
 
                                                 <!-- Exibir a imagem -->
                                                 <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+
           </div>
         </a>
         <a href="" class="simple-text logo-normal">
