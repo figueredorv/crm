@@ -353,7 +353,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
                                       <i class="fa fa-minus-square text-white"></i>
                                     </a>
-                                  
+
                                   <?php
 
                                   endif;
@@ -426,7 +426,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <form method="POST" action="propostas.php" enctype="multipart/form-data">
                         <div class="form-row">
                           <div class="form-group col-md-6">
-                            <label for="inputNome">NOME</label>
+                            <label for="inputNome">NOME*</label>
                             <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
                           </div>
                           <div class="form-group col-md-3">
@@ -1184,6 +1184,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
+
+
+
+
 if (isset($_POST['button'])) {
   $usuario = $_SESSION['idusuarios'];
   $nome = $_POST['inputNome'];
@@ -1650,252 +1654,252 @@ if (isset($_POST['button'])) {
 
 
 
-// Verifica o valor selecionado e atualiza a variável $bancoproposta conforme necessário
-if ($_POST["inputBancoProposta"] == 1) {
+  // Verifica o valor selecionado e atualiza a variável $bancoproposta conforme necessário
+  if ($_POST["inputBancoProposta"] == 1) {
     $bancoproposta = "001 - BANCO DO BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 3) {
+  } elseif ($_POST["inputBancoProposta"] == 3) {
     $bancoproposta = "003 - BANCO DA AMAZÔNIA";
-} elseif ($_POST["inputBancoProposta"] == 4) {
+  } elseif ($_POST["inputBancoProposta"] == 4) {
     $bancoproposta = "004 - BANCO DO NORDESTE DO BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 7) {
+  } elseif ($_POST["inputBancoProposta"] == 7) {
     $bancoproposta = "007 - BNDES";
-} elseif ($_POST["inputBancoProposta"] == 10) {
+  } elseif ($_POST["inputBancoProposta"] == 10) {
     $bancoproposta = "010 - CREDICOAMO";
-} elseif ($_POST["inputBancoProposta"] == 11) {
+  } elseif ($_POST["inputBancoProposta"] == 11) {
     $bancoproposta = "011 - Credit Suisse";
-} elseif ($_POST["inputBancoProposta"] == 12) {
+  } elseif ($_POST["inputBancoProposta"] == 12) {
     $bancoproposta = "012 - BANCO INBURSA";
-} elseif ($_POST["inputBancoProposta"] == 14) {
+  } elseif ($_POST["inputBancoProposta"] == 14) {
     $bancoproposta = "014 - NATIXIS BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 15) {
+  } elseif ($_POST["inputBancoProposta"] == 15) {
     $bancoproposta = "015 - UBS BRASIL CCTVM";
-} elseif ($_POST["inputBancoProposta"] == 16) {
+  } elseif ($_POST["inputBancoProposta"] == 16) {
     $bancoproposta = "016 - CCM DESP TRANS SC E RS";
-} elseif ($_POST["inputBancoProposta"] == 17) {
+  } elseif ($_POST["inputBancoProposta"] == 17) {
     $bancoproposta = "017 - BNY MELLON BANCO";
-} elseif ($_POST["inputBancoProposta"] == 18) {
+  } elseif ($_POST["inputBancoProposta"] == 18) {
     $bancoproposta = "018 - BANCO TRICURY";
-} elseif ($_POST["inputBancoProposta"] == 21) {
+  } elseif ($_POST["inputBancoProposta"] == 21) {
     $bancoproposta = "021 - BANCO BANESTES";
-} elseif ($_POST["inputBancoProposta"] == 24) {
+  } elseif ($_POST["inputBancoProposta"] == 24) {
     $bancoproposta = "024 - BCO BANDEPE";
-} elseif ($_POST["inputBancoProposta"] == 25) {
+  } elseif ($_POST["inputBancoProposta"] == 25) {
     $bancoproposta = "025 - BANCO ALFA";
-} elseif ($_POST["inputBancoProposta"] == 29) {
+  } elseif ($_POST["inputBancoProposta"] == 29) {
     $bancoproposta = "029 - BANCO ITAU CONSIGNADO";
-} elseif ($_POST["inputBancoProposta"] == 33) {
+  } elseif ($_POST["inputBancoProposta"] == 33) {
     $bancoproposta = "033 - BANCO SANTANDER BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 36) {
+  } elseif ($_POST["inputBancoProposta"] == 36) {
     $bancoproposta = "036 - BANCO BBI";
-} elseif ($_POST["inputBancoProposta"] == 37) {
+  } elseif ($_POST["inputBancoProposta"] == 37) {
     $bancoproposta = "037 - BANCO DO ESTADO DO PARÁ";
-} elseif ($_POST["inputBancoProposta"] == 40) {
+  } elseif ($_POST["inputBancoProposta"] == 40) {
     $bancoproposta = "040 - BANCO CARGILL";
-} elseif ($_POST["inputBancoProposta"] == 41) {
+  } elseif ($_POST["inputBancoProposta"] == 41) {
     $bancoproposta = "041 - BANRISUL";
-} elseif ($_POST["inputBancoProposta"] == 47) {
+  } elseif ($_POST["inputBancoProposta"] == 47) {
     $bancoproposta = "047 - BANCO DO ESTADO DE SERGIPE";
-} elseif ($_POST["inputBancoProposta"] == 60) {
+  } elseif ($_POST["inputBancoProposta"] == 60) {
     $bancoproposta = "060 - CONFIDENCE CC";
-} elseif ($_POST["inputBancoProposta"] == 62) {
+  } elseif ($_POST["inputBancoProposta"] == 62) {
     $bancoproposta = "062 - HIPERCARD BM";
-} elseif ($_POST["inputBancoProposta"] == 63) {
+  } elseif ($_POST["inputBancoProposta"] == 63) {
     $bancoproposta = "063 - BANCO BRADESCARD";
-} elseif ($_POST["inputBancoProposta"] == 64) {
+  } elseif ($_POST["inputBancoProposta"] == 64) {
     $bancoproposta = "064 - GOLDMAN SACHS DO BRASIL BM";
-} elseif ($_POST["inputBancoProposta"] == 65) {
+  } elseif ($_POST["inputBancoProposta"] == 65) {
     $bancoproposta = "065 - BANCO ANDBANK";
-} elseif ($_POST["inputBancoProposta"] == 66) {
+  } elseif ($_POST["inputBancoProposta"] == 66) {
     $bancoproposta = "066 - BANCO MORGAN STANLEY";
-} elseif ($_POST["inputBancoProposta"] == 69) {
+  } elseif ($_POST["inputBancoProposta"] == 69) {
     $bancoproposta = "069 - BANCO CREFISA";
-} elseif ($_POST["inputBancoProposta"] == 70) {
+  } elseif ($_POST["inputBancoProposta"] == 70) {
     $bancoproposta = "070 - BANCO DE BRASÍLIA (BRB)";
-} elseif ($_POST["inputBancoProposta"] == 74) {
+  } elseif ($_POST["inputBancoProposta"] == 74) {
     $bancoproposta = "074 - BCO. J.SAFRA";
-} elseif ($_POST["inputBancoProposta"] == 75) {
+  } elseif ($_POST["inputBancoProposta"] == 75) {
     $bancoproposta = "075 - BCO ABN AMRO";
-} elseif ($_POST["inputBancoProposta"] == 76) {
+  } elseif ($_POST["inputBancoProposta"] == 76) {
     $bancoproposta = "076 - BANCO KDB BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 77) {
+  } elseif ($_POST["inputBancoProposta"] == 77) {
     $bancoproposta = "077 - BANCO INTER";
-} elseif ($_POST["inputBancoProposta"] == 78) {
+  } elseif ($_POST["inputBancoProposta"] == 78) {
     $bancoproposta = "078 - HAITONG BI DO BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 79) {
+  } elseif ($_POST["inputBancoProposta"] == 79) {
     $bancoproposta = "079 - BANCO ORIGINAL DO AGRONEGÓCIO";
-} elseif ($_POST["inputBancoProposta"] == 80) {
+  } elseif ($_POST["inputBancoProposta"] == 80) {
     $bancoproposta = "080 - B&T CC LTDA";
-} elseif ($_POST["inputBancoProposta"] == 81) {
+  } elseif ($_POST["inputBancoProposta"] == 81) {
     $bancoproposta = "081 - BBN BANCO BRASILEIRO DE NEGÓCIOS";
-} elseif ($_POST["inputBancoProposta"] == 82) {
+  } elseif ($_POST["inputBancoProposta"] == 82) {
     $bancoproposta = "082 - BANCO TOPÁZIO";
-} elseif ($_POST["inputBancoProposta"] == 83) {
+  } elseif ($_POST["inputBancoProposta"] == 83) {
     $bancoproposta = "083 - BANCO DA CHINA BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 84) {
+  } elseif ($_POST["inputBancoProposta"] == 84) {
     $bancoproposta = "084 - UNIPRIME NORTE DO PARANÁ";
-} elseif ($_POST["inputBancoProposta"] == 85) {
+  } elseif ($_POST["inputBancoProposta"] == 85) {
     $bancoproposta = "085 - COOP CENTRAL AILOS";
-} elseif ($_POST["inputBancoProposta"] == 89) {
+  } elseif ($_POST["inputBancoProposta"] == 89) {
     $bancoproposta = "089 - CCR REG MOGIANA";
-} elseif ($_POST["inputBancoProposta"] == 91) {
+  } elseif ($_POST["inputBancoProposta"] == 91) {
     $bancoproposta = "091 - BRB - CFI";
-} elseif ($_POST["inputBancoProposta"] == 94) {
+  } elseif ($_POST["inputBancoProposta"] == 94) {
     $bancoproposta = "094 - BCO FINAXIS";
-} elseif ($_POST["inputBancoProposta"] == 95) {
+  } elseif ($_POST["inputBancoProposta"] == 95) {
     $bancoproposta = "095 - TRAVELEX BANCO DE CÂMBIO";
-} elseif ($_POST["inputBancoProposta"] == 96) {
+  } elseif ($_POST["inputBancoProposta"] == 96) {
     $bancoproposta = "096 - BANCO B3";
-} elseif ($_POST["inputBancoProposta"] == 104) {
+  } elseif ($_POST["inputBancoProposta"] == 104) {
     $bancoproposta = "104 - CAIXA ECONOMICA FEDERAL";
-} elseif ($_POST["inputBancoProposta"] == 107) {
+  } elseif ($_POST["inputBancoProposta"] == 107) {
     $bancoproposta = "107 - BANCO BOCOM BBM";
-} elseif ($_POST["inputBancoProposta"] == 217) {
+  } elseif ($_POST["inputBancoProposta"] == 217) {
     $bancoproposta = "217 - BANCO JOHN DEERE";
-} elseif ($_POST["inputBancoProposta"] == 218) {
+  } elseif ($_POST["inputBancoProposta"] == 218) {
     $bancoproposta = "218 - BCO BS2";
-} elseif ($_POST["inputBancoProposta"] == 222) {
+  } elseif ($_POST["inputBancoProposta"] == 222) {
     $bancoproposta = "222 - BANCO CALYON BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 224) {
+  } elseif ($_POST["inputBancoProposta"] == 224) {
     $bancoproposta = "224 - BCO FIBRA";
-} elseif ($_POST["inputBancoProposta"] == 233) {
+  } elseif ($_POST["inputBancoProposta"] == 233) {
     $bancoproposta = "233 - BANCO CIFRA";
-} elseif ($_POST["inputBancoProposta"] == 237) {
+  } elseif ($_POST["inputBancoProposta"] == 237) {
     $bancoproposta = "237 - BCO BRL BROKER BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 241) {
+  } elseif ($_POST["inputBancoProposta"] == 241) {
     $bancoproposta = "241 - BCO CLASSICO";
-} elseif ($_POST["inputBancoProposta"] == 243) {
+  } elseif ($_POST["inputBancoProposta"] == 243) {
     $bancoproposta = "243 - BCO MÁXIMA";
-} elseif ($_POST["inputBancoProposta"] == 246) {
+  } elseif ($_POST["inputBancoProposta"] == 246) {
     $bancoproposta = "246 - BCO ABC BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 249) {
+  } elseif ($_POST["inputBancoProposta"] == 249) {
     $bancoproposta = "249 - BANCO INVESTCRED UNIBANCO";
-} elseif ($_POST["inputBancoProposta"] == 250) {
+  } elseif ($_POST["inputBancoProposta"] == 250) {
     $bancoproposta = "250 - BCO SCHAHIN";
-} elseif ($_POST["inputBancoProposta"] == 318) {
+  } elseif ($_POST["inputBancoProposta"] == 318) {
     $bancoproposta = "318 - BANCO BMG";
-} elseif ($_POST["inputBancoProposta"] == 320) {
+  } elseif ($_POST["inputBancoProposta"] == 320) {
     $bancoproposta = "320 - BCO CCB BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 325) {
+  } elseif ($_POST["inputBancoProposta"] == 325) {
     $bancoproposta = "325 - ÓRAMA DTVM";
-} elseif ($_POST["inputBancoProposta"] == 326) {
+  } elseif ($_POST["inputBancoProposta"] == 326) {
     $bancoproposta = "326 - PARANÁ BANCO";
-} elseif ($_POST["inputBancoProposta"] == 260) {
+  } elseif ($_POST["inputBancoProposta"] == 260) {
     $bancoproposta = "260 - NU PAGAMENTOS S.A (NUBANK)";
-} elseif ($_POST["inputBancoProposta"] == 329) {
+  } elseif ($_POST["inputBancoProposta"] == 329) {
     $bancoproposta = "329 - BCO BPP";
-} elseif ($_POST["inputBancoProposta"] == 330) {
+  } elseif ($_POST["inputBancoProposta"] == 330) {
     $bancoproposta = "330 - BCO BANDEIRANTES";
-} elseif ($_POST["inputBancoProposta"] == 332) {
+  } elseif ($_POST["inputBancoProposta"] == 332) {
     $bancoproposta = "332 - ACESSO BANK";
-} elseif ($_POST["inputBancoProposta"] == 336) {
+  } elseif ($_POST["inputBancoProposta"] == 336) {
     $bancoproposta = "336 - BCO C6";
-} elseif ($_POST["inputBancoProposta"] == 341) {
+  } elseif ($_POST["inputBancoProposta"] == 341) {
     $bancoproposta = "341 - ITAÚ UNIBANCO";
-} elseif ($_POST["inputBancoProposta"] == 366) {
+  } elseif ($_POST["inputBancoProposta"] == 366) {
     $bancoproposta = "366 - CCM BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 370) {
+  } elseif ($_POST["inputBancoProposta"] == 370) {
     $bancoproposta = "370 - BCO MIZUHO";
-} elseif ($_POST["inputBancoProposta"] == 376) {
+  } elseif ($_POST["inputBancoProposta"] == 376) {
     $bancoproposta = "376 - BCO J.P. MORGAN";
-} elseif ($_POST["inputBancoProposta"] == 389) {
+  } elseif ($_POST["inputBancoProposta"] == 389) {
     $bancoproposta = "389 - BANCO MERCANTIL DO BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 394) {
+  } elseif ($_POST["inputBancoProposta"] == 394) {
     $bancoproposta = "394 - BANCO BRADESCO FINANCIAMENTOS";
-} elseif ($_POST["inputBancoProposta"] == 412) {
+  } elseif ($_POST["inputBancoProposta"] == 412) {
     $bancoproposta = "412 - BANCO CAPITAL";
-} elseif ($_POST["inputBancoProposta"] == 422) {
+  } elseif ($_POST["inputBancoProposta"] == 422) {
     $bancoproposta = "422 - BANCO SAFRA";
-} elseif ($_POST["inputBancoProposta"] == 453) {
+  } elseif ($_POST["inputBancoProposta"] == 453) {
     $bancoproposta = "453 - BCO RURAL";
-} elseif ($_POST["inputBancoProposta"] == 456) {
+  } elseif ($_POST["inputBancoProposta"] == 456) {
     $bancoproposta = "456 - BANCO DE TOKYO-MITSUBISHI UFJ BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 464) {
+  } elseif ($_POST["inputBancoProposta"] == 464) {
     $bancoproposta = "464 - BCO SUMITOMO MITSUI BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 473) {
+  } elseif ($_POST["inputBancoProposta"] == 473) {
     $bancoproposta = "473 - BCO CAIXA GERAL - BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 477) {
+  } elseif ($_POST["inputBancoProposta"] == 477) {
     $bancoproposta = "477 - CITIBANK";
-} elseif ($_POST["inputBancoProposta"] == 479) {
+  } elseif ($_POST["inputBancoProposta"] == 479) {
     $bancoproposta = "479 - BANCO ITAUBANK";
-} elseif ($_POST["inputBancoProposta"] == 487) {
+  } elseif ($_POST["inputBancoProposta"] == 487) {
     $bancoproposta = "487 - DEUTSCHE BANK";
-} elseif ($_POST["inputBancoProposta"] == 488) {
+  } elseif ($_POST["inputBancoProposta"] == 488) {
     $bancoproposta = "488 - JPMORGAN CHASE BANK";
-} elseif ($_POST["inputBancoProposta"] == 492) {
+  } elseif ($_POST["inputBancoProposta"] == 492) {
     $bancoproposta = "492 - ING BANK";
-} elseif ($_POST["inputBancoProposta"] == 494) {
+  } elseif ($_POST["inputBancoProposta"] == 494) {
     $bancoproposta = "494 - BCO LA PROVINCIA BNCO CORDOBA";
-} elseif ($_POST["inputBancoProposta"] == 495) {
+  } elseif ($_POST["inputBancoProposta"] == 495) {
     $bancoproposta = "495 - BANCO LA NACION";
-} elseif ($_POST["inputBancoProposta"] == 505) {
+  } elseif ($_POST["inputBancoProposta"] == 505) {
     $bancoproposta = "505 - BANCO CREDIT SUISSE (BRASIL)";
-} elseif ($_POST["inputBancoProposta"] == 600) {
+  } elseif ($_POST["inputBancoProposta"] == 600) {
     $bancoproposta = "600 - BCO LUSO BRASILEIRO";
-} elseif ($_POST["inputBancoProposta"] == 604) {
+  } elseif ($_POST["inputBancoProposta"] == 604) {
     $bancoproposta = "604 - BANCO INDUSTRIAL DO BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 610) {
+  } elseif ($_POST["inputBancoProposta"] == 610) {
     $bancoproposta = "610 - BCO INDUSVAL";
-} elseif ($_POST["inputBancoProposta"] == 611) {
+  } elseif ($_POST["inputBancoProposta"] == 611) {
     $bancoproposta = "611 - BCO PAULISTA";
-} elseif ($_POST["inputBancoProposta"] == 612) {
+  } elseif ($_POST["inputBancoProposta"] == 612) {
     $bancoproposta = "612 - BCO GUANABARA";
-} elseif ($_POST["inputBancoProposta"] == 613) {
+  } elseif ($_POST["inputBancoProposta"] == 613) {
     $bancoproposta = "613 - OMNI BANCO";
-} elseif ($_POST["inputBancoProposta"] == 623) {
+  } elseif ($_POST["inputBancoProposta"] == 623) {
     $bancoproposta = "623 - BANCO PAN";
-} elseif ($_POST["inputBancoProposta"] == 626) {
+  } elseif ($_POST["inputBancoProposta"] == 626) {
     $bancoproposta = "626 - BCO FIP";
-} elseif ($_POST["inputBancoProposta"] == 630) {
+  } elseif ($_POST["inputBancoProposta"] == 630) {
     $bancoproposta = "630 - BCO BARI";
-} elseif ($_POST["inputBancoProposta"] == 633) {
+  } elseif ($_POST["inputBancoProposta"] == 633) {
     $bancoproposta = "633 - BCO RENDIMENTO";
-} elseif ($_POST["inputBancoProposta"] == 634) {
+  } elseif ($_POST["inputBancoProposta"] == 634) {
     $bancoproposta = "634 - BCO TRIANGULO";
-} elseif ($_POST["inputBancoProposta"] == 637) {
+  } elseif ($_POST["inputBancoProposta"] == 637) {
     $bancoproposta = "637 - BCO SOFISA";
-} elseif ($_POST["inputBancoProposta"] == 641) {
+  } elseif ($_POST["inputBancoProposta"] == 641) {
     $bancoproposta = "641 - BCO ALVORADA";
-} elseif ($_POST["inputBancoProposta"] == 643) {
+  } elseif ($_POST["inputBancoProposta"] == 643) {
     $bancoproposta = "643 - BCO PINE";
-} elseif ($_POST["inputBancoProposta"] == 652) {
+  } elseif ($_POST["inputBancoProposta"] == 652) {
     $bancoproposta = "652 - ITAÚ UNIBANCO HOLDING";
-} elseif ($_POST["inputBancoProposta"] == 653) {
+  } elseif ($_POST["inputBancoProposta"] == 653) {
     $bancoproposta = "653 - BANCO INDUSVAL";
-} elseif ($_POST["inputBancoProposta"] == 654) {
+  } elseif ($_POST["inputBancoProposta"] == 654) {
     $bancoproposta = "654 - BANCO A.J. RENNER";
-} elseif ($_POST["inputBancoProposta"] == 655) {
+  } elseif ($_POST["inputBancoProposta"] == 655) {
     $bancoproposta = "655 - BANCO VOTORANTIM";
-} elseif ($_POST["inputBancoProposta"] == 707) {
+  } elseif ($_POST["inputBancoProposta"] == 707) {
     $bancoproposta = "707 - BCO DAYCOVAL";
-} elseif ($_POST["inputBancoProposta"] == 712) {
+  } elseif ($_POST["inputBancoProposta"] == 712) {
     $bancoproposta = "712 - BCO OURINVEST";
-} elseif ($_POST["inputBancoProposta"] == 739) {
+  } elseif ($_POST["inputBancoProposta"] == 739) {
     $bancoproposta = "739 - BCO CETELEM";
-} elseif ($_POST["inputBancoProposta"] == 741) {
+  } elseif ($_POST["inputBancoProposta"] == 741) {
     $bancoproposta = "741 - BCO RIBEIRAO PRETO";
-} elseif ($_POST["inputBancoProposta"] == 743) {
+  } elseif ($_POST["inputBancoProposta"] == 743) {
     $bancoproposta = "743 - BCO SEMEAR";
-} elseif ($_POST["inputBancoProposta"] == 745) {
+  } elseif ($_POST["inputBancoProposta"] == 745) {
     $bancoproposta = "745 - BANCO CITIBANK";
-} elseif ($_POST["inputBancoProposta"] == 746) {
+  } elseif ($_POST["inputBancoProposta"] == 746) {
     $bancoproposta = "746 - BANCO MODAL";
-} elseif ($_POST["inputBancoProposta"] == 747) {
+  } elseif ($_POST["inputBancoProposta"] == 747) {
     $bancoproposta = "747 - BCO RABOBANK INTL BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 748) {
+  } elseif ($_POST["inputBancoProposta"] == 748) {
     $bancoproposta = "748 - BCO COOPERATIVO SICOOB";
-} elseif ($_POST["inputBancoProposta"] == 751) {
+  } elseif ($_POST["inputBancoProposta"] == 751) {
     $bancoproposta = "751 - SCOTIABANK BRASIL";
-} elseif ($_POST["inputBancoProposta"] == 752) {
+  } elseif ($_POST["inputBancoProposta"] == 752) {
     $bancoproposta = "752 - BCO BANCOOB";
-} elseif ($_POST["inputBancoProposta"] == 753) {
+  } elseif ($_POST["inputBancoProposta"] == 753) {
     $bancoproposta = "753 - NOVO BCO CONTINENTAL";
-} elseif ($_POST["inputBancoProposta"] == 755) {
+  } elseif ($_POST["inputBancoProposta"] == 755) {
     $bancoproposta = "755 - BCO MERRILL LYNCH";
-} elseif ($_POST["inputBancoProposta"] == 756) {
+  } elseif ($_POST["inputBancoProposta"] == 756) {
     $bancoproposta = "756 - BANCOOB";
-} else {
+  } else {
     $bancoproposta = "Código de banco inválido";
-}
+  }
 
 
 
@@ -2039,7 +2043,7 @@ if ($_POST["inputBancoProposta"] == 1) {
   }
 
 
-//marcador
+  //marcador
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
@@ -2780,7 +2784,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-12">
-                <small class="text-muted">Para adicionar novos documentos a esse cliente vá para a área de documentos na página principal.</small>
+                  <small class="text-muted">Para adicionar novos documentos a esse cliente vá para a área de documentos na página principal.</small>
                   <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" disabled>
                   <div class="form-group">
                     <br>
@@ -2822,12 +2826,12 @@ if (@$_GET['func'] == 'editarpropostas') {
       $valorparcelas = $_POST['inputValorParcelas'];
       $formalizacao = $_POST['inputFormalizacao'];
       $canal = $_POST['inputCanal'];
-      
+
       $observacao   = $_POST['inputObservacao'];
 
 
 
-      
+
 
       $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 

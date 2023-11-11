@@ -44,7 +44,7 @@ include("conexao.php");
         <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
-                    
+
                 </a>
                 <a href="" class="simple-text logo-normal">
                     CRM CORBAN
@@ -276,7 +276,7 @@ include("conexao.php");
                                         <?php echo "Usuário: " . $_SESSION['usuario']; ?>
                                     </p>
                                     <p class="description">
-                                        <?php echo "Nível: " . $_SESSION['cargo_usuario'];?>
+                                        <?php echo "Nível: " . $_SESSION['cargo_usuario']; ?>
                                     </p>
                                 </div>
                                 <p class="description text-center">
@@ -348,13 +348,13 @@ include("conexao.php");
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card" >
                             <div class="card-header">
                                 <h4 class="card-title">Equipe</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body col-md-12">
                                 <ul class="list-unstyled team-members">
-                                    <div class="card ">
+                                    <div class="card">
                                         <!-- início de tabela de usuários mais ativos -->
 
 
@@ -380,7 +380,7 @@ include("conexao.php");
                                                     echo "<h3>Não existem dados cadastrados no banco</h3>";
                                                 } else {
                                                 ?>
-                                                    <table class="table table-borderless">
+                                                    <table class="table table-">
                                                         <thead class="text-primary">
 
                                                         </thead>
@@ -517,6 +517,10 @@ include("conexao.php");
                             </div>
                         </div>
                     </div>
+
+
+
+                    
                 </div>
             </div>
             <footer class="footer footer-black  footer-white ">

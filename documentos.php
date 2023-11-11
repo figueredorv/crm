@@ -58,7 +58,9 @@ function excluirDocumento($conexao, $id)
     </nav>
     <div class="container">
         <div class="container mt-4">
-            <h3 class="text-center mb-4">DOCUMENTOS</h3>
+            <h4 class="text-center mb-4 custom-text-color">
+                <i class="fa fa-file-text-o custom-icon-color" aria-hidden="true"></i> ENVIO E CONSULTA DE DOCUMENTOS
+            </h4>
             <!-- Formulário de pesquisa -->
             <form method="POST" action="documentos.php" class="mb-4">
                 <div class="form-row">
@@ -71,12 +73,25 @@ function excluirDocumento($conexao, $id)
                 </div>
             </form>
 
+            <style>
+                .custom-text-color {
+                    color: #64ABE7;
+                    /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (Cor do texto ENVIO E CONSULTA DE DOCUMENTOS)*/
+                }
+
+                .custom-icon-color {
+                    color: #64ABE7;
+                    /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (cor do ícone)*/
+                }
+            </style>
+
+
             <!-- Botão para cadastrar um novo documento -->
-            
-                <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modalExemplo" style="background-color: #FF4D75;">
-                    <i class="fa fa-cloud-upload"></i> Upload
-                </button>
-            
+
+            <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modalExemplo" style="background-color: #FF4D75;">
+                <i class="fa fa-cloud-upload"></i> Upload
+            </button>
+
             <table class="table table-striped">
                 <thead>
                     <tr>
