@@ -425,7 +425,7 @@ include("conexao.php");
                                                                         if ($ultima_autenticacao >= $data_atual) {
                                                                             // O usuário foi ativo hoje, então o badge será verde
                                                                             $badge_color = 'badge-success';
-                                                                            $status_text = 'Ativo hoje';
+                                                                            $status_text = 'Online';
                                                                         } else {
                                                                             // O usuário não foi ativo hoje, o badge será vermelho
                                                                             $badge_color = 'badge-danger';
