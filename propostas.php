@@ -461,8 +461,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputCep">CEP</label>
-                            <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="">
+                            <input name="inputCep" type="number" class="form-control" id="cep" name="cep" placeholder="">
+                            <button type="button" class="btn btn-outline-dark btn-block" onclick="consultaEndereco()">BUSCAR CEP</button>
                           </div>
+
                           <div class="form-group col-md-6">
                             <label for="inputRua">RUA</label>
                             <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
@@ -1225,6 +1227,8 @@ if (isset($_POST['button'])) {
   $observacao   = $_POST['inputObservacao'];
   $statusproposta = 'PENDENTE';
   $data = date('d/m/Y H:i');
+
+
 
 
 
@@ -4403,3 +4407,42 @@ if (@$_GET['func'] == 'editarstatus') {
 
 <?php }
 } ?>
+
+
+<script>
+   function consultaEndereco() {
+    // Obter o valor do CEP digitado
+    let cep = document.querySelector('#cep').value;
+
+    if (cep.length !== 8){
+      alert('Cep inválido!');
+    }
+
+    let url = 'https://viacep.com.br/ws/' + cep + '/json/';
+
+    fetch(url)
+      .then(function(response){
+        if (!response.ok) {
+          throw new Error('Erro na requisição');
+        }
+        return response.json();
+      })
+      .then(function(data){
+        console.log(data);
+        mostrarEndereco(data); // Chama a função para preencher os inputs
+      })
+      .catch(function(error) {
+        console.error('Erro:', error);
+      });
+   }
+
+   function mostrarEndereco(dados){
+      document.getElementById('inputRua').value = dados.logradouro || '';
+      document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
+      document.getElementById('inputComplemento').value = dados.complemento || '';
+      document.getElementById('inputBairro').value = dados.bairro || '';
+      document.getElementById('inputCidade').value = dados.localidade || '';
+      document.getElementById('inputUf').value = dados.uf || '';
+   }
+</script>
+
