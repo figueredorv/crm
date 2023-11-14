@@ -211,9 +211,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <table class="table table-borderless">
                         <thead class=" text-primary">
                           <th>
-                            id
-                          </th>
-                          <th>
                             Nome
                           </th>
                           <th>
@@ -288,7 +285,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           ?>
 
                             <tr>
-                              <td><?php echo $id; ?></td>
                               <td><?php echo $nome; ?></td>
                               <td><?php echo  $cpf; ?></td>
                               <td><?php echo  $operacao;  ?></td>
