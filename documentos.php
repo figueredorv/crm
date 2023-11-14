@@ -266,7 +266,7 @@ if (isset($_POST['button'])) {
         }
     }
 
-
+    echo "<script language='javascript'> window.alert('Documento cadastrado com Sucesso!'); </script>";
     echo "<script language='javascript'> window.location='documentos.php'; </script>";
 }
 ?>
