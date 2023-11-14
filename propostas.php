@@ -210,7 +210,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                       <table class="table table-borderless">
                         <thead class=" text-primary">
-
+                        <th>
+                            id
+                          </th>
                           <th>
                             Nome
                           </th>
@@ -259,6 +261,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <?php
 
                           while ($res_1 = mysqli_fetch_array($result)) {
+                            $id = $res_1["idpropostas"];
                             $nome = $res_1["nome"];
                             $cpf = $res_1["cpf"];
                             $operacao = $res_1["operacao"];
@@ -270,7 +273,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                             $statusproposta = $res_1["statusproposta"];
                             $data = $res_1["data"];
-                            $id = $res_1["idpropostas"];
+                            
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
 
@@ -285,7 +288,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           ?>
 
                             <tr>
-
+                            <td><?php echo $id; ?></td>
                               <td><?php echo $nome; ?></td>
                               <td><?php echo  $cpf; ?></td>
                               <td><?php echo  $operacao;  ?></td>
@@ -350,9 +353,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   <?php
                                   // lógica para só conseguir alterar o status da proposta quem for master do sistema
                                   if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                    <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
-                                      <i class="fa fa-minus-square text-white"></i>
-                                    </a>
+                                    <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
 
                                   <?php
 
