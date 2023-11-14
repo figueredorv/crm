@@ -210,7 +210,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                       <table class="table table-borderless">
                         <thead class=" text-primary">
-                        <th>
+                          <th>
                             id
                           </th>
                           <th>
@@ -273,7 +273,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                             $statusproposta = $res_1["statusproposta"];
                             $data = $res_1["data"];
-                            
+
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
 
@@ -288,7 +288,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           ?>
 
                             <tr>
-                            <td><?php echo $id; ?></td>
+                              <td><?php echo $id; ?></td>
                               <td><?php echo $nome; ?></td>
                               <td><?php echo  $cpf; ?></td>
                               <td><?php echo  $operacao;  ?></td>
@@ -353,7 +353,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   <?php
                                   // lógica para só conseguir alterar o status da proposta quem for master do sistema
                                   if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                    <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
+                                    <a class="btn btn-primary btn btn-danger" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                      <i class="fa fa-trash-o text-white" aria-hidden="true"></i>
+                                    </a>
 
                                   <?php
 
@@ -4245,11 +4247,12 @@ if (@$_GET['func'] == 'editardadosbancarios') {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
+        <a class="btn btn-primary btn btn-danger" id="confirmBtn">Excluir</a>
       </div>
     </div>
   </div>
 </div>
+
 
 <!-- lógica para exclusão de registro -->
 <?php
@@ -4411,39 +4414,47 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
 <script>
-   function consultaEndereco() {
+  function consultaEndereco() {
     // Obter o valor do CEP digitado
     let cep = document.querySelector('#cep').value;
 
-    if (cep.length !== 8){
+    if (cep.length !== 8) {
       alert('Cep inválido!');
     }
 
     let url = 'https://viacep.com.br/ws/' + cep + '/json/';
 
     fetch(url)
-      .then(function(response){
+      .then(function(response) {
         if (!response.ok) {
           throw new Error('Erro na requisição');
         }
         return response.json();
       })
-      .then(function(data){
+      .then(function(data) {
         console.log(data);
         mostrarEndereco(data); // Chama a função para preencher os inputs
       })
       .catch(function(error) {
         console.error('Erro:', error);
       });
-   }
+  }
 
-   function mostrarEndereco(dados){
-      document.getElementById('inputRua').value = dados.logradouro || '';
-      document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
-      document.getElementById('inputComplemento').value = dados.complemento || '';
-      document.getElementById('inputBairro').value = dados.bairro || '';
-      document.getElementById('inputCidade').value = dados.localidade || '';
-      document.getElementById('inputUf').value = dados.uf || '';
-   }
+  function mostrarEndereco(dados) {
+    document.getElementById('inputRua').value = dados.logradouro || '';
+    document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
+    document.getElementById('inputComplemento').value = dados.complemento || '';
+    document.getElementById('inputBairro').value = dados.bairro || '';
+    document.getElementById('inputCidade').value = dados.localidade || '';
+    document.getElementById('inputUf').value = dados.uf || '';
+  }
 </script>
 
+
+<script>
+  //script para capturar o ID e modificar o link de exclusão no modal:
+  $(document).on('click', '.btn-danger', function() {
+    var id = $(this).data('id');
+    $('#confirmBtn').attr('href', 'propostas.php?func=deleta&id=' + id);
+  });
+</script>
