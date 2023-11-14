@@ -181,9 +181,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-
-
-
+                     //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
+                    else if ($_SESSION['cargo_usuario'] == 'Master'){
+                      $query = "SELECT * FROM propostas
+      
+                      ORDER BY idpropostas DESC";
+                    }
+                      
 
                     //final do código
 

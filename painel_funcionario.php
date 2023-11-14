@@ -608,6 +608,11 @@ include("conexao.php");
                 $nome = '';
                 $query = "select * from propostas where statusproposta = '$nome'";
               }
+              else if ($_SESSION['cargo_usuario'] == 'Master'){
+                $query = "SELECT * FROM propostas
+
+                ORDER BY idpropostas DESC";
+              }
 
 
               //final do código
