@@ -666,11 +666,6 @@ include("conexao.php");
                     <th>
                       Valor
                     </th>
-
-                    <th>
-                      Promotora
-                    </th>
-
                     <th>
                       Usuário
                     </th>
@@ -699,7 +694,7 @@ include("conexao.php");
                       $convenio = $res_1["convenio"];
                       $banco = $res_1["banco"];
                       $valor = $res_1["valor"];
-                      $promotora = $res_1["promotora"];
+                      //$promotora = $res_1["promotora"];
                       $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                       $statusproposta = $res_1["statusproposta"];
                       $data = $res_1["data"];
@@ -726,7 +721,6 @@ include("conexao.php");
                         <td><?php echo $convenio; ?></td>
                         <td><?php echo $banco; ?></td>
                         <td><?php echo number_format($valor, 2, ",", "."); ?></td>
-                        <td><?php echo  $promotora; ?></td>
                         <td><?php echo  $nome_usuario; ?></td>
                         <td><?php echo  $data2; ?></td>
 
