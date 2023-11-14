@@ -136,7 +136,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title"> Registro de propostas</h4>
+                  <h5 class="card-title"> MINHAS PROPOSTAS</h5>
 
                 </div>
                 <div class="card-body">
@@ -188,7 +188,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     //final do código
 
                     else {
-                      $query = "select * from propostas order by idpropostas DESC";
+                      $id = $_SESSION['idusuarios'];
+                      $query = "SELECT * FROM propostas
+                      WHERE idusuario = $id
+                      ORDER BY idpropostas DESC";
                     }
 
 
@@ -201,7 +204,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                     if ($row == '') {
 
-                      echo "<h3> Não existem dados cadastrados no banco </h3>";
+                      echo "<h3> Não existem propostas cadastradas por você!</h3>";
                     } else {
 
                     ?>

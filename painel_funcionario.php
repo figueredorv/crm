@@ -328,6 +328,13 @@ include("conexao.php");
         <?php endif; ?>
 
 
+        <div class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container" style="color: black;">
+          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="nc-icon nc-simple-remove"></i>
+          </button>
+          <span data-notify="icon" class="nc-icon nc-bell-55"></span>
+          <span data-notify="message" style="color: black;">Ops! Estamos realizando manutenção no site. Pedimos desculpas por eventuais falhas temporárias. Estaremos de volta em breve!.</span>
+        </div>
 
 
 
@@ -606,7 +613,10 @@ include("conexao.php");
               //final do código
 
               else {
-                $query = "select * from propostas where data = curdate()   order by data asc ";
+                $id = $_SESSION['idusuarios'];
+                $query = "SELECT * FROM propostas
+                      WHERE idusuario = $id
+                      ORDER BY idpropostas DESC";
               }
 
 
@@ -619,7 +629,7 @@ include("conexao.php");
 
               if ($row == '') {
 
-                echo "<h3> Não existem propostas cadastradas recentes! </h3>";
+                echo "<h5> Não existem propostas cadastradas recentes por você! </h5>";
               } else {
 
               ?>
