@@ -543,7 +543,7 @@ include("conexao.php");
           <div class="card-header">
             <div class="row">
               <div class="col-12">
-                <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">HOJE</span></h5>
+                <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">RECENTES</span></h5>
                 <small class="text-muted">Filtrar por valores mais altos e mais baixos</small>
               </div>
               <div class="col-4">
@@ -619,7 +619,7 @@ include("conexao.php");
 
               if ($row == '') {
 
-                echo "<h3> Não existem propostas cadastradas na data de hoje! </h3>";
+                echo "<h3> Não existem propostas cadastradas recentes! </h3>";
               } else {
 
               ?>
