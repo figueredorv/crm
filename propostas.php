@@ -188,7 +188,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     //final do código
 
                     else {
-                      $query = "select * from propostas order by idpropostas ASC";
+                      $query = "select * from propostas order by idpropostas DESC";
                     }
 
 
