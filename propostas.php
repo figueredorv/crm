@@ -2135,7 +2135,7 @@ if (@$_GET['func'] == 'editarcliente') {
             <form method="POST" action="">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputNome">NOME</label>
+                  <label for="inputNome">NOME*</label>
                   <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required value="<?php echo $res_1['nome']; ?>">
                 </div>
                 <div class="form-group col-md-6">
