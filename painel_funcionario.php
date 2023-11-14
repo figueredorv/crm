@@ -770,9 +770,7 @@ include("conexao.php");
                             <?php
                             // lógica para só conseguir alterar o status da proposta quem for master do sistema
                             if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                              <a class="btn btn-danger" data-toggle="modal" data-target="#confirmModal">
-                                <i class="fa fa-minus-square text-white"></i>
-                              </a>
+                              <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 
                             <?php
 
