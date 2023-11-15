@@ -654,9 +654,10 @@ include("conexao.php");
 
               else {
                 $id = $_SESSION['idusuarios'];
-                $query = "SELECT * FROM propostas
-                      WHERE idusuario = $id
-                      ORDER BY idpropostas DESC";
+$query = "SELECT * FROM propostas
+          WHERE idusuario = $id
+          ORDER BY idpropostas DESC limit 5";
+
               }
 
 
