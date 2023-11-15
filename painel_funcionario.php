@@ -118,26 +118,29 @@ include("conexao.php");
             </a>
           </li>
 
-          <li class="">
-            <a href="notificacoes.php">
-              <i class="fa fa-bell-o"></i>
-              <p>Notificações
-                <?php
+          <?php
+$idUsuario = $_SESSION['idusuarios'];
 
-                $query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = 0";
-                $result = mysqli_query($conexao, $query);
-                $row = mysqli_fetch_assoc($result);
+$query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = FALSE";
+$result = mysqli_query($conexao, $query);
+$row = mysqli_fetch_assoc($result);
 
-                $totalNotificacoes = $row['total'];
+$totalNotificacoesNaoLidas = $row['total'];
+?>
+          <!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
+<li class="">
+    <a href="notificacoes.php">
+        <i class="fa fa-bell-o"></i>
+        <p>Notificações
+            <?php
+            if ($totalNotificacoesNaoLidas > 0) {
+                echo '<span class="badge badge-secondary">' . $totalNotificacoesNaoLidas . '</span>';
+            }
+            ?>
+        </p>
+    </a>
+</li>
 
-                if ($totalNotificacoes > 0) {
-                  echo '<span class="badge badge-secondary">' . $totalNotificacoes . '</span>';
-                }
-
-                ?>
-              </p>
-            </a>
-          </li>
 
 
 
