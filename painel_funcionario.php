@@ -644,7 +644,7 @@ include("conexao.php");
                 $nome = '';
                 $query = "select * from propostas where statusproposta = '$nome'";
               } else if ($_SESSION['cargo_usuario'] == 'Master') {
-                $query = "SELECT * FROM propostas
+                $query = "SELECT * FROM propostas WHERE data = CURDATE()
 
                 ORDER BY idpropostas DESC limit 5";
               }
@@ -655,7 +655,7 @@ include("conexao.php");
               else {
                 $id = $_SESSION['idusuarios'];
 $query = "SELECT * FROM propostas
-          WHERE idusuario = $id
+          WHERE idusuario = $id WHERE data = CURDATE()
           ORDER BY idpropostas DESC limit 5";
 
               }
