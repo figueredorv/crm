@@ -28,22 +28,38 @@ session_start();
     </nav>
 
     <div class="container">
+        <form method="post" action="">
+            <button type="submit" name="marcarLidas" class="btn btn-link">Marcar como lidas</button>
+        </form>
+
+
         <ul class="timeline">
             <?php
             // Conectar ao banco de dados
             include('conexao.php');
 
             $idUsuario = $_SESSION['idusuarios'];
-            // Atualizar as notificações como lidas para este usuário
-            //$query = "UPDATE notificacoes SET lida = TRUE WHERE lida = FALSE";
-            //mysqli_query($conexao, $query);
 
-          
+            // Verifica se o botão foi pressionado
+            if (isset($_POST['marcarLidas'])) {
+                // Obter as notificações não lidas para este usuário
+                $query = "SELECT id FROM notificacoes WHERE lida = '0'";
+                $resultNotificacoes = mysqli_query($conexao, $query);
 
+                // Inserir informações na tabela visualizacoes_notificacoes
+                while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
+                    $idNotificacao = $rowNotificacao['id'];
+
+                    $insertQuery = "INSERT INTO visualizacoes_notificacoes (id_usuario, id_notificacao) 
+                        VALUES ($idUsuario, $idNotificacao)";
+                    mysqli_query($conexao, $insertQuery);
+                }
+            }
 
             // Obter todas as notificações no banco de dados
-            $query = "SELECT * FROM notificacoes ORDER BY id DESC";
+            $query = "SELECT * FROM notificacoes";
             $result = mysqli_query($conexao, $query);
+
 
             // Exibir as notificações dinamicamente
             while ($row = mysqli_fetch_assoc($result)) {

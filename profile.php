@@ -71,6 +71,49 @@ include("conexao.php");
                         </a>
                     </li>
 
+
+
+                    <?php
+$idUsuario = $_SESSION['idusuarios'];
+
+$query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = 0";
+$result = mysqli_query($conexao, $query);
+$row = mysqli_fetch_assoc($result);
+
+$totalNotificacoesNaoLidas = $row['total'];
+?>
+          <!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
+<li class="">
+    <a href="notificacoes.php">
+        <i class="fa fa-bell-o"></i>
+        <p>Notificações
+            <?php
+            if ($totalNotificacoesNaoLidas > 0) {
+                echo '<span class="badge badge-secondary">' . $totalNotificacoesNaoLidas . '</span>';
+            }
+            ?>
+        </p>
+    </a>
+</li>
+
+
+<script>
+// Verifica se a última vez que o usuário visualizou as notificações está armazenada no localStorage
+var ultimaVisualizacao = localStorage.getItem('ultimaVisualizacao');
+
+// Se não houver registro ou se já passou mais de 24 horas, zera o contador e atualiza a última visualização
+if (!ultimaVisualizacao || (Date.now() - ultimaVisualizacao > 24 * 60 * 60 * 1000)) {
+    localStorage.setItem('ultimaVisualizacao', Date.now());
+    // Código para zerar o badge
+    document.querySelector('.badge').innerText = '0';
+}
+
+// Adicione este código à parte do seu script JavaScript onde a lógica das notificações é tratada
+</script>
+
+
+
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                             <p>Campanhas <i class="fa fa-angle-right"></i></p>
