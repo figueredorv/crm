@@ -118,6 +118,31 @@ include("conexao.php");
             </a>
           </li>
 
+          <li class="">
+            <a href="notificacoes.php">
+              <i class="fa fa-bell-o"></i>
+              <p>Notificações
+                <?php
+
+                $query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = 0";
+                $result = mysqli_query($conexao, $query);
+                $row = mysqli_fetch_assoc($result);
+
+                $totalNotificacoes = $row['total'];
+
+                if ($totalNotificacoes > 0) {
+                  echo '<span class="badge badge-secondary">' . $totalNotificacoes . '</span>';
+                }
+
+                ?>
+              </p>
+            </a>
+          </li>
+
+
+
+
+
           <li class="dropdown">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
               <p>Campanhas <i class="fa fa-angle-right"></i></p>
@@ -215,6 +240,8 @@ include("conexao.php");
               <p>Bases</p>
             </a>
           </li>
+
+
 
 
 
@@ -607,8 +634,7 @@ include("conexao.php");
               else if (isset($_GET['buttonpetsemvacina'])) {
                 $nome = '';
                 $query = "select * from propostas where statusproposta = '$nome'";
-              }
-              else if ($_SESSION['cargo_usuario'] == 'Master'){
+              } else if ($_SESSION['cargo_usuario'] == 'Master') {
                 $query = "SELECT * FROM propostas
 
                 ORDER BY idpropostas DESC";
