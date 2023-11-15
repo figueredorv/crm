@@ -49,7 +49,7 @@ include("conexao.php");
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="" class="simple-text logo-mini">
+        <a href="profile.php" class="simple-text logo-mini">
           <div class="logo-image-small">
             <?php
             // Defina um caminho padrão para a imagem de placeholder
@@ -88,7 +88,7 @@ include("conexao.php");
 
           </div>
         </a>
-        <a href="" class="simple-text logo-normal">
+        <a href="profile.php" class="simple-text logo-normal">
           CRM CORBAN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">

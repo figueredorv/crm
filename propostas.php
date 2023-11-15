@@ -99,16 +99,16 @@ $nomeusuario = $_SESSION['nome_usuario'];
         <div class="d-flex align-items-left">
           <div class="row">
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo"><i class="fa fa-plus-square"> ADICIONAR </i></button>
+              <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
             </form>
 
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisnova" class="btn btn-success mb-3" type="submit"><i class="fa fa-search"> BUCAR POR MAIS NOVA</i></button>
+              <button name="buttonpropostamaisnova" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS NOVA</i></button>
             </form>
 
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisantiga" class="btn btn-warning  mb-3" type="submit"><i class="fa fa-search"> BUCAR POR MAIS ANTIGA</i></button>
+              <button name="buttonpropostamaisantiga" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS ANTIGA</i></button>
             </form>
 
 
@@ -165,14 +165,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     }
                     // novo codigo ( procurar propostas MAIS NOVA)
                     else if (isset($_GET['buttonpropostamaisnova'])) {
-
-                      $query = "SELECT * FROM propostas
+                      $id = $_SESSION['idusuarios'];
+                      $query = "SELECT * FROM propostas WHERE idusuario = $id
                       ORDER BY `data` DESC;";
                     }
                     // novo codigo ( procurar por propostas MAIS ANTIGA)
                     else if (isset($_GET['buttonpropostamaisantiga'])) {
-
-                      $query = "SELECT * FROM propostas
+                      $id = $_SESSION['idusuarios'];
+                      $query = "SELECT * FROM propostas WHERE idusuario = $id
                       ORDER BY `data` ASC;";
                     } else if (isset($_GET['buttonOcNaoAtendidas'])) {
                       $nome = 'Disponivel';
