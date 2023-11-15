@@ -57,7 +57,7 @@ session_start();
             }
 
             // Obter todas as notificações no banco de dados
-            $query = "SELECT * FROM notificacoes";
+            $query = "SELECT * FROM notificacoes ORDER BY id desc";
             $result = mysqli_query($conexao, $query);
 
 
