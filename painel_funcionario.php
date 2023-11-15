@@ -304,7 +304,6 @@ include("conexao.php");
                   <?php echo $_SESSION['nome_usuario']; ?>
                   <i class="nc-icon nc-single-02"></i>
                   <p>
-
                     <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>
                 </a>
