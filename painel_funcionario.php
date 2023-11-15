@@ -357,14 +357,16 @@ $totalNotificacoesNaoLidas = $row['total'];
           </div>
         <?php endif; ?>
 
-
-        <div class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container" style="color: black;">
+         <!--
+         <div class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container" style="color: black;">
           <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
             <i class="nc-icon nc-simple-remove"></i>
           </button>
           <span data-notify="icon" class="nc-icon nc-bell-55"></span>
           <span data-notify="message" style="color: black;">Ops! Estamos realizando manutenção no site. Pedimos desculpas por eventuais falhas temporárias. Estaremos de volta em breve!.</span>
         </div>
+    -->
+       
 
 
 
