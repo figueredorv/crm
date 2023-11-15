@@ -119,31 +119,31 @@ include("conexao.php");
           </li>
 
           <?php
-$idUsuario = $_SESSION['idusuarios'];
+          $idUsuario = $_SESSION['idusuarios'];
 
-// Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
-$query = "SELECT COUNT(*) AS total
+          // Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+          $query = "SELECT COUNT(*) AS total
           FROM notificacoes n
           LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
           WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
-$result = mysqli_query($conexao, $query);
-$row = mysqli_fetch_assoc($result);
+          $result = mysqli_query($conexao, $query);
+          $row = mysqli_fetch_assoc($result);
 
-$totalNotificacoesNaoLidas = $row['total'];
-?>
-<!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
-<li class="">
-    <a href="notificacoes.php">
-        <i class="fa fa-bell-o"></i>
-        <p>Notificações
-            <?php
-            if ($totalNotificacoesNaoLidas > 0) {
-                echo '<span class="badge badge-secondary">' . $totalNotificacoesNaoLidas . '</span>';
-            }
-            ?>
-        </p>
-    </a>
-</li>
+          $totalNotificacoesNaoLidas = $row['total'];
+          ?>
+          <!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
+          <li class="">
+            <a href="notificacoes.php">
+              <i class="fa fa-bell-o"></i>
+              <p>Notificações
+                <?php
+                if ($totalNotificacoesNaoLidas > 0) {
+                  echo '<span class="badge badge-secondary">' . $totalNotificacoesNaoLidas . '</span>';
+                }
+                ?>
+              </p>
+            </a>
+          </li>
 
 
 
@@ -362,7 +362,7 @@ $totalNotificacoesNaoLidas = $row['total'];
           </div>
         <?php endif; ?>
 
-         <!--
+        <!--
          <div class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container" style="color: black;">
           <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
             <i class="nc-icon nc-simple-remove"></i>
@@ -371,7 +371,7 @@ $totalNotificacoesNaoLidas = $row['total'];
           <span data-notify="message" style="color: black;">Ops! Estamos realizando manutenção no site. Pedimos desculpas por eventuais falhas temporárias. Estaremos de volta em breve!.</span>
         </div>
     -->
-       
+
 
 
 
