@@ -646,7 +646,7 @@ include("conexao.php");
               } else if ($_SESSION['cargo_usuario'] == 'Master') {
                 $query = "SELECT * FROM propostas
 
-                ORDER BY idpropostas DESC";
+                ORDER BY idpropostas DESC limit 5";
               }
 
 
