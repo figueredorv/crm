@@ -76,13 +76,17 @@ include("conexao.php");
                     <?php
 $idUsuario = $_SESSION['idusuarios'];
 
-$query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = 0";
+// Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+$query = "SELECT COUNT(*) AS total
+          FROM notificacoes n
+          LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+          WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
 $result = mysqli_query($conexao, $query);
 $row = mysqli_fetch_assoc($result);
 
 $totalNotificacoesNaoLidas = $row['total'];
 ?>
-          <!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
+<!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
 <li class="">
     <a href="notificacoes.php">
         <i class="fa fa-bell-o"></i>

@@ -17,6 +17,7 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
     <link rel="stylesheet" href="css/notificacoes.css"> <!-- Certifique-se de ajustar o caminho conforme necessário -->
+    <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -28,9 +29,15 @@ session_start();
     </nav>
 
     <div class="container">
+
+        <div style="margin-top: 10px;">
         <form method="post" action="">
-            <button type="submit" name="marcarLidas" class="btn btn-link">Marcar como lidas</button>
+            <button type="submit" name="marcarLidas" class="btn btn-info" onclick="demo.showNotification('top','right')">Marcar como lidas</button>
         </form>
+        </div>
+
+        
+        
 
 
         <ul class="timeline">
@@ -54,7 +61,9 @@ session_start();
                         VALUES ($idUsuario, $idNotificacao)";
                     mysqli_query($conexao, $insertQuery);
                 }
+                echo "<script language='javascript'> window.alert('Notificações marcada como visualizadas!'); </script>";
             }
+            
 
             // Obter todas as notificações no banco de dados
             $query = "SELECT * FROM notificacoes ORDER BY id desc";
