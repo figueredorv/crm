@@ -121,7 +121,7 @@ include("conexao.php");
           <?php
 $idUsuario = $_SESSION['idusuarios'];
 
-$query = "SELECT COUNT(*) AS total FROM notificacoes";
+$query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = 0";
 $result = mysqli_query($conexao, $query);
 $row = mysqli_fetch_assoc($result);
 
@@ -141,6 +141,20 @@ $totalNotificacoesNaoLidas = $row['total'];
     </a>
 </li>
 
+
+<script>
+// Verifica se a última vez que o usuário visualizou as notificações está armazenada no localStorage
+var ultimaVisualizacao = localStorage.getItem('ultimaVisualizacao');
+
+// Se não houver registro ou se já passou mais de 24 horas, zera o contador e atualiza a última visualização
+if (!ultimaVisualizacao || (Date.now() - ultimaVisualizacao > 24 * 60 * 60 * 1000)) {
+    localStorage.setItem('ultimaVisualizacao', Date.now());
+    // Código para zerar o badge
+    document.querySelector('.badge').innerText = '0';
+}
+
+// Adicione este código à parte do seu script JavaScript onde a lógica das notificações é tratada
+</script>
 
 
 
