@@ -151,7 +151,7 @@ function excluirDocumento($conexao, $id)
                     <form method="POST" action="" enctype="multipart/form-data">
 
                         <!-- Campo de pesquisa dentro do modal -->
-                        <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Digite o nome do cliente">
+                        <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
                         <!-- Lista suspensa para resultados da pesquisa -->
                         <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
 
@@ -246,7 +246,11 @@ if (isset($_POST['button'])) {
     $nome = $_POST['nome'];
     $documentoanexado = $_FILES['imagens'];
 
-
+    if (empty($_POST['nome'])) {
+        echo "<script language='javascript'> window.alert('Por favor, preencha o campo com o nome do cliente antes de enviar o documento.'); </script>";
+        echo "<script language='javascript'> window.location='documentos.php'; </script>";
+        exit; // Interrompe a execução do script se o campo nome do cliente não estiver preenchido
+    }
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
