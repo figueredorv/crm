@@ -121,7 +121,7 @@ include("conexao.php");
           <?php
 $idUsuario = $_SESSION['idusuarios'];
 
-$query = "SELECT COUNT(*) AS total FROM notificacoes WHERE lida = FALSE";
+$query = "SELECT COUNT(*) AS total FROM notificacoes";
 $result = mysqli_query($conexao, $query);
 $row = mysqli_fetch_assoc($result);
 

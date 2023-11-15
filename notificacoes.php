@@ -35,8 +35,11 @@ session_start();
 
             $idUsuario = $_SESSION['idusuarios'];
             // Atualizar as notificações como lidas para este usuário
-            $query = "UPDATE notificacoes SET lida = TRUE WHERE lida = FALSE";
-            mysqli_query($conexao, $query);
+            //$query = "UPDATE notificacoes SET lida = TRUE WHERE lida = FALSE";
+            //mysqli_query($conexao, $query);
+
+          
+
 
             // Obter todas as notificações no banco de dados
             $query = "SELECT * FROM notificacoes ORDER BY id DESC";
