@@ -93,8 +93,8 @@ $totalNotificacoesNaoLidas = $row['total'];
         <p>Notificações
             <?php
             if ($totalNotificacoesNaoLidas > 0) {
-                echo '<span class="badge badge-secondary">' . $totalNotificacoesNaoLidas . '</span>';
-            }
+                echo '<span class="badge badge-secondary" style="font-size: larger;">' . $totalNotificacoesNaoLidas . '</span>';
+              }
             ?>
         </p>
     </a>
