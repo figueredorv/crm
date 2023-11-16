@@ -181,13 +181,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-                     //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
-                    else if ($_SESSION['cargo_usuario'] == 'Master'){
+                    //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
+                    else if ($_SESSION['cargo_usuario'] == 'Master') {
                       $query = "SELECT * FROM propostas
       
                       ORDER BY idpropostas DESC";
                     }
-                      
+
 
                     //final do código
 
@@ -277,7 +277,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                             $statusproposta = $res_1["statusproposta"];
                             $data = $res_1["data"];
-                            
+
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
 
@@ -1092,7 +1092,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <option value="4">WHATSAPP </option>
                             <option value="5">FACEBOOK </option>
                             <option value="6">ANUNCIO DANIEL </option>
-                            <option value="7">DISPAROS WATZAP </option>
+                            <option value="7">DISPAROS Whatsapp </option>
                             <option value="8">INDICAÇÃO </option>
                             <option value="9">LIGAÇÃO </option>
                             <option value="10">CLIENTE BALCÃO </option>
@@ -4285,6 +4285,7 @@ if (@$_GET['func'] == 'editarstatus') {
   $query = "select * from propostas where idpropostas = '$id'";
   $result = mysqli_query($conexao, $query);
 
+
   while ($res_1 = mysqli_fetch_array($result)) {
 
 
@@ -4312,20 +4313,24 @@ if (@$_GET['func'] == 'editarstatus') {
               <div class="form-group">
                 <label for="id_produto">Status</label>
                 <select name="statusproposta" class="custom-select" id="statusproposta">
-                  <option selected><?php echo $res_1['statusproposta']; ?></option>
-                  <option value="1">PENDENTE</option>
-                  <option value="2">AVERBADA</option>
-                  <option value="3">INTEGRADO</option>
-                  <option value="4">AGUARDANDO AVERBAÇÃO</option>
-                  <option value="5">CANCELADO</option>
-                  <option value="6">PAGA</option>
-                  <option value="7">DIGITADO</option>
-                  <option value="8">SALDO RETORNADO</option>
-                  <option value="9">EM DIGITAÇÃO</option>
-                  <option value="10">FORMALIZAÇÃO CONCLUÍDA</option>
+                  <?php
+
+                  $query = "SELECT id, statusproposta FROM statusproposta";
+                  $result = mysqli_query($conexao, $query);
+
+                  // Verificar se a consulta teve sucesso
+                  if (!$result) {
+                    die("Erro na consulta: " . mysqli_error($conexao));
+                  }
+
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
+                  }
+                  ?>
                 </select>
                 <small class="text-muted">Selecione o novo status da proposta</small>
               </div>
+
 
 
           </div>
@@ -4356,36 +4361,36 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
 
-      if ($_POST["statusproposta"] == "1") {
-        $statusproposta = "PENDENTE";
-      }
-      if ($_POST["statusproposta"] == "2") {
-        $statusproposta = "AVERBADA";
-      }
-      if ($_POST["statusproposta"] == "3") {
-        $statusproposta = "INTEGRADO";
-      }
-      if ($_POST["statusproposta"] == "4") {
-        $statusproposta = "AGUARDANDO AVERBAÇÃO";
-      }
-      if ($_POST["statusproposta"] == "5") {
-        $statusproposta = "CANCELADO";
-      }
-      if ($_POST["statusproposta"] == "6") {
-        $statusproposta = "PAGO";
-      }
-      if ($_POST["statusproposta"] == "7") {
-        $statusproposta = "DIGITADO";
-      }
-      if ($_POST["statusproposta"] == "8") {
-        $statusproposta = "SALDO RETORNADO";
-      }
-      if ($_POST["statusproposta"] == "9") {
-        $statusproposta = "EM DIGITAÇÃO";
-      }
-      if ($_POST["statusproposta"] == "10") {
-        $statusproposta = "CONCLUÍDA";
-      }
+      // Verifica se o formulário foi enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  // Verifica se a chave 'statusproposta' existe no $_POST
+  if (isset($_POST["statusproposta"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["statusproposta"];
+
+      // Consulta SQL para obter o status correspondente ao valor selecionado
+      $query = "SELECT statusproposta FROM statusproposta WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $statusproposta);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+
+      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
+      echo "Status selecionado: " . $statusproposta;
+  }
+}
 
 
 
@@ -4414,39 +4419,38 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
 <script>
-   function consultaEndereco() {
+  function consultaEndereco() {
     // Obter o valor do CEP digitado
     let cep = document.querySelector('#cep').value;
 
-    if (cep.length !== 8){
+    if (cep.length !== 8) {
       alert('Cep inválido!');
     }
 
     let url = 'https://viacep.com.br/ws/' + cep + '/json/';
 
     fetch(url)
-      .then(function(response){
+      .then(function(response) {
         if (!response.ok) {
           throw new Error('Erro na requisição');
         }
         return response.json();
       })
-      .then(function(data){
+      .then(function(data) {
         console.log(data);
         mostrarEndereco(data); // Chama a função para preencher os inputs
       })
       .catch(function(error) {
         console.error('Erro:', error);
       });
-   }
+  }
 
-   function mostrarEndereco(dados){
-      document.getElementById('inputRua').value = dados.logradouro || '';
-      document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
-      document.getElementById('inputComplemento').value = dados.complemento || '';
-      document.getElementById('inputBairro').value = dados.bairro || '';
-      document.getElementById('inputCidade').value = dados.localidade || '';
-      document.getElementById('inputUf').value = dados.uf || '';
-   }
+  function mostrarEndereco(dados) {
+    document.getElementById('inputRua').value = dados.logradouro || '';
+    document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
+    document.getElementById('inputComplemento').value = dados.complemento || '';
+    document.getElementById('inputBairro').value = dados.bairro || '';
+    document.getElementById('inputCidade').value = dados.localidade || '';
+    document.getElementById('inputUf').value = dados.uf || '';
+  }
 </script>
-

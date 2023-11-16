@@ -207,7 +207,7 @@ include("conexao.php");
                 <a class="dropdown-item" href="usuarios.php">Usuários</a>
                 <a class="dropdown-item" href="#">Grupos</a>
                 <a class="dropdown-item" href="#">Tabelas</a>
-                <a class="dropdown-item" href="#">Status</a>
+                <a class="dropdown-item" href="status.php">Status</a>
                 <a class="dropdown-item" href="#">Promotoras</a>
                 <a class="dropdown-item" href="#">Promotoras</a>
                 <a class="dropdown-item" href="#">Tabulação</a>
