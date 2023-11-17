@@ -429,11 +429,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <!-- CONTEÚDO TAB CLIENTE-->
                       <form method="POST" action="propostas.php" enctype="multipart/form-data">
                         <div class="form-row">
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputNome">NOME*</label>
                             <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputCpf">CPF</label>
                             <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
                           </div>
@@ -1064,7 +1064,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $result = mysqli_query($conexao, $query);
 
 
-                           
+
 
                             // Verificar se a consulta teve sucesso
                             if (!$result) {
@@ -1076,7 +1076,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             }
                             ?>
                           </select>
-                          
+
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputMargem">MARGEM</label>
@@ -1244,14 +1244,14 @@ if (isset($_POST['button'])) {
   $email = $_POST['inputEmail'];
   $convenio = $_POST['inputConvenio'];
   $banco = $_POST['inputBanco'];
-  $bancoproposta = $_POST['inputBancoProposta']; 
+  $bancoproposta = $_POST['inputBancoProposta'];
   $tipodeconta = $_POST['inputTipoConta'];
   $agencia = $_POST['inputAgencia'];
   $conta = $_POST['inputConta'];
   $renda = $_POST['inputRenda'];
   $operacao = $_POST['inputOperacao'];
   $tabela = $_POST['inputTabela'];
-  $promotora = "";
+  $promotora = ""; //Obtendo dado diretamente do banco de dados
   $margem = $_POST['inputMargem'];
   $prazo = $_POST['inputPrazo'];
   $valor = $_POST['inputValor'];
@@ -1996,7 +1996,7 @@ if (isset($_POST['button'])) {
     $canal = "CARTEIRA";
   }
 
-//marcador
+  //marcador
   // Verifica se o formulário foi enviado
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -2022,8 +2022,6 @@ if (isset($_POST['button'])) {
 
       // Fecha a consulta preparada
       mysqli_stmt_close($stmt);
-
-      
     }
   }
 
@@ -2104,7 +2102,7 @@ if (isset($_POST['button'])) {
   }
 
 
-  
+
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
@@ -2191,36 +2189,36 @@ if (@$_GET['func'] == 'editarcliente') {
             <!-- CONTEÚDO TAB CLIENTE-->
             <form method="POST" action="">
               <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputNome">NOME*</label>
                   <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required value="<?php echo $res_1['nome']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputCpf">CPF</label>
                   <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                   <label for="inputRg">RG</label>
                   <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="" value="<?php echo $res_1['rg']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                   <label for="inputDataEmissao">DATA DE EMISSÃO</label>
                   <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="" value="<?php echo $res_1['dataemissao']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                   <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
                   <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="" value="<?php echo $res_1['orgaoemissor']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                   <form method="POST" action="">
                     <label for="inputTelefone">TELEFONE</label>
                     <input name="inputTelefone" type="text" class="form-control inputTelefone" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="inputEmail">EMAIL</label>
                   <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                   <input name="inputDataNascimento" type="text" class="form-control inputDataNascimento" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
@@ -2232,32 +2230,35 @@ if (@$_GET['func'] == 'editarcliente') {
                   <label for="inputNomePai">NOME DO PAI</label>
                   <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="" value="<?php echo $res_1['nomedopai']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-2">
                   <label for="inputCep">CEP</label>
                   <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="" value="<?php echo $res_1['cep']; ?>">
                 </div>
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-4">
                   <label for="inputRua">RUA</label>
                   <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="" value="<?php echo $res_1['rua']; ?>">
                 </div>
-
-              </div>
-              <div class="form-row">
-              <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                   <label for="inputNumero">NÚMERO</label>
                   <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="" value="<?php echo $res_1['numero']; ?>">
                 </div>
-              <div class="form-group col-md-2">
+                <div class="form-group col-md-3">
                   <label for="inputComplemento">COMPLEMENTO</label>
                   <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="" value="<?php echo $res_1['complemento']; ?>">
                 </div>
+              </div>
+              <div class="form-row">
                 <div class="form-group col-md-2">
                   <label for="inputBairro">BAIRRO</label>
                   <input name="inputBairro" type="text" class="form-control" id="inputBairro" value="<?php echo $res_1['bairro']; ?>">
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                   <label for="inputCidade">CIDADE</label>
                   <input name="inputCidade" type="text" class="form-control" id="inputCidade" value="<?php echo $res_1['cidade']; ?>">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputCidade">NATURALIDADE</label>
+                  <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade" value="<?php echo $res_1['naturalidade']; ?>">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputUf">UF</label>
@@ -2787,28 +2788,28 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                          <label for="id_produto">Promotora</label>
-                          <select name="promotora" class="custom-select" id="promotora">
-                            <?php
+                  <label for="id_produto">Promotora</label>
+                  <select name="promotora" class="custom-select" id="promotora">
+                    <?php
 
-                            $query = "SELECT id, nome FROM promotoras";
-                            $result = mysqli_query($conexao, $query);
+                    $query = "SELECT id, nome FROM promotoras";
+                    $result = mysqli_query($conexao, $query);
 
 
-                           
 
-                            // Verificar se a consulta teve sucesso
-                            if (!$result) {
-                              die("Erro na consulta: " . mysqli_error($conexao));
-                            }
 
-                            while ($row = mysqli_fetch_assoc($result)) {
-                              echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
-                            }
-                            ?>
-                          </select>
-                          
-                        </div>
+                    // Verificar se a consulta teve sucesso
+                    if (!$result) {
+                      die("Erro na consulta: " . mysqli_error($conexao));
+                    }
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
+                    }
+                    ?>
+                  </select>
+
+                </div>
                 <div class="form-group col-md-3">
                   <label for="inputMargem">MARGEM</label>
                   <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
@@ -2906,7 +2907,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       $convenio = $_POST['inputConvenio'];
       $operacao = $_POST['inputOperacao'];
       $banco = $_POST['inputBanco'];
-      $promotora = $_POST['inputPromotora'];
+      $promotora = ""; //Obtendo dado diretamente do banco de dados
       $margem = $_POST['inputMargem'];
       $prazo = $_POST['inputPrazo'];
       $valor = $_POST['inputValor'];
@@ -3375,36 +3376,34 @@ if (@$_GET['func'] == 'editarpropostas') {
         $canal = "CARTEIRA";
       }
 
-      
-       // Verifica se o formulário foi enviado
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Verifica se a chave 'nome' existe no $_POST
-    if (isset($_POST["promotora"])) {
+      // Verifica se o formulário foi enviado
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-      // Obtém o valor selecionado no formulário
-      $selectedValue = $_POST["promotora"];
+        // Verifica se a chave 'nome' existe no $_POST
+        if (isset($_POST["promotora"])) {
 
-      // Consulta SQL para obter o nome correspondente ao valor selecionado
-      $query = "SELECT nome FROM promotoras WHERE id = ?";
-      $stmt = mysqli_prepare($conexao, $query);
+          // Obtém o valor selecionado no formulário
+          $selectedValue = $_POST["promotora"];
 
-      // Vincula o parâmetro e executa a consulta
-      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
-      mysqli_stmt_execute($stmt);
+          // Consulta SQL para obter o nome correspondente ao valor selecionado
+          $query = "SELECT nome FROM promotoras WHERE id = ?";
+          $stmt = mysqli_prepare($conexao, $query);
 
-      // Vincula o resultado da consulta
-      mysqli_stmt_bind_result($stmt, $promotora);
+          // Vincula o parâmetro e executa a consulta
+          mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+          mysqli_stmt_execute($stmt);
 
-      // Obtém o resultado
-      mysqli_stmt_fetch($stmt);
+          // Vincula o resultado da consulta
+          mysqli_stmt_bind_result($stmt, $promotora);
 
-      // Fecha a consulta preparada
-      mysqli_stmt_close($stmt);
+          // Obtém o resultado
+          mysqli_stmt_fetch($stmt);
 
-      
-    }
-  }
+          // Fecha a consulta preparada
+          mysqli_stmt_close($stmt);
+        }
+      }
 
 
       if ($_POST['inputFormalizacao'] == 1) {
@@ -4487,8 +4486,6 @@ if (@$_GET['func'] == 'editarstatus') {
 
           // Fecha a consulta preparada
           mysqli_stmt_close($stmt);
-
-          
         }
       }
 
