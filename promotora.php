@@ -8,7 +8,7 @@ include('verificar_login.php');
 <html>
 
 <head>
-    <title>Status das propostas</title>
+    <title>Promotora</title>
 
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -67,7 +67,7 @@ include('verificar_login.php');
 
                 <div class="container">
                     <div class="row">
-                        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo">Novo status </button>
+                        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#modalExemplo">Nova promotora </button>
 
 
 
@@ -83,7 +83,7 @@ include('verificar_login.php');
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title"> STATUS DAS PROPOSTAS</h4>
+                                    <h4 class="card-title"> PROMOTORAS</h4>
 
                                 </div>
                                 <div class="card-body">
@@ -97,7 +97,7 @@ include('verificar_login.php');
                                         // novo codigo ( procurar usuários pelo nome)
                                         if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
                                             $nome = $_GET['txtpesquisar'] . '%';
-                                            $query = "select * from statusproposta where status LIKE '$nome'  order by status asc";
+                                            $query = "select * from promotoras where nome LIKE '$nome'  order by nome asc";
                                             // novo codigo ( procurar usuários pelo protocolo)
                                         }
 
@@ -108,7 +108,7 @@ include('verificar_login.php');
                                         //final do código
 
                                         else {
-                                            $query = "select * from statusproposta order by id asc";
+                                            $query = "select * from promotoras order by id asc";
                                         }
 
 
@@ -135,7 +135,7 @@ include('verificar_login.php');
                                                         id
                                                     </th>
                                                     <th>
-                                                        Status
+                                                        Nome
                                                     </th>
                                                     </th>
                                                     <th>
@@ -148,7 +148,7 @@ include('verificar_login.php');
 
                                                     while ($res_1 = mysqli_fetch_array($result)) {
                                                         $id = $res_1["id"];
-                                                        $statusproposta = $res_1["statusproposta"];
+                                                        $promotoras = $res_1["nome"];
 
 
                                                     ?>
@@ -156,13 +156,13 @@ include('verificar_login.php');
                                                         <tr>
 
                                                             <td><?php echo $id; ?></td>
-                                                            <td><?php echo $statusproposta; ?></td>
+                                                            <td><?php echo $promotoras; ?></td>
 
 
                                                             <td>
-                                                                <a class="btn btn-info" href="status.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
+                                                                <a class="btn btn-info" href="promotora.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
-                                                                <a class="btn btn-danger" href="status.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
+                                                                <a class="btn btn-danger" href="promotora.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
 
                                                             </td>
                                                         </tr>
@@ -194,14 +194,14 @@ include('verificar_login.php');
                             <div class="modal-content">
                                 <div class="modal-header">
 
-                                    <h4 class="modal-title">Cadastrar novo status.</h4>
+                                    <h4 class="modal-title">Cadastrar nova promotora.</h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" action="">
                                         <div class="form-group">
-                                            <label for="id_produto">Status</label>
-                                            <input type="text" class="form-control mr-2" name="txtstatus" placeholder="Digite aqui o nome do status" required>
+                                            <label for="id_produto">Nome</label>
+                                            <input type="text" class="form-control mr-2" name="txtpromotora" placeholder="Digite aqui o nome da promotora" required>
                                         </div>
                                 </div>
 
@@ -235,23 +235,23 @@ include('verificar_login.php');
 
 <?php
 if (isset($_POST['button'])) {
-    $status = $_POST['txtstatus'];
+    $nome = $_POST['txtpromotora'];
 
 
 
     //VERIFICAR SE O PROTOCOLO JÁ ESTÁ CADASTRADO
-    $query_verificar = "select * from statusproposta where statusproposta = '$status' ";
+    $query_verificar = "select * from promotoras where nome = '$nome' ";
 
     $result_verificar = mysqli_query($conexao, $query_verificar);
     $row_verificar = mysqli_num_rows($result_verificar);
 
     if ($row_verificar > 0) {
-        echo "<script language='javascript'> window.alert('Status já Cadastrado!'); </script>";
+        echo "<script language='javascript'> window.alert('Promotora já Cadastrada!'); </script>";
         exit();
     }
 
 
-    $query = "INSERT into statusproposta (statusproposta) VALUES ('$status')";
+    $query = "INSERT into promotoras (nome) VALUES ('$nome')";
 
     $result = mysqli_query($conexao, $query);
 
@@ -259,7 +259,7 @@ if (isset($_POST['button'])) {
         echo "<script language='javascript'> window.alert('Ocorreu um erro ao Cadastrar!'); </script>";
     } else {
         echo "<script language='javascript'> window.alert('Salvo com Sucesso!'); </script>";
-        echo "<script language='javascript'> window.location='status.php'; </script>";
+        echo "<script language='javascript'> window.location='promotora.php'; </script>";
     }
 }
 ?>
@@ -269,10 +269,10 @@ if (isset($_POST['button'])) {
 <?php
 if (@$_GET['func'] == 'deleta') {
     $id = $_GET['id'];
-    $query = "DELETE FROM statusproposta where id = '$id'";
+    $query = "DELETE FROM promotoras where id = '$id'";
     mysqli_query($conexao, $query);
     echo "<script language='javascript'> window.alert('Excluído com sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='status.php'; </script>";
+    echo "<script language='javascript'> window.location='promotora.php'; </script>";
 }
 ?>
 
@@ -282,7 +282,7 @@ if (@$_GET['func'] == 'deleta') {
 <?php
 if (@$_GET['func'] == 'edita') {
     $id = $_GET['id'];
-    $query = "select * from statusproposta where id = '$id'";
+    $query = "select * from promotoras where id = '$id'";
     $result = mysqli_query($conexao, $query);
 
     while ($res_1 = mysqli_fetch_array($result)) {
@@ -297,14 +297,14 @@ if (@$_GET['func'] == 'edita') {
                 <div class="modal-content">
                     <div class="modal-header">
 
-                        <h4 class="modal-title">Editar status</h4>
+                        <h4 class="modal-title">Editar promotora</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="">
                             <div class="form-group">
-                                <label for="id_produto">Status</label>
-                                <input type="text" class="form-control mr-2" name="txtstatus" placeholder="Novo status" value="<?php echo $res_1['statusproposta']; ?>" required>
+                                <label for="id_produto">Nome</label>
+                                <input type="text" class="form-control mr-2" name="txtpromotora" placeholder="Novo status" value="<?php echo $res_1['nome']; ?>" required>
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -327,18 +327,18 @@ if (@$_GET['func'] == 'edita') {
         <!--Comando para editar os dados UPDATE -->
         <?php
         if (isset($_POST['buttonEditar'])) {
-            $status = $_POST['txtstatus'];
+            $nome = $_POST['txtpromotora'];
             
 
-            $query_editar = "UPDATE statusproposta set statusproposta = '$status' where id = '$id'";
+            $query_editar = "UPDATE promotoras set nome = '$nome' where id = '$id'";
 
             $result_editar = mysqli_query($conexao, $query_editar);
 
             if ($result_editar == '') {
                 echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
             } else {
-                echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
-                echo "<script language='javascript'> window.location='status.php'; </script>";
+                echo "<script language='javascript'> window.alert('Editado com sucesso!'); </script>";
+                echo "<script language='javascript'> window.location='promotora.php'; </script>";
             }
         }
         ?>
@@ -348,7 +348,7 @@ if (@$_GET['func'] == 'edita') {
 }  ?>
 
 
-<!--MASCARAS-->
+
 
 
 

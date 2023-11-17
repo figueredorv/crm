@@ -208,8 +208,7 @@ include("conexao.php");
                 <a class="dropdown-item" href="#">Grupos</a>
                 <a class="dropdown-item" href="#">Tabelas</a>
                 <a class="dropdown-item" href="status.php">Status</a>
-                <a class="dropdown-item" href="#">Promotoras</a>
-                <a class="dropdown-item" href="#">Promotoras</a>
+                <a class="dropdown-item" href="promotora.php">Promotoras</a>
                 <a class="dropdown-item" href="#">Tabulação</a>
                 <a class="dropdown-item" href="#">Canais de vendas</a>
               </ul>
