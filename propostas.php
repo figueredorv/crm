@@ -442,7 +442,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
                           </div>
                           <!-- INÍCIO DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-3">
                             <label for="inputTelefone">TELEFONE</label>
                             <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
                           </div>
@@ -455,21 +455,21 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                             <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-6">
                             <label for="inputNomeMae">NOME DA MÃE</label>
                             <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-6">
                             <label for="inputNomePai">NOME DO PAI</label>
                             <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-2">
                             <label for="inputCep">CEP</label>
                             <input name="inputCep" type="number" class="form-control" id="cep" name="cep" placeholder="">
                             <button type="button" class="btn btn-outline-dark btn-block" onclick="consultaEndereco()">BUSCAR CEP</button>
                           </div>
 
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputRua">RUA</label>
                             <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
                           </div>
@@ -483,15 +483,19 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                         </div>
                         <div class="form-row">
-                          <div class="form-group col-md-4">
+                          <div class="form-group col-md-3">
                             <label for="inputBairro">BAIRRO</label>
                             <input name="inputBairro" type="text" class="form-control" id="inputBairro">
                           </div>
-                          <div class="form-group col-md-4">
+                          <div class="form-group col-md-3">
                             <label for="inputCidade">CIDADE</label>
                             <input name="inputCidade" type="text" class="form-control" id="inputCidade">
                           </div>
-                          <div class="form-group col-md-4">
+                          <div class="form-group col-md-3">
+                            <label for="inputNaturalidade">NATURALIDADE</label>
+                            <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade">
+                          </div>
+                          <div class="form-group col-md-3">
                             <label for="inputUf">UF</label>
                             <select name="inputUf" id="inputUf" class="form-control">
                               <option selected>Escolher...</option>
@@ -1224,6 +1228,7 @@ if (isset($_POST['button'])) {
   $complemento = $_POST['inputComplemento'];
   $bairro = $_POST['inputBairro'];
   $cidade = $_POST['inputCidade'];
+  $naturalidade = $_POST['inputNaturalidade'];
   $uf = $_POST['inputUf'];
   $telefone = $_POST['inputTelefone'];
   $email = $_POST['inputEmail'];
@@ -2008,8 +2013,7 @@ if (isset($_POST['button'])) {
       // Fecha a consulta preparada
       mysqli_stmt_close($stmt);
 
-      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
-      echo "Nome selecionado: " . $promotora;
+      
     }
   }
 
@@ -2091,7 +2095,7 @@ if (isset($_POST['button'])) {
 
 
   
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade,naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
