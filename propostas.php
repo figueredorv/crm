@@ -3354,8 +3354,7 @@ if (@$_GET['func'] == 'editarpropostas') {
         $canal = "CARTEIRA";
       }
 
-      // modificar todo código abaixo //marcador
-      // Verifica se o formulário foi enviado
+      
        // Verifica se o formulário foi enviado
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -3382,8 +3381,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       // Fecha a consulta preparada
       mysqli_stmt_close($stmt);
 
-      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
-      echo "Nome selecionado: " . $promotora;
+      
     }
   }
 
@@ -4469,8 +4467,7 @@ if (@$_GET['func'] == 'editarstatus') {
           // Fecha a consulta preparada
           mysqli_stmt_close($stmt);
 
-          // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
-          echo "Status selecionado: " . $statusproposta;
+          
         }
       }
 
