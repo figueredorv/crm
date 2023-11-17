@@ -157,8 +157,6 @@ include('verificar_login.php');
 
                                                             <td><?php echo $id; ?></td>
                                                             <td><?php echo $statusproposta; ?></td>
-
-
                                                             <td>
                                                                 <a class="btn btn-info" href="status.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
@@ -207,10 +205,10 @@ include('verificar_login.php');
 
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success mb-3" name="button">Salvar </button>
+                                    <button type="submit" class="btn btn-success mb-3" name="button">Salvar</button>
 
 
-                                    <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+                                    <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar</button>
                                     </form>
 
 
@@ -327,7 +325,7 @@ if (@$_GET['func'] == 'edita') {
         <!--Comando para editar os dados UPDATE -->
         <?php
         if (isset($_POST['buttonEditar'])) {
-            $nome = $_POST['txtstatus'];
+            $status = $_POST['txtstatus'];
             
 
             $query_editar = "UPDATE statusproposta set statusproposta = '$status' where id = '$id'";

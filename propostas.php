@@ -1044,11 +1044,27 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="inputPromotora">PROMOTORA</label>
-                          <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                            <option value="1">CREDIBRASIL LOJAS </option>
-                            <option value="2">CREDIBRASIL CONSIGNADO </option>
+                          <label for="id_produto">Promotora</label>
+                          <select name="promotora" class="custom-select" id="promotora">
+                            <?php
+
+                            $query = "SELECT id, nome FROM promotoras";
+                            $result = mysqli_query($conexao, $query);
+
+
+                           
+
+                            // Verificar se a consulta teve sucesso
+                            if (!$result) {
+                              die("Erro na consulta: " . mysqli_error($conexao));
+                            }
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
+                            }
+                            ?>
                           </select>
+                          
                         </div>
                         <div class="form-group col-md-6">
                           <label for="inputMargem">MARGEM</label>
@@ -1213,7 +1229,7 @@ if (isset($_POST['button'])) {
   $email = $_POST['inputEmail'];
   $convenio = $_POST['inputConvenio'];
   $banco = $_POST['inputBanco'];
-  $bancoproposta = $_POST['inputBancoProposta'];
+  $bancoproposta = $_POST['inputBancoProposta']; 
   $tipodeconta = $_POST['inputTipoConta'];
   $agencia = $_POST['inputAgencia'];
   $conta = $_POST['inputConta'];
@@ -1965,13 +1981,36 @@ if (isset($_POST['button'])) {
     $canal = "CARTEIRA";
   }
 
+//marcador
+  // Verifica se o formulário foi enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  //Marcando o tipo de promotora com base no valor do input 
-  if ($_POST["inputPromotora"] == 1) {
-    $promotora = "CREDIBRASIL LOJAS";
-  }
-  if ($_POST["inputPromotora"] == 2) {
-    $promotora = "CREDIBRASIL CONSIGNADO";
+    // Verifica se a chave 'nome' existe no $_POST
+    if (isset($_POST["promotora"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["promotora"];
+
+      // Consulta SQL para obter o nome correspondente ao valor selecionado
+      $query = "SELECT nome FROM promotoras WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $promotora);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+
+      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
+      echo "Nome selecionado: " . $promotora;
+    }
   }
 
 
@@ -2049,6 +2088,7 @@ if (isset($_POST['button'])) {
     echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </scrip>";
     exit();
   }
+
 
   
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
@@ -2722,13 +2762,28 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="inputPromotora">PROMOTORA</label>
-                  <select name="inputPromotora" id="inputPromotora" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                    <option selected><?php echo $res_1['promotora']; ?></option>
-                    <option value="1">CREDIBRASIL LOJAS </option>
-                    <option value="2">CREDIBRASIL CONSIGNADO </option>
-                  </select>
-                </div>
+                          <label for="id_produto">Promotora</label>
+                          <select name="promotora" class="custom-select" id="promotora">
+                            <?php
+
+                            $query = "SELECT id, nome FROM promotoras";
+                            $result = mysqli_query($conexao, $query);
+
+
+                           
+
+                            // Verificar se a consulta teve sucesso
+                            if (!$result) {
+                              die("Erro na consulta: " . mysqli_error($conexao));
+                            }
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                              echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
+                            }
+                            ?>
+                          </select>
+                          
+                        </div>
                 <div class="form-group col-md-3">
                   <label for="inputMargem">MARGEM</label>
                   <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
@@ -3295,14 +3350,38 @@ if (@$_GET['func'] == 'editarpropostas') {
         $canal = "CARTEIRA";
       }
 
+      // modificar todo código abaixo //marcador
+      // Verifica se o formulário foi enviado
+       // Verifica se o formulário foi enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-      //Marcando o tipo de promotora com base no valor do input 
-      if ($_POST["inputPromotora"] == 1) {
-        $promotora = "CREDIBRASIL LOJAS";
-      }
-      if ($_POST["inputPromotora"] == 2) {
-        $promotora = "CREDIBRASIL CONSIGNADO";
-      }
+    // Verifica se a chave 'nome' existe no $_POST
+    if (isset($_POST["promotora"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["promotora"];
+
+      // Consulta SQL para obter o nome correspondente ao valor selecionado
+      $query = "SELECT nome FROM promotoras WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $promotora);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+
+      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
+      echo "Nome selecionado: " . $promotora;
+    }
+  }
 
 
       if ($_POST['inputFormalizacao'] == 1) {
@@ -4359,37 +4438,37 @@ if (@$_GET['func'] == 'editarstatus') {
       $statusproposta = $_POST['statusproposta'];
 
 
-
+      //marcador
       // Verifica se o formulário foi enviado
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  // Verifica se a chave 'statusproposta' existe no $_POST
-  if (isset($_POST["statusproposta"])) {
+        // Verifica se a chave 'statusproposta' existe no $_POST
+        if (isset($_POST["statusproposta"])) {
 
-      // Obtém o valor selecionado no formulário
-      $selectedValue = $_POST["statusproposta"];
+          // Obtém o valor selecionado no formulário
+          $selectedValue = $_POST["statusproposta"];
 
-      // Consulta SQL para obter o status correspondente ao valor selecionado
-      $query = "SELECT statusproposta FROM statusproposta WHERE id = ?";
-      $stmt = mysqli_prepare($conexao, $query);
+          // Consulta SQL para obter o status correspondente ao valor selecionado
+          $query = "SELECT statusproposta FROM statusproposta WHERE id = ?";
+          $stmt = mysqli_prepare($conexao, $query);
 
-      // Vincula o parâmetro e executa a consulta
-      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
-      mysqli_stmt_execute($stmt);
+          // Vincula o parâmetro e executa a consulta
+          mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+          mysqli_stmt_execute($stmt);
 
-      // Vincula o resultado da consulta
-      mysqli_stmt_bind_result($stmt, $statusproposta);
+          // Vincula o resultado da consulta
+          mysqli_stmt_bind_result($stmt, $statusproposta);
 
-      // Obtém o resultado
-      mysqli_stmt_fetch($stmt);
+          // Obtém o resultado
+          mysqli_stmt_fetch($stmt);
 
-      // Fecha a consulta preparada
-      mysqli_stmt_close($stmt);
+          // Fecha a consulta preparada
+          mysqli_stmt_close($stmt);
 
-      // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
-      echo "Status selecionado: " . $statusproposta;
-  }
-}
+          // Agora $statusproposta contém o status correspondente ao valor selecionado no formulário
+          echo "Status selecionado: " . $statusproposta;
+        }
+      }
 
 
 

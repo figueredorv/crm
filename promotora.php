@@ -300,25 +300,13 @@ if (@$_GET['func'] == 'edita') {
                         <h4 class="modal-title">Editar promotora</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="form-group">
-                <label for="id_produto">Promotora</label>
-                <select name="statusproposta" class="custom-select" id="statusproposta">
-                  <?php
-
-                  $query = "SELECT id, promotoras FROM nome";
-                  $result = mysqli_query($conexao, $query);
-
-                  // Verificar se a consulta teve sucesso
-                  if (!$result) {
-                    die("Erro na consulta: " . mysqli_error($conexao));
-                  }
-
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
-                  }
-                  ?>
-                </select>
-              </div>
+                    <div class="modal-body">
+                        <form method="POST" action="">
+                            <div class="form-group">
+                                <label for="id_produto">Nome</label>
+                                <input type="text" class="form-control mr-2" name="txtpromotora" placeholder="Novo status" value="<?php echo $res_1['nome']; ?>" required>
+                            </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success mb-3" name="buttonEditar">Salvar </button>
 
