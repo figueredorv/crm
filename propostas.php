@@ -1213,7 +1213,7 @@ if (isset($_POST['button'])) {
   $email = $_POST['inputEmail'];
   $convenio = $_POST['inputConvenio'];
   $banco = $_POST['inputBanco'];
-  $bancoproposta = $_POST['inputBancoProposta']; //marcador
+  $bancoproposta = $_POST['inputBancoProposta'];
   $tipodeconta = $_POST['inputTipoConta'];
   $agencia = $_POST['inputAgencia'];
   $conta = $_POST['inputConta'];
@@ -2050,8 +2050,7 @@ if (isset($_POST['button'])) {
     exit();
   }
 
-
-  //marcador
+  
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
