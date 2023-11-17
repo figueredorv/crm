@@ -433,16 +433,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <label for="inputNome">NOME*</label>
                             <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-6">
                             <label for="inputCpf">CPF</label>
                             <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
                           </div>
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-4">
                             <label for="inputRg">RG</label>
                             <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
                           </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputDataEmissao">DATA EMISSÃO</label>
+                            <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
+                            <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="">
+                          </div>
                           <!-- INÍCIO DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-4">
                             <label for="inputTelefone">TELEFONE</label>
                             <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
                           </div>
@@ -451,7 +459,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
                           </div>
                           <!-- FINAL DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-6">
                             <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                             <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
@@ -1219,6 +1227,8 @@ if (isset($_POST['button'])) {
   $nome = $_POST['inputNome'];
   $cpf = $_POST["inputCpf"];
   $rg = $_POST['inputRg'];
+  $dataemissao = $_POST['inputDataEmissao'];
+  $orgaoemissor = $_POST['inputOrgaoEmissor'];
   $nascimento = $_POST['inputDataNascimento'];
   $nomedamae = $_POST["inputNomeMae"];
   $nomedopai = $_POST['inputNomePai'];
@@ -2095,7 +2105,7 @@ if (isset($_POST['button'])) {
 
 
   
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade,naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
@@ -2189,20 +2199,28 @@ if (@$_GET['func'] == 'editarcliente') {
                   <label for="inputCpf">CPF</label>
                   <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputRg">RG</label>
                   <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="" value="<?php echo $res_1['rg']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
+                  <label for="inputDataEmissao">DATA DE EMISSÃO</label>
+                  <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="" value="<?php echo $res_1['dataemissao']; ?>">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
+                  <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="" value="<?php echo $res_1['orgaoemissor']; ?>">
+                </div>
+                <div class="form-group col-md-3">
                   <form method="POST" action="">
                     <label for="inputTelefone">TELEFONE</label>
                     <input name="inputTelefone" type="text" class="form-control inputTelefone" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputEmail">EMAIL</label>
                   <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                   <input name="inputDataNascimento" type="text" class="form-control inputDataNascimento" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
@@ -2218,29 +2236,30 @@ if (@$_GET['func'] == 'editarcliente') {
                   <label for="inputCep">CEP</label>
                   <input name="inputCep" type="text" class="form-control" id="inputCep" placeholder="" value="<?php echo $res_1['cep']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                   <label for="inputRua">RUA</label>
                   <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="" value="<?php echo $res_1['rua']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+
+              </div>
+              <div class="form-row">
+              <div class="form-group col-md-2">
                   <label for="inputNumero">NÚMERO</label>
                   <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="" value="<?php echo $res_1['numero']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+              <div class="form-group col-md-2">
                   <label for="inputComplemento">COMPLEMENTO</label>
                   <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="" value="<?php echo $res_1['complemento']; ?>">
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-2">
                   <label for="inputBairro">BAIRRO</label>
                   <input name="inputBairro" type="text" class="form-control" id="inputBairro" value="<?php echo $res_1['bairro']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputCidade">CIDADE</label>
                   <input name="inputCidade" type="text" class="form-control" id="inputCidade" value="<?php echo $res_1['cidade']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                   <label for="inputUf">UF</label>
                   <select name="inputUf" id="inputUf" class="form-control">
                     <option selected><?php echo $res_1['uf']; ?></option>
@@ -2312,6 +2331,8 @@ if (@$_GET['func'] == 'editarcliente') {
       $nome = $_POST['inputNome'];
       $cpf = $_POST["inputCpf"];
       $rg = $_POST['inputRg'];
+      $dataemissao = $_POST['inputDataEmissao'];
+      $orgaoemissor = $_POST['inputOrgaoEmissor'];
       $telefone = $_POST['inputTelefone'];
       $email = $_POST['inputEmail'];
       $nascimento = $_POST['inputDataNascimento'];
@@ -2429,7 +2450,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 
 
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
