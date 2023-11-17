@@ -1241,7 +1241,7 @@ if (isset($_POST['button'])) {
   $renda = $_POST['inputRenda'];
   $operacao = $_POST['inputOperacao'];
   $tabela = $_POST['inputTabela'];
-  $promotora = $_POST['inputPromotora'];
+  $promotora = "";
   $margem = $_POST['inputMargem'];
   $prazo = $_POST['inputPrazo'];
   $valor = $_POST['inputValor'];
