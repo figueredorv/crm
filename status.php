@@ -157,8 +157,6 @@ include('verificar_login.php');
 
                                                             <td><?php echo $id; ?></td>
                                                             <td><?php echo $statusproposta; ?></td>
-
-
                                                             <td>
                                                                 <a class="btn btn-info" href="status.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
 
