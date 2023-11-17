@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nomePesquisado = $_POST['nome'];
     $query = "SELECT *
     FROM documentos 
-    WHERE nome LIKE '%$nomePesquisado%'";
+    WHERE nome LIKE '%$nomePesquisado%' order by id desc";
     $result = mysqli_query($conexao, $query);
 }
 

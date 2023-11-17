@@ -442,6 +442,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
                           </div>
                           <div class="form-group col-md-4">
+                            <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
+                            <input name="inputNumeroBeneficio" type="number" class="form-control" id="inputNumeroBeneficio" placeholder="">
+                          </div>
+                          <div class="form-group col-md-4">
                             <label for="inputDataEmissao">DATA EMISSÃO</label>
                             <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="">
                           </div>
@@ -454,12 +458,12 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             <label for="inputTelefone">TELEFONE</label>
                             <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputEmail">EMAIL</label>
                             <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
                           </div>
                           <!-- FINAL DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                             <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
@@ -1227,6 +1231,7 @@ if (isset($_POST['button'])) {
   $nome = $_POST['inputNome'];
   $cpf = $_POST["inputCpf"];
   $rg = $_POST['inputRg'];
+  $numerobeneficio = $_POST['inputNumeroBeneficio'];
   $dataemissao = $_POST['inputDataEmissao'];
   $orgaoemissor = $_POST['inputOrgaoEmissor'];
   $nascimento = $_POST['inputDataNascimento'];
@@ -2103,7 +2108,7 @@ if (isset($_POST['button'])) {
 
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
 
@@ -2202,6 +2207,10 @@ if (@$_GET['func'] == 'editarcliente') {
                   <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="" value="<?php echo $res_1['rg']; ?>">
                 </div>
                 <div class="form-group col-md-4">
+                  <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
+                  <input name="inputNumeroBeneficio" type="number" class="form-control" id="inputNumeroBeneficio" placeholder="" value="<?php echo $res_1['numerobeneficio']; ?>">
+                </div>
+                <div class="form-group col-md-4">
                   <label for="inputDataEmissao">DATA DE EMISSÃO</label>
                   <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="" value="<?php echo $res_1['dataemissao']; ?>">
                 </div>
@@ -2214,11 +2223,11 @@ if (@$_GET['func'] == 'editarcliente') {
                     <label for="inputTelefone">TELEFONE</label>
                     <input name="inputTelefone" type="text" class="form-control inputTelefone" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputEmail">EMAIL</label>
                   <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="" value="<?php echo $res_1['email']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                   <input name="inputDataNascimento" type="text" class="form-control inputDataNascimento" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
@@ -2332,6 +2341,7 @@ if (@$_GET['func'] == 'editarcliente') {
       $nome = $_POST['inputNome'];
       $cpf = $_POST["inputCpf"];
       $rg = $_POST['inputRg'];
+      $numerobeneficio = $_POST['inputNumeroBeneficio'];
       $dataemissao = $_POST['inputDataEmissao'];
       $orgaoemissor = $_POST['inputOrgaoEmissor'];
       $telefone = $_POST['inputTelefone'];
@@ -2451,7 +2461,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 
 
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg',numerobeneficio = '$numerobeneficio', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -4264,6 +4274,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
     $("#inputDataNascimento").mask("00/00/0000");
     $(".inputDataNascimento").mask("00/00/0000");
+    $(".inputDataEmissao").mask("00/00/0000");
     $("#inputCep").mask("99999-999");
   });
 </script>
