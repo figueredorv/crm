@@ -298,7 +298,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo number_format(str_replace(",",".",str_replace(".","","$valor")), 2, ",", "."); ?></td> 
+                              <td><?php echo number_format($valor,2,",","."); ?></td> 
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $nome_usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
@@ -1221,9 +1221,25 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
+<script>
+
+
+function formatarMoeda(input) {
+    // Obtém o valor sem formatação (removendo pontos e vírgulas)
+    var valor = input.value.replace(/[.,]/g, '');
+
+    // Formata o valor como moeda brasileira
+    valor = parseFloat(valor).toFixed(2);
+    valor = valor.replace('.', ',');
+
+    // Atualiza o valor no input
+    input.value = valor; 
+}
+// final do script para os inputs de moeda
+</script>
+
 
 </body>
-
 </html>
 
 
@@ -4293,31 +4309,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
   });
 </script>
 
-<script>
-  // máscara para input da valor R$
-  String.prototype.reverse = function() {
-    return this.split('').reverse().join('');
-  };
-
-  function mascaraMoeda(campo, evento) {
-    var tecla = (!evento) ? window.event.keyCode : evento.which;
-    var valor = campo.value.replace(/[^\d]+/gi, '').reverse();
-    var resultado = "";
-    var mascara = "##.###.###,##".reverse();
-    for (var x = 0, y = 0; x < mascara.length && y < valor.length;) {
-      if (mascara.charAt(x) != '#') {
-        resultado += mascara.charAt(x);
-        x++;
-      } else {
-        resultado += valor.charAt(y);
-        y++;
-        x++;
-      }
-    }
-    campo.value = resultado.reverse();
-  }
-</script>
-<!-- final dos Scripts de máscara dos inputs -->
 
 
 <script>
