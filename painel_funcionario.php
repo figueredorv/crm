@@ -756,7 +756,7 @@ $query = "SELECT * FROM propostas
                         <td><?php echo $tabela;  ?></td>
                         <td><?php echo $convenio; ?></td>
                         <td><?php echo $banco; ?></td>
-                        <td><?php echo number_format($valor, 2, ",", "."); ?></td>
+                        <td><?php echo number_format($valor,2,",","."); ?></td> 
                         <td><?php echo  $nome_usuario; ?></td>
                         <td><?php echo  $data2; ?></td>
 
