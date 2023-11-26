@@ -815,7 +815,9 @@ $query = "SELECT * FROM propostas
                             <?php
                             // lógica para só conseguir alterar o status da proposta quem for master do sistema
                             if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                              <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                              <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
 
                             <?php
 
@@ -1098,3 +1100,20 @@ if (@$_GET['func'] == 'deletaproposta') {
     </div>
   </div>
 </div>
+
+
+<script>
+  // lógica para obter o id corretamento no modal antes de excluir um registro.
+// Adicione um evento para quando o modal for exibido
+$('#confirmModal').on('show.bs.modal', function (event) {
+  // Recupere o botão que acionou o modal
+  var button = $(event.relatedTarget);
+  
+  // Recupere o valor do atributo data-id do botão
+  var id = button.data('id');
+  
+  // Atualize o link dentro do modal com o ID correto
+  var modal = $(this);
+  modal.find('.btn-danger').attr('href', 'propostas.php?func=deleta&id=' + id);
+});
+</script>

@@ -57,6 +57,20 @@ function excluirDocumento($conexao, $id)
         </button>
     </nav>
     <div class="container">
+
+        <?php if (isset($_SESSION['erro_enviardoc'])) : ?>
+            <br>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Atenção!</strong><?php echo $_SESSION['erro_enviardoc']; ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php
+            unset($_SESSION['erro_enviardoc']); // Limpa a mensagem de erro após exibição
+        endif;
+        ?>
+
         <div class="container mt-4">
             <h4 class="text-center mb-4 custom-text-color">
                 <i class="fa fa-file-text-o custom-icon-color" aria-hidden="true"></i> ENVIO E CONSULTA DE DOCUMENTOS
@@ -149,6 +163,9 @@ function excluirDocumento($conexao, $id)
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="" enctype="multipart/form-data">
+
+                        <!-- Exibir mensagem de erro -->
+
 
                         <!-- Campo de pesquisa dentro do modal -->
                         <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
@@ -247,7 +264,7 @@ if (isset($_POST['button'])) {
     $documentoanexado = $_FILES['imagens'];
 
     if (empty($_POST['nome'])) {
-        echo "<script language='javascript'> window.alert('Por favor, preencha o campo com o nome do cliente antes de enviar o documento.'); </script>";
+        $_SESSION['erro_enviardoc'] = ' Por favor, preencha o campo com o nome do cliente antes de enviar o documento.';
         echo "<script language='javascript'> window.location='documentos.php'; </script>";
         exit; // Interrompe a execução do script se o campo nome do cliente não estiver preenchido
     }

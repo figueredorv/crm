@@ -280,7 +280,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
-                           
+
 
                             // Agora, vamos buscar o nome do usuário com base no ID
                             $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
@@ -299,7 +299,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
-                              <td><?php echo number_format($valor,2,",","."); ?></td> 
+                              <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                               <td><?php echo  $promotora; ?></td>
                               <td><?php echo  $nome_usuario; ?></td>
                               <td><?php echo  $data2; ?></td>
@@ -332,24 +332,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                                 <div class="btn-group" role="group" aria-label="Exemplo básico">
 
-                                <?php
+                                  <?php
                                   // lógica para só conseguir editar a proposta quem for master do sistema
                                   if ($_SESSION['cargo_usuario'] == 'Master') : ?>
                                     <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                      <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                      <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                      <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-                                    </ul>
-                                  </div>
-                                    
+                                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
+                                      <ul class="dropdown-menu">
+                                        <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                        <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                        <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                      </ul>
+                                    </div>
+
                                   <?php
                                   endif;
                                   ?>
 
 
-                                  
+
 
                                   <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
@@ -372,7 +372,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                   <?php
                                   // lógica para só conseguir alterar o status da proposta quem for master do sistema
                                   if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                    <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
 
                                   <?php
 
@@ -1222,25 +1224,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-<script>
+          <script>
+            function formatarMoeda(input) {
+              // Obtém o valor sem formatação (removendo pontos e vírgulas)
+              var valor = input.value.replace(/[.,]/g, '');
 
+              // Formata o valor como moeda brasileira
+              valor = parseFloat(valor).toFixed(2);
+              valor = valor.replace('.', ',');
 
-function formatarMoeda(input) {
-    // Obtém o valor sem formatação (removendo pontos e vírgulas)
-    var valor = input.value.replace(/[.,]/g, '');
-
-    // Formata o valor como moeda brasileira
-    valor = parseFloat(valor).toFixed(2);
-    valor = valor.replace('.', ',');
-
-    // Atualiza o valor no input
-    input.value = valor; 
-}
-// final do script para os inputs de moeda
-</script>
+              // Atualiza o valor no input
+              input.value = valor;
+            }
+            // final do script para os inputs de moeda
+          </script>
 
 
 </body>
+
 </html>
 
 
@@ -2127,7 +2128,7 @@ if (isset($_POST['button'])) {
 
 
   //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO ANTES DE CADASTRAR UMA NOVA
-/*$query_verificar = "select * from propostas where nome = '$nome' ";
+  /*$query_verificar = "select * from propostas where nome = '$nome' ";
 
   $result_verificar = mysqli_query($conexao, $query_verificar);
   $row_verificar = mysqli_num_rows($result_verificar);
@@ -4370,6 +4371,23 @@ if (@$_GET['func'] == 'editardadosbancarios') {
   </div>
 </div>
 
+<script>
+  // lógica para obter o id corretamento no modal antes de excluir um registro.
+// Adicione um evento para quando o modal for exibido
+$('#confirmModal').on('show.bs.modal', function (event) {
+  // Recupere o botão que acionou o modal
+  var button = $(event.relatedTarget);
+  
+  // Recupere o valor do atributo data-id do botão
+  var id = button.data('id');
+  
+  // Atualize o link dentro do modal com o ID correto
+  var modal = $(this);
+  modal.find('.btn-danger').attr('href', 'propostas.php?func=deleta&id=' + id);
+});
+</script>
+
+
 <!-- lógica para exclusão de registro -->
 <?php
 if (isset($_GET['func']) && $_GET['func'] == 'deleta') {
@@ -4545,132 +4563,132 @@ if (@$_GET['func'] == 'visualizarproposta') {
 ?>
     <!-- Modal visualizar proposta -->
     <div id="modalVisualizarProposta" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="container mt-5">
-          <h2 class="mb-4">Visualização da proposta</h2>
-          <?php
-          if (isset($id)) {
-            // Consulta para obter informações da proposta
-            $queryProposta = "SELECT * FROM propostas WHERE idpropostas = '$id'";
-            $resultProposta = mysqli_query($conexao, $queryProposta);
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="container mt-5">
+              <h2 class="mb-4">Visualização da proposta</h2>
+              <?php
+              if (isset($id)) {
+                // Consulta para obter informações da proposta
+                $queryProposta = "SELECT * FROM propostas WHERE idpropostas = '$id'";
+                $resultProposta = mysqli_query($conexao, $queryProposta);
 
-          
 
-            if (!$resultProposta) {
-              die("Erro na consulta: " . mysqli_error($conexao));
-            }
 
-            while ($rowProposta = mysqli_fetch_assoc($resultProposta)) {
-              echo '<div class="card mb-4">';
-              echo '<div class="card-header"><strong>ID: </strong>' . $rowProposta['idpropostas'] . '</div>';
-              echo '<div class="card-body">';
-
-              // Informações da proposta em duas colunas
-              echo '<div class="row">';
-              echo '<div class="col-md-6">';
-              echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . '</p>';
-              echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . '</p>';
-              echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
-              echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
-              echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
-              echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
-              echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
-              echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
-              echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
-              echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
-              echo '<p><strong>Rua: </strong>' . $rowProposta['rua'] . '</p>';
-              echo '<p><strong>Número: </strong>' . $rowProposta['numero'] . '</p>';
-              echo '<p><strong>Complemento: </strong>' . $rowProposta['complemento'] . '</p>';
-              echo '<p><strong>Bairro: </strong>' . $rowProposta['bairro'] . '</p>';
-              echo '</div>'; // Fim da coluna 1
-
-              echo '<div class="col-md-6">';
-              echo '<p><strong>Cidade: </strong>' . $rowProposta['cidade'] . '</p>';
-              echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . '</p>';
-              echo '<p><strong>UF: </strong>' . $rowProposta['uf'] . '</p>';
-              echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
-              echo '<p><strong>Email: </strong>' . $rowProposta['email'] . '</p>';
-              echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . '</p>';
-              echo '<p><strong>Banco: </strong>' . $rowProposta['banco'] . '</p>';
-              echo '<p><strong>Banco Proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
-              echo '<p><strong>Tipo de Conta: </strong>' . $rowProposta['tipodeconta'] . '</p>';
-              echo '<p><strong>Agência: </strong>' . $rowProposta['agencia'] . '</p>';
-              echo '<p><strong>Conta: </strong>' . $rowProposta['conta'] . '</p>';
-              echo '<p><strong>Renda: </strong>' . $rowProposta['renda'] . '</p>';
-              echo '<p><strong>Operação: </strong>' . $rowProposta['operacao'] . '</p>';
-              echo '<p><strong>Tabela: </strong>' . $rowProposta['tabela'] . '</p>';
-              echo '<p><strong>Promotora: </strong>' . $rowProposta['promotora'] . '</p>';
-              echo '<p><strong>Margem: </strong>' . $rowProposta['margem'] . '</p>';
-              echo '<p><strong>Prazo: </strong>' . $rowProposta['prazo'] . '</p>';
-              echo '<p><strong>Valor: </strong>' . $rowProposta['valor'] . '</p>';
-              echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . '</p>';
-              echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . '</p>';
-              echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . '</p>';
-              echo '</div>'; // Fim da coluna 2
-
-              echo '</div>'; // Fim da linha
-
-              
-              // Adicione o código PHP para recuperar os documentos do cliente
-              $nome =  $rowProposta['nome'];
-              $queryDocumentos = "SELECT * FROM documentos WHERE nome = '$nome'";
-              $resultDocumentos = mysqli_query($conexao, $queryDocumentos);
-
-              echo '<table class="table table-striped">';
-              echo '<thead>';
-              echo '<tr>';
-              echo '<th>Nome do Documento</th>';
-              echo '<th>Prévia</th>';
-              echo '<th>Ações</th>';
-              echo '</tr>';
-              echo '</thead>';
-              echo '<tbody>';
-
-              if ($resultDocumentos && mysqli_num_rows($resultDocumentos) > 0) {
-                while ($rowDocumento = mysqli_fetch_assoc($resultDocumentos)) {
-                  $nomeDocumento = $rowDocumento['nome'];
-                  $caminhoDocumento = $rowDocumento['caminho'];
-                  $idDocumento = $rowDocumento["id"];
-
-                  echo "<tr>";
-                  echo "<td>$nomeDocumento</td>";
-                  echo "<td><img src='documentos/$caminhoDocumento' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
-                  echo "<td>";
-                  echo "<a class='btn btn-primary' href='documentos/$caminhoDocumento' target='_blank'><i class='fa fa-eye'></i></a> ";
-                  echo "<a class='btn btn-primary' href='documentos/$caminhoDocumento' download><i class='fa fa-download'></i></a> ";
-                  if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
-                    echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$idDocumento'><i class='fa fa-trash'></i></a>";
-                  }
-                  echo "</td>";
-                  echo "</tr>";
+                if (!$resultProposta) {
+                  die("Erro na consulta: " . mysqli_error($conexao));
                 }
+
+                while ($rowProposta = mysqli_fetch_assoc($resultProposta)) {
+                  echo '<div class="card mb-4">';
+                  echo '<div class="card-header"><strong>ID: </strong>' . $rowProposta['idpropostas'] . '</div>';
+                  echo '<div class="card-body">';
+
+                  // Informações da proposta em duas colunas
+                  echo '<div class="row">';
+                  echo '<div class="col-md-6">';
+                  echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . '</p>';
+                  echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . '</p>';
+                  echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
+                  echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
+                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
+                  echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
+                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
+                  echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
+                  echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
+                  echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
+                  echo '<p><strong>Rua: </strong>' . $rowProposta['rua'] . '</p>';
+                  echo '<p><strong>Número: </strong>' . $rowProposta['numero'] . '</p>';
+                  echo '<p><strong>Complemento: </strong>' . $rowProposta['complemento'] . '</p>';
+                  echo '<p><strong>Bairro: </strong>' . $rowProposta['bairro'] . '</p>';
+                  echo '</div>'; // Fim da coluna 1
+
+                  echo '<div class="col-md-6">';
+                  echo '<p><strong>Cidade: </strong>' . $rowProposta['cidade'] . '</p>';
+                  echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . '</p>';
+                  echo '<p><strong>UF: </strong>' . $rowProposta['uf'] . '</p>';
+                  echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
+                  echo '<p><strong>Email: </strong>' . $rowProposta['email'] . '</p>';
+                  echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . '</p>';
+                  echo '<p><strong>Banco: </strong>' . $rowProposta['banco'] . '</p>';
+                  echo '<p><strong>Banco Proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
+                  echo '<p><strong>Tipo de Conta: </strong>' . $rowProposta['tipodeconta'] . '</p>';
+                  echo '<p><strong>Agência: </strong>' . $rowProposta['agencia'] . '</p>';
+                  echo '<p><strong>Conta: </strong>' . $rowProposta['conta'] . '</p>';
+                  echo '<p><strong>Renda: </strong>' . $rowProposta['renda'] . '</p>';
+                  echo '<p><strong>Operação: </strong>' . $rowProposta['operacao'] . '</p>';
+                  echo '<p><strong>Tabela: </strong>' . $rowProposta['tabela'] . '</p>';
+                  echo '<p><strong>Promotora: </strong>' . $rowProposta['promotora'] . '</p>';
+                  echo '<p><strong>Margem: </strong>' . $rowProposta['margem'] . '</p>';
+                  echo '<p><strong>Prazo: </strong>' . $rowProposta['prazo'] . '</p>';
+                  echo '<p><strong>Valor: </strong>' . $rowProposta['valor'] . '</p>';
+                  echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . '</p>';
+                  echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . '</p>';
+                  echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . '</p>';
+                  echo '</div>'; // Fim da coluna 2
+
+                  echo '</div>'; // Fim da linha
+
+
+                  // Adicione o código PHP para recuperar os documentos do cliente
+                  $nome =  $rowProposta['nome'];
+                  $queryDocumentos = "SELECT * FROM documentos WHERE nome = '$nome'";
+                  $resultDocumentos = mysqli_query($conexao, $queryDocumentos);
+
+                  echo '<table class="table table-striped">';
+                  echo '<thead>';
+                  echo '<tr>';
+                  echo '<th>Nome do Documento</th>';
+                  echo '<th>Prévia</th>';
+                  echo '<th>Ações</th>';
+                  echo '</tr>';
+                  echo '</thead>';
+                  echo '<tbody>';
+
+                  if ($resultDocumentos && mysqli_num_rows($resultDocumentos) > 0) {
+                    while ($rowDocumento = mysqli_fetch_assoc($resultDocumentos)) {
+                      $nomeDocumento = $rowDocumento['nome'];
+                      $caminhoDocumento = $rowDocumento['caminho'];
+                      $idDocumento = $rowDocumento["id"];
+
+                      echo "<tr>";
+                      echo "<td>$nomeDocumento</td>";
+                      echo "<td><img src='documentos/$caminhoDocumento' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
+                      echo "<td>";
+                      echo "<a class='btn btn-primary' href='documentos/$caminhoDocumento' target='_blank'><i class='fa fa-eye'></i></a> ";
+                      echo "<a class='btn btn-primary' href='documentos/$caminhoDocumento' download><i class='fa fa-download'></i></a> ";
+                      if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                        echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$idDocumento'><i class='fa fa-trash'></i></a>";
+                      }
+                      echo "</td>";
+                      echo "</tr>";
+                    }
+                  } else {
+                    echo "<tr><td colspan='3'>Nenhum documento encontrado.</td></tr>";
+                  }
+
+                  echo '</tbody>';
+                  echo '</table>';
+                  echo '</div>'; // Fim do corpo do cartão
+                  echo '</div>'; // Fim do cartão
+                }
+
+                mysqli_close($conexao);
               } else {
-                echo "<tr><td colspan='3'>Nenhum documento encontrado.</td></tr>";
+                echo 'ID não especificado.';
               }
+              ?>
+            </div>
+          </div>
 
-              echo '</tbody>';
-              echo '</table>';
-              echo '</div>'; // Fim do corpo do cartão
-              echo '</div>'; // Fim do cartão
-            }
-
-            mysqli_close($conexao);
-          } else {
-            echo 'ID não especificado.';
-          }
-          ?>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Fechar</button>
+          </div>
         </div>
       </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Fechar</button>
-      </div>
     </div>
-  </div>
-</div>
 
 
     <script>
