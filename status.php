@@ -201,6 +201,10 @@ include('verificar_login.php');
                                             <label for="id_produto">Status</label>
                                             <input type="text" class="form-control mr-2" name="txtstatus" placeholder="Digite aqui o nome do status" required>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="id_produto">Cor para o status</label>
+                                            <input type="color" class="form-control mr-2" name="txtcor" required>
+                                        </div>
                                 </div>
 
 
@@ -234,6 +238,7 @@ include('verificar_login.php');
 <?php
 if (isset($_POST['button'])) {
     $status = $_POST['txtstatus'];
+    $cor = $_POST['txtcor'];
 
 
 
@@ -249,7 +254,7 @@ if (isset($_POST['button'])) {
     }
 
 
-    $query = "INSERT into statusproposta (statusproposta) VALUES ('$status')";
+    $query = "INSERT into statusproposta (statusproposta, cor) VALUES ('$status','$cor')";
 
     $result = mysqli_query($conexao, $query);
 

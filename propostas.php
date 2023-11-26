@@ -227,9 +227,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             Operação
                           </th>
                           <th>
-                            Tabela
-                          </th>
-                          <th>
                             Convênio
                           </th>
                           <th>
@@ -304,7 +301,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               <td><?php echo $nome; ?></td>
                               <td><?php echo  $cpf; ?></td>
                               <td><?php echo  $operacao;  ?></td>
-                              <td><?php echo $tabela;  ?></td>
                               <td><?php echo $convenio; ?></td>
                               <td><?php echo $banco; ?></td>
                               <td><?php echo number_format($valor, 2, ",", "."); ?></td>

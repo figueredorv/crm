@@ -140,7 +140,7 @@ include("conexao.php");
                 if ($totalNotificacoesNaoLidas > 0) {
                   echo '<span class="badge badge-secondary" style="font-size: larger;">' . $totalNotificacoesNaoLidas . '</span>';
                 }
-              
+
                 ?>
               </p>
             </a>
@@ -654,10 +654,9 @@ include("conexao.php");
 
               else {
                 $id = $_SESSION['idusuarios'];
-$query = "SELECT * FROM propostas
+                $query = "SELECT * FROM propostas
           WHERE idusuario = $id and data = CURDATE()
           ORDER BY idpropostas DESC limit 5";
-
               }
 
 
@@ -690,9 +689,6 @@ $query = "SELECT * FROM propostas
                       Operação
                     </th>
                     <th>
-                      Tabela
-                    </th>
-                    <th>
                       Convênio
                     </th>
                     <th>
@@ -721,6 +717,17 @@ $query = "SELECT * FROM propostas
                   <tbody>
 
                     <?php
+
+                    // ja tendo uma conexão com o banco de dados ($conexao)
+                    $query_cores = "SELECT statusproposta, cor FROM statusproposta";
+                    $result_cores = mysqli_query($conexao, $query_cores);
+
+                    // Criar um array associativo para armazenar as cores
+                    $status_cores = array();
+                    while ($row_cores = mysqli_fetch_assoc($result_cores)) {
+                      $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
+                    }
+
 
                     while ($res_1 = mysqli_fetch_array($result)) {
                       $nome = $res_1["nome"];
@@ -753,10 +760,9 @@ $query = "SELECT * FROM propostas
                         <td><?php echo $nome; ?></td>
                         <td><?php echo  $cpf; ?></td>
                         <td><?php echo  $operacao;  ?></td>
-                        <td><?php echo $tabela;  ?></td>
                         <td><?php echo $convenio; ?></td>
                         <td><?php echo $banco; ?></td>
-                        <td><?php echo number_format($valor,2,",","."); ?></td> 
+                        <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                         <td><?php echo  $nome_usuario; ?></td>
                         <td><?php echo  $data2; ?></td>
 
@@ -765,16 +771,13 @@ $query = "SELECT * FROM propostas
 
 
                         <?php
-                        if ($statusproposta == "PENDENTE") {
-                          echo '<td class="badge badge-pill badge-warning">' . $statusproposta . '</td>';
-                        } elseif ($statusproposta == "CONCLUÍDA" || $statusproposta == "PAGO") {
-                          echo '<td class="badge badge-pill badge-success">' . $statusproposta . '</td>';
-                        } elseif ($statusproposta == "CANCELADO" || $statusproposta == "SALDO RETORNADO") {
-                          echo '<td class="badge badge-pill badge-danger">' . $statusproposta . '</td>';
-                        } else {
-                          echo '<td class="badge badge-pill badge-info">' . $statusproposta . '</td>';
-                        }
-                        ?>
+                              if (array_key_exists($statusproposta, $status_cores)) {
+                                $cor_badge = $status_cores[$statusproposta];
+                                echo "<td class='badge badge-pill badge-custom' style='background-color: $cor_badge; color: #000000;'>$statusproposta</td>";
+                              } else {
+                                echo "<td class='badge badge-pill badge-info'>$statusproposta</td>";
+                              }
+                              ?>
 
 
 
@@ -816,8 +819,8 @@ $query = "SELECT * FROM propostas
                             // lógica para só conseguir alterar o status da proposta quem for master do sistema
                             if ($_SESSION['cargo_usuario'] == 'Master') : ?>
                               <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
-                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                              </a>
 
                             <?php
 
@@ -1104,16 +1107,16 @@ if (@$_GET['func'] == 'deletaproposta') {
 
 <script>
   // lógica para obter o id corretamento no modal antes de excluir um registro.
-// Adicione um evento para quando o modal for exibido
-$('#confirmModal').on('show.bs.modal', function (event) {
-  // Recupere o botão que acionou o modal
-  var button = $(event.relatedTarget);
-  
-  // Recupere o valor do atributo data-id do botão
-  var id = button.data('id');
-  
-  // Atualize o link dentro do modal com o ID correto
-  var modal = $(this);
-  modal.find('.btn-danger').attr('href', 'propostas.php?func=deleta&id=' + id);
-});
+  // Adicione um evento para quando o modal for exibido
+  $('#confirmModal').on('show.bs.modal', function(event) {
+    // Recupere o botão que acionou o modal
+    var button = $(event.relatedTarget);
+
+    // Recupere o valor do atributo data-id do botão
+    var id = button.data('id');
+
+    // Atualize o link dentro do modal com o ID correto
+    var modal = $(this);
+    modal.find('.btn-danger').attr('href', 'propostas.php?func=deleta&id=' + id);
+  });
 </script>
