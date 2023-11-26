@@ -304,6 +304,11 @@ if (@$_GET['func'] == 'edita') {
                                 <label for="id_produto">Status</label>
                                 <input type="text" class="form-control mr-2" name="txtstatus" placeholder="Novo status" value="<?php echo $res_1['statusproposta']; ?>" required>
                             </div>
+                            <div class="form-group">
+                                <label for="id_produto">Cor</label>
+                                <input type="color" class="form-control mr-2" name="txtcor" value="<?php echo $res_1['cor']; ?>">
+                            </div>
+                            
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success mb-3" name="buttonEditar">Salvar </button>
@@ -326,9 +331,10 @@ if (@$_GET['func'] == 'edita') {
         <?php
         if (isset($_POST['buttonEditar'])) {
             $status = $_POST['txtstatus'];
+            $cor = $_POST['txtcor'];
             
 
-            $query_editar = "UPDATE statusproposta set statusproposta = '$status' where id = '$id'";
+            $query_editar = "UPDATE statusproposta set statusproposta = '$status', cor = '$cor' where id = '$id'";
 
             $result_editar = mysqli_query($conexao, $query_editar);
 
