@@ -271,7 +271,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                             $operacao = $res_1["operacao"];
                             $tabela = $res_1["tabela"];
                             $convenio = $res_1["convenio"];
-                            $banco = $res_1["banco"];
+                            $banco = $res_1["bancoproposta"];
                             $valor = $res_1["valor"];
                             $promotora = $res_1["promotora"];
                             $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
@@ -280,6 +280,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                             $data2 = implode('/', array_reverse(explode('-', $data)));
+                           
 
                             // Agora, vamos buscar o nome do usuário com base no ID
                             $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
@@ -461,11 +462,15 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-4">
                             <label for="inputDataEmissao">DATA EMISSÃO</label>
-                            <input name="inputDataEmissao" type="text" class="form-control" id="inputDataEmissao" placeholder="">
+                            <input name="inputDataEmissao" type="date" class="form-control" id="inputDataEmissao" placeholder="">
                           </div>
                           <div class="form-group col-md-4">
                             <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
                             <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputNaturalidade">NATURALIDADE</label>
+                            <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade">
                           </div>
                           <!-- INÍCIO DO CONTEÚDO CONTATO-->
                           <div class="form-group col-md-4">
@@ -479,13 +484,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <!-- FINAL DO CONTEÚDO CONTATO-->
                           <div class="form-group col-md-4">
                             <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
-                            <input name="inputDataNascimento" type="text" class="form-control" id="inputDataNascimento" placeholder="">
+                            <input name="inputDataNascimento" type="date" class="form-control" id="inputDataNascimento" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputNomeMae">NOME DA MÃE</label>
                             <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
                           </div>
-                          <div class="form-group col-md-6">
+                          <div class="form-group col-md-4">
                             <label for="inputNomePai">NOME DO PAI</label>
                             <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
                           </div>
@@ -516,10 +521,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <div class="form-group col-md-3">
                             <label for="inputCidade">CIDADE</label>
                             <input name="inputCidade" type="text" class="form-control" id="inputCidade">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputNaturalidade">NATURALIDADE</label>
-                            <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade">
                           </div>
                           <div class="form-group col-md-3">
                             <label for="inputUf">UF</label>
@@ -2125,8 +2126,8 @@ if (isset($_POST['button'])) {
 
 
 
-  //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO
-  $query_verificar = "select * from propostas where nome = '$nome' ";
+  //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO ANTES DE CADASTRAR UMA NOVA
+/*$query_verificar = "select * from propostas where nome = '$nome' ";
 
   $result_verificar = mysqli_query($conexao, $query_verificar);
   $row_verificar = mysqli_num_rows($result_verificar);
@@ -2135,7 +2136,7 @@ if (isset($_POST['button'])) {
     echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </scrip>";
     exit();
   }
-
+*/
 
 
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
@@ -2144,10 +2145,12 @@ if (isset($_POST['button'])) {
 
 
   //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
+  /*
   if ($row_verificar > 0) {
     echo "<script language='javascript'> window.alert('Nome já Cadastrado!'); </script>";
     exit();
   }
+  */
 
   /*
   $querylog = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Cadastrou uma proposta: $especie', curDate())";
@@ -2249,6 +2252,10 @@ if (@$_GET['func'] == 'editarcliente') {
                   <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="" value="<?php echo $res_1['orgaoemissor']; ?>">
                 </div>
                 <div class="form-group col-md-4">
+                  <label for="inputCidade">NATURALIDADE</label>
+                  <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade" value="<?php echo $res_1['naturalidade']; ?>">
+                </div>
+                <div class="form-group col-md-4">
                   <form method="POST" action="">
                     <label for="inputTelefone">TELEFONE</label>
                     <input name="inputTelefone" type="text" class="form-control inputTelefone" id="inputTelefone" placeholder="" value="<?php echo $res_1['telefone']; ?>">
@@ -2261,11 +2268,11 @@ if (@$_GET['func'] == 'editarcliente') {
                   <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
                   <input name="inputDataNascimento" type="text" class="form-control inputDataNascimento" id="inputDataNascimento" placeholder="" value="<?php echo $res_1['nascimento']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputNomeMae">NOME DA MÃE</label>
                   <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="" value="<?php echo $res_1['nomedamae']; ?>">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                   <label for="inputNomePai">NOME DO PAI</label>
                   <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="" value="<?php echo $res_1['nomedopai']; ?>">
                 </div>
@@ -2294,10 +2301,6 @@ if (@$_GET['func'] == 'editarcliente') {
                 <div class="form-group col-md-4">
                   <label for="inputCidade">CIDADE</label>
                   <input name="inputCidade" type="text" class="form-control" id="inputCidade" value="<?php echo $res_1['cidade']; ?>">
-                </div>
-                <div class="form-group col-md-3">
-                  <label for="inputCidade">NATURALIDADE</label>
-                  <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade" value="<?php echo $res_1['naturalidade']; ?>">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputUf">UF</label>
@@ -4302,9 +4305,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     $('#inputTelefone').mask('(00) 00000-0000');
     $(".inputTelefone").mask("(00) 00000-0000");
     $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
-    $("#inputDataNascimento").mask("00/00/0000");
-    $(".inputDataNascimento").mask("00/00/0000");
-    $(".inputDataEmissao").mask("00/00/0000");
     $("#inputCep").mask("99999-999");
   });
 </script>
@@ -4557,6 +4557,8 @@ if (@$_GET['func'] == 'visualizarproposta') {
             $queryProposta = "SELECT * FROM propostas WHERE idpropostas = '$id'";
             $resultProposta = mysqli_query($conexao, $queryProposta);
 
+          
+
             if (!$resultProposta) {
               die("Erro na consulta: " . mysqli_error($conexao));
             }
@@ -4573,9 +4575,9 @@ if (@$_GET['func'] == 'visualizarproposta') {
               echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . '</p>';
               echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
               echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
-              echo '<p><strong>Data Emissão: </strong>' . $rowProposta['dataemissao'] . '</p>';
+              echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
               echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
-              echo '<p><strong>Nascimento: </strong>' . $rowProposta['nascimento'] . '</p>';
+              echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
               echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
               echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
               echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
