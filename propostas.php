@@ -462,7 +462,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           </div>
                           <div class="form-group col-md-4">
                             <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
-                            <input name="inputNumeroBeneficio" type="number" class="form-control" id="inputNumeroBeneficio" placeholder="">
+                            <input name="inputNumeroBeneficio" type="text" class="form-control" id="inputNumeroBeneficio" placeholder="">
                           </div>
                           <div class="form-group col-md-4">
                             <label for="inputDataEmissao">DATA EMISSÃO</label>
@@ -2244,7 +2244,7 @@ if (@$_GET['func'] == 'editarcliente') {
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
-                  <input name="inputNumeroBeneficio" type="number" class="form-control" id="inputNumeroBeneficio" placeholder="" value="<?php echo $res_1['numerobeneficio']; ?>">
+                  <input name="inputNumeroBeneficio" type="text" class="form-control" id="inputNumeroBeneficio" placeholder="" value="<?php echo $res_1['numerobeneficio']; ?>">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputDataEmissao">DATA DE EMISSÃO</label>
@@ -2609,9 +2609,9 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                  <label for="inputBanco">BANCO</label>
+                  <label for="inputBanco">BANCO DA PROPOSTA</label>
                   <select name="inputBanco" id="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
-                    <option selected><?php echo $res_1['banco']; ?></option>
+                    <option selected><?php echo $res_1['bancoproposta']; ?></option>
                     <option value="1">001 - BANCO DO BRASIL </option>
                     <option value="3">003 - BANCO DA AMAZONIA </option>
                     <option value="4">004 - BANCO DO NORDESTE DO BRASIL </option>
@@ -2967,7 +2967,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -3521,7 +3521,7 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
 
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', banco = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem',prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -3581,13 +3581,13 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
           <div class="modal-header">
 
-
+                      <!--marcador-->
             <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
-
+            
             <div class="form-row">
               <div class="form-group col-md-6">
                 <form method="POST" action="">
-                  <label for="inputBanco" id="inputBanco">BANCO</label>
+                  <label for="inputBanco" id="inputBanco">BANCO DADOS BANCÁRIOS</label>
                   <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
                     <option selected><?php echo $res_1['banco']; ?></option>
                     <option value="1">001 - BANCO DO BRASIL </option>
@@ -4615,8 +4615,8 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
                   echo '<p><strong>Email: </strong>' . $rowProposta['email'] . '</p>';
                   echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . '</p>';
+                  echo '<p><strong>Banco da proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
                   echo '<p><strong>Banco: </strong>' . $rowProposta['banco'] . '</p>';
-                  echo '<p><strong>Banco Proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
                   echo '<p><strong>Tipo de Conta: </strong>' . $rowProposta['tipodeconta'] . '</p>';
                   echo '<p><strong>Agência: </strong>' . $rowProposta['agencia'] . '</p>';
                   echo '<p><strong>Conta: </strong>' . $rowProposta['conta'] . '</p>';
