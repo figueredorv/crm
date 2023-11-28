@@ -24,6 +24,9 @@ include("conexao.php");
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 
@@ -53,6 +56,18 @@ include("conexao.php");
                     <span>Dashboard</span></a>
             </li>
 
+            <li class="nav-item active">
+                <a class="nav-link" href="propostas.php">
+                    <i class="fa fa-search"></i>
+                    <span>Propostas</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="documentos.php">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Documentos</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -65,13 +80,14 @@ include("conexao.php");
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>Administração</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Área administrativa:</h6>
+                        <a class="collapse-item" href="buttons.html">Usuários</a>
+                        <a class="collapse-item" href="cards.html">Status</a>
+                        <a class="collapse-item" href="cards.html">Promotoras</a>
                     </div>
                 </div>
             </li>
@@ -207,49 +223,59 @@ include("conexao.php");
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <?php
+                                $idUsuario = $_SESSION['idusuarios'];
+
+                                // Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+                                $query = "SELECT COUNT(*) AS total
+            FROM notificacoes n
+            LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+            WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
+                                $result = mysqli_query($conexao, $query);
+                                $row = mysqli_fetch_assoc($result);
+
+                                $totalNotificacoesNaoLidas = $row['total'];
+
+                                if ($totalNotificacoesNaoLidas > 0) {
+                                    echo '<span class="badge badge-danger badge-counter">' . $totalNotificacoesNaoLidas . '</span>';
+                                }
+                                ?>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
+
+                                <?php
+                                // Obter notificações não lidas no banco de dados
+                                $queryNotificacoes = "SELECT * FROM notificacoes n
+            LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+            WHERE n.lida = 0 AND vn.id_visualizacao IS NULL
+            ORDER BY n.id DESC";
+                                $resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
+
+                                // Exibir as notificações dinamicamente no dropdown
+                                while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
+                                    echo '<a class="dropdown-item d-flex align-items-center" href="notificacoes.php">';
+                                    echo '<div class="mr-3">';
+                                    echo '<div class="icon-circle bg-primary">';
+                                    echo '<i class="' . ($rowNotificacao['icon'] ? $rowNotificacao['icon'] : 'fas fa-bell') . ' text-white"></i>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '<div>';
+                                    echo '<div class="small text-gray-500">' . date('d/m/y', strtotime($rowNotificacao['data_publicacao'])) . '</div>';
+                                    echo '<span class="font-weight-bold">' . $rowNotificacao['titulo'] . '</span>';
+                                    echo '</div>';
+                                    echo '</a>';
+                                }
+
+                                ?>
+
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
+
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -316,7 +342,7 @@ include("conexao.php");
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nome_usuario']; ?></span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -465,21 +491,21 @@ FROM propostas;";
                                                 Média de vendas</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
 
-                                        $query = "SELECT AVG(valor) AS media FROM propostas";
-                                        $result = mysqli_query($conexao, $query);
+                                                                                                $query = "SELECT AVG(valor) AS media FROM propostas";
+                                                                                                $result = mysqli_query($conexao, $query);
 
 
-                                        if ($result) {
-                                        $row = mysqli_fetch_assoc($result); // Use mysqli_fetch_assoc para obter o resultado como um array associativo
-                                        $media = $row['media'];
-                                        $mediaFormatada = number_format($media, 2, ',', '.');
+                                                                                                if ($result) {
+                                                                                                    $row = mysqli_fetch_assoc($result); // Use mysqli_fetch_assoc para obter o resultado como um array associativo
+                                                                                                    $media = $row['media'];
+                                                                                                    $mediaFormatada = number_format($media, 2, ',', '.');
 
-                                        echo "<h5>$mediaFormatada</h5>";
-                                        } else {
-                                        // Trate possíveis erros na consulta
-                                        echo "Erro na consulta: " . mysqli_error($conexao);
-                                        }
-                                        ?></div>
+                                                                                                    echo "<h5>$mediaFormatada</h5>";
+                                                                                                } else {
+                                                                                                    // Trate possíveis erros na consulta
+                                                                                                    echo "Erro na consulta: " . mysqli_error($conexao);
+                                                                                                }
+                                                                                                ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -599,70 +625,282 @@ FROM propostas;";
 
                             <!-- Color System -->
                             <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
+                                <!-- início tabela propostas recentes-->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">RECENTES</span></h5>
+                                                <small class="text-muted">Filtrar por valores mais altos e mais baixos</small>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <form class="form-inline my-2 my-lg-0">
+                                                        <button name="buttonMaisAlta" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-asc" aria-hidden="true"></i></button>
+                                                    </form>
+                                                    <form class="form-inline my-2 my-lg-0">
+                                                        <button name="buttonMaisBaixa" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
+                                                    </form>
+                                                    <form class="form-inline my-2 my-lg-0">
+                                                        <button name="buttonPesquisar" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+
+
+                                            <!--LISTAR TODAS AS OCORRÊNCIAS -->
+
+                                            <?php
+                                            if (isset($_GET['buttonPesquisar'])) {
+                                                $nome = $_GET['buttonPesquisar'] . '%';
+                                                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
+                                            }
+                                            // novo codigo ( procurar ocorrência pelo nome)
+                                            else if (isset($_GET['buttonPesquisar'])) {
+                                                $nome = $_GET['buttonPesquisar'] . '%';
+                                                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc where curdate()";
+                                            }
+
+                                            // novo codigo ( procurar por propostas mais altas)
+                                            else if (isset($_GET['buttonMaisAlta'])) {
+
+                                                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor DESC
+                LIMIT 1;";
+                                            }
+                                            // novo codigo ( procurar por propostas mais baixa)
+                                            else if (isset($_GET['buttonMaisBaixa'])) {
+
+                                                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor ASC
+                LIMIT 1;";
+                                            }
+                                            // novo codigo ( procurar por propostas sem nenhuma vacina)
+                                            else if (isset($_GET['buttonpetsemvacina'])) {
+                                                $nome = '';
+                                                $query = "select * from propostas where statusproposta = '$nome'";
+                                            } else if ($_SESSION['cargo_usuario'] == 'Master') {
+                                                $query = "SELECT * FROM propostas WHERE data = CURDATE()
+
+                ORDER BY idpropostas DESC limit 5";
+                                            }
+
+
+                                            //final do código
+
+                                            else {
+                                                $id = $_SESSION['idusuarios'];
+                                                $query = "SELECT * FROM propostas
+          WHERE idusuario = $id and data = CURDATE()
+          ORDER BY idpropostas DESC limit 5";
+                                            }
+
+
+
+
+
+                                            $result = mysqli_query($conexao, $query);
+                                            //$dado = mysqli_fetch_array($result);
+                                            $row = mysqli_num_rows($result);
+
+                                            if ($row == '') {
+
+                                                echo "<h5> Não existem propostas cadastradas recentes por você! </h5>";
+                                            } else {
+
+                                            ?>
+
+
+
+                                                <table class="table table-borderless">
+                                                    <thead class=" text-primary">
+
+                                                        <th>
+                                                            Nome
+                                                        </th>
+                                                        <th>
+                                                            Cpf
+                                                        </th>
+                                                        <th>
+                                                            Operação
+                                                        </th>
+                                                        <th>
+                                                            Convênio
+                                                        </th>
+                                                        <th>
+                                                            Banco
+                                                        </th>
+
+                                                        <th>
+                                                            Valor
+                                                        </th>
+                                                        <th>
+                                                            Usuário
+                                                        </th>
+
+                                                        <th>
+                                                            Data
+                                                        </th>
+
+                                                        <th>
+                                                            Status
+                                                        </th>
+
+                                                        <th>
+                                                            Ações
+                                                        </th>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <?php
+
+                                                        // ja tendo uma conexão com o banco de dados ($conexao)
+                                                        $query_cores = "SELECT statusproposta, cor FROM statusproposta";
+                                                        $result_cores = mysqli_query($conexao, $query_cores);
+
+                                                        // Criar um array associativo para armazenar as cores
+                                                        $status_cores = array();
+                                                        while ($row_cores = mysqli_fetch_assoc($result_cores)) {
+                                                            $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
+                                                        }
+
+
+                                                        while ($res_1 = mysqli_fetch_array($result)) {
+                                                            $nome = $res_1["nome"];
+                                                            $cpf = $res_1["cpf"];
+                                                            $operacao = $res_1["operacao"];
+                                                            $tabela = $res_1["tabela"];
+                                                            $convenio = $res_1["convenio"];
+                                                            $banco = $res_1["banco"];
+                                                            $valor = $res_1["valor"];
+                                                            //$promotora = $res_1["promotora"];
+                                                            $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
+                                                            $statusproposta = $res_1["statusproposta"];
+                                                            $data = $res_1["data"];
+                                                            $id = $res_1["idpropostas"];
+
+                                                            $data2 = implode('/', array_reverse(explode('-', $data)));
+
+                                                            // Agora, vamos buscar o nome do usuário com base no ID
+                                                            $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
+                                                            $result_usuario = mysqli_query($conexao, $query_usuario);
+                                                            $row_usuario = mysqli_fetch_assoc($result_usuario);
+                                                            $nome_usuario = $row_usuario['usuario'];
+
+
+
+                                                        ?>
+
+                                                            <tr>
+
+                                                                <td><?php echo $nome; ?></td>
+                                                                <td><?php echo  $cpf; ?></td>
+                                                                <td><?php echo  $operacao;  ?></td>
+                                                                <td><?php echo $convenio; ?></td>
+                                                                <td><?php echo $banco; ?></td>
+                                                                <td><?php echo number_format($valor, 2, ",", "."); ?></td>
+                                                                <td><?php echo  $nome_usuario; ?></td>
+                                                                <td><?php echo  $data2; ?></td>
+
+
+
+
+
+                                                                <?php
+                                                                if (array_key_exists($statusproposta, $status_cores)) {
+                                                                    $cor_badge = $status_cores[$statusproposta];
+                                                                    echo "<td class='badge badge-pill badge-custom' style='background-color: $cor_badge; color: #000000;'>$statusproposta</td>";
+                                                                } else {
+                                                                    echo "<td class='badge badge-pill badge-info'>$statusproposta</td>";
+                                                                }
+                                                                ?>
+
+
+
+
+
+                                                                <td>
+
+
+
+
+
+                                                                    <div class="btn-group" role="group" aria-label="Exemplo básico">
+
+
+                                                                        <div class="dropdown">
+                                                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                                                <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-up">
+                                                                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                                                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                                                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                                                                        <!-- Botão de exclusão de proposta -->
+
+
+                                                                        <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                                                                        <!-- Botão de edição de status da proposta -->
+                                                                        <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+
+                                                                        <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                                                                        <?php
+                                                                        // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                                                                        if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                                                                            <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                                            </a>
+
+                                                                        <?php
+
+                                                                        endif;
+
+                                                                        ?>
+
+
+
+
+
+
+
+
+
+
+                                                                    </div>
+
+                                                                </td>
+                                                            </tr>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- final tabela propostas recentes-->
                             </div>
 
                         </div>
@@ -690,63 +928,63 @@ FROM propostas;";
                                     <h6 class="m-0 font-weight-bold text-primary">Top 3 usuários que mais cadastrou propostas</h6>
                                 </div>
                                 <div class="card-body">
-                                <div class="table-responsive">
-              <?php
-              $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
-            FROM usuarios u
-            LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-            GROUP BY u.idusuarios, u.usuario
-            ORDER BY propostas DESC
-            LIMIT 3 OFFSET 0;";
+                                    <div class="table-responsive">
+                                        <?php
+                                        $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+                                        FROM usuarios u
+                                        LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+                                        GROUP BY u.idusuarios, u.usuario
+                                        ORDER BY propostas DESC
+                                        LIMIT 3 OFFSET 0;";
 
-              $result = mysqli_query($conexao, $query);
-              $row = mysqli_num_rows($result);
+                                        $result = mysqli_query($conexao, $query);
+                                        $row = mysqli_num_rows($result);
 
-              if ($row == 0) {
-                echo "<h3>Não existem dados cadastrados no banco</h3>";
-              } else {
-              ?>
-                <table class="table">
-                  <thead class="text-primary">
-                    <th>Imagem</th>
-                    <th>Usuário</th>
-                    <th>Propostas cadastradas</th>
-                  </thead>
-                  <tbody>
-                    <?php
-                    while ($res_1 = mysqli_fetch_array($result)) {
-                      $nome = $res_1["usuario"];
-                      $propostas = $res_1["propostas"];
-                      $idUsuario = $res_1["idusuarios"];
-                      $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
+                                        if ($row == 0) {
+                                            echo "<h3>Não existem dados cadastrados no banco</h3>";
+                                        } else {
+                                        ?>
+                                            <table class="table">
+                                                <thead class="text-primary">
+                                                    <th>Imagem</th>
+                                                    <th>Usuário</th>
+                                                    <th>Propostas cadastradas</th>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    while ($res_1 = mysqli_fetch_array($result)) {
+                                                        $nome = $res_1["usuario"];
+                                                        $propostas = $res_1["propostas"];
+                                                        $idUsuario = $res_1["idusuarios"];
+                                                        $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
 
-                      // Verifique se o usuário tem uma imagem de perfil
-                      $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
-                      $resultImagem = mysqli_query($conexao, $sql);
-                      if ($resultImagem && mysqli_num_rows($resultImagem) > 0) {
-                        $linhaImagem = mysqli_fetch_assoc($resultImagem);
-                        if (!empty($linhaImagem['imagem'])) {
-                          $caminhoDaImagem = 'assets/img/faces/' . $linhaImagem['imagem'];
-                        }
-                      }
-                    ?>
-                      <tr>
-                        <td>
-                          <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
+                                                        // Verifique se o usuário tem uma imagem de perfil
+                                                        $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+                                                        $resultImagem = mysqli_query($conexao, $sql);
+                                                        if ($resultImagem && mysqli_num_rows($resultImagem) > 0) {
+                                                            $linhaImagem = mysqli_fetch_assoc($resultImagem);
+                                                            if (!empty($linhaImagem['imagem'])) {
+                                                                $caminhoDaImagem = 'assets/img/faces/' . $linhaImagem['imagem'];
+                                                            }
+                                                        }
+                                                    ?>
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
 
-                        </td>
-                        <td><?php echo $nome; ?></td>
-                        <td><?php echo $propostas; ?></td>
-                      </tr>
-                    <?php
-                    }
-                    ?>
-                  </tbody>
-                </table>
-              <?php
-              }
-              ?>
-            </div>
+                                                            </td>
+                                                            <td><?php echo $nome; ?></td>
+                                                            <td><?php echo $propostas; ?></td>
+                                                        </tr>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
 
@@ -793,7 +1031,7 @@ FROM propostas;";
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>

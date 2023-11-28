@@ -1,12 +1,1 @@
-solicitacao > sexo
-protocolo > idade
-telefone > especie
-bairro > castrado
-endereco > vacinas
-
-
-
-** Outras mudanças
-Atendida > Adotado
-Pendente > Disponivel
-
+painel_funcionario.php
