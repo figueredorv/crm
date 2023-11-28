@@ -13,10 +13,11 @@ include("conexao.php");
 
 <head>
   <meta charset="utf-8" />
+
+
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <link rel="stylesheet" href="css/style.css">
 
 
 
@@ -35,8 +36,9 @@ include("conexao.php");
   <link href="assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
-
-
+  <link rel="stylesheet" href="css/painel-funcionario.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 
 </head>
 
@@ -47,12 +49,46 @@ include("conexao.php");
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="" class="simple-text logo-mini">
+        <a href="profile.php" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-File.png">
+            <?php
+            // Defina um caminho padrão para a imagem de placeholder
+            $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+
+            // Verifique se o usuário está logado
+            if (isset($_SESSION['idusuarios'])) {
+              $idUsuario = $_SESSION['idusuarios'];
+
+              // Consulta SQL para buscar o caminho da imagem do usuário
+              $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+
+              // Executa a consulta
+              $resultado = mysqli_query($conexao, $sql);
+
+              if ($resultado) {
+                $linha = mysqli_fetch_assoc($resultado);
+
+                if ($linha && !empty($linha['imagem'])) {
+                  $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+                } else {
+                  // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                  $caminhoDaImagem = $caminhoDaImagemPadrao;
+                }
+              }
+            } else {
+              // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+              $caminhoDaImagem = $caminhoDaImagemPadrao;
+            }
+
+            // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+            ?>
+
+            <!-- Exibir a imagem -->
+            <img id="imagem-preview" class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil">
+
           </div>
         </a>
-        <a href="" class="simple-text logo-normal">
+        <a href="profile.php" class="simple-text logo-normal">
           CRM CORBAN
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -77,22 +113,137 @@ include("conexao.php");
 
           <li class="">
             <a href="propostas.php">
-              <i class="fa fa-product-hunt"></i>
+              <i class="fa fa-search"></i>
               <p>Propostas</p>
             </a>
           </li>
 
+          <?php
+          $idUsuario = $_SESSION['idusuarios'];
 
+          // Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+          $query = "SELECT COUNT(*) AS total
+          FROM notificacoes n
+          LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+          WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
+          $result = mysqli_query($conexao, $query);
+          $row = mysqli_fetch_assoc($result);
 
+          $totalNotificacoesNaoLidas = $row['total'];
+          ?>
+          <!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
           <li class="">
-            <a href="propostas.php">
-              <i class="fa fa-search"></i>
-              <p>Consultas</p>
+            <a href="notificacoes.php">
+              <i class="fa fa-bell-o"></i>
+              <p>Notificações
+                <?php
+                if ($totalNotificacoesNaoLidas > 0) {
+                  echo '<span class="badge badge-secondary" style="font-size: larger;">' . $totalNotificacoesNaoLidas . '</span>';
+                }
+
+                ?>
+              </p>
             </a>
           </li>
 
+
+
+
+
+
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Campanhas <i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Minhas campanhas</a></li>
+              <li><a href="#">Atendimento</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+              <p>Relatórios<i class="fa fa-angle-right"></i></p>
+            </a>
+            <ul class="dropdown-menu">
+              <a class="dropdown-item" href="#">Propostas</a>
+              <a class="dropdown-item" href="#">Campanhas</a>
+            </ul>
+          </li>
+
+          <?php
+          // lógica para só conseguir visualizar o dropdown financeiro quem for master ou Adm do sistema
+          if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <p>Financeiro<i class="fa fa-angle-right"></i></p>
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="#">Comissionamento</a>
+                <a class="dropdown-item" href="#">Lançamentos</a>
+                <a class="dropdown-item" href="#">Pagamentos</a>
+              </ul>
+            </li>
+
+          <?php
+
+          endif;
+
+          ?>
+
+
+
+
+
+          <?php
+          // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
+          if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <p>Administração<i class="fa fa-angle-right"></i></p>
+              </a>
+              <ul class="dropdown-menu">
+                <a class="dropdown-item" href="usuarios.php">Usuários</a>
+                <a class="dropdown-item" href="#">Grupos</a>
+                <a class="dropdown-item" href="#">Tabelas</a>
+                <a class="dropdown-item" href="status.php">Status</a>
+                <a class="dropdown-item" href="promotora.php">Promotoras</a>
+                <a class="dropdown-item" href="#">Tabulação</a>
+                <a class="dropdown-item" href="#">Canais de vendas</a>
+              </ul>
+            </li>
+
+          <?php
+          endif;
+          ?>
+
+
+
+
+          <style>
+            .dropdown-toggle::after {
+              display: none;
+            }
+          </style>
+
+          <style>
+            .dropdown-menu a {
+              text-align: right;
+            }
+          </style>
+
           <li class="">
-            <a href="mensagens.php">
+            <a href="documentos.php">
+              <i class="fa fa-id-card-o"></i>
+              <p>Documentos</p>
+            </a>
+          </li>
+
+
+
+          <li class="">
+            <a href="">
               <i class="fa fa-users"></i>
               <p>Bases</p>
             </a>
@@ -100,12 +251,6 @@ include("conexao.php");
 
 
 
-          <li class="">
-            <a href="https://wa.link/1quja8" target="_blank">
-              <i class="fa fa-life-ring"></i>
-              <p>Suporte</p>
-            </a>
-          </li>
 
 
 
@@ -137,7 +282,7 @@ include("conexao.php");
 
           <form>
             <div class="input-group no-border">
-              <input type="text" value="" class="form-control" placeholder="Search...">
+              <input type="text" value="" class="form-control" placeholder="Procurar..." name="buttonPesquisar">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <i class="nc-icon nc-zoom-split"></i>
@@ -152,28 +297,21 @@ include("conexao.php");
 
             <ul class="navbar-nav">
 
+
+
               <li class="nav-item btn-rotate dropdown">
                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <?php echo $_SESSION['nome_usuario']; ?>
                   <i class="nc-icon nc-single-02"></i>
                   <p>
-
                     <span class="d-lg-none d-md-block">Some Actions</span>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 
+                  <a class="dropdown-item" href="painel_funcionario.php">Dashboard</a>
+                  <a class="dropdown-item" href="profile.php">Minha conta</a>
 
-                  <?php
-                  if ($_SESSION['cargo_usuario'] == 'Administrador' || $_SESSION['cargo_usuario'] == 'Desenvolvedor') {
-
-
-                  ?>
-
-                    <a class="dropdown-item" href="painel_admin.php">Painél do Administrador</a>
-                    <a class="dropdown-item" href="painel_funcionario.php">Painél do Funcionário</a>
-
-                  <?php } ?>
 
                   <a class="dropdown-item" href="logout.php">Sair</a>
 
@@ -206,82 +344,32 @@ include("conexao.php");
 
 
         <?php
-
-        $query = "select * from animais where vacinas = ''";
+        $query = "SELECT * FROM propostas WHERE data = CURDATE() ORDER BY data ASC";
         $result = mysqli_query($conexao, $query);
-        //$dado = mysqli_fetch_array($result);
         $row = mysqli_num_rows($result);
 
-        if ($row > 0) : ?>
-          <div class="notice notice-warning"><strong>Atenção!</strong> Existem pets que ainda não foram vacinados.</div>
-
-        <?php
-
-        endif;
+        if ($row > 0) :
         ?>
-
-
-
-
-        <!-- Botões dropdowns em cima da dashboard -->
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Campanhas
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Minhas campanhas</a>
-            <a class="dropdown-item" href="#">Atendimento</a>
+          <div class="alert alert-success alert-dismissible fade show text-dark">
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="nc-icon nc-simple-remove"></i>
+            </button>
+            <span>
+              <b>Muito bem!</b> Você possui <?php echo $row; ?>
+              <?php echo ($row === 1) ? 'nova proposta!' : 'novas propostas!'; ?>
+            </span>
           </div>
-        </div>
+        <?php endif; ?>
 
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Relatórios
+        <!--
+         <div class="alert alert-warning alert-with-icon alert-dismissible fade show" data-notify="container" style="color: black;">
+          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="nc-icon nc-simple-remove"></i>
           </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Propostas</a>
-            <a class="dropdown-item" href="#">Campanhas</a>
-          </div>
+          <span data-notify="icon" class="nc-icon nc-bell-55"></span>
+          <span data-notify="message" style="color: black;">Ops! Estamos realizando manutenção no site. Pedimos desculpas por eventuais falhas temporárias. Estaremos de volta em breve!.</span>
         </div>
-
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Financeiro
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Comissionamento</a>
-            <a class="dropdown-item" href="#">Lançamentos</a>
-            <a class="dropdown-item" href="#">Pagamentos</a>
-          </div>
-        </div>
-
-        <div class="btn-group dropright">
-          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Administração
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Usuários</a>
-            <a class="dropdown-item" href="#">Grupos</a>
-            <a class="dropdown-item" href="#">Tabelas</a>
-            <a class="dropdown-item" href="#">Status</a>
-            <a class="dropdown-item" href="#">Promotoras</a>
-            <a class="dropdown-item" href="#">Promotoras</a>
-            <a class="dropdown-item" href="#">Tabulação</a>
-            <a class="dropdown-item" href="#">Canais de vendas</a>
-          </div>
-        </div>
-
-
-
-
-
-
-
-        <!--  final Botões dropdowns em cima da dashboard -->
-
-
-
-
+    -->
 
 
 
@@ -307,7 +395,7 @@ include("conexao.php");
 
                           <?php
 
-                          $query = "select * from animais order by nome asc";
+                          $query = "select * from propostas order by nome asc";
                           $result = mysqli_query($conexao, $query);
                           //$dado = mysqli_fetch_array($result);
                           $row = mysqli_num_rows($result);
@@ -335,7 +423,7 @@ include("conexao.php");
               </div>
         </a>
       </div>
-      <a href="animais.php?buttonOcNaoAtendidas=" style="text-decoration:none">
+      <a href="#" style="text-decoration:none">
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
             <div class="card-body ">
@@ -347,21 +435,25 @@ include("conexao.php");
                 </div>
                 <div class="col-7 col-md-8">
                   <div class="numbers">
-                    <p class="card-category">Valor total das propostas </p>
+                    <p class="card-category">Valor das propostas </p>
                     <p class="card-title">
 
                       <?php
 
-                      $query = "select * from animais where situacao = 'Disponivel'";
+                      $query = "SELECT SUM(valor) AS total_valor
+                      FROM propostas;";
                       $result = mysqli_query($conexao, $query);
                       //$dado = mysqli_fetch_array($result);
                       $row = mysqli_num_rows($result);
+                      $dado = mysqli_fetch_array($result);
+                      $resultado = $dado["total_valor"]; // Valor a ser formatado
+                      $resultadoFormatado = number_format($resultado, 2, ',', '.');
 
                       if ($row == '') {
 
                         echo "<h5> 0 </h5>";
                       } else {
-                        echo "<h5> $row </h5>";
+                        echo  "<h5> $resultadoFormatado</h5";
                       }
                       ?>
 
@@ -373,13 +465,13 @@ include("conexao.php");
             <div class="card-footer ">
               <hr>
               <div class="stats">
-                <i class="fa fa-money "></i> Média de vendas diárias
+                <i class="fa fa-money "></i> Valor das propostas cadastradas
               </div>
             </div>
           </div>
       </a>
     </div>
-    <a href="animais.php?buttonOcAtendidas=" style="text-decoration:none">
+    <a href="#" style="text-decoration:none">
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-body ">
@@ -391,21 +483,24 @@ include("conexao.php");
               </div>
               <div class="col-7 col-md-8">
                 <div class="numbers">
-                  <p class="card-category">Média de vendas diárias</p>
+                  <p class="card-category">Média de vendas</p>
                   <p class="card-title">
 
                     <?php
 
-                    $query = "select * from animais where situacao = 'Adotado'";
+                    $query = "SELECT AVG(valor) AS media FROM propostas";
                     $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
 
-                    if ($row == '') {
 
-                      echo "<h5> 0 </h5>";
+                    if ($result) {
+                      $row = mysqli_fetch_assoc($result); // Use mysqli_fetch_assoc para obter o resultado como um array associativo
+                      $media = $row['media'];
+                      $mediaFormatada = number_format($media, 2, ',', '.');
+
+                      echo "<h5>$mediaFormatada</h5>";
                     } else {
-                      echo "<h5> $row </h5>";
+                      // Trate possíveis erros na consulta
+                      echo "Erro na consulta: " . mysqli_error($conexao);
                     }
                     ?>
 
@@ -417,30 +512,30 @@ include("conexao.php");
           <div class="card-footer ">
             <hr>
             <div class="stats">
-              <i class="fa fa-bar-chart"></i> Total de média diária
+              <i class="fa fa-bar-chart"></i> Média de vendas diária
             </div>
           </div>
         </div>
     </a>
   </div>
-  <a href="animais.php?buttonpetsemvacina=" style="text-decoration:none">
+  <a href="#" style="text-decoration:none">
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
           <div class="row">
             <div class="col-5 col-md-4">
               <div class="icon-big text-center icon-warning">
-                <i class="fa fa-circle-o-notch text-primary"></i>
+                <i class="fa fa-users text-primary"></i>
               </div>
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
-                <p class="card-category">Valor das propostas</p>
+                <p class="card-category">Total de usuários</p>
                 <p class="card-title">
 
                   <?php
 
-                  $query = "select * from animais where vacinas = ''";
+                  $query = "select * from usuarios";
                   $result = mysqli_query($conexao, $query);
                   //$dado = mysqli_fetch_array($result);
                   $row = mysqli_num_rows($result);
@@ -464,7 +559,7 @@ include("conexao.php");
         <div class="card-footer ">
           <hr>
           <div class="stats">
-            <i class="fa fa-circle-o-notch "></i> Média do valor das propostas
+            <i class="fa fa-users"></i> Usuários cadastrados na plataforma
           </div>
         </div>
       </div>
@@ -489,26 +584,25 @@ include("conexao.php");
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">HOJE</span></h5>
-
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <form class="form-inline my-2 my-lg-0">
-                <button name="buttonOcAtendidas" type="submit" class="btn btn-primary">Mais alta</button>
-                <form>
-
+            <div class="row">
+              <div class="col-12">
+                <h5>Propostas registradas <span style="color:white;" class="badge bg-secondary">RECENTES</span></h5>
+                <small class="text-muted">Filtrar por valores mais altos e mais baixos</small>
+              </div>
+              <div class="col-4">
+                <div class="btn-group" role="group" aria-label="Basic example">
                   <form class="form-inline my-2 my-lg-0">
-                    <button name="buttonOcNaoAtendidas" type="submit" class="btn btn-primary">Mais baixa</button>
-                    <form>
-
-
-                      <form class="form-inline my-2 my-lg-0">
-                        <button name="buttonPesquisar" type="submit" class="btn btn-primary">Todas</button>
-                        <form>
-
+                    <button name="buttonMaisAlta" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-asc" aria-hidden="true"></i></button>
+                  </form>
+                  <form class="form-inline my-2 my-lg-0">
+                    <button name="buttonMaisBaixa" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-sort-desc" aria-hidden="true"></i></button>
+                  </form>
+                  <form class="form-inline my-2 my-lg-0">
+                    <button name="buttonPesquisar" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                  </form>
+                </div>
+              </div>
             </div>
-
-
-
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -517,33 +611,52 @@ include("conexao.php");
               <!--LISTAR TODAS AS OCORRÊNCIAS -->
 
               <?php
-
-              // novo codigo ( procurar ocorrência pelo nome)
               if (isset($_GET['buttonPesquisar'])) {
-                $query = "select * from animais where data = curdate()";
+                $nome = $_GET['buttonPesquisar'] . '%';
+                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
+              }
+              // novo codigo ( procurar ocorrência pelo nome)
+              else if (isset($_GET['buttonPesquisar'])) {
+                $nome = $_GET['buttonPesquisar'] . '%';
+                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc where curdate()";
               }
 
-              // novo codigo ( procurar por animais adotados)
-              else if (isset($_GET['buttonOcAtendidas'])) {
-                $nome = 'Adotado';
-                $query = "select * from animais where situacao = '$nome'  and data = curdate()";
+              // novo codigo ( procurar por propostas mais altas)
+              else if (isset($_GET['buttonMaisAlta'])) {
+
+                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor DESC
+                LIMIT 1;";
               }
-              // novo codigo ( procurar por animais nao adotados)
-              else if (isset($_GET['buttonOcNaoAtendidas'])) {
-                $nome = 'Disponivel';
-                $query = "select * from animais where situacao = '$nome'  and data = curdate()";
+              // novo codigo ( procurar por propostas mais baixa)
+              else if (isset($_GET['buttonMaisBaixa'])) {
+
+                $query = "SELECT *
+                FROM propostas
+                WHERE data = CURDATE()
+                ORDER BY valor ASC
+                LIMIT 1;";
               }
-              // novo codigo ( procurar por animais sem nenhuma vacina)
+              // novo codigo ( procurar por propostas sem nenhuma vacina)
               else if (isset($_GET['buttonpetsemvacina'])) {
                 $nome = '';
-                $query = "select * from animais where vacinas = '$nome'";
+                $query = "select * from propostas where statusproposta = '$nome'";
+              } else if ($_SESSION['cargo_usuario'] == 'Master') {
+                $query = "SELECT * FROM propostas WHERE data = CURDATE()
+
+                ORDER BY idpropostas DESC limit 5";
               }
 
 
               //final do código
 
               else {
-                $query = "select * from animais where data = curdate()   order by data asc ";
+                $id = $_SESSION['idusuarios'];
+                $query = "SELECT * FROM propostas
+          WHERE idusuario = $id and data = CURDATE()
+          ORDER BY idpropostas DESC limit 5";
               }
 
 
@@ -556,39 +669,47 @@ include("conexao.php");
 
               if ($row == '') {
 
-                echo "<h3> Não existem dados cadastrados no banco </h3>";
+                echo "<h5> Não existem propostas cadastradas recentes por você! </h5>";
               } else {
 
               ?>
 
 
 
-                <table class="table">
+                <table class="table table-borderless">
                   <thead class=" text-primary">
 
                     <th>
-                      Campo1
+                      Nome
                     </th>
                     <th>
-                      Campo2
+                      Cpf
                     </th>
                     <th>
-                      Campo3
+                      Operação
                     </th>
                     <th>
-                      Campo4
+                      Convênio
                     </th>
                     <th>
-                      Campo5
+                      Banco
+                    </th>
+
+                    <th>
+                      Valor
                     </th>
                     <th>
-                      Campo6
+                      Usuário
                     </th>
-                    </th>
+
                     <th>
-                      Campo7
+                      Data
                     </th>
+
+                    <th>
+                      Status
                     </th>
+
                     <th>
                       Ações
                     </th>
@@ -597,18 +718,38 @@ include("conexao.php");
 
                     <?php
 
+                    // ja tendo uma conexão com o banco de dados ($conexao)
+                    $query_cores = "SELECT statusproposta, cor FROM statusproposta";
+                    $result_cores = mysqli_query($conexao, $query_cores);
+
+                    // Criar um array associativo para armazenar as cores
+                    $status_cores = array();
+                    while ($row_cores = mysqli_fetch_assoc($result_cores)) {
+                      $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
+                    }
+
+
                     while ($res_1 = mysqli_fetch_array($result)) {
                       $nome = $res_1["nome"];
-                      $especie = $res_1["especie"];
-                      $vacinas = $res_1["vacinas"];
-                      $castrado = $res_1["castrado"];
-                      $observacao = $res_1["observacao"];
-                      $idade = $res_1["idade"];
-                      $situacao = $res_1["situacao"];
-                      $id = $res_1["id"];
-                      $nomeexcluido = $nome; // Variavel criada somente para enviar LOG do nome do pet que foi excluído
+                      $cpf = $res_1["cpf"];
+                      $operacao = $res_1["operacao"];
+                      $tabela = $res_1["tabela"];
+                      $convenio = $res_1["convenio"];
+                      $banco = $res_1["banco"];
+                      $valor = $res_1["valor"];
+                      //$promotora = $res_1["promotora"];
+                      $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
+                      $statusproposta = $res_1["statusproposta"];
+                      $data = $res_1["data"];
+                      $id = $res_1["idpropostas"];
 
+                      $data2 = implode('/', array_reverse(explode('-', $data)));
 
+                      // Agora, vamos buscar o nome do usuário com base no ID
+                      $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
+                      $result_usuario = mysqli_query($conexao, $query_usuario);
+                      $row_usuario = mysqli_fetch_assoc($result_usuario);
+                      $nome_usuario = $row_usuario['usuario'];
 
 
 
@@ -617,47 +758,86 @@ include("conexao.php");
                       <tr>
 
                         <td><?php echo $nome; ?></td>
-                        <td><?php echo $especie; ?></td>
-                        <td><?php echo $vacinas;  ?></td>
-                        <td><?php echo $castrado;  ?></td>
-                        <td><?php echo $observacao; ?></td>
-                        <td><?php echo $idade; ?></td>
+                        <td><?php echo  $cpf; ?></td>
+                        <td><?php echo  $operacao;  ?></td>
+                        <td><?php echo $convenio; ?></td>
+                        <td><?php echo $banco; ?></td>
+                        <td><?php echo number_format($valor, 2, ",", "."); ?></td>
+                        <td><?php echo  $nome_usuario; ?></td>
+                        <td><?php echo  $data2; ?></td>
+
+
 
 
 
                         <?php
-                        if ($situacao == "Disponivel") : ?>
-                          <td class="badge badge-pill badge-warning"><?php echo $situacao; ?></td>
-                        <?php
-                        endif;
+                              if (array_key_exists($statusproposta, $status_cores)) {
+                                $cor_badge = $status_cores[$statusproposta];
+                                echo "<td class='badge badge-pill badge-custom' style='background-color: $cor_badge; color: #000000;'>$statusproposta</td>";
+                              } else {
+                                echo "<td class='badge badge-pill badge-info'>$statusproposta</td>";
+                              }
+                              ?>
 
-                        ?>
-                        <?php
-                        if ($situacao == "Adotado") : ?>
-                          <td class="badge badge-pill badge-success"><?php echo $situacao; ?></td>
-                        <?php
-                        endif;
 
-                        ?>
-                        <?php
-                        if ($situacao == "Cancelada") : ?>
-                          <td class="badge badge-pill badge-danger"><?php echo $situacao; ?></td>
-                        <?php
-                        endif;
-
-                        ?>
 
 
 
                         <td>
-                          <a class="btn btn-info" href="animais.php?func=edita&id=<?php echo $id; ?>"><i class="fa fa-pencil-square-o"></i></a>
-
-                          <a class="btn btn-danger" href="animais.php?func=deleta&id=<?php echo $id; ?>"><i class="fa fa-minus-square"></i></a>
-
-                          <br>
 
 
 
+
+
+                          <div class="btn-group" role="group" aria-label="Exemplo básico">
+
+
+                            <div class="dropdown">
+                              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-right dropdown-menu-up">
+                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                              </ul>
+                            </div>
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <!-- Botão de exclusão de proposta -->
+
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <!-- Botão de edição de status da proposta -->
+                            <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+
+                            <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                            <?php
+                            // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                            if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                              <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                              </a>
+
+                            <?php
+
+                            endif;
+
+                            ?>
+
+
+
+
+
+
+
+
+
+
+                          </div>
 
                         </td>
                       </tr>
@@ -686,230 +866,257 @@ include("conexao.php");
     <div class="row">
       <div class="col-md-4">
         <div class="card ">
-          <div class="card-header ">
-            <h5 class="card-title">Email Statistics</h5>
-            <p class="card-category">Last Campaign Performance</p>
+          <!-- início de tabela de usuários mais ativos -->
+
+          <div class="card-header">
+            <h5 style="font-size: 30px;">Top 3 usuários que mais cadastrou <span style="color:white;" class="badge bg-secondary">PROPOSTAS</span></h5>
+
+
+
+
+
           </div>
-          <div class="card-body ">
-            <canvas id="chartEmail"></canvas>
-          </div>
-          <div class="card-footer ">
-            <div class="legend">
-              <i class="fa fa-circle text-primary"></i> Opened
-              <i class="fa fa-circle text-warning"></i> Read
-              <i class="fa fa-circle text-danger"></i> Deleted
-              <i class="fa fa-circle text-gray"></i> Unopened
+          <div class="card-body">
+            <div class="table-responsive">
+              <?php
+              $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
+            FROM usuarios u
+            LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+            GROUP BY u.idusuarios, u.usuario
+            ORDER BY propostas DESC
+            LIMIT 3 OFFSET 0;";
+
+              $result = mysqli_query($conexao, $query);
+              $row = mysqli_num_rows($result);
+
+              if ($row == 0) {
+                echo "<h3>Não existem dados cadastrados no banco</h3>";
+              } else {
+              ?>
+                <table class="table">
+                  <thead class="text-primary">
+                    <th>Imagem</th>
+                    <th>Usuário</th>
+                    <th>Propostas cadastradas</th>
+                  </thead>
+                  <tbody>
+                    <?php
+                    while ($res_1 = mysqli_fetch_array($result)) {
+                      $nome = $res_1["usuario"];
+                      $propostas = $res_1["propostas"];
+                      $idUsuario = $res_1["idusuarios"];
+                      $caminhoDaImagem = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg'; // Caminho padrão para imagem de placeholder
+
+                      // Verifique se o usuário tem uma imagem de perfil
+                      $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+                      $resultImagem = mysqli_query($conexao, $sql);
+                      if ($resultImagem && mysqli_num_rows($resultImagem) > 0) {
+                        $linhaImagem = mysqli_fetch_assoc($resultImagem);
+                        if (!empty($linhaImagem['imagem'])) {
+                          $caminhoDaImagem = 'assets/img/faces/' . $linhaImagem['imagem'];
+                        }
+                      }
+                    ?>
+                      <tr>
+                        <td>
+                          <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
+
+                        </td>
+                        <td><?php echo $nome; ?></td>
+                        <td><?php echo $propostas; ?></td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+              <?php
+              }
+              ?>
             </div>
-            <hr>
-            <div class="stats">
-              <i class="fa fa-calendar"></i> Number of emails sent
-            </div>
           </div>
+
+
+
+          <!-- final de tabela de usuários mais ativos -->
+
         </div>
       </div>
       <div class="col-md-8">
         <div class="card card-chart">
           <div class="card-header">
-            <h5 class="card-title">NASDAQ: AAPL</h5>
+            <h5 class="card-title">GRÁFICO</h5>
 
             <div class="row">
               <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title"> Simple Table</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead class=" text-primary">
-                          <th>
-                            Name
-                          </th>
-                          <th>
-                            Country
-                          </th>
-                          <th>
-                            City
-                          </th>
-                          <th class="text-right">
-                            Salary
-                          </th>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              Dakota Rice
-                            </td>
-                            <td>
-                              Niger
-                            </td>
-                            <td>
-                              Oud-Turnhout
-                            </td>
-                            <td class="text-right">
-                              $36,738
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Minerva Hooper
-                            </td>
-                            <td>
-                              Curaçao
-                            </td>
-                            <td>
-                              Sinaai-Waas
-                            </td>
-                            <td class="text-right">
-                              $23,789
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Sage Rodriguez
-                            </td>
-                            <td>
-                              Netherlands
-                            </td>
-                            <td>
-                              Baileux
-                            </td>
-                            <td class="text-right">
-                              $56,142
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Philip Chaney
-                            </td>
-                            <td>
-                              Korea, South
-                            </td>
-                            <td>
-                              Overland Park
-                            </td>
-                            <td class="text-right">
-                              $38,735
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Doris Greene
-                            </td>
-                            <td>
-                              Malawi
-                            </td>
-                            <td>
-                              Feldkirchen in Kärnten
-                            </td>
-                            <td class="text-right">
-                              $63,542
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Mason Porter
-                            </td>
-                            <td>
-                              Chile
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $78,615
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              Jon Porter
-                            </td>
-                            <td>
-                              Portugal
-                            </td>
-                            <td>
-                              Gloucester
-                            </td>
-                            <td class="text-right">
-                              $98,615
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
+
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {
+                    'packages': ['corechart']
+                  });
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Métrica', 'Valor'],
+                      ['Média das Propostas', <?php echo $media; ?>]
+                    ]);
+
+                    var options = {
+                      title: 'Média do Valor das Propostas',
+                      hAxis: {
+                        title: 'Métrica',
+                        titleTextStyle: {
+                          color: '#333'
+                        }
+                      },
+                      vAxis: {
+                        minValue: 0
+                      }
+                    };
+
+                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                  }
+                </script>
+
+                <div id="chart_div" style="width: 100%; height: auto;"></div>
+
+              </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
-    <!-- Final de tabelas que ficam em baixo de Propostas registradas -->
+  </div>
+  <!-- Final de tabelas que ficam em baixo de Propostas registradas -->
 
 
 
 
-    </head>
+  </head>
 
-    <body>
-
-
+  <body>
 
 
 
 
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li>
-                  <a href="https://wa.link/1quja8" target="_blank">SUPORTE</a>
-                </li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>, CRM CORBAN <i class="fa fa-heart heart"></i>
-              </span>
-            </div>
+
+
+    <footer class="footer footer-black  footer-white ">
+      <div class="container-fluid">
+        <div class="row">
+          <nav class="footer-nav">
+            <ul>
+              <li>
+                <a href="" target="_blank">SUPORTE</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="credits ml-auto">
+            <span class="copyright">
+              ©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>, CRM CORBAN <i class="fa fa-heart heart"></i>
+            </span>
           </div>
         </div>
-      </footer>
-  </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+      </div>
+    </footer>
+    </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!--  Google Maps Plugin    -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- Chart JS -->
+    <script src="assets/js/plugins/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="assets/js/plugins/bootstrap-notify.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+    <script src="assets/demo/demo.js"></script>
+    <script>
+      $(document).ready(function() {
+        // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+        demo.initChartsPages();
+      });
+    </script>
 
 
 
 
 
 
-</body>
+
+
+
+
+  </body>
 
 </html>
+
+
+<!--EXCLUIR PROPOSTA DO CARD DAS PROPOSTAS CRIADAS HOJE DO PAINEL FUNCIONÁRIO -->
+<?php
+if (@$_GET['func'] == 'deletaproposta') {
+  $id = $_GET['id'];
+  $query = "DELETE FROM propostas where idpropostas = '$id'";
+  mysqli_query($conexao, $query);
+
+  if ($result == '') {
+    echo "<script language='javascript'> window.alert('Ocorreu um erro ao excluir!'); </script>";
+  } else {
+
+    echo "<script language='javascript'> window.alert('Excluído com Sucesso!'); </script>";
+    echo "<script language='javascript'> window.location='painel_funcionario.php'; </script>";
+  }
+}
+?>
+
+
+<!-- Modal de confirmação de exclusão de registro -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">Confirmação de Exclusão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza de que deseja excluir este registro?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // lógica para obter o id corretamento no modal antes de excluir um registro.
+  // Adicione um evento para quando o modal for exibido
+  $('#confirmModal').on('show.bs.modal', function(event) {
+    // Recupere o botão que acionou o modal
+    var button = $(event.relatedTarget);
+
+    // Recupere o valor do atributo data-id do botão
+    var id = button.data('id');
+
+    // Atualize o link dentro do modal com o ID correto
+    var modal = $(this);
+    modal.find('.btn-danger').attr('href', 'propostas.php?func=deleta&id=' + id);
+  });
+</script>
