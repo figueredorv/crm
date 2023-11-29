@@ -887,9 +887,8 @@ FROM propostas;";
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
                                     </div>
-                                    <p>Agora, você pode dizer adeus às planilhas confusas e boas-vindas à simplicidade e eficiência. Com o CRM Corban, a gestão de clientes nunca foi tão fácil. 💻📊 <a target="_blank" rel="nofollow" href="https://undraw.co/">Visite nossa página oficial</a>, Centralize todas as informações, acompanhe suas interações e impulsione suas vendas como nunca antes. 🚀📈</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
+                                    <p>Agora, você pode dizer adeus às planilhas confusas e boas-vindas à simplicidade e eficiência. Com o CRM Corban, a gestão de clientes nunca foi tão fácil. 💻📊 <a target="_blank" rel="nofollow" href="#"></a>Centralize todas as informações, acompanhe suas interações e impulsione suas vendas como nunca antes. 🚀📈</p>
+                                    <a target="_blank" rel="nofollow" href="atualizacoes.php">Veja todas atualizações do sistema &rarr;</a>
                                 </div>
                             </div>
 
@@ -972,7 +971,7 @@ FROM propostas;";
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; CRM CORBAN 2023</span>
                     </div>
                 </div>
             </footer>
