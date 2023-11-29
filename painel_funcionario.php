@@ -492,7 +492,7 @@ FROM propostas;";
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Vendas diária</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Média diária de vendas</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -509,7 +509,7 @@ FROM propostas;";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                    <div id="chart_div" style="width: 100%; height: auto;"></div>
+                                    <div id="chart_div" style="width: 100%; height: 90%;"></div>
 
                                     </div>
                                 </div>
@@ -538,7 +538,8 @@ FROM propostas;";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                    <div id="chart_pie_div" style="width: 100%; height: auto;"></div>
+
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
@@ -917,7 +918,6 @@ FROM propostas;";
                                         ?>
                                             <table class="table">
                                                 <thead class="text-primary">
-                                                    <th>Imagem</th>
                                                     <th>Usuário</th>
                                                     <th>Propostas cadastradas</th>
                                                 </thead>
@@ -940,10 +940,6 @@ FROM propostas;";
                                                         }
                                                     ?>
                                                         <tr>
-                                                            <td>
-                                                                <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
-
-                                                            </td>
                                                             <td><?php echo $nome; ?></td>
                                                             <td><?php echo $propostas; ?></td>
                                                         </tr>
@@ -1071,3 +1067,44 @@ FROM propostas;";
 </script>
 
 
+ <!-- Gráfico Pie Chart -->
+ <script type="text/javascript">
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawPieChart);
+
+    function drawPieChart() {
+      var dataStatus = google.visualization.arrayToDataTable([
+        ['Status', 'Quantidade'],
+        <?php
+        // Substitua 'sua_conexao' pela sua conexão ao banco de dados
+       
+
+        // Consulta SQL para contar propostas por status
+        $queryStatus = "SELECT statusproposta, COUNT(*) as count FROM propostas GROUP BY statusproposta";
+        $resultStatus = mysqli_query($conexao, $queryStatus);
+
+        while ($rowStatus = mysqli_fetch_assoc($resultStatus)) {
+          echo "['" . $rowStatus['statusproposta'] . "', " . $rowStatus['count'] . "],";
+        }
+
+        // Feche a conexão com o banco de dados
+        mysqli_close($conexao);
+        ?>
+      ]);
+
+      var optionsStatus = {
+        title: 'Distribuição de Propostas por Status',
+        width: 'auto', // Largura do gráfico
+        height: 'auto', // Altura do gráfico
+      };
+
+      var chartStatus = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
+      chartStatus.draw(dataStatus, optionsStatus);
+    }
+  </script>
+
+ 
+
+ 
