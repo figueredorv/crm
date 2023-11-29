@@ -41,7 +41,7 @@ include("conexao.php");
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="blue" data-active-color="danger">
+        <div class="sidebar" data-color="white" data-active-color="danger">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
 
@@ -63,6 +63,161 @@ include("conexao.php");
 
                         </a>
                     </li>
+
+                    <li class="">
+                        <a href="propostas.php">
+                            <i class="fa fa-search"></i>
+                            <p>Propostas</p>
+                        </a>
+                    </li>
+
+
+
+                    <?php
+$idUsuario = $_SESSION['idusuarios'];
+
+// Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+$query = "SELECT COUNT(*) AS total
+          FROM notificacoes n
+          LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+          WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
+$result = mysqli_query($conexao, $query);
+$row = mysqli_fetch_assoc($result);
+
+$totalNotificacoesNaoLidas = $row['total'];
+?>
+<!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
+<li class="">
+    <a href="notificacoes.php">
+        <i class="fa fa-bell-o"></i>
+        <p>Notificações
+            <?php
+            if ($totalNotificacoesNaoLidas > 0) {
+                echo '<span class="badge badge-secondary" style="font-size: larger;">' . $totalNotificacoesNaoLidas . '</span>';
+              }
+            ?>
+        </p>
+    </a>
+</li>
+
+
+<script>
+// Verifica se a última vez que o usuário visualizou as notificações está armazenada no localStorage
+var ultimaVisualizacao = localStorage.getItem('ultimaVisualizacao');
+
+// Se não houver registro ou se já passou mais de 24 horas, zera o contador e atualiza a última visualização
+if (!ultimaVisualizacao || (Date.now() - ultimaVisualizacao > 24 * 60 * 60 * 1000)) {
+    localStorage.setItem('ultimaVisualizacao', Date.now());
+    // Código para zerar o badge
+    document.querySelector('.badge').innerText = '0';
+}
+
+// Adicione este código à parte do seu script JavaScript onde a lógica das notificações é tratada
+</script>
+
+
+
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <p>Campanhas <i class="fa fa-angle-right"></i></p>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Minhas campanhas</a></li>
+                            <li><a href="#">Atendimento</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <p>Relatórios<i class="fa fa-angle-right"></i></p>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Propostas</a>
+                            <a class="dropdown-item" href="#">Campanhas</a>
+                        </ul>
+                    </li>
+
+                    <?php
+                    // lógica para só conseguir visualizar o dropdown financeiro quem for master ou Adm do sistema
+                    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <p>Financeiro<i class="fa fa-angle-right"></i></p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Comissionamento</a>
+                                <a class="dropdown-item" href="#">Lançamentos</a>
+                                <a class="dropdown-item" href="#">Pagamentos</a>
+                            </ul>
+                        </li>
+
+                    <?php
+
+                    endif;
+
+                    ?>
+
+
+
+
+
+                    <?php
+                    // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
+                    if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <p>Administração<i class="fa fa-angle-right"></i></p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" href="usuarios.php">Usuários</a>
+                                <a class="dropdown-item" href="#">Grupos</a>
+                                <a class="dropdown-item" href="#">Tabelas</a>
+                                <a class="dropdown-item" href="#">Status</a>
+                                <a class="dropdown-item" href="promotora.php">Promotoras</a>
+                                <a class="dropdown-item" href="#">Tabulação</a>
+                                <a class="dropdown-item" href="#">Canais de vendas</a>
+                            </ul>
+                        </li>
+
+                    <?php
+                    endif;
+                    ?>
+
+
+
+
+                    <style>
+                        .dropdown-toggle::after {
+                            display: none;
+                        }
+                    </style>
+
+                    <style>
+                        .dropdown-menu a {
+                            text-align: right;
+                        }
+                    </style>
+
+                    <li class="">
+                        <a href="documentos.php">
+                            <i class="fa fa-id-card-o"></i>
+                            <p>Documentos</p>
+                        </a>
+                    </li>
+
+
+
+                    <li class="">
+                        <a href="">
+                            <i class="fa fa-users"></i>
+                            <p>Bases</p>
+                        </a>
+                    </li>
+
+
+
+
 
                     <li class="active-pro">
                         <a href="logout.php">

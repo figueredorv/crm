@@ -27,6 +27,7 @@ include("conexao.php");
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 
 </head>
 
@@ -153,7 +154,7 @@ include("conexao.php");
                     <!-- Topbar Search -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="buttonPesquisar">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Pesquisar pelo nome..." aria-label="Search" aria-describedby="basic-addon2" name="buttonPesquisar">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit" name="botaoPesquisar">
                                     <i class="fas fa-search fa-sm"></i>
@@ -239,70 +240,12 @@ include("conexao.php");
 
                                 ?>
 
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="notificacoes.php">Ver todos os alertas</a>
                             </div>
                         </li>
 
 
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
+                        
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -310,7 +253,42 @@ include("conexao.php");
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nome_usuario']; ?></span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <?php
+                                                // Defina um caminho padrão para a imagem de placeholder
+                                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+
+                                                // Verifique se o usuário está logado
+                                                if (isset($_SESSION['idusuarios'])) {
+                                                    $idUsuario = $_SESSION['idusuarios'];
+
+                                                    // Consulta SQL para buscar o caminho da imagem do usuário
+                                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+
+                                                    // Executa a consulta
+                                                    $resultado = mysqli_query($conexao, $sql);
+
+                                                    if ($resultado) {
+                                                        $linha = mysqli_fetch_assoc($resultado);
+
+                                                        if ($linha && !empty($linha['imagem'])) {
+                                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+                                                        } else {
+                                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                                        }
+                                                    }
+                                                } else {
+                                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+                                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                                }
+
+                                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+                                                ?>
+
+                                                <!-- Exibir a imagem -->
+                                                <img class="img-profile rounded-circle" src="<?php echo $caminhoDaImagem; ?>">
+
+                                
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -345,7 +323,7 @@ include("conexao.php");
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</button>
                     </div>
 
                     <!-- Content Row -->
@@ -377,7 +355,7 @@ include("conexao.php");
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fa fa-university fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -426,20 +404,40 @@ FROM propostas;";
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Meu desempenho
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <?php
+// Consulta SQL para obter o número total de propostas
+$queryTotalPropostas = "SELECT COUNT(*) as totalPropostas FROM propostas";
+$resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
+$rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
+$totalPropostas = $rowTotalPropostas['totalPropostas'];
+
+// Consulta SQL para obter o número de propostas pagas
+$queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
+$resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+$rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+$pagas = $rowPagas['pagas'];
+
+// Calcule a porcentagem de propostas pagas
+$porcentagemPagas = ($pagas / $totalPropostas) * 100;
+
+// Formate a porcentagem com duas casas decimais
+$porcentagemFormatada = number_format($porcentagemPagas, 2);
+?>
+
+<div class="col mr-2">
+    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Desempenho das vendas</div>
+    <div class="row no-gutters align-items-center">
+        <div class="col-auto">
+            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $porcentagemFormatada . '%'; ?></div>
+        </div>
+        <div class="col">
+            <div class="progress progress-sm mr-2">
+                <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $porcentagemFormatada; ?>%" aria-valuenow="<?php echo $porcentagemPagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
@@ -475,7 +473,7 @@ FROM propostas;";
                                                                                                 ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fa fa-money fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -492,7 +490,7 @@ FROM propostas;";
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Média diária de vendas</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Média de vendas</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -1038,10 +1036,15 @@ if ($concluida == '') {
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
+
+
+    <!-- Scroll to Top Button
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+        -->
+
+
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

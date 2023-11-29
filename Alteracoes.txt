@@ -1,1 +1,3 @@
 painel_funcionario.php
+propostas.php
+profile
