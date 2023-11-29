@@ -509,7 +509,8 @@ FROM propostas;";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                    <div id="chart_div" style="width: 100%; height: auto;"></div>
+
                                     </div>
                                 </div>
                             </div>
@@ -1024,6 +1025,49 @@ FROM propostas;";
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+    
+
 </body>
 
 </html>
+
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {
+    'packages': ['corechart']
+  });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Métrica', 'Valor'],
+      ['Média das Propostas', <?php echo $media; ?>]
+    ]);
+
+    var options = {
+      title: 'Média do Valor das Propostas',
+      hAxis: {
+        title: 'Métrica',
+        titleTextStyle: {
+          color: '#333'
+        }
+      },
+      vAxis: {
+        minValue: 0
+      },
+      chart: {
+        title: 'Média do Valor das Propostas',
+        subtitle: 'Métrica: Valor'
+      },
+      bars: 'vertical' // Define o tipo de gráfico para barras verticais
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+
+

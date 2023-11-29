@@ -103,7 +103,7 @@ demo = {
       type: 'line',
 
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+        labels: ["Janeiro", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
         datasets: [{
             borderColor: "#6bd098",
             backgroundColor: "#6bd098",
