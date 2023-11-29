@@ -68,7 +68,7 @@ include("conexao.php");
                     <span>Documentos</span></a>
             </li>
 
-            
+
 
             <!-- Heading 
             <div class="sidebar-heading">
@@ -78,38 +78,38 @@ include("conexao.php");
             <!-- Nav Item - Pages Collapse Menu -->
 
 
-            
-          <?php
-          // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
-          if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-          <!-- Divider -->
-          <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Administração</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Área administrativa:</h6>
-                        <a class="collapse-item" href="buttons.html">Usuários</a>
-                        <a class="collapse-item" href="cards.html">Status</a>
-                        <a class="collapse-item" href="cards.html">Promotoras</a>
+
+            <?php
+            // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
+            if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Administração</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Área administrativa:</h6>
+                            <a class="collapse-item" href="buttons.html">Usuários</a>
+                            <a class="collapse-item" href="cards.html">Status</a>
+                            <a class="collapse-item" href="cards.html">Promotoras</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
 
-          <?php
-          endif;
-          ?>
-
+            <?php
+            endif;
+            ?>
 
 
 
 
-           
 
-            
+
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -119,11 +119,11 @@ include("conexao.php");
                 Addons
             </div>
                 -->
-            
 
-            
 
-            
+
+
+
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
@@ -509,7 +509,7 @@ FROM propostas;";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                    <div id="chart_div" style="width: 100%; height: 90%;"></div>
+                                        <div id="chart_div" style="width: 100%; height: 90%;"></div>
 
                                     </div>
                                 </div>
@@ -521,7 +521,7 @@ FROM propostas;";
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Propostas diárias</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Distribuição por status</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -538,19 +538,14 @@ FROM propostas;";
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
-                                    <div id="chart_pie_div" style="width: 100%; height: auto;"></div>
+                                        <div id="chart_pie_div" style="width: 100%; height: auto;"></div>
 
                                     </div>
-                                    <div class="mt-4 text-center small">
+                                    <div class="mt-4 text-start small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
+                                            <i class="fa fa-pie-chart text-primary"></i> Distribuição de Propostas por Status 
                                         </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -569,26 +564,90 @@ FROM propostas;";
                                     <h6 class="m-0 font-weight-bold text-primary">Propostas</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Canceladas <span class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Pendentes <span class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Digitada <span class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Paga <span class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Concluída <span class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                <?php
+$queryTotalPropostas = "SELECT COUNT(*) as total FROM propostas";
+$resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
+$rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
+$totalPropostas = $rowTotalPropostas['total'];
+
+$queryPropostasCanceladas = "SELECT COUNT(*) as canceladas FROM propostas WHERE statusproposta = 'CANCELADO'";
+$resultPropostasCanceladas = mysqli_query($conexao, $queryPropostasCanceladas);
+$rowCanceladas = mysqli_fetch_assoc($resultPropostasCanceladas);
+$canceladas = $rowCanceladas['canceladas'];
+
+$percentage = ($canceladas / $totalPropostas) * 100;
+
+if ($canceladas == '') {
+    $canceladas = 0;
+}
+?>
+
+<h4 class="small font-weight-bold">Canceladas <span class="float-right"><?php echo $percentage; ?>%</span></h4>
+<div class="progress mb-4">
+    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<?php
+$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
+$resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
+$rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
+$pendentes = $rowPendentes['pendentes'];
+
+$percentagePendentes = ($pendentes / $totalPropostas) * 100;
+
+if ($pendentes == '') {
+    $pendentes = 0;
+}
+?>
+
+<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentes; ?>%</span></h4>
+<div class="progress mb-4">
+    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+                                    
+<?php
+$queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
+$resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+$rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+$pagas = $rowPagas['pagas'];
+
+$percentagePagas = ($pagas / $totalPropostas) * 100;
+
+if ($pagas == '') {
+    $pagas = 0;
+}
+?>
+
+<h4 class="small font-weight-bold">Paga <span class="float-right"><?php echo $percentagePagas; ?>%</span></h4>
+<div class="progress mb-4">
+    <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $percentagePagas; ?>%" aria-valuenow="<?php echo $percentagePagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+<?php
+$queryFormalizacaoConcluida = "SELECT COUNT(*) as concluida FROM propostas WHERE statusproposta = 'FORMALIZACAO CONCLUIDA'";
+$resultFormalizacaoConcluida = mysqli_query($conexao, $queryFormalizacaoConcluida);
+$rowConcluida = mysqli_fetch_assoc($resultFormalizacaoConcluida);
+$concluida = $rowConcluida['concluida'];
+
+$percentageConcluida = ($concluida / $totalPropostas) * 100;
+
+if ($concluida == '') {
+    $concluida = 0;
+}
+
+?>
+
+<?php if ($percentageConcluida >= 100): ?>
+    <h4 class="small font-weight-bold">Concluída <span class="float-right">Complete!</span></h4>
+<?php else: ?>
+    <h4 class="small font-weight-bold">Concluída <span class="float-right"><?php echo $percentageConcluida; ?>%</span></h4>
+<?php endif; ?>
+
+<div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percentageConcluida; ?>%" aria-valuenow="<?php echo $percentageConcluida; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
                                 </div>
                             </div>
 
@@ -627,8 +686,7 @@ FROM propostas;";
                                             if (isset($_GET['buttonPesquisar'])) {
                                                 $nome = $_GET['buttonPesquisar'] . '%';
                                                 $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
-                                            }
-                                            else if (isset($_GET['botaoPesquisar'])) {
+                                            } else if (isset($_GET['botaoPesquisar'])) {
                                                 $nome = $_GET['botaoPesquisar'] . '%';
                                                 $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
                                             }
@@ -1021,7 +1079,7 @@ FROM propostas;";
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
-    
+
 
 </body>
 
@@ -1032,79 +1090,75 @@ FROM propostas;";
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-  google.charts.load('current', {
-    'packages': ['corechart']
-  });
-  google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Métrica', 'Valor'],
-      ['Média das Propostas', <?php echo $media; ?>]
-    ]);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Métrica', 'Valor'],
+            ['Média das Propostas', <?php echo $media; ?>]
+        ]);
 
-    var options = {
-      title: 'Média do Valor das Propostas',
-      hAxis: {
-        title: 'Métrica',
-        titleTextStyle: {
-          color: '#333'
-        }
-      },
-      vAxis: {
-        minValue: 0
-      },
-      chart: {
-        title: 'Média do Valor das Propostas',
-        subtitle: 'Métrica: Valor'
-      },
-      bars: 'vertical' // Define o tipo de gráfico para barras verticais
-    };
+        var options = {
+            title: 'Média do Valor das Propostas',
+            hAxis: {
+                title: 'Métrica',
+                titleTextStyle: {
+                    color: '#333'
+                }
+            },
+            vAxis: {
+                minValue: 0
+            },
+            chart: {
+                title: 'Média do Valor das Propostas',
+                subtitle: 'Métrica: Valor'
+            },
+            bars: 'vertical' // Define o tipo de gráfico para barras verticais
+        };
 
-    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  }
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
 </script>
 
 
- <!-- Gráfico Pie Chart -->
- <script type="text/javascript">
+<!-- Gráfico Pie Chart -->
+<script type="text/javascript">
     google.charts.load('current', {
-      'packages': ['corechart']
+        'packages': ['corechart']
     });
     google.charts.setOnLoadCallback(drawPieChart);
 
     function drawPieChart() {
-      var dataStatus = google.visualization.arrayToDataTable([
-        ['Status', 'Quantidade'],
-        <?php
-        // Substitua 'sua_conexao' pela sua conexão ao banco de dados
-       
+        var dataStatus = google.visualization.arrayToDataTable([
+            ['Status', 'Quantidade'],
+            <?php
+            // Substitua 'sua_conexao' pela sua conexão ao banco de dados
 
-        // Consulta SQL para contar propostas por status
-        $queryStatus = "SELECT statusproposta, COUNT(*) as count FROM propostas GROUP BY statusproposta";
-        $resultStatus = mysqli_query($conexao, $queryStatus);
 
-        while ($rowStatus = mysqli_fetch_assoc($resultStatus)) {
-          echo "['" . $rowStatus['statusproposta'] . "', " . $rowStatus['count'] . "],";
-        }
+            // Consulta SQL para contar propostas por status
+            $queryStatus = "SELECT statusproposta, COUNT(*) as count FROM propostas GROUP BY statusproposta";
+            $resultStatus = mysqli_query($conexao, $queryStatus);
 
-        // Feche a conexão com o banco de dados
-        mysqli_close($conexao);
-        ?>
-      ]);
+            while ($rowStatus = mysqli_fetch_assoc($resultStatus)) {
+                echo "['" . $rowStatus['statusproposta'] . "', " . $rowStatus['count'] . "],";
+            }
 
-      var optionsStatus = {
-        title: 'Distribuição de Propostas por Status',
-        width: 'auto', // Largura do gráfico
-        height: 'auto', // Altura do gráfico
-      };
+            // Feche a conexão com o banco de dados
+            mysqli_close($conexao);
+            ?>
+        ]);
 
-      var chartStatus = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
-      chartStatus.draw(dataStatus, optionsStatus);
+        var optionsStatus = {
+            title: '',
+            width: 'auto', // Largura do gráfico
+            height: 'auto', // Altura do gráfico
+        };
+
+        var chartStatus = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
+        chartStatus.draw(dataStatus, optionsStatus);
     }
-  </script>
-
- 
-
- 
+</script>
