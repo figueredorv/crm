@@ -93,9 +93,9 @@ include("conexao.php");
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Área administrativa:</h6>
-                            <a class="collapse-item" href="buttons.html">Usuários</a>
-                            <a class="collapse-item" href="cards.html">Status</a>
-                            <a class="collapse-item" href="cards.html">Promotoras</a>
+                            <a class="collapse-item" href="usuarios.php">Usuários</a>
+                            <a class="collapse-item" href="status.php">Status</a>
+                            <a class="collapse-item" href="promotora.php">Promotoras</a>
                         </div>
                     </div>
                 </li>
@@ -129,7 +129,7 @@ include("conexao.php");
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>O CRMCORBAN PRO</strong> Eleve sua gestão de relacionamento com o cliente para o próximo nível com o CRMCORBAN PRO repleto de recursos premium e componentes exclusivos!</p>
+                <p class="text-center mb-2"><strong>CRMCORBAN PRO<br></strong> Eleve sua gestão de relacionamento com o cliente para o próximo nível com o CRMCORBAN PRO repleto de recursos premium e componentes exclusivos!</p>
                 <button class="btn btn-success btn-sm" disabled>você ja é Pro!</button>
 
             </div>
@@ -325,6 +325,24 @@ include("conexao.php");
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                         <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" disabled><i class="fas fa-download fa-sm text-white-50"></i> Gerar relatório</button>
                     </div>
+
+                    <?php
+        $query = "SELECT * FROM propostas WHERE data = CURDATE() ORDER BY data ASC";
+        $result = mysqli_query($conexao, $query);
+        $row = mysqli_num_rows($result);
+
+        if ($row > 0) :
+        ?>
+          <div class="alert alert-success alert-dismissible fade show text-dark">
+            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="nc-icon nc-simple-remove"></i>
+            </button>
+            <span>
+              <b>Muito bem!</b> Você possui <?php echo $row; ?>
+              <?php echo ($row === 1) ? 'nova proposta!' : 'novas propostas!'; ?>
+            </span>
+          </div>
+        <?php endif; ?>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -578,12 +596,16 @@ $percentage = ($canceladas / $totalPropostas) * 100;
 if ($canceladas == '') {
     $canceladas = 0;
 }
+
+// Formatar a porcentagem com 1 casa decimal
+$percentageFormatted = number_format($percentage, 1);
 ?>
 
-<h4 class="small font-weight-bold">Canceladas <span class="float-right"><?php echo $percentage; ?>%</span></h4>
+<h4 class="small font-weight-bold">Canceladas <span class="float-right"><?php echo $percentageFormatted; ?>%</span></h4>
 <div class="progress mb-4">
     <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
+
 
 <?php
 $queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
@@ -596,12 +618,16 @@ $percentagePendentes = ($pendentes / $totalPropostas) * 100;
 if ($pendentes == '') {
     $pendentes = 0;
 }
+
+// Formatar a porcentagem de pendentes com 1 casa decimal
+$percentagePendentesFormatted = number_format($percentagePendentes, 1);
 ?>
 
-<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentes; ?>%</span></h4>
+<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
 <div class="progress mb-4">
     <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
+
 
                                     
 <?php
@@ -615,12 +641,16 @@ $percentagePagas = ($pagas / $totalPropostas) * 100;
 if ($pagas == '') {
     $pagas = 0;
 }
+
+// Formatar a porcentagem de propostas pagas com 1 casa decimal
+$percentagePagasFormatted = number_format($percentagePagas, 1);
 ?>
 
-<h4 class="small font-weight-bold">Paga <span class="float-right"><?php echo $percentagePagas; ?>%</span></h4>
+<h4 class="small font-weight-bold">Paga <span class="float-right"><?php echo $percentagePagasFormatted; ?>%</span></h4>
 <div class="progress mb-4">
     <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $percentagePagas; ?>%" aria-valuenow="<?php echo $percentagePagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
+
 
 <?php
 $queryFormalizacaoConcluida = "SELECT COUNT(*) as concluida FROM propostas WHERE statusproposta = 'FORMALIZACAO CONCLUIDA'";
@@ -634,17 +664,20 @@ if ($concluida == '') {
     $concluida = 0;
 }
 
+// Formatar a porcentagem de formalização concluída com 1 casa decimal
+$percentageConcluidaFormatted = number_format($percentageConcluida, 1);
 ?>
 
 <?php if ($percentageConcluida >= 100): ?>
     <h4 class="small font-weight-bold">Concluída <span class="float-right">Complete!</span></h4>
 <?php else: ?>
-    <h4 class="small font-weight-bold">Concluída <span class="float-right"><?php echo $percentageConcluida; ?>%</span></h4>
+    <h4 class="small font-weight-bold">Concluída <span class="float-right"><?php echo $percentageConcluidaFormatted; ?>%</span></h4>
 <?php endif; ?>
 
 <div class="progress">
     <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percentageConcluida; ?>%" aria-valuenow="<?php echo $percentageConcluida; ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
+
 
                                 </div>
                             </div>
@@ -1051,15 +1084,15 @@ if ($concluida == '') {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Pronto para partir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Selecione "Sair" abaixo se estiver pronto para encerrar sua sessão atual.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                    <a class="btn btn-primary" href="logout.php">Sair</a>
                 </div>
             </div>
         </div>
