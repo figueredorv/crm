@@ -2828,7 +2828,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
                   echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
                   echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
-                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
+                  echo '<p><strong>Data de Nascimento: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
                   echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
                   echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
                   echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
