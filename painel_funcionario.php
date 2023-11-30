@@ -96,6 +96,7 @@ include("conexao.php");
                             <a class="collapse-item" href="usuarios.php">Usuários</a>
                             <a class="collapse-item" href="status.php">Status</a>
                             <a class="collapse-item" href="promotora.php">Promotoras</a>
+                            <a class="collapse-item" href="bancos.php">Bancos</a>
                         </div>
                     </div>
                 </li>
