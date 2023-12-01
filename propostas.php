@@ -2852,27 +2852,26 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   // Informações da proposta em duas colunas
                   echo '<div class="row">';
                   echo '<div class="col-md-6">';
-                  echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . '</p>';
                   echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . '</p>';
-                  echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
                   echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
-                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
+                  echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . '</p>';
+                  echo '<p><strong>Data Nasc: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
+                  echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
                   echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
-                  echo '<p><strong>Data de Nascimento: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
+                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
+                  echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . '</p>';
                   echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
                   echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
+                  echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
                   echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
                   echo '<p><strong>Rua: </strong>' . $rowProposta['rua'] . '</p>';
                   echo '<p><strong>Número: </strong>' . $rowProposta['numero'] . '</p>';
                   echo '<p><strong>Complemento: </strong>' . $rowProposta['complemento'] . '</p>';
                   echo '<p><strong>Bairro: </strong>' . $rowProposta['bairro'] . '</p>';
-                  echo '</div>'; // Fim da coluna 1
-
-                  echo '<div class="col-md-6">';
                   echo '<p><strong>Cidade: </strong>' . $rowProposta['cidade'] . '</p>';
-                  echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . '</p>';
                   echo '<p><strong>UF: </strong>' . $rowProposta['uf'] . '</p>';
-                  echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
+                  echo '</div>'; // Fim da coluna 1
+                  echo '<div class="col-md-6">';
                   echo '<p><strong>Email: </strong>' . $rowProposta['email'] . '</p>';
                   echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . '</p>';
                   echo '<p><strong>Banco da proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
