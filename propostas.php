@@ -111,6 +111,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
               <button name="buttonpropostamaisantiga" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS ANTIGA</i></button>
             </form>
 
+            <div class="row">
+           
+
+
+              <div class="col-md-4 form-inline my-2 my-lg-" style="margin-left:20px;">
+                <div class="form-group">
+                  <label for="filtroCategoria">Visualização: </label>
+                  <select class="form-control" id="filtroCategoria" name="filtroCategoria">
+                    <option value="categoria1">5</option>
+                    <option value="categoria2">10</option>
+                    <!-- Adicione mais opções conforme necessário -->
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+
 
 
 
@@ -190,7 +208,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     else if ($_SESSION['cargo_usuario'] == 'Master') {
                       $query = "SELECT * FROM propostas
       
-                      ORDER BY idpropostas DESC";
+                      ORDER BY idpropostas DESC limit 10";
                     }
 
 
@@ -200,7 +218,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $id = $_SESSION['idusuarios'];
                       $query = "SELECT * FROM propostas
                       WHERE idusuario = $id
-                      ORDER BY idpropostas DESC";
+                      ORDER BY idpropostas DESC limit 10";
                     }
 
 
@@ -2684,49 +2702,50 @@ if (@$_GET['func'] == 'editarstatus') {
 
               <?php
 
-if ($_SESSION['cargo_usuario'] != 'Master' && $_SESSION['cargo_usuario'] != 'Adm') : // Verifica se o usuário NÃO é do tipo 'Master'
-?>
-    <div class="form-group">
-        <label for="id_produto">Status</label>
-        <select name="statusproposta" class="custom-select" id="statusproposta">
-            <?php
-            // Se o usuário não é 'Master', você continua com o código para exibir as opções de status
-            $query = "SELECT id, statusproposta FROM statusproposta WHERE statusproposta = 'AGUARD DIGITAÇÃO' OR statusproposta = 'PENDENCIA RESOLVIDA'";
-            $result = mysqli_query($conexao, $query);
+              if ($_SESSION['cargo_usuario'] != 'Master' && $_SESSION['cargo_usuario'] != 'Adm') : // Verifica se o usuário NÃO é do tipo 'Master'
+              ?>
+                <div class="form-group">
+                  <label for="id_produto">Status</label>
+                  <select name="statusproposta" class="custom-select" id="statusproposta">
+                    <?php
+                    // Se o usuário não é 'Master', você continua com o código para exibir as opções de status
+                    $query = "SELECT id, statusproposta FROM statusproposta WHERE statusproposta = 'AGUARD DIGITAÇÃO' OR statusproposta = 'PENDENCIA RESOLVIDA'";
+                    $result = mysqli_query($conexao, $query);
 
-            // Verificar se a consulta teve sucesso
-            if (!$result) {
-                die("Erro na consulta: " . mysqli_error($conexao));
-            }
+                    // Verificar se a consulta teve sucesso
+                    if (!$result) {
+                      die("Erro na consulta: " . mysqli_error($conexao));
+                    }
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
-            }
-            ?>
-        </select>
-        <small class="text-muted">Selecione o novo status da proposta</small>
-    </div>
-<?php else : // Se o usuário for 'Master', permite qualquer status no banco de dados ?>
-    <div class="form-group">
-        <label for="id_produto">Status</label>
-        <select name="statusproposta" class="custom-select" id="statusproposta">
-            <?php
-            $query = "SELECT id, statusproposta FROM statusproposta";
-            $result = mysqli_query($conexao, $query);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                  <small class="text-muted">Selecione o novo status da proposta</small>
+                </div>
+              <?php else : // Se o usuário for 'Master', permite qualquer status no banco de dados 
+              ?>
+                <div class="form-group">
+                  <label for="id_produto">Status</label>
+                  <select name="statusproposta" class="custom-select" id="statusproposta">
+                    <?php
+                    $query = "SELECT id, statusproposta FROM statusproposta";
+                    $result = mysqli_query($conexao, $query);
 
-            // Verificar se a consulta teve sucesso
-            if (!$result) {
-                die("Erro na consulta: " . mysqli_error($conexao));
-            }
+                    // Verificar se a consulta teve sucesso
+                    if (!$result) {
+                      die("Erro na consulta: " . mysqli_error($conexao));
+                    }
 
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
-            }
-            ?>
-        </select>
-        <small class="text-muted">Selecione o novo status da proposta</small>
-    </div>
-<?php endif; ?>
+                    while ($row = mysqli_fetch_assoc($result)) {
+                      echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                  <small class="text-muted">Selecione o novo status da proposta</small>
+                </div>
+              <?php endif; ?>
 
 
 
