@@ -185,7 +185,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       }
                     }
 
-                    
+
 
 
 
@@ -909,7 +909,7 @@ if (isset($_POST['button'])) {
 
 
 
-
+  //marcador
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
@@ -1729,12 +1729,12 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-12">
-                  <small class="text-muted">Para adicionar novos documentos a esse cliente vá para a área de documentos na página principal.</small>
-                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" disabled>
+                  <label for="inputDocumento">Deseja anexar algum documento?</label>
+                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
+                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
                   </div>
                 </div>
 
@@ -1771,16 +1771,35 @@ if (@$_GET['func'] == 'editarpropostas') {
       $valorparcelas = $_POST['inputValorParcelas'];
       $formalizacao = $_POST['inputFormalizacao'];
       $canal = $_POST['inputCanal'];
-
+      $documentoanexado   = $_FILES['imagens'];
       $observacao   = $_POST['inputObservacao'];
+      //marcador
 
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $imagens = $_FILES['imagens'];
+        foreach ($imagens['name'] as $key => $nomedocumento) {
+            if ($imagens['error'][$key] === 0) {
+                $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+                $novo_nome = md5(uniqid()) . '.' . $extensao;
+    
+                if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                    // Insira o nome do arquivo no banco de dados
+                    $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nomedocumento','$novo_nome')";
+                    mysqli_query($conexao, $query);
+                }
+            }
+        }
+    }
+    
 
+    
 
-
-
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', documentoanexado = '$novo_nome', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
+
+
+
 
 
       // Verifica se o formulário foi enviado
