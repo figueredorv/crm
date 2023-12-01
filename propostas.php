@@ -151,17 +151,22 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                     // novo codigo ( procurar proposta pelo nome da pessoa)
                     if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
+                      $id = $_SESSION['idusuarios'];
                       $nome = $_GET['txtpesquisar'] . '%';
-                      $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
+                      $query = "select * from propostas where nome LIKE '$nome' and idusuario = $id order by nome asc";
                       // novo codigo ( procurar proposta pelo cpf)
                     } else if (isset($_GET['buttonPesquisarcpf'])) {
+                      $id = $_SESSION['idusuarios'];
                       $nome = $_GET['txtpesquisarcpf'];
-                      $query = "select * from propostas where cpf = '$nome'  order by cpf asc";
+                      $query = "SELECT * FROM propostas
+                      WHERE cpf = '$nome' and idusuario = $id
+                      ORDER BY idpropostas DESC";
                     }
                     // novo codigo ( procurar proposta pela data)
                     else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
+                      $id = $_SESSION['idusuarios'];
                       $nome = $_GET['txtpesquisardata'];
-                      $query = "select * from propostas where data = '$nome'  order by data asc";
+                      $query = "select * from propostas where data = '$nome' and idusuario = $id  order by idpropostas DESC";
                     }
                     // novo codigo ( procurar propostas MAIS NOVA)
                     else if (isset($_GET['buttonpropostamaisnova'])) {
