@@ -173,15 +173,15 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       }
                     } else if (isset($_GET['buttonpropostamaisnova'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY `data` DESC";
+                        $query = "SELECT * FROM propostas ORDER BY idpropostas DESC";
                       } else {
                         $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC";
                       }
                     } else if (isset($_GET['buttonpropostamaisantiga'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY `data` ASC";
+                        $query = "SELECT * FROM propostas ORDER BY idpropostas ASC";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC";
                       }
                     }
 
@@ -194,7 +194,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     else if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                       $query = "SELECT * FROM propostas
       
-                      ORDER BY idpropostas DESC limit 10";
+                      ORDER BY idpropostas DESC limit 5";
                     }
 
 
@@ -204,7 +204,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $id = $_SESSION['idusuarios'];
                       $query = "SELECT * FROM propostas
                       WHERE idusuario = $id
-                      ORDER BY idpropostas DESC limit 10";
+                      ORDER BY idpropostas DESC limit 5";
                     }
 
 
@@ -414,6 +414,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                         </tbody>
                       </table>
+    
                     <?php
                     }
                     ?>
@@ -1778,21 +1779,21 @@ if (@$_GET['func'] == 'editarpropostas') {
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagens = $_FILES['imagens'];
         foreach ($imagens['name'] as $key => $nomedocumento) {
-            if ($imagens['error'][$key] === 0) {
-                $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-                $novo_nome = md5(uniqid()) . '.' . $extensao;
-    
-                if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-                    // Insira o nome do arquivo no banco de dados
-                    $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nomedocumento','$novo_nome')";
-                    mysqli_query($conexao, $query);
-                }
-            }
-        }
-    }
-    
+          if ($imagens['error'][$key] === 0) {
+            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+            $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-    
+            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+              // Insira o nome do arquivo no banco de dados
+              $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nomedocumento','$novo_nome')";
+              mysqli_query($conexao, $query);
+            }
+          }
+        }
+      }
+
+
+
 
       $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', documentoanexado = '$novo_nome', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
