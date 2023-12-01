@@ -609,7 +609,7 @@ $percentageFormatted = number_format($percentage, 1);
 
 
 <?php
-$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
+$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO'";
 $resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
 $rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
 $pendentes = $rowPendentes['pendentes'];
@@ -624,7 +624,7 @@ if ($pendentes == '') {
 $percentagePendentesFormatted = number_format($percentagePendentes, 1);
 ?>
 
-<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
+<h4 class="small font-weight-bold">Aguardando digitação <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
 <div class="progress mb-4">
     <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
 </div>

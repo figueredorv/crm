@@ -895,7 +895,7 @@ if (isset($_POST['button'])) {
   $canal = $_POST['inputCanal'];
   $documentoanexado   = $_FILES['imagens'];
   $observacao   = $_POST['inputObservacao'];
-  $statusproposta = 'PENDENTE';
+  $statusproposta = 'AGUARD DIGITAÇÃO';
   $data = date('d/m/Y H:i');
 
 
@@ -2677,26 +2677,51 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
 
-              <div class="form-group">
-                <label for="id_produto">Status</label>
-                <select name="statusproposta" class="custom-select" id="statusproposta">
-                  <?php
+              <?php
 
-                  $query = "SELECT id, statusproposta FROM statusproposta";
-                  $result = mysqli_query($conexao, $query);
+if ($_SESSION['cargo_usuario'] != 'Master' && $_SESSION['cargo_usuario'] != 'Adm') : // Verifica se o usuário NÃO é do tipo 'Master'
+?>
+    <div class="form-group">
+        <label for="id_produto">Status</label>
+        <select name="statusproposta" class="custom-select" id="statusproposta">
+            <?php
+            // Se o usuário não é 'Master', você continua com o código para exibir as opções de status
+            $query = "SELECT id, statusproposta FROM statusproposta WHERE statusproposta = 'AGUARD DIGITAÇÃO' OR statusproposta = 'PENDENCIA RESOLVIDA'";
+            $result = mysqli_query($conexao, $query);
 
-                  // Verificar se a consulta teve sucesso
-                  if (!$result) {
-                    die("Erro na consulta: " . mysqli_error($conexao));
-                  }
+            // Verificar se a consulta teve sucesso
+            if (!$result) {
+                die("Erro na consulta: " . mysqli_error($conexao));
+            }
 
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
-                  }
-                  ?>
-                </select>
-                <small class="text-muted">Selecione o novo status da proposta</small>
-              </div>
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
+            }
+            ?>
+        </select>
+        <small class="text-muted">Selecione o novo status da proposta</small>
+    </div>
+<?php else : // Se o usuário for 'Master', permite qualquer status no banco de dados ?>
+    <div class="form-group">
+        <label for="id_produto">Status</label>
+        <select name="statusproposta" class="custom-select" id="statusproposta">
+            <?php
+            $query = "SELECT id, statusproposta FROM statusproposta";
+            $result = mysqli_query($conexao, $query);
+
+            // Verificar se a consulta teve sucesso
+            if (!$result) {
+                die("Erro na consulta: " . mysqli_error($conexao));
+            }
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<option value="' . $row['id'] . '">' . $row['statusproposta'] . '</option>';
+            }
+            ?>
+        </select>
+        <small class="text-muted">Selecione o novo status da proposta</small>
+    </div>
+<?php endif; ?>
 
 
 

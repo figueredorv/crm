@@ -1,3 +1,5 @@
-painel_funcionario.php
+
 propostas.php
-profile
+painel_funcionario.php
+
+criado novo status AGUARD DIGITAÇÃO, PENDENCIA RESOLVIDA
