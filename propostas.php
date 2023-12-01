@@ -113,6 +113,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
           </div>
         </div>
 
+
         <style>
           /* formatando tabela de propostas */
           /* Estilo para evitar que a célula de nome quebre a linha */
@@ -183,6 +184,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` ASC";
                       }
                     }
+
+                    
 
 
 

@@ -630,6 +630,7 @@ $percentagePendentesFormatted = number_format($percentagePendentes, 1);
 </div>
 
 
+
                                     
 <?php
 $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
