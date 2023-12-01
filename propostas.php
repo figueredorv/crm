@@ -110,28 +110,6 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
               <button name="buttonpropostamaisantiga" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS ANTIGA</i></button>
             </form>
-
-            <div class="row">
-           
-
-
-              <div class="col-md-4 form-inline my-2 my-lg-" style="margin-left:20px;">
-                <div class="form-group">
-                  <label for="filtroCategoria">Visualização: </label>
-                  <select class="form-control" id="filtroCategoria" name="filtroCategoria">
-                    <option value="categoria1">5</option>
-                    <option value="categoria2">10</option>
-                    <!-- Adicione mais opções conforme necessário -->
-                  </select>
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-
           </div>
         </div>
 
@@ -168,44 +146,49 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                     // novo codigo ( procurar proposta pelo nome da pessoa)
+                    $id = $_SESSION['idusuarios'];
+                    $cargo_usuario = $_SESSION['cargo_usuario'];
+
                     if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
-                      $id = $_SESSION['idusuarios'];
                       $nome = $_GET['txtpesquisar'] . '%';
-                      $query = "select * from propostas where nome LIKE '$nome' and idusuario = $id order by nome asc";
-                      // novo codigo ( procurar proposta pelo cpf)
+                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                        $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' ORDER BY nome ASC";
+                      } else {
+                        $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' AND idusuario = $id ORDER BY nome ASC";
+                      }
                     } else if (isset($_GET['buttonPesquisarcpf'])) {
-                      $id = $_SESSION['idusuarios'];
                       $nome = $_GET['txtpesquisarcpf'];
-                      $query = "SELECT * FROM propostas
-                      WHERE cpf = '$nome' and idusuario = $id
-                      ORDER BY idpropostas DESC";
-                    }
-                    // novo codigo ( procurar proposta pela data)
-                    else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
-                      $id = $_SESSION['idusuarios'];
+                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                        $query = "SELECT * FROM propostas WHERE cpf = '$nome' ORDER BY idpropostas DESC";
+                      } else {
+                        $query = "SELECT * FROM propostas WHERE cpf = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
+                      }
+                    } else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
                       $nome = $_GET['txtpesquisardata'];
-                      $query = "select * from propostas where data = '$nome' and idusuario = $id  order by idpropostas DESC";
+                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                        $query = "SELECT * FROM propostas WHERE data = '$nome' ORDER BY idpropostas DESC";
+                      } else {
+                        $query = "SELECT * FROM propostas WHERE data = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
+                      }
+                    } else if (isset($_GET['buttonpropostamaisnova'])) {
+                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                        $query = "SELECT * FROM propostas ORDER BY `data` DESC";
+                      } else {
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` DESC";
+                      }
+                    } else if (isset($_GET['buttonpropostamaisantiga'])) {
+                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                        $query = "SELECT * FROM propostas ORDER BY `data` ASC";
+                      } else {
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` ASC";
+                      }
                     }
-                    // novo codigo ( procurar propostas MAIS NOVA)
-                    else if (isset($_GET['buttonpropostamaisnova'])) {
-                      $id = $_SESSION['idusuarios'];
-                      $query = "SELECT * FROM propostas WHERE idusuario = $id
-                      ORDER BY `data` DESC;";
-                    }
-                    // novo codigo ( procurar por propostas MAIS ANTIGA)
-                    else if (isset($_GET['buttonpropostamaisantiga'])) {
-                      $id = $_SESSION['idusuarios'];
-                      $query = "SELECT * FROM propostas WHERE idusuario = $id
-                      ORDER BY `data` ASC;";
-                    } else if (isset($_GET['buttonOcNaoAtendidas'])) {
-                      $nome = 'Disponivel';
-                      $query = "select * from animais where situacao = '$nome'   order by data asc";
-                    }
+
 
 
 
                     //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
-                    else if ($_SESSION['cargo_usuario'] == 'Master') {
+                    else if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                       $query = "SELECT * FROM propostas
       
                       ORDER BY idpropostas DESC limit 10";

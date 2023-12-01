@@ -899,7 +899,10 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                                                     <div class="btn-group" role="group" aria-label="Exemplo básico">
 
 
-                                                                        <div class="dropdown">
+                                                                    <?php
+                                                                    // Verificando se o usuario é Master ou Adm, se nao for, nao consegue editar as propostas em (propostas recentes)
+                                                                    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+                                                                            <div class="dropdown">
                                                                             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                                                                                 <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
                                                                             </button>
@@ -909,7 +912,12 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                                                                 <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
                                                                             </ul>
                                                                         </div>
+                                                                        <?php
 
+                                                                        endif;
+
+                                                                        ?>
+                                             
                                                                         <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                                                                         <!-- Botão de exclusão de proposta -->
