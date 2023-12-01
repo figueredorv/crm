@@ -175,7 +175,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                         $query = "SELECT * FROM propostas ORDER BY `data` DESC";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` DESC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` ASC";
                       }
                     } else if (isset($_GET['buttonpropostamaisantiga'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
