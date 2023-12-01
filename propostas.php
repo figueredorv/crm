@@ -175,13 +175,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                         $query = "SELECT * FROM propostas ORDER BY `data` DESC";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` ASC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC";
                       }
                     } else if (isset($_GET['buttonpropostamaisantiga'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                         $query = "SELECT * FROM propostas ORDER BY `data` ASC";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY `data` ASC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC";
                       }
                     }
 
