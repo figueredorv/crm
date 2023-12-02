@@ -718,7 +718,7 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                             <?php
                                             if (isset($_GET['buttonPesquisar'])) {
                                                 $nome = $_GET['buttonPesquisar'] . '%';
-                                                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
+                                                $query = "select * from propostas where nome LIKE '$nome'  order by nome asc LIMIT 5";
                                             } else if (isset($_GET['botaoPesquisar'])) {
                                                 $nome = $_GET['botaoPesquisar'] . '%';
                                                 $query = "select * from propostas where nome LIKE '$nome'  order by nome asc";
