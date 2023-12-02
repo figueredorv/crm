@@ -1140,9 +1140,9 @@ if (isset($_POST['button'])) {
 
 
   if ($_POST['inputFormalizacao'] == 1) {
-    $formalizacao = "DIGITAL";
-  } elseif ($_POST['inputFormalizacao'] == 2) {
     $formalizacao = "FÍSICO";
+  } elseif ($_POST['inputFormalizacao'] == 2) {
+    $formalizacao = "DIGITAL";
   }
 
   if ($_POST['inputCanal'] == 1) {
@@ -1708,6 +1708,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 <div class="form-group col-md-3">
                   <label for="id_produto">Promotora</label>
                   <select name="promotora" class="custom-select" id="promotora">
+                  <option selected><?php echo $res_1['promotora']; ?></option>
                     <?php
 
                     $query = "SELECT id, nome FROM promotoras";
@@ -1974,9 +1975,9 @@ if (@$_GET['func'] == 'editarpropostas') {
 
 
       if ($_POST['inputFormalizacao'] == 1) {
-        $formalizacao = "DIGITAL";
-      } elseif ($_POST['inputFormalizacao'] == 2) {
         $formalizacao = "FÍSICO";
+      } elseif ($_POST['inputFormalizacao'] == 2) {
+        $formalizacao = "DIGITAL";
       }
 
       if ($_POST['inputCanal'] == 1) {
