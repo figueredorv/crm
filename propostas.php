@@ -50,25 +50,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
     </button>
 
     <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
-      <ul class="navbar-nav mr-auto">
 
-      </ul>
-      <form class="form-inline my-2 my-lg-0 mr-5">
-        <input name="txtpesquisarcpf" id="txtcpf" class="form-control mr-sm-2" type="search" placeholder="Buscar pelo cpf" aria-label="Pesquisar">
-        <button name="buttonPesquisarcpf" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-      </form>
-
-      </ul>
-      <form class="form-inline my-2 my-lg-0 mr-5">
-        <input name="txtpesquisardata" id="txtdata" class="form-control mr-sm-2" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
-        <button name="buttonPesquisardata" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-      </form>
-
-      <form class="form-inline my-2 my-lg-0">
-        <input name="txtpesquisar" class="form-control mr-sm-2" type="search" placeholder="Buscar pelo nome" aria-label="Pesquisar">
-        <button name="buttonPesquisar" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-
-      </form>
 
 
 
@@ -93,267 +75,434 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
     <div class="row">
-      <div class="col-sm-12">
+    <div class="col-sm-12">
+  <!-- Sua tabela existente -->
+
+  <!-- Filtros Avançados -->
+
+  <!-- Input de pesquisa -->
+  <form class="form-inline mr-2 mb-3"> <!-- Adicionei a classe mb-3 para adicionar espaçamento vertical -->
+    <!-- Input de pesquisa por CPF -->
+    <div class="form-group">
+      <input name="txtpesquisarcpf" id="txtcpf" class="form-control" type="search" placeholder="CPF do cliente" aria-label="Pesquisar">
+    </div>
+    <div class="form-group mr-2">
+      <button name="buttonPesquisarcpf" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+
+    <!-- Input de pesquisa por data -->
+    <div class="form-group">
+      <input name="txtpesquisardata" id="txtdata" class="form-control" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
+    </div>
+    <div class="form-group mr-2">
+      <button name="buttonPesquisardata" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+
+    <!-- Input de pesquisa por nome -->
+    <div class="form-group">
+      <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
+    </div>
+    <div class="form-group mr-2">
+      <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+    </div>
 
 
-        <div class="d-flex align-items-left">
-          <div class="row">
-            <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
-            </form>
+    <?php
+            // lógica para só conseguir visualizar o input pesquisar por usuário  quem for nível Master ou Adm do sistema.
+            if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+                <!-- Input de pesquisa por nome -->
+    <div class="form-group">
+      <input name="txtpesquisaroperador" class="form-control" type="search" placeholder="Usuário" aria-label="Pesquisar">
+    </div>
+    <div class="form-group mr-2">
+      <button name="buttonPesquisarOperador" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+
+            <?php
+            endif;
+            ?>
 
 
-            <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisnova" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS NOVA</i></button>
-            </form>
+  </form>
 
-            <form class="form-inline my-2 my-lg-0" style="margin-left:20px;">
-              <button name="buttonpropostamaisantiga" class="btn btn-secondary mb-3" type="submit"><i class="fa fa-filter"> MAIS ANTIGA</i></button>
-            </form>
-          </div>
+  <div class="card mb-3">
+    <div class="card-header">
+      Opções
+    </div>
+    <div class="card-body">
+      <div class="form-inline my-2 my-lg-0">
+        <div class="btn-group">
+          <!-- Botão "ADICIONAR" -->
+          <form class="form-inline mr-2">
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
+          </form>
+
+          <!-- Botão de filtro "Nova/Antiga" -->
+          <form class="form-inline mr-2">
+            <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-filter"></i> Nova/Antiga
+            </button>
+            <div class="dropdown-menu">
+              <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
+              <button name="buttonpropostamaisantiga" class="dropdown-item" type="submit">Mais Antiga</button>
+            </div>
+          </form>
+
+          <!-- Botão de filtro por "Status" -->
+          <form class="form-inline mr-2">
+            <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-filter"></i> Status
+            </button>
+            <div class="dropdown-menu">
+              <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
+              <button name="statuspropostaconsultaaguard" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
+            </div>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-        <style>
-          /* formatando tabela de propostas */
-          /* Estilo para evitar que a célula de nome quebre a linha */
-          .table td:nth-child(1) {
-            white-space: nowrap;
-            /* Evita que o texto quebre a linha */
-            overflow: hidden;
-            /* Esconde qualquer conteúdo que não caiba */
-            text-overflow: ellipsis;
-            /* Adiciona reticências (...) se o texto for cortado */
-          }
-        </style>
-
-
-        <div class="content">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title"> MINHAS PROPOSTAS</h5>
-
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive h-100">
-
-
-                    <!--LISTAR TODAS AS PROPOSTAS -->
-
-                    <?php
-
-                    // Definir o número de itens por página
-                    $itens_por_pagina = 10;
-
-                    // Pegar a página atual
-                    $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
-
-                    // Calcular o deslocamento para a consulta SQL
-                    $offset = max(0, ($pagina - 1) * $itens_por_pagina);
-
-
-                    // Consulta SQL para obter os registros da página atual
-                    $sql_code = "SELECT * FROM propostas LIMIT $offset, $itens_por_pagina";
-                    $result = $conexao->query($sql_code) or die($conexao->error);
-
-                    // Obter os resultados da consulta
-                    $propostas = $result->fetch_assoc();
-
-
-                    // Número total de registros
-                    $num_total = $conexao->query("SELECT * FROM propostas")->num_rows;
-
-                    // Calcular o número total de páginas
-                    $num_paginas = ceil($num_total / $itens_por_pagina);
-
-
-
-
-                    // novo codigo ( procurar proposta pelo nome da pessoa)
-                    $id = $_SESSION['idusuarios'];
-                    $cargo_usuario = $_SESSION['cargo_usuario'];
-
-                    if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
-                      $nome = $_GET['txtpesquisar'] . '%';
-                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' ORDER BY nome ASC";
-                      } else {
-                        $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' AND idusuario = $id ORDER BY nome ASC";
-                      }
-                    } else if (isset($_GET['buttonPesquisarcpf'])) {
-                      $nome = $_GET['txtpesquisarcpf'];
-                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas WHERE cpf = '$nome' ORDER BY idpropostas DESC";
-                      } else {
-                        $query = "SELECT * FROM propostas WHERE cpf = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
-                      }
-                    } else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
-                      $nome = $_GET['txtpesquisardata'];
-                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas WHERE data = '$nome' ORDER BY idpropostas DESC";
-                      } else {
-                        $query = "SELECT * FROM propostas WHERE data = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
-                      }
-                    } else if (isset($_GET['buttonpropostamaisnova'])) {
-                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
-                      } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
-                      }
-                    } else if (isset($_GET['buttonpropostamaisantiga'])) {
-                      if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
-                      } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
-                      }
-                    }
-                    
+    </div>
 
 
 
 
 
 
-                    //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
-                    else if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
-                      $query = "SELECT * FROM propostas
+    <style>
+      /* formatando tabela de propostas */
+      /* Estilo para evitar que a célula de nome quebre a linha */
+      .table td:nth-child(1) {
+        white-space: nowrap;
+        /* Evita que o texto quebre a linha */
+        overflow: hidden;
+        /* Esconde qualquer conteúdo que não caiba */
+        text-overflow: ellipsis;
+        /* Adiciona reticências (...) se o texto for cortado */
+      }
+    </style>
+
+
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title"> MINHAS PROPOSTAS</h5>
+
+            </div>
+            <div class="card-body">
+              <div class="table-responsive h-100">
+
+
+                <!--LISTAR TODAS AS PROPOSTAS -->
+
+                <?php
+
+                // Definir o número de itens por página
+                $itens_por_pagina = 10;
+
+                // Pegar a página atual
+                $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
+
+                // Calcular o deslocamento para a consulta SQL
+                $offset = max(0, ($pagina - 1) * $itens_por_pagina);
+
+
+                // Consulta SQL para obter os registros da página atual
+                $sql_code = "SELECT * FROM propostas LIMIT $offset, $itens_por_pagina";
+                $result = $conexao->query($sql_code) or die($conexao->error);
+
+                // Obter os resultados da consulta
+                $propostas = $result->fetch_assoc();
+
+
+                // Número total de registros
+                $num_total = $conexao->query("SELECT * FROM propostas")->num_rows;
+
+                // Calcular o número total de páginas
+                $num_paginas = ceil($num_total / $itens_por_pagina);
+
+
+
+
+                // novo codigo ( procurar proposta pelo nome da pessoa)
+                $id = $_SESSION['idusuarios'];
+                $cargo_usuario = $_SESSION['cargo_usuario'];
+
+                if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
+                  $nome = $_GET['txtpesquisar'] . '%';
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' ORDER BY nome ASC";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' AND idusuario = $id ORDER BY nome ASC";
+                  }
+                } else if (isset($_GET['buttonPesquisarcpf'])) {
+                  $nome = $_GET['txtpesquisarcpf'];
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE cpf = '$nome' ORDER BY idpropostas DESC";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE cpf = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
+                  }
+                } else if (isset($_GET['buttonPesquisardata']) and $_GET['txtpesquisardata'] != '') {
+                  $nome = $_GET['txtpesquisardata'];
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE data = '$nome' ORDER BY idpropostas DESC";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE data = '$nome' AND idusuario = $id ORDER BY idpropostas DESC";
+                  }
+                } else if (isset($_GET['buttonpropostamaisnova'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                } else if (isset($_GET['buttonpropostamaisantiga'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
+                  }
+                } else if (isset($_GET['statuspropostaconsultapendente'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                } else if (isset($_GET['statuspropostaconsultaaguard'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['buttonPesquisarOperador'])) {
+                  $usuario = $_GET['txtpesquisaroperador'];
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                      $query = "SELECT propostas.*, usuarios.usuario 
+                                FROM propostas 
+                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
+                                WHERE usuarios.usuario LIKE '%$usuario%' 
+                                ORDER BY propostas.idpropostas DESC";
+                  } else {
+                      $query = "SELECT propostas.*, usuarios.usuario 
+                                FROM propostas 
+                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
+                                WHERE usuarios.usuario LIKE '%$usuario%' AND propostas.idusuario = $id 
+                                ORDER BY propostas.idpropostas DESC";
+                  }
+              }
+              
+              
+
+
+
+
+
+
+
+
+                //verificando se o cargo do usuário é == Master, se for, consegue visualizar todas as propostas sem limitar apenas para o usuário que cadastrou.
+                else if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                  $query = "SELECT * FROM propostas
       
                       ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
-                    }
+                }
 
 
-                    //final do código
+                //final do código
 
-                    else {
-                      $id = $_SESSION['idusuarios'];
-                      $query = "SELECT * FROM propostas
+                else {
+                  $id = $_SESSION['idusuarios'];
+                  $query = "SELECT * FROM propostas
                       WHERE idusuario = $id
                       ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
-                    }
+                }
 
 
 
 
 
-                    $result = mysqli_query($conexao, $query);
-                    //$dado = mysqli_fetch_array($result);
-                    $row = mysqli_num_rows($result);
+                $result = mysqli_query($conexao, $query);
+                //$dado = mysqli_fetch_array($result);
+                $row = mysqli_num_rows($result);
 
-                    if ($row == '') {
+                if ($row == '') {
 
-                      echo "<h3> Não existem propostas cadastradas por você!</h3>";
-                    } else {
+                  echo "<h3> Não existem propostas cadastradas por você!</h3>";
+                } else {
 
-                    ?>
+                ?>
 
 
 
-                      <table class="table table-borderless">
-                        <thead class=" text-primary">
-                          <th>
-                            Nome
-                          </th>
-                          <th>
-                            Cpf
-                          </th>
-                          <th>
-                            Operação
-                          </th>
-                          <th>
-                            Convênio
-                          </th>
-                          <th>
-                            Banco
-                          </th>
+                  <table class="table table-borderless">
+                    <thead class=" text-primary">
+                      <th>
+                        Nome
+                      </th>
+                      <th>
+                        Cpf
+                      </th>
+                      <th>
+                        Operação
+                      </th>
+                      <th>
+                        Convênio
+                      </th>
+                      <th>
+                        Banco
+                      </th>
 
-                          <th>
-                            Valor
-                          </th>
+                      <th>
+                        Valor
+                      </th>
 
-                          <th>
-                            Promotora
-                          </th>
+                      <th>
+                        Promotora
+                      </th>
 
-                          <th>
-                            Usuário
-                          </th>
+                      <th>
+                        Usuário
+                      </th>
 
-                          <th>
-                            Data
-                          </th>
+                      <th>
+                        Data
+                      </th>
 
-                          <th>
-                            Status
-                          </th>
+                      <th>
+                        Status
+                      </th>
 
-                          <th>
-                            Ações
-                          </th>
-                        </thead>
-                        <tbody>
+                      <th>
+                        Ações
+                      </th>
+                    </thead>
+                    <tbody>
+
+                      <?php
+                      // Supondo que você já tenha uma conexão com o banco de dados ($conexao)
+                      $query_cores = "SELECT statusproposta, cor FROM statusproposta";
+                      $result_cores = mysqli_query($conexao, $query_cores);
+
+                      // Criar um array associativo para armazenar as cores
+                      $status_cores = array();
+                      while ($row_cores = mysqli_fetch_assoc($result_cores)) {
+                        $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
+                      }
+                      while ($res_1 = $result->fetch_assoc()) {
+                        $id = $res_1["idpropostas"];
+                        $nome = $res_1["nome"];
+                        $cpf = $res_1["cpf"];
+                        $operacao = $res_1["operacao"];
+                        $tabela = $res_1["tabela"];
+                        $convenio = $res_1["convenio"];
+                        $banco = $res_1["bancoproposta"];
+                        $valor = $res_1["valor"];
+                        $promotora = $res_1["promotora"];
+                        $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
+                        $statusproposta = $res_1["statusproposta"];
+                        $data = $res_1["data"];
+
+
+                        $data2 = implode('/', array_reverse(explode('-', $data)));
+
+
+                        // Agora, vamos buscar o nome do usuário com base no ID
+                        $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
+                        $result_usuario = mysqli_query($conexao, $query_usuario);
+                        $row_usuario = mysqli_fetch_assoc($result_usuario);
+                        $nome_usuario = $row_usuario['usuario'];
+
+
+
+                      ?>
+
+                        <tr>
+                          <td><?php echo $nome; ?></td>
+                          <td><?php echo  $cpf; ?></td>
+                          <td><?php echo  $operacao;  ?></td>
+                          <td><?php echo $convenio; ?></td>
+                          <td><?php echo $banco; ?></td>
+                          <td><?php echo number_format($valor, 2, ",", "."); ?></td>
+                          <td><?php echo  $promotora; ?></td>
+                          <td><?php echo  $nome_usuario; ?></td>
+                          <td><?php echo  $data2; ?></td>
+
+
+
+
 
                           <?php
-                          // Supondo que você já tenha uma conexão com o banco de dados ($conexao)
-                          $query_cores = "SELECT statusproposta, cor FROM statusproposta";
-                          $result_cores = mysqli_query($conexao, $query_cores);
-
-                          // Criar um array associativo para armazenar as cores
-                          $status_cores = array();
-                          while ($row_cores = mysqli_fetch_assoc($result_cores)) {
-                            $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
+                          if (array_key_exists($statusproposta, $status_cores)) {
+                            $cor_badge = $status_cores[$statusproposta];
+                            echo "<td class='badge badge-pill badge-custom' style='background-color: $cor_badge; color: #000000;'>$statusproposta</td>";
+                          } else {
+                            echo "<td class='badge badge-pill badge-info'>$statusproposta</td>";
                           }
-                          while ($res_1 = $result->fetch_assoc()) {
-                            $id = $res_1["idpropostas"];
-                            $nome = $res_1["nome"];
-                            $cpf = $res_1["cpf"];
-                            $operacao = $res_1["operacao"];
-                            $tabela = $res_1["tabela"];
-                            $convenio = $res_1["convenio"];
-                            $banco = $res_1["bancoproposta"];
-                            $valor = $res_1["valor"];
-                            $promotora = $res_1["promotora"];
-                            $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
-                            $statusproposta = $res_1["statusproposta"];
-                            $data = $res_1["data"];
-
-
-                            $data2 = implode('/', array_reverse(explode('-', $data)));
-
-
-                            // Agora, vamos buscar o nome do usuário com base no ID
-                            $query_usuario = "SELECT usuario FROM usuarios WHERE idusuarios = $usuario_id";
-                            $result_usuario = mysqli_query($conexao, $query_usuario);
-                            $row_usuario = mysqli_fetch_assoc($result_usuario);
-                            $nome_usuario = $row_usuario['usuario'];
-
-
-
                           ?>
 
-                            <tr>
-                              <td><?php echo $nome; ?></td>
-                              <td><?php echo  $cpf; ?></td>
-                              <td><?php echo  $operacao;  ?></td>
-                              <td><?php echo $convenio; ?></td>
-                              <td><?php echo $banco; ?></td>
-                              <td><?php echo number_format($valor, 2, ",", "."); ?></td>
-                              <td><?php echo  $promotora; ?></td>
-                              <td><?php echo  $nome_usuario; ?></td>
-                              <td><?php echo  $data2; ?></td>
 
 
 
+
+
+                          <td>
+
+
+
+
+
+                            <div class="btn-group" role="group" aria-label="Exemplo básico">
+
+                              <?php
+                              // lógica para só conseguir editar a proposta quem for master do sistema
+                              if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                                <div class="dropdown">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                  </ul>
+                                </div>
+
+                              <?php
+                              endif;
+                              ?>
+
+
+
+
+                              <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                              <!-- Botão de exclusão de proposta -->
+
+
+                              <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                              <!-- Botão de edição de status da proposta -->
+                              <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+
+                              <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+                              <!-- Botão de visualizar proposta -->
+                              <a class='btn btn-primary' href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><i class='fa fa-eye'></i></a>
+
+                              <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
 
                               <?php
-                              if (array_key_exists($statusproposta, $status_cores)) {
-                                $cor_badge = $status_cores[$statusproposta];
-                                echo "<td class='badge badge-pill badge-custom' style='background-color: $cor_badge; color: #000000;'>$statusproposta</td>";
-                              } else {
-                                echo "<td class='badge badge-pill badge-info'>$statusproposta</td>";
-                              }
+                              // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                              if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+                                <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
+                                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                </a>
+
+                              <?php
+
+                              endif;
                               ?>
 
 
@@ -361,551 +510,489 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-                              <td>
 
 
 
 
+                            </div>
 
-                                <div class="btn-group" role="group" aria-label="Exemplo básico">
+                          </td>
+                        </tr>
 
-                                  <?php
-                                  // lógica para só conseguir editar a proposta quem for master do sistema
-                                  if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                    <div class="dropdown">
-                                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
-                                      <ul class="dropdown-menu">
-                                        <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                        <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                        <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-                                      </ul>
-                                    </div>
+                      <?php
+                      }
+                      ?>
 
-                                  <?php
-                                  endif;
-                                  ?>
 
 
+                    </tbody>
+                  </table>
 
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <li class="page-item <?php echo ($pagina <= 1) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="propostas.php?pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                      </li>
 
-                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+                      <?php
+                      $num_links = 3; // Número de links para exibir antes e depois da página atual
+                      $inicio = max(1, $pagina - $num_links);
+                      $fim = min($num_paginas, $pagina + $num_links);
 
-                                  <!-- Botão de exclusão de proposta -->
+                      for ($i = $inicio; $i <= $fim; $i++) {
+                        $estilo = ($pagina == $i) ? "active" : "";
+                      ?>
+                        <li class="page-item <?php echo $estilo; ?>">
+                          <a class="page-link" href="propostas.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                        </li>
+                      <?php } ?>
 
+                      <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
+                        <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
 
-                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
-                                  <!-- Botão de edição de status da proposta -->
-                                  <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
 
-                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
-                                  <!-- Botão de visualizar proposta -->
-                                  <a class='btn btn-primary' href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><i class='fa fa-eye'></i></a>
-
-                                  <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
-
-
-                                  <?php
-                                  // lógica para só conseguir alterar o status da proposta quem for master do sistema
-                                  if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                    <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
-                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
-
-                                  <?php
-
-                                  endif;
-                                  ?>
-
-
-
-
-
-
-
-
-
-
-                                </div>
-
-                              </td>
-                            </tr>
-
-                          <?php
-                          }
-                          ?>
-
-
-
-                        </tbody>
-                      </table>
-
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item <?php echo ($pagina <= 1) ? 'disabled' : ''; ?>">
-                            <a class="page-link" href="propostas.php?pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-
-                          <?php
-                          $num_links = 3; // Número de links para exibir antes e depois da página atual
-                          $inicio = max(1, $pagina - $num_links);
-                          $fim = min($num_paginas, $pagina + $num_links);
-
-                          for ($i = $inicio; $i <= $fim; $i++) {
-                            $estilo = ($pagina == $i) ? "active" : "";
-                          ?>
-                            <li class="page-item <?php echo $estilo; ?>">
-                              <a class="page-link" href="propostas.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
-                            </li>
-                          <?php } ?>
-
-                          <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
-                            <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-
-
-
-
-                    <?php
-                    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-
-
-
-
-          <!-- Modal -->
-          <div id="modalExemplo" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-
-                  <h4 class="modal-title">CADASTRAR PROPOSTA</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-
-                  <!-- INÍCIO DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">CLIENTE</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="propostas-tab" data-toggle="tab" href="#propostas" role="tab" aria-controls="propostas" aria-selected="false">PROPOSTAS</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
-                    </li>
-                  </ul>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
-                      <!-- CONTEÚDO TAB CLIENTE-->
-                      <form method="POST" action="propostas.php" enctype="multipart/form-data">
-                        <div class="form-row">
-                          <div class="form-group col-md-4">
-                            <label for="inputNome">NOME*</label>
-                            <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputCpf">CPF</label>
-                            <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputRg">RG</label>
-                            <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
-                            <input name="inputNumeroBeneficio" type="text" class="form-control" id="inputNumeroBeneficio" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputDataEmissao">DATA EMISSÃO</label>
-                            <input name="inputDataEmissao" type="date" class="form-control" id="inputDataEmissao" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
-                            <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputNaturalidade">NATURALIDADE</label>
-                            <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade">
-                          </div>
-                          <!-- INÍCIO DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-4">
-                            <label for="inputTelefone">TELEFONE</label>
-                            <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputEmail">EMAIL</label>
-                            <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
-                          </div>
-                          <!-- FINAL DO CONTEÚDO CONTATO-->
-                          <div class="form-group col-md-4">
-                            <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
-                            <input name="inputDataNascimento" type="date" class="form-control" id="inputDataNascimento" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputNomeMae">NOME DA MÃE</label>
-                            <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="inputNomePai">NOME DO PAI</label>
-                            <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label for="inputCep">CEP</label>
-                            <input name="inputCep" type="number" class="form-control" id="cep" name="cep" placeholder="">
-                            <button type="button" class="btn btn-outline-dark btn-block" onclick="consultaEndereco()">BUSCAR CEP</button>
-                          </div>
-
-                          <div class="form-group col-md-4">
-                            <label for="inputRua">RUA</label>
-                            <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputNumero">NÚMERO</label>
-                            <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputComplemento">COMPLEMENTO</label>
-                            <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
-                          </div>
-                        </div>
-                        <div class="form-row">
-                          <div class="form-group col-md-3">
-                            <label for="inputBairro">BAIRRO</label>
-                            <input name="inputBairro" type="text" class="form-control" id="inputBairro">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputCidade">CIDADE</label>
-                            <input name="inputCidade" type="text" class="form-control" id="inputCidade">
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label for="inputUf">UF</label>
-                            <select name="inputUf" id="inputUf" class="form-control">
-                              <option selected>Escolher...</option>
-                              <option value="AC">Acre (AC)</option>
-                              <option value="AL">Alagoas (AL)</option>
-                              <option value="AP">Amapá (AP)</option>
-                              <option value="AM">Amazonas (AM)</option>
-                              <option value="BA">Bahia (BA)</option>
-                              <option value="CE">Ceará (CE)</option>
-                              <option value="DF">Distrito Federal (DF)</option>
-                              <option value="ES">Espírito Santo (ES)</option>
-                              <option value="GO">Goiás (GO)</option>
-                              <option value="MA">Maranhão (MA)</option>
-                              <option value="MT">Mato Grosso (MT)</option>
-                              <option value="MS">Mato Grosso do Sul (MS)</option>
-                              <option value="MG">Minas Gerais (MG)</option>
-                              <option value="PA">Pará (PA)</option>
-                              <option value="PB">Paraíba (PB)</option>
-                              <option value="PR">Paraná (PR)</option>
-                              <option value="PE">Pernambuco (PE)</option>
-                              <option value="PI">Piauí (PI)</option>
-                              <option value="RJ">Rio de Janeiro (RJ)</option>
-                              <option value="RN">Rio Grande do Norte (RN)</option>
-                              <option value="RS">Rio Grande do Sul (RS)</option>
-                              <option value="RO">Rondônia (RO)</option>
-                              <option value="RR">Roraima (RR)</option>
-                              <option value="SC">Santa Catarina (SC)</option>
-                              <option value="SP">São Paulo (SP)</option>
-                              <option value="SE">Sergipe (SE)</option>
-                              <option value="TO">Tocantins (TO)</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
-                    </div>
-
-                    <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="dadosbancarios-tab">
-
-                      <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
-
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="inputBanco" id="inputBanco">BANCO</label>
-                          <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
-                            <?php
-
-                            $query = "SELECT id, banco FROM bancos";
-                            $result = mysqli_query($conexao, $query);
-
-
-
-
-                            // Verificar se a consulta teve sucesso
-                            if (!$result) {
-                              die("Erro na consulta: " . mysqli_error($conexao));
-                            }
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                              echo '<option value="' . $row['id'] . '">' . $row['banco'] . '</option>';
-                            }
-                            ?>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputTipoConta">TIPO DE CONTA</label>
-                          <select name="inputTipoConta" class="form-control" id="inputTipoConta">
-                            <option value="1">CONTA CORRENTE</option>
-                            <option value="2">CONTA SALÁRIO</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputAgencia">AGENCIA</label>
-                          <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
-                          <small class="text-muted">Com o dígito verificador se existir</small>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputConta">CONTA</label>
-                          <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="">
-                          <small class="text-muted">Com o dígito verificador</small>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputRenda">RENDA</label>
-                          <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="" size="12" onKeyUp="mascaraMoeda(this, event)">
-                        </div>
-                      </div>
-
-                      <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
-
-
-                    </div>
-                    <div class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="propostas-tab">
-                      <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
-                      <div class="form-row">
-                        <div class="form-group col-md-6">
-                          <label for="inputConvenio">CONVÊNIO</label>
-                          <select name="inputConvenio" class="form-control" id="inputConvenio">
-                            <option value="1">INSS</option>
-                            <option value="2">FGTS</option>
-                            <option value="3">AUXÍLIO BRASIL</option>
-                            <option value="4">GOVERNO DE SÃO PAULO</option>
-                            <option value="5">PREFEITURA DE SÃO PAULO</option>
-                            <option value="6">GOVERNO DO RIO DE JANEIRO</option>
-                            <option value="7">SIAPE</option>
-                            <option value="8">GOVERNO DA BAHIA</option>
-                            <option value="9">PESSOAL</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputOperacao">OPERAÇÃO</label>
-                          <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                            <option value="3">REFINANCIAMENTO </option>
-                            <option value="2">PORTABILIDADE </option>
-                            <option value="1">NOVO </option>
-                            <option value="4">CARTÃO PLÁSTICO </option>
-                            <option value="6">CARTÃO COM SAQUE </option>
-                            <option value="5">PORTABILIDADE COM REFIN </option>
-                            <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
-                            <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
-                            <option value="9">CARTÃO BENEFÍCIO INSS </option>
-                            <option value="10">NOVO REPRESENTANTE LEGAL </option>
-                            <option value="11">NOVO AUMENTO DE SALARIO </option>
-                            <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputBanco">BANCO</label>
-                          <select name="inputBancoProposta" id="inputBancoProposta" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
-                            <?php
-
-                            $query = "SELECT id, banco FROM bancos";
-                            $result = mysqli_query($conexao, $query);
-
-
-
-
-                            // Verificar se a consulta teve sucesso
-                            if (!$result) {
-                              die("Erro na consulta: " . mysqli_error($conexao));
-                            }
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                              echo '<option value="' . $row['id'] . '">' . $row['banco'] . '</option>';
-                            }
-                            ?>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="id_produto">Promotora</label>
-                          <select name="promotora" class="custom-select" id="promotora">
-                            <?php
-
-                            $query = "SELECT id, nome FROM promotoras";
-                            $result = mysqli_query($conexao, $query);
-
-
-
-
-                            // Verificar se a consulta teve sucesso
-                            if (!$result) {
-                              die("Erro na consulta: " . mysqli_error($conexao));
-                            }
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-                              echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
-                            }
-                            ?>
-                          </select>
-
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputMargem">MARGEM</label>
-                          <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputPrazo">PRAZO</label>
-                          <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
-                            <option value="120">120x</option>
-                            <option value="96">96x</option>
-                            <option value="84">84x</option>
-                            <option value="72">72x</option>
-                            <option value="60">60x</option>
-                            <option value="48">48x</option>
-                            <option value="36">36x</option>
-                            <option value="24">24x</option>
-                            <option value="12">12x</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputValor">VALOR</label>
-                          <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputValorParcelas">VALOR PARCELAS</label>
-                          <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputFormalizacao">FORMALIZAÇÃO</label>
-                          <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                            <option value="1">FÍSICO</option>
-                            <option value="2">DIGITAL</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputCanal">CANAL</label>
-                          <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                            <option value="1">TELEMARKETING </option>
-                            <option value="2">SMS </option>
-                            <option value="3">OUTROS </option>
-                            <option value="4">WHATSAPP </option>
-                            <option value="5">FACEBOOK </option>
-                            <option value="6">ANUNCIO DANIEL </option>
-                            <option value="7">DISPAROS Whatsapp </option>
-                            <option value="8">INDICAÇÃO </option>
-                            <option value="9">LIGAÇÃO </option>
-                            <option value="10">CLIENTE BALCÃO </option>
-                            <option value="11">CLIENTE LIGOU NA LOJA </option>
-                            <option value="12">INSTAGRAM </option>
-                            <option value="13">FACE </option>
-                            <option value="14">CARTEIRA </option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                          <label for="inputTabela">TABELA</label>
-                          <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                            <option selected value="">Nada para selecionar</option>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-12">
-                          <label for="inputDocumento">Deseja anexar algum documento?</label>
-                          <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
-                          <div class="form-group">
-                            <br>
-                            <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                            <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
-                          </div>
-                        </div>
-
-
-                      </div>
-                      <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
-                    </div>
-                  </div>
-                  <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
-
-
-
-                </div>
-
-                <div class="modal-footer">
-
-
-                  <button id="salvarBotao" type="submit" class="btn btn-success mb-3 btn-lg" name="button">Salvar </button>
-
-
-                  <button type="button" class="btn btn-danger mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
-
-
-                  </form>
-                </div>
+                <?php
+                }
+                ?>
               </div>
             </div>
           </div>
+        </div>
 
-          <script>
-            var estadoAba = "cliente"; // Inicialmente, a aba "CLIENTE" está ativa
-
-            $("#selecionarAba").click(function() {
-              if (estadoAba === "cliente") {
-                // Se a aba "CLIENTE" estiver ativa, selecione a aba "CONTATO"
-                $("#cliente-tab").removeClass('active');
-                $("#contato-tab").addClass('active');
-                $("#cliente").removeClass('show active');
-                $("#contato").addClass('show active');
-                estadoAba = "dadosbancarios";
-              } else if (estadoAba === "dadosbancarios") {
-                // Se a aba "DADOS BANCÁRIOS" estiver ativa, selecione a aba "PROPOSTAS"
-                $("#dadosbancarios-tab").removeClass('active');
-                $("#propostas-tab").addClass('active');
-                $("#dadosbancarios").removeClass('show active');
-                $("#propostas").addClass('show active');
-                estadoAba = "propostas";
-              } else {
-                // Se a aba "PROPOSTAS" estiver ativa, selecione a aba "CLIENTE"
-                $("#propostas-tab").removeClass('active');
-                $("#cliente-tab").addClass('active');
-                $("#propostas").removeClass('show active');
-                $("#cliente").addClass('show active');
-                estadoAba = "cliente";
-              }
-            });
-          </script>
+      </div>
 
 
 
-          <script>
-            function formatarMoeda(input) {
-              // Obtém o valor sem formatação (removendo pontos e vírgulas)
-              var valor = input.value.replace(/[.,]/g, '');
 
-              // Formata o valor como moeda brasileira
-              valor = parseFloat(valor).toFixed(2);
-              valor = valor.replace('.', ',');
 
-              // Atualiza o valor no input
-              input.value = valor;
-            }
-            // final do script para os inputs de moeda
-          </script>
+      <!-- Modal -->
+      <div id="modalExemplo" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <h4 class="modal-title">CADASTRAR PROPOSTA</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+              <!-- INÍCIO DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">CLIENTE</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="propostas-tab" data-toggle="tab" href="#propostas" role="tab" aria-controls="propostas" aria-selected="false">PROPOSTAS</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
+                  <!-- CONTEÚDO TAB CLIENTE-->
+                  <form method="POST" action="propostas.php" enctype="multipart/form-data">
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="inputNome">NOME*</label>
+                        <input name="inputNome" type="text" class="form-control" id="inputNome" placeholder="" required>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputCpf">CPF</label>
+                        <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputRg">RG</label>
+                        <input name="inputRg" type="text" class="form-control" id="inputRg" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputNumeroBeneficio">NÚMERO DO BENEFÍCIO</label>
+                        <input name="inputNumeroBeneficio" type="text" class="form-control" id="inputNumeroBeneficio" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputDataEmissao">DATA EMISSÃO</label>
+                        <input name="inputDataEmissao" type="date" class="form-control" id="inputDataEmissao" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputOrgaoEmissor">ORGÃO EMISSOR</label>
+                        <input name="inputOrgaoEmissor" type="text" class="form-control" id="inputOrgaoEmissor" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputNaturalidade">NATURALIDADE</label>
+                        <input name="inputNaturalidade" type="text" class="form-control" id="inputNaturalidade">
+                      </div>
+                      <!-- INÍCIO DO CONTEÚDO CONTATO-->
+                      <div class="form-group col-md-4">
+                        <label for="inputTelefone">TELEFONE</label>
+                        <input name="inputTelefone" type="text" class="form-control" id="inputTelefone" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputEmail">EMAIL</label>
+                        <input name="inputEmail" type="email" class="form-control" id="inputEmail" placeholder="">
+                      </div>
+                      <!-- FINAL DO CONTEÚDO CONTATO-->
+                      <div class="form-group col-md-4">
+                        <label for="inputDataNascimento">DATA DE NASCIMENTO</label>
+                        <input name="inputDataNascimento" type="date" class="form-control" id="inputDataNascimento" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputNomeMae">NOME DA MÃE</label>
+                        <input name="inputNomeMae" type="text" class="form-control" id="inputNomeMae" placeholder="">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="inputNomePai">NOME DO PAI</label>
+                        <input name="inputNomePai" type="text" class="form-control" id="inputNomePai" placeholder="">
+                      </div>
+                      <div class="form-group col-md-2">
+                        <label for="inputCep">CEP</label>
+                        <input name="inputCep" type="number" class="form-control" id="cep" name="cep" placeholder="">
+                        <button type="button" class="btn btn-outline-dark btn-block" onclick="consultaEndereco()">BUSCAR CEP</button>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="inputRua">RUA</label>
+                        <input name="inputRua" type="text" class="form-control" id="inputRua" placeholder="">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputNumero">NÚMERO</label>
+                        <input name="inputNumero" type="text" class="form-control" id="inputNumero" placeholder="">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputComplemento">COMPLEMENTO</label>
+                        <input name="inputComplemento" type="text" class="form-control" id="inputComplemento" placeholder="">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <label for="inputBairro">BAIRRO</label>
+                        <input name="inputBairro" type="text" class="form-control" id="inputBairro">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputCidade">CIDADE</label>
+                        <input name="inputCidade" type="text" class="form-control" id="inputCidade">
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label for="inputUf">UF</label>
+                        <select name="inputUf" id="inputUf" class="form-control">
+                          <option selected>Escolher...</option>
+                          <option value="AC">Acre (AC)</option>
+                          <option value="AL">Alagoas (AL)</option>
+                          <option value="AP">Amapá (AP)</option>
+                          <option value="AM">Amazonas (AM)</option>
+                          <option value="BA">Bahia (BA)</option>
+                          <option value="CE">Ceará (CE)</option>
+                          <option value="DF">Distrito Federal (DF)</option>
+                          <option value="ES">Espírito Santo (ES)</option>
+                          <option value="GO">Goiás (GO)</option>
+                          <option value="MA">Maranhão (MA)</option>
+                          <option value="MT">Mato Grosso (MT)</option>
+                          <option value="MS">Mato Grosso do Sul (MS)</option>
+                          <option value="MG">Minas Gerais (MG)</option>
+                          <option value="PA">Pará (PA)</option>
+                          <option value="PB">Paraíba (PB)</option>
+                          <option value="PR">Paraná (PR)</option>
+                          <option value="PE">Pernambuco (PE)</option>
+                          <option value="PI">Piauí (PI)</option>
+                          <option value="RJ">Rio de Janeiro (RJ)</option>
+                          <option value="RN">Rio Grande do Norte (RN)</option>
+                          <option value="RS">Rio Grande do Sul (RS)</option>
+                          <option value="RO">Rondônia (RO)</option>
+                          <option value="RR">Roraima (RR)</option>
+                          <option value="SC">Santa Catarina (SC)</option>
+                          <option value="SP">São Paulo (SP)</option>
+                          <option value="SE">Sergipe (SE)</option>
+                          <option value="TO">Tocantins (TO)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- FINAL DO CONTEÚDO TAB CLIENTE-->
+                </div>
+
+                <div class="tab-pane fade" id="dadosbancarios" role="tabpanel" aria-labelledby="dadosbancarios-tab">
+
+                  <!-- INÍCIO DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputBanco" id="inputBanco">BANCO</label>
+                      <select name="inputBanco" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                        <?php
+
+                        $query = "SELECT id, banco FROM bancos";
+                        $result = mysqli_query($conexao, $query);
+
+
+
+
+                        // Verificar se a consulta teve sucesso
+                        if (!$result) {
+                          die("Erro na consulta: " . mysqli_error($conexao));
+                        }
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<option value="' . $row['id'] . '">' . $row['banco'] . '</option>';
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputTipoConta">TIPO DE CONTA</label>
+                      <select name="inputTipoConta" class="form-control" id="inputTipoConta">
+                        <option value="1">CONTA CORRENTE</option>
+                        <option value="2">CONTA SALÁRIO</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputAgencia">AGENCIA</label>
+                      <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
+                      <small class="text-muted">Com o dígito verificador se existir</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputConta">CONTA</label>
+                      <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="">
+                      <small class="text-muted">Com o dígito verificador</small>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputRenda">RENDA</label>
+                      <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="" size="12" onKeyUp="mascaraMoeda(this, event)">
+                    </div>
+                  </div>
+
+                  <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+
+
+                </div>
+                <div class="tab-pane fade" id="propostas" role="tabpanel" aria-labelledby="propostas-tab">
+                  <!-- INÍCIO DO CONTEÚDO TAB PROPOSTAS-->
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputConvenio">CONVÊNIO</label>
+                      <select name="inputConvenio" class="form-control" id="inputConvenio">
+                        <option value="1">INSS</option>
+                        <option value="2">FGTS</option>
+                        <option value="3">AUXÍLIO BRASIL</option>
+                        <option value="4">GOVERNO DE SÃO PAULO</option>
+                        <option value="5">PREFEITURA DE SÃO PAULO</option>
+                        <option value="6">GOVERNO DO RIO DE JANEIRO</option>
+                        <option value="7">SIAPE</option>
+                        <option value="8">GOVERNO DA BAHIA</option>
+                        <option value="9">PESSOAL</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputOperacao">OPERAÇÃO</label>
+                      <select name="inputOperacao" name="inputOperacao" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                        <option value="3">REFINANCIAMENTO </option>
+                        <option value="2">PORTABILIDADE </option>
+                        <option value="1">NOVO </option>
+                        <option value="4">CARTÃO PLÁSTICO </option>
+                        <option value="6">CARTÃO COM SAQUE </option>
+                        <option value="5">PORTABILIDADE COM REFIN </option>
+                        <option value="7">CARTÃO BENEFÍCIO COM SEGURO </option>
+                        <option value="8">CARTÃO BENEFÍCIO SEM SEGURO </option>
+                        <option value="9">CARTÃO BENEFÍCIO INSS </option>
+                        <option value="10">NOVO REPRESENTANTE LEGAL </option>
+                        <option value="11">NOVO AUMENTO DE SALARIO </option>
+                        <option value="12">SAQUE CARTÃO BENEFÍCIO </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputBanco">BANCO</label>
+                      <select name="inputBancoProposta" id="inputBancoProposta" class="form-control bancos required cadVenda select2-hidden-accessible" aria-hidden="true" tabindex="-1">
+                        <?php
+
+                        $query = "SELECT id, banco FROM bancos";
+                        $result = mysqli_query($conexao, $query);
+
+
+
+
+                        // Verificar se a consulta teve sucesso
+                        if (!$result) {
+                          die("Erro na consulta: " . mysqli_error($conexao));
+                        }
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<option value="' . $row['id'] . '">' . $row['banco'] . '</option>';
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="id_produto">Promotora</label>
+                      <select name="promotora" class="custom-select" id="promotora">
+                        <?php
+
+                        $query = "SELECT id, nome FROM promotoras";
+                        $result = mysqli_query($conexao, $query);
+
+
+
+
+                        // Verificar se a consulta teve sucesso
+                        if (!$result) {
+                          die("Erro na consulta: " . mysqli_error($conexao));
+                        }
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<option value="' . $row['id'] . '">' . $row['nome'] . '</option>';
+                        }
+                        ?>
+                      </select>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputMargem">MARGEM</label>
+                      <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPrazo">PRAZO</label>
+                      <select name="inputPrazo" class="form-control parcelas" data-gtm-form-interact-field-id="1">
+                        <option value="120">120x</option>
+                        <option value="96">96x</option>
+                        <option value="84">84x</option>
+                        <option value="72">72x</option>
+                        <option value="60">60x</option>
+                        <option value="48">48x</option>
+                        <option value="36">36x</option>
+                        <option value="24">24x</option>
+                        <option value="12">12x</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputValor">VALOR</label>
+                      <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputValorParcelas">VALOR PARCELAS</label>
+                      <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputFormalizacao">FORMALIZAÇÃO</label>
+                      <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                        <option value="1">FÍSICO</option>
+                        <option value="2">DIGITAL</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputCanal">CANAL</label>
+                      <select name="inputCanal" id="inputCanal" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                        <option value="1">TELEMARKETING </option>
+                        <option value="2">SMS </option>
+                        <option value="3">OUTROS </option>
+                        <option value="4">WHATSAPP </option>
+                        <option value="5">FACEBOOK </option>
+                        <option value="6">ANUNCIO DANIEL </option>
+                        <option value="7">DISPAROS Whatsapp </option>
+                        <option value="8">INDICAÇÃO </option>
+                        <option value="9">LIGAÇÃO </option>
+                        <option value="10">CLIENTE BALCÃO </option>
+                        <option value="11">CLIENTE LIGOU NA LOJA </option>
+                        <option value="12">INSTAGRAM </option>
+                        <option value="13">FACE </option>
+                        <option value="14">CARTEIRA </option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputTabela">TABELA</label>
+                      <select name="inputTabela" id="inputTabela" class="form-control operacao required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                        <option selected value="">Nada para selecionar</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="inputDocumento">Deseja anexar algum documento?</label>
+                      <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                      <div class="form-group">
+                        <br>
+                        <label for="exampleFormControlTextarea1">Observação (opcional)</label>
+                        <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <!-- FINAL DO CONTEÚDO TAB DADOS BANCÁRIOS-->
+                </div>
+              </div>
+              <!-- FINAL DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+
+              <button id="salvarBotao" type="submit" class="btn btn-success mb-3 btn-lg" name="button">Salvar </button>
+
+
+              <button type="button" class="btn btn-danger mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var estadoAba = "cliente"; // Inicialmente, a aba "CLIENTE" está ativa
+
+        $("#selecionarAba").click(function() {
+          if (estadoAba === "cliente") {
+            // Se a aba "CLIENTE" estiver ativa, selecione a aba "CONTATO"
+            $("#cliente-tab").removeClass('active');
+            $("#contato-tab").addClass('active');
+            $("#cliente").removeClass('show active');
+            $("#contato").addClass('show active');
+            estadoAba = "dadosbancarios";
+          } else if (estadoAba === "dadosbancarios") {
+            // Se a aba "DADOS BANCÁRIOS" estiver ativa, selecione a aba "PROPOSTAS"
+            $("#dadosbancarios-tab").removeClass('active');
+            $("#propostas-tab").addClass('active');
+            $("#dadosbancarios").removeClass('show active');
+            $("#propostas").addClass('show active');
+            estadoAba = "propostas";
+          } else {
+            // Se a aba "PROPOSTAS" estiver ativa, selecione a aba "CLIENTE"
+            $("#propostas-tab").removeClass('active');
+            $("#cliente-tab").addClass('active');
+            $("#propostas").removeClass('show active');
+            $("#cliente").addClass('show active');
+            estadoAba = "cliente";
+          }
+        });
+      </script>
+
+
+
+      <script>
+        function formatarMoeda(input) {
+          // Obtém o valor sem formatação (removendo pontos e vírgulas)
+          var valor = input.value.replace(/[.,]/g, '');
+
+          // Formata o valor como moeda brasileira
+          valor = parseFloat(valor).toFixed(2);
+          valor = valor.replace('.', ',');
+
+          // Atualiza o valor no input
+          input.value = valor;
+        }
+        // final do script para os inputs de moeda
+      </script>
 
 
 </body>
@@ -1708,7 +1795,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 <div class="form-group col-md-3">
                   <label for="id_produto">Promotora</label>
                   <select name="promotora" class="custom-select" id="promotora">
-                  <option selected><?php echo $res_1['promotora']; ?></option>
+                    <option selected><?php echo $res_1['promotora']; ?></option>
                     <?php
 
                     $query = "SELECT id, nome FROM promotoras";
