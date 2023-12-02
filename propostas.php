@@ -198,17 +198,18 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       }
                     } else if (isset($_GET['buttonpropostamaisnova'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY idpropostas DESC";
+                        $query = "SELECT * FROM propostas ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                       }
                     } else if (isset($_GET['buttonpropostamaisantiga'])) {
                       if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                        $query = "SELECT * FROM propostas ORDER BY idpropostas ASC";
+                        $query = "SELECT * FROM propostas ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
                       } else {
-                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC";
+                        $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
                       }
                     }
+                    
 
 
 
@@ -441,26 +442,36 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </table>
 
                       <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item <?php echo ($pagina <= 1) ? 'disabled' : ''; ?>">
-      <a class="page-link" href="propostas.php?pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <?php for ($i = 0; $i < $num_paginas; $i++) {
-      $estilo = ($pagina == $i + 1) ? "active" : "";
-    ?>
-      <li class="page-item <?php echo $estilo; ?>"><a class="page-link" href="propostas.php?pagina=<?php echo $i + 1; ?>"><?php echo $i + 1; ?></a></li>
-    <?php } ?>
-    <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
-      <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+                        <ul class="pagination">
+                          <li class="page-item <?php echo ($pagina <= 1) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="propostas.php?pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+
+                          <?php
+                          $num_links = 3; // Número de links para exibir antes e depois da página atual
+                          $inicio = max(1, $pagina - $num_links);
+                          $fim = min($num_paginas, $pagina + $num_links);
+
+                          for ($i = $inicio; $i <= $fim; $i++) {
+                            $estilo = ($pagina == $i) ? "active" : "";
+                          ?>
+                            <li class="page-item <?php echo $estilo; ?>">
+                              <a class="page-link" href="propostas.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            </li>
+                          <?php } ?>
+
+                          <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
+                            <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+
 
 
 
