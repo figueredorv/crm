@@ -144,6 +144,31 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                     <?php
 
+                    // Definir o número de itens por página
+                    $itens_por_pagina = 10;
+
+                    // Pegar a página atual
+                    $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
+
+                    // Calcular o deslocamento para a consulta SQL
+                    $offset = max(0, ($pagina - 1) * $itens_por_pagina);
+
+
+                    // Consulta SQL para obter os registros da página atual
+                    $sql_code = "SELECT * FROM propostas LIMIT $offset, $itens_por_pagina";
+                    $result = $conexao->query($sql_code) or die($conexao->error);
+
+                    // Obter os resultados da consulta
+                    $propostas = $result->fetch_assoc();
+
+
+                    // Número total de registros
+                    $num_total = $conexao->query("SELECT * FROM propostas")->num_rows;
+
+                    // Calcular o número total de páginas
+                    $num_paginas = ceil($num_total / $itens_por_pagina);
+
+
 
 
                     // novo codigo ( procurar proposta pelo nome da pessoa)
@@ -194,7 +219,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     else if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
                       $query = "SELECT * FROM propostas
       
-                      ORDER BY idpropostas DESC limit 5";
+                      ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                     }
 
 
@@ -204,7 +229,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       $id = $_SESSION['idusuarios'];
                       $query = "SELECT * FROM propostas
                       WHERE idusuario = $id
-                      ORDER BY idpropostas DESC limit 5";
+                      ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                     }
 
 
@@ -278,7 +303,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           while ($row_cores = mysqli_fetch_assoc($result_cores)) {
                             $status_cores[$row_cores['statusproposta']] = $row_cores['cor'];
                           }
-                          while ($res_1 = mysqli_fetch_array($result)) {
+                          while ($res_1 = $result->fetch_assoc()) {
                             $id = $res_1["idpropostas"];
                             $nome = $res_1["nome"];
                             $cpf = $res_1["cpf"];
@@ -414,7 +439,31 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                         </tbody>
                       </table>
-    
+
+                      <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item <?php echo ($pagina <= 1) ? 'disabled' : ''; ?>">
+      <a class="page-link" href="propostas.php?pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <?php for ($i = 0; $i < $num_paginas; $i++) {
+      $estilo = ($pagina == $i + 1) ? "active" : "";
+    ?>
+      <li class="page-item <?php echo $estilo; ?>"><a class="page-link" href="propostas.php?pagina=<?php echo $i + 1; ?>"><?php echo $i + 1; ?></a></li>
+    <?php } ?>
+    <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
+      <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+
                     <?php
                     }
                     ?>
