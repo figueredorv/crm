@@ -150,14 +150,47 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
           <!-- Botão de filtro por "Status" -->
           <form class="form-inline mr-2">
-            <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-filter"></i> Status
-            </button>
-            <div class="dropdown-menu">
-              <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
-              <button name="statuspropostaconsultaaguard" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
-            </div>
-          </form>
+    <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-filter"></i> Status
+    </button>
+    <div class="dropdown-menu">
+        <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
+        <button name="statuspropostaconsultaaverbada" class="dropdown-item" type="submit">AVERBADA</button>
+        <button name="statuspropostaconsultaintegrado" class="dropdown-item" type="submit">INTEGRADO</button>
+        <button name="statuspropostaconsultaaguardando" class="dropdown-item" type="submit">AGUARDANDO AVERBAÇÃO</button>
+        <button name="statuspropostaconsultacancelado" class="dropdown-item" type="submit">CANCELADO</button>
+        <button name="statuspropostaconsultapaga" class="dropdown-item" type="submit">PAGA</button>
+        <button name="statuspropostaconsultadigitado" class="dropdown-item" type="submit">DIGITADO</button>
+        <button name="statuspropostaconsultaretornado" class="dropdown-item" type="submit">SALDO RETORNADO</button>
+        <button name="statuspropostaconsultaemdig" class="dropdown-item" type="submit">EM DIGITAÇÃO</button>
+        <button name="statuspropostaconsultaformalizada" class="dropdown-item" type="submit">FORMALIZAÇÃO CONCLUÍDA</button>
+        <button name="statuspropostaconsultapendform" class="dropdown-item" type="submit">PEND FORMALIZAÇÃO</button>
+        <button name="statuspropostaconsultaanalisebanco" class="dropdown-item" type="submit">ANALISE BANCO</button>
+        <button name="statuspropostaconsultaaguardcip" class="dropdown-item" type="submit">AGUARDANDO CIP</button>
+        <button name="statuspropostaconsultataxafora" class="dropdown-item" type="submit">TAXA FORA DO ENQUADRAMENTO</button>
+        <button name="statuspropostaconsultafdpolitica" class="dropdown-item" type="submit">FORA DA POLITICA</button>
+        <button name="statuspropostaconsultaaguardabco" class="dropdown-item" type="submit">AGUARDA BCO</button>
+        <button name="statuspropostaconsultaesp92" class="dropdown-item" type="submit">ESP32/92&lt;60</button>
+        <button name="statuspropostaconsultaaguard5dloas" class="dropdown-item" type="submit">AGUARDA 5D LOAS</button>
+        <button name="statuspropostaconsultaportpaga" class="dropdown-item" type="submit">PORTABILIDADE PAGA</button>
+        <button name="statuspropostaconsultaaguardlink" class="dropdown-item" type="submit">AGUARD LINK</button>
+        <button name="statuspropostaconsultanbbloq" class="dropdown-item" type="submit">NB BLOQUEADO</button>
+        <button name="statuspropostaconsultacancelpolitica" class="dropdown-item" type="submit">CANCELADO POR POLITICA INTERNA</button>
+        <button name="statuspropostaconsultaaguardaumento" class="dropdown-item" type="submit">AGUARD AUMENTO</button>
+        <button name="statuspropostaconsultaaguarddesbloqbnf" class="dropdown-item" type="submit">AGUARDA DESBLOQ BNF</button>
+        <button name="statuspropostaconsultacpfrestrição" class="dropdown-item" type="submit">CPF C/ RESTRIÇÃO INTERNA-IMBURSA</button>
+        <button name="statuspropostaconsultaaguarddig" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
+        <button name="statuspropostaconsultapendencia" class="dropdown-item" type="submit">PENDENCIA RESOLVIDA</button>
+        <button name="statuspropostaconsultasrccativo" class="dropdown-item" type="submit">SRCC ATIVO</button>
+        <button name="statuspropostaconsultaaguardbco" class="dropdown-item" type="submit">AGUARD BCO/SRCC</button>
+        <button name="statuspropostaconsultaaguardbancobpc" class="dropdown-item" type="submit">AGUARD BANCO/BPC PORT</button>
+        <button name="statuspropostaconsultaretidapelai" class="dropdown-item" type="submit">RETIDO PELA IF CREDORA</button>
+        <button name="statuspropostaconsultaretidacip" class="dropdown-item" type="submit">RETIDA CIP-CTO NÃO LOCALIZADO</button>
+        <button name="statuspropostaconsultanbbloqtbm" class="dropdown-item" type="submit">NB BLOQUEADO TBM</button>
+        <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
+    </div>
+</form>
+
         </div>
       </div>
     </div>
