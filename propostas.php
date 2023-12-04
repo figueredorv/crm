@@ -100,7 +100,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
           <!-- Input de pesquisa por nome -->
           <div class="form-group">
-            <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
+            <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome ou ID da proposta" aria-label="Pesquisar">
           </div>
           <div class="form-group mr-2">
             <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
@@ -266,10 +266,18 @@ $nomeusuario = $_SESSION['nome_usuario'];
                 if (isset($_GET['buttonPesquisar']) and $_GET['txtpesquisar'] != '') {
                   $nome = $_GET['txtpesquisar'] . '%';
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                    $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' ORDER BY nome ASC";
-                  } else {
-                    $query = "SELECT * FROM propostas WHERE nome LIKE '$nome' AND idusuario = $id ORDER BY nome ASC";
-                  }
+                    $query = "SELECT * FROM propostas WHERE nome LIKE '%$nome%' OR idpropostas = '$nome' ORDER BY nome ASC";
+                } else {
+                  //$query = "SELECT * FROM propostas WHERE nome LIKE '%$nome%' AND idusuario = $id OR idusuario = $id OR idpropostas = '$nome' ORDER BY nome ASC";
+                  $query = "SELECT * FROM propostas WHERE (nome LIKE '%$nome%' OR idpropostas = '$nome') AND idusuario = $id ORDER BY nome ASC";
+
+
+
+
+                    
+
+                }
+                
                 } else if (isset($_GET['buttonPesquisarcpf'])) {
                   $nome = $_GET['txtpesquisarcpf'];
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
@@ -571,6 +579,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   <table class="table table-borderless">
                     <thead class=" text-primary">
                       <th>
+                        id
+                      </th>
+                      <th>
                         Nome
                       </th>
                       <th>
@@ -651,6 +662,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       ?>
 
                         <tr>
+                          <td><?php echo $id; ?></td>
                           <td><?php echo $nome; ?></td>
                           <td><?php echo  $cpf; ?></td>
                           <td><?php echo  $operacao;  ?></td>
