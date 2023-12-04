@@ -267,17 +267,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   $nome = $_GET['txtpesquisar'] . '%';
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE nome LIKE '%$nome%' OR idpropostas = '$nome' ORDER BY nome ASC";
-                } else {
-                  //$query = "SELECT * FROM propostas WHERE nome LIKE '%$nome%' AND idusuario = $id OR idusuario = $id OR idpropostas = '$nome' ORDER BY nome ASC";
-                  $query = "SELECT * FROM propostas WHERE (nome LIKE '%$nome%' OR idpropostas = '$nome') AND idusuario = $id ORDER BY nome ASC";
-
-
-
-
-                    
-
-                }
-                
+                  } else {
+                    //$query = "SELECT * FROM propostas WHERE nome LIKE '%$nome%' AND idusuario = $id OR idusuario = $id OR idpropostas = '$nome' ORDER BY nome ASC";
+                    $query = "SELECT * FROM propostas WHERE (nome LIKE '%$nome%' OR idpropostas = '$nome') AND idusuario = $id ORDER BY nome ASC";
+                  }
                 } else if (isset($_GET['buttonPesquisarcpf'])) {
                   $nome = $_GET['txtpesquisarcpf'];
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
@@ -2121,8 +2114,12 @@ if (@$_GET['func'] == 'editarpropostas') {
                   </select>
                 </div>
                 <div class="form-group col-md-12">
-                  <label for="inputDocumento">Deseja anexar algum documento?</label>
-                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                  <label for="inputDocumento" style="display: none;">Deseja anexar algum documento?</label>
+                  <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" disabled>
+                  <small class="text-muted">Para editar documentos, vá para a <a href="documentos.php">área de Documentos</a>.</small>
+
+
+
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
