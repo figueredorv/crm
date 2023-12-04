@@ -75,127 +75,125 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
     <div class="row">
-    <div class="col-sm-12">
-  <!-- Sua tabela existente -->
+      <div class="col-sm-12">
+        <!-- Sua tabela existente -->
 
-  <!-- Filtros Avançados -->
+        <!-- Filtros Avançados -->
 
-  <!-- Input de pesquisa -->
-  <form class="form-inline mr-2 mb-3"> <!-- Adicionei a classe mb-3 para adicionar espaçamento vertical -->
+        <!-- Input de pesquisa -->
+        <form class="form-inline justify-content-end mb-3">
     <!-- Input de pesquisa por CPF -->
     <div class="form-group">
-      <input name="txtpesquisarcpf" id="txtcpf" class="form-control" type="search" placeholder="CPF do cliente" aria-label="Pesquisar">
+        <input name="txtpesquisarcpf" id="txtcpf" class="form-control" type="search" placeholder="CPF do cliente" aria-label="Pesquisar">
     </div>
     <div class="form-group mr-2">
-      <button name="buttonPesquisarcpf" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        <button name="buttonPesquisarcpf" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
     </div>
 
     <!-- Input de pesquisa por data -->
     <div class="form-group">
-      <input name="txtpesquisardata" id="txtdata" class="form-control" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
+        <input name="txtpesquisardata" id="txtdata" class="form-control" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
     </div>
     <div class="form-group mr-2">
-      <button name="buttonPesquisardata" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        <button name="buttonPesquisardata" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
     </div>
 
     <!-- Input de pesquisa por nome -->
     <div class="form-group">
-      <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
+        <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
     </div>
     <div class="form-group mr-2">
-      <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
     </div>
-
 
     <?php
-            // lógica para só conseguir visualizar o input pesquisar por usuário  quem for nível Master ou Adm do sistema.
-            if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
-                <!-- Input de pesquisa por nome -->
-    <div class="form-group">
-      <input name="txtpesquisaroperador" class="form-control" type="search" placeholder="Usuário" aria-label="Pesquisar">
-    </div>
-    <div class="form-group mr-2">
-      <button name="buttonPesquisarOperador" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-    </div>
-
-            <?php
-            endif;
-            ?>
-
-
-  </form>
-
-  <div class="card mb-3">
-    <div class="card-header">
-      Opções
-    </div>
-    <div class="card-body">
-      <div class="form-inline my-2 my-lg-0">
-        <div class="btn-group">
-          <!-- Botão "ADICIONAR" -->
-          <form class="form-inline mr-2">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
-          </form>
-
-          <!-- Botão de filtro "Nova/Antiga" -->
-          <form class="form-inline mr-2">
-            <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-filter"></i> Nova/Antiga
-            </button>
-            <div class="dropdown-menu">
-              <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
-              <button name="buttonpropostamaisantiga" class="dropdown-item" type="submit">Mais Antiga</button>
-            </div>
-          </form>
-
-          <!-- Botão de filtro por "Status" -->
-          <form class="form-inline mr-2">
-    <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-filter"></i> Status
-    </button>
-    <div class="dropdown-menu">
-        <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
-        <button name="statuspropostaconsultaaverbada" class="dropdown-item" type="submit">AVERBADA</button>
-        <button name="statuspropostaconsultaintegrado" class="dropdown-item" type="submit">INTEGRADO</button>
-        <button name="statuspropostaconsultaaguardando" class="dropdown-item" type="submit">AGUARDANDO AVERBAÇÃO</button>
-        <button name="statuspropostaconsultacancelado" class="dropdown-item" type="submit">CANCELADO</button>
-        <button name="statuspropostaconsultapaga" class="dropdown-item" type="submit">PAGA</button>
-        <button name="statuspropostaconsultadigitado" class="dropdown-item" type="submit">DIGITADO</button>
-        <button name="statuspropostaconsultaretornado" class="dropdown-item" type="submit">SALDO RETORNADO</button>
-        <button name="statuspropostaconsultaemdig" class="dropdown-item" type="submit">EM DIGITAÇÃO</button>
-        <button name="statuspropostaconsultaformalizada" class="dropdown-item" type="submit">FORMALIZAÇÃO CONCLUÍDA</button>
-        <button name="statuspropostaconsultapendform" class="dropdown-item" type="submit">PEND FORMALIZAÇÃO</button>
-        <button name="statuspropostaconsultaanalisebanco" class="dropdown-item" type="submit">ANALISE BANCO</button>
-        <button name="statuspropostaconsultaaguardcip" class="dropdown-item" type="submit">AGUARDANDO CIP</button>
-        <button name="statuspropostaconsultataxafora" class="dropdown-item" type="submit">TAXA FORA DO ENQUADRAMENTO</button>
-        <button name="statuspropostaconsultafdpolitica" class="dropdown-item" type="submit">FORA DA POLITICA</button>
-        <button name="statuspropostaconsultaaguardabco" class="dropdown-item" type="submit">AGUARDA BCO</button>
-        <button name="statuspropostaconsultaesp92" class="dropdown-item" type="submit">ESP32/92&lt;60</button>
-        <button name="statuspropostaconsultaaguard5dloas" class="dropdown-item" type="submit">AGUARDA 5D LOAS</button>
-        <button name="statuspropostaconsultaportpaga" class="dropdown-item" type="submit">PORTABILIDADE PAGA</button>
-        <button name="statuspropostaconsultaaguardlink" class="dropdown-item" type="submit">AGUARD LINK</button>
-        <button name="statuspropostaconsultanbbloq" class="dropdown-item" type="submit">NB BLOQUEADO</button>
-        <button name="statuspropostaconsultacancelpolitica" class="dropdown-item" type="submit">CANCELADO POR POLITICA INTERNA</button>
-        <button name="statuspropostaconsultaaguardaumento" class="dropdown-item" type="submit">AGUARD AUMENTO</button>
-        <button name="statuspropostaconsultaaguarddesbloqbnf" class="dropdown-item" type="submit">AGUARDA DESBLOQ BNF</button>
-        <button name="statuspropostaconsultacpfrestrição" class="dropdown-item" type="submit">CPF C/ RESTRIÇÃO INTERNA-IMBURSA</button>
-        <button name="statuspropostaconsultaaguarddig" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
-        <button name="statuspropostaconsultapendencia" class="dropdown-item" type="submit">PENDENCIA RESOLVIDA</button>
-        <button name="statuspropostaconsultasrccativo" class="dropdown-item" type="submit">SRCC ATIVO</button>
-        <button name="statuspropostaconsultaaguardbco" class="dropdown-item" type="submit">AGUARD BCO/SRCC</button>
-        <button name="statuspropostaconsultaaguardbancobpc" class="dropdown-item" type="submit">AGUARD BANCO/BPC PORT</button>
-        <button name="statuspropostaconsultaretidapelai" class="dropdown-item" type="submit">RETIDO PELA IF CREDORA</button>
-        <button name="statuspropostaconsultaretidacip" class="dropdown-item" type="submit">RETIDA CIP-CTO NÃO LOCALIZADO</button>
-        <button name="statuspropostaconsultanbbloqtbm" class="dropdown-item" type="submit">NB BLOQUEADO TBM</button>
-        <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
-    </div>
+    // lógica para só conseguir visualizar o input pesquisar por usuário  quem for nível Master ou Adm do sistema.
+    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+        <!-- Input de pesquisa por nome -->
+        <div class="form-group">
+            <input name="txtpesquisaroperador" class="form-control" type="search" placeholder="Usuário" aria-label="Pesquisar">
+        </div>
+        <div class="form-group mr-2">
+            <button name="buttonPesquisarOperador" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+    <?php endif; ?>
 </form>
 
+         
+
+        <div class="card mb-3">
+          <div class="card-header">
+            Opções
+          </div>
+          <div class="card-body">
+            
+            <div class="form-inline my-2 my-lg-0">
+              <div class="btn-group">
+               
+              <!-- Botão "ADICIONAR" -->
+         <form class="form-inline mr-2">
+                  <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
+                </form>
+
+                <!-- Botão de filtro "Nova/Antiga" -->
+                <form class="form-inline mr-2">
+                  <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-filter"></i> Nova/Antiga
+                  </button>
+                  <div class="dropdown-menu">
+                    <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
+                    <button name="buttonpropostamaisantiga" class="dropdown-item" type="submit">Mais Antiga</button>
+                  </div>
+                </form>
+
+                <!-- Botão de filtro por "Status" -->
+                <form class="form-inline mr-2">
+                  <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-filter"></i> Status
+                  </button>
+                  <div class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+                    <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
+                    <button name="statuspropostaconsultaaverbada" class="dropdown-item" type="submit">AVERBADA</button>
+                    <button name="statuspropostaconsultaintegrado" class="dropdown-item" type="submit">INTEGRADO</button>
+                    <button name="statuspropostaconsultaaguardando" class="dropdown-item" type="submit">AGUARDANDO AVERBAÇÃO</button>
+                    <button name="statuspropostaconsultacancelado" class="dropdown-item" type="submit">CANCELADO</button>
+                    <button name="statuspropostaconsultapaga" class="dropdown-item" type="submit">PAGA</button>
+                    <button name="statuspropostaconsultadigitado" class="dropdown-item" type="submit">DIGITADO</button>
+                    <button name="statuspropostaconsultaretornado" class="dropdown-item" type="submit">SALDO RETORNADO</button>
+                    <button name="statuspropostaconsultaemdig" class="dropdown-item" type="submit">EM DIGITAÇÃO</button>
+                    <button name="statuspropostaconsultaformalizada" class="dropdown-item" type="submit">FORMALIZAÇÃO CONCLUÍDA</button>
+                    <button name="statuspropostaconsultapendform" class="dropdown-item" type="submit">PEND FORMALIZAÇÃO</button>
+                    <button name="statuspropostaconsultaanalisebanco" class="dropdown-item" type="submit">ANALISE BANCO</button>
+                    <button name="statuspropostaconsultaaguardcip" class="dropdown-item" type="submit">AGUARDANDO CIP</button>
+                    <button name="statuspropostaconsultataxafora" class="dropdown-item" type="submit">TAXA FORA DO ENQUADRAMENTO</button>
+                    <button name="statuspropostaconsultafdpolitica" class="dropdown-item" type="submit">FORA DA POLITICA</button>
+                    <button name="statuspropostaconsultaaguardabco" class="dropdown-item" type="submit">AGUARDA BCO</button>
+                    <button name="statuspropostaconsultaesp92" class="dropdown-item" type="submit">ESP32/92&lt;60</button>
+                    <button name="statuspropostaconsultaaguard5dloas" class="dropdown-item" type="submit">AGUARDA 5D LOAS</button>
+                    <button name="statuspropostaconsultaportpaga" class="dropdown-item" type="submit">PORTABILIDADE PAGA</button>
+                    <button name="statuspropostaconsultaaguardlink" class="dropdown-item" type="submit">AGUARD LINK</button>
+                    <button name="statuspropostaconsultanbbloq" class="dropdown-item" type="submit">NB BLOQUEADO</button>
+                    <button name="statuspropostaconsultacancelpolitica" class="dropdown-item" type="submit">CANCELADO POR POLITICA INTERNA</button>
+                    <button name="statuspropostaconsultaaguardaumento" class="dropdown-item" type="submit">AGUARD AUMENTO</button>
+                    <button name="statuspropostaconsultaaguarddesbloqbnf" class="dropdown-item" type="submit">AGUARDA DESBLOQ BNF</button>
+                    <button name="statuspropostaconsultacpfrestrição" class="dropdown-item" type="submit">CPF C/ RESTRIÇÃO INTERNA-IMBURSA</button>
+                    <button name="statuspropostaconsultaaguarddig" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
+                    <button name="statuspropostaconsultapendencia" class="dropdown-item" type="submit">PENDENCIA RESOLVIDA</button>
+                    <button name="statuspropostaconsultasrccativo" class="dropdown-item" type="submit">SRCC ATIVO</button>
+                    <button name="statuspropostaconsultaaguardbco" class="dropdown-item" type="submit">AGUARD BCO/SRCC</button>
+                    <button name="statuspropostaconsultaaguardbancobpc" class="dropdown-item" type="submit">AGUARD BANCO/BPC PORT</button>
+                    <button name="statuspropostaconsultaretidapelai" class="dropdown-item" type="submit">RETIDO PELA IF CREDORA</button>
+                    <button name="statuspropostaconsultaretidacip" class="dropdown-item" type="submit">RETIDA CIP-CTO NÃO LOCALIZADO</button>
+                    <button name="statuspropostaconsultanbbloqtbm" class="dropdown-item" type="submit">NB BLOQUEADO TBM</button>
+                    <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
     </div>
 
@@ -298,7 +296,22 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
                   }
-                } else if (isset($_GET['statuspropostaconsultapendente'])) {
+                }else if (isset($_GET['buttonPesquisarOperador'])) {
+                  $usuario = $_GET['txtpesquisaroperador'];
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT propostas.*, usuarios.usuario 
+                                FROM propostas 
+                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
+                                WHERE usuarios.usuario LIKE '%$usuario%' 
+                                ORDER BY propostas.idpropostas DESC";
+                  } else {
+                    $query = "SELECT propostas.*, usuarios.usuario 
+                                FROM propostas 
+                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
+                                WHERE usuarios.usuario LIKE '%$usuario%' AND propostas.idusuario = $id 
+                                ORDER BY propostas.idpropostas DESC";
+                  }
+                }else if (isset($_GET['statuspropostaconsultapendente'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
@@ -310,24 +323,209 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['buttonPesquisarOperador'])) {
-                  $usuario = $_GET['txtpesquisaroperador'];
+                }else if (isset($_GET['statuspropostaconsultaaverbada'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                      $query = "SELECT propostas.*, usuarios.usuario 
-                                FROM propostas 
-                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
-                                WHERE usuarios.usuario LIKE '%$usuario%' 
-                                ORDER BY propostas.idpropostas DESC";
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AVERBADA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
-                      $query = "SELECT propostas.*, usuarios.usuario 
-                                FROM propostas 
-                                INNER JOIN usuarios ON propostas.idusuario = usuarios.idusuarios 
-                                WHERE usuarios.usuario LIKE '%$usuario%' AND propostas.idusuario = $id 
-                                ORDER BY propostas.idpropostas DESC";
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AVERBADA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-              }
-              
-              
+                }else if (isset($_GET['statuspropostaconsultaintegrado'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'INTEGRADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'INTEGRADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardando'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDANDO AVERBAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDANDO AVERBAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultacancelado'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'CANCELADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CANCELADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultapaga'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultadigitado'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'DIGITADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'DIGITADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaretornado'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'SALDO RETORNADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'SALDO RETORNADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaemdig'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'EM DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'EM DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaformalizada'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'FORMALIZAÇÃO CONCLUÍDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'FORMALIZAÇÃO CONCLUÍDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultapendform'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PEND FORMALIZAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PEND FORMALIZAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaanalisebanco'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'ANALISE BANCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'ANALISE BANCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardcip'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDANDO CIP' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDANDO CIP' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultataxafora'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'TAXA FORA DO ENQUADRAMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'TAXA FORA DO ENQUADRAMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultafdpolitica'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'FORA DA POLITICA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'FORA DA POLITICA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardabco'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA BCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA BCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaesp92'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'ESP32/92<60' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'ESP32/92<60' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguard5dloas'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA 5D LOAS' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA 5D LOAS' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaportpaga'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PORTABILIDADE PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PORTABILIDADE PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardlink'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD LINK' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD LINK' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultanbbloq'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'NB BLOQUEADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultacancelpolitica'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'CANCELADO POR POLITICA INTERNA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CANCELADO POR POLITICA INTERNA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardaumento'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD AUMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD AUMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguarddesbloqbnf'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA DESBLOQ BNF' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA DESBLOQ BNF' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultacpfrestrição'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'CPF C/ RESTRIÇÃO INTERNA-IMBURSA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CPF C/ RESTRIÇÃO INTERNA-IMBURSA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguarddig'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultapendencia'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENCIA RESOLVIDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PENDENCIA RESOLVIDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultasrccativo'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'SRCC ATIVO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'SRCC ATIVO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardbco'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD BCO/SRCC' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD BCO/SRCC' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaaguardbancobpc'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD BANCO/BPC PORT' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD BANCO/BPC PORT' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaretidapelai'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'RETIDO PELA IF CREDORA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'RETIDO PELA IF CREDORA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultaretidacip'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'RETIDA CIP-CTO NÃO LOCALIZADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'RETIDA CIP-CTO NÃO LOCALIZADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultanbbloqtbm'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO TBM' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'NB BLOQUEADO TBM' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }else if (isset($_GET['statuspropostaconsultanbbloqconcessao'])) {
+                  if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO CONCESSÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  } else {
+                    $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'NB BLOQUEADO CONCESSÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                  }
+                }
+
+
+
+
 
 
 
