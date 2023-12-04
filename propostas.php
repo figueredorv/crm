@@ -82,56 +82,56 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
         <!-- Input de pesquisa -->
         <form class="form-inline justify-content-end mb-3">
-    <!-- Input de pesquisa por CPF -->
-    <div class="form-group">
-        <input name="txtpesquisarcpf" id="txtcpf" class="form-control" type="search" placeholder="CPF do cliente" aria-label="Pesquisar">
-    </div>
-    <div class="form-group mr-2">
-        <button name="buttonPesquisarcpf" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-    </div>
+          <!-- Input de pesquisa por CPF -->
+          <div class="form-group">
+            <input name="txtpesquisarcpf" id="txtcpf" class="form-control" type="search" placeholder="CPF do cliente" aria-label="Pesquisar">
+          </div>
+          <div class="form-group mr-2">
+            <button name="buttonPesquisarcpf" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+          </div>
 
-    <!-- Input de pesquisa por data -->
-    <div class="form-group">
-        <input name="txtpesquisardata" id="txtdata" class="form-control" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
-    </div>
-    <div class="form-group mr-2">
-        <button name="buttonPesquisardata" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-    </div>
+          <!-- Input de pesquisa por data -->
+          <div class="form-group">
+            <input name="txtpesquisardata" id="txtdata" class="form-control" type="date" placeholder="2022-04-05" aria-label="Pesquisar">
+          </div>
+          <div class="form-group mr-2">
+            <button name="buttonPesquisardata" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+          </div>
 
-    <!-- Input de pesquisa por nome -->
-    <div class="form-group">
-        <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
-    </div>
-    <div class="form-group mr-2">
-        <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-    </div>
+          <!-- Input de pesquisa por nome -->
+          <div class="form-group">
+            <input name="txtpesquisar" class="form-control" type="search" placeholder="Nome do cliente" aria-label="Pesquisar">
+          </div>
+          <div class="form-group mr-2">
+            <button name="buttonPesquisar" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+          </div>
 
-    <?php
-    // lógica para só conseguir visualizar o input pesquisar por usuário  quem for nível Master ou Adm do sistema.
-    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
-        <!-- Input de pesquisa por nome -->
-        <div class="form-group">
-            <input name="txtpesquisaroperador" class="form-control" type="search" placeholder="Usuário" aria-label="Pesquisar">
-        </div>
-        <div class="form-group mr-2">
-            <button name="buttonPesquisarOperador" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-    <?php endif; ?>
-</form>
+          <?php
+          // lógica para só conseguir visualizar o input pesquisar por usuário  quem for nível Master ou Adm do sistema.
+          if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+            <!-- Input de pesquisa por nome -->
+            <div class="form-group">
+              <input name="txtpesquisaroperador" class="form-control" type="search" placeholder="Usuário" aria-label="Pesquisar">
+            </div>
+            <div class="form-group mr-2">
+              <button name="buttonPesquisarOperador" class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          <?php endif; ?>
+        </form>
 
-         
+
 
         <div class="card mb-3">
           <div class="card-header">
             Opções
           </div>
           <div class="card-body">
-            
+
             <div class="form-inline my-2 my-lg-0">
               <div class="btn-group">
-               
-              <!-- Botão "ADICIONAR" -->
-         <form class="form-inline mr-2">
+
+                <!-- Botão "ADICIONAR" -->
+                <form class="form-inline mr-2">
                   <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
                 </form>
 
@@ -296,7 +296,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id ORDER BY idpropostas ASC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['buttonPesquisarOperador'])) {
+                } else if (isset($_GET['buttonPesquisarOperador'])) {
                   $usuario = $_GET['txtpesquisaroperador'];
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT propostas.*, usuarios.usuario 
@@ -311,7 +311,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                 WHERE usuarios.usuario LIKE '%$usuario%' AND propostas.idusuario = $id 
                                 ORDER BY propostas.idpropostas DESC";
                   }
-                }else if (isset($_GET['statuspropostaconsultapendente'])) {
+                } else if (isset($_GET['statuspropostaconsultapendente'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
@@ -323,199 +323,199 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaverbada'])) {
+                } else if (isset($_GET['statuspropostaconsultaaverbada'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AVERBADA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AVERBADA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaintegrado'])) {
+                } else if (isset($_GET['statuspropostaconsultaintegrado'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'INTEGRADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'INTEGRADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardando'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardando'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDANDO AVERBAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDANDO AVERBAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultacancelado'])) {
+                } else if (isset($_GET['statuspropostaconsultacancelado'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'CANCELADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CANCELADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultapaga'])) {
+                } else if (isset($_GET['statuspropostaconsultapaga'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultadigitado'])) {
+                } else if (isset($_GET['statuspropostaconsultadigitado'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'DIGITADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'DIGITADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaretornado'])) {
+                } else if (isset($_GET['statuspropostaconsultaretornado'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'SALDO RETORNADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'SALDO RETORNADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaemdig'])) {
+                } else if (isset($_GET['statuspropostaconsultaemdig'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'EM DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'EM DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaformalizada'])) {
+                } else if (isset($_GET['statuspropostaconsultaformalizada'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'FORMALIZAÇÃO CONCLUÍDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'FORMALIZAÇÃO CONCLUÍDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultapendform'])) {
+                } else if (isset($_GET['statuspropostaconsultapendform'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PEND FORMALIZAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PEND FORMALIZAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaanalisebanco'])) {
+                } else if (isset($_GET['statuspropostaconsultaanalisebanco'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'ANALISE BANCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'ANALISE BANCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardcip'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardcip'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDANDO CIP' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDANDO CIP' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultataxafora'])) {
+                } else if (isset($_GET['statuspropostaconsultataxafora'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'TAXA FORA DO ENQUADRAMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'TAXA FORA DO ENQUADRAMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultafdpolitica'])) {
+                } else if (isset($_GET['statuspropostaconsultafdpolitica'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'FORA DA POLITICA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'FORA DA POLITICA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardabco'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardabco'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA BCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA BCO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaesp92'])) {
+                } else if (isset($_GET['statuspropostaconsultaesp92'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'ESP32/92<60' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'ESP32/92<60' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguard5dloas'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguard5dloas'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA 5D LOAS' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA 5D LOAS' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaportpaga'])) {
+                } else if (isset($_GET['statuspropostaconsultaportpaga'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PORTABILIDADE PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PORTABILIDADE PAGA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardlink'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardlink'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD LINK' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD LINK' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultanbbloq'])) {
+                } else if (isset($_GET['statuspropostaconsultanbbloq'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'NB BLOQUEADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultacancelpolitica'])) {
+                } else if (isset($_GET['statuspropostaconsultacancelpolitica'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'CANCELADO POR POLITICA INTERNA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CANCELADO POR POLITICA INTERNA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardaumento'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardaumento'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD AUMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD AUMENTO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguarddesbloqbnf'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguarddesbloqbnf'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARDA DESBLOQ BNF' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARDA DESBLOQ BNF' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultacpfrestrição'])) {
+                } else if (isset($_GET['statuspropostaconsultacpfrestrição'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'CPF C/ RESTRIÇÃO INTERNA-IMBURSA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'CPF C/ RESTRIÇÃO INTERNA-IMBURSA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguarddig'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguarddig'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD DIGITAÇÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultapendencia'])) {
+                } else if (isset($_GET['statuspropostaconsultapendencia'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENCIA RESOLVIDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PENDENCIA RESOLVIDA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultasrccativo'])) {
+                } else if (isset($_GET['statuspropostaconsultasrccativo'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'SRCC ATIVO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'SRCC ATIVO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardbco'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardbco'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD BCO/SRCC' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD BCO/SRCC' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaaguardbancobpc'])) {
+                } else if (isset($_GET['statuspropostaconsultaaguardbancobpc'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'AGUARD BANCO/BPC PORT' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'AGUARD BANCO/BPC PORT' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaretidapelai'])) {
+                } else if (isset($_GET['statuspropostaconsultaretidapelai'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'RETIDO PELA IF CREDORA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'RETIDO PELA IF CREDORA' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultaretidacip'])) {
+                } else if (isset($_GET['statuspropostaconsultaretidacip'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'RETIDA CIP-CTO NÃO LOCALIZADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'RETIDA CIP-CTO NÃO LOCALIZADO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultanbbloqtbm'])) {
+                } else if (isset($_GET['statuspropostaconsultanbbloqtbm'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO TBM' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'NB BLOQUEADO TBM' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
-                }else if (isset($_GET['statuspropostaconsultanbbloqconcessao'])) {
+                } else if (isset($_GET['statuspropostaconsultanbbloqconcessao'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
                     $query = "SELECT * FROM propostas WHERE statusproposta = 'NB BLOQUEADO CONCESSÃO' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
@@ -2114,7 +2114,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
+                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
                   </div>
                 </div>
 
@@ -3293,6 +3293,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . '</p>';
                   echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . '</p>';
                   echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . '</p>';
+                  echo '<p><strong>Observação: </strong>' . $rowProposta['observacao'] . '</p>';
                   echo '</div>'; // Fim da coluna 2
 
                   echo '</div>'; // Fim da linha

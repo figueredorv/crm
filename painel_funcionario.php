@@ -97,6 +97,7 @@ include("conexao.php");
                             <a class="collapse-item" href="status.php">Status</a>
                             <a class="collapse-item" href="promotora.php">Promotoras</a>
                             <a class="collapse-item" href="bancos.php">Bancos</a>
+                            <a class="collapse-item" href="novanotificacao.php">Notificações</a>
                         </div>
                     </div>
                 </li>
@@ -213,7 +214,7 @@ include("conexao.php");
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notificações
                                 </h6>
 
                                 <?php
@@ -241,7 +242,7 @@ include("conexao.php");
 
                                 ?>
 
-                                <a class="dropdown-item text-center small text-gray-500" href="notificacoes.php">Ver todos os alertas</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="notificacoes.php">Ver todas notificações</a>
                             </div>
                         </li>
 
@@ -982,14 +983,37 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                             <!-- Illustrations -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Informações</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Últimas Informações</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
                                     </div>
-                                    <p>Agora, você pode dizer adeus às planilhas confusas e boas-vindas à simplicidade e eficiência. Com o CRM Corban, a gestão de clientes nunca foi tão fácil. 💻📊 <a target="_blank" rel="nofollow" href="#"></a>Centralize todas as informações, acompanhe suas interações e impulsione suas vendas como nunca antes. 🚀📈</p>
-                                    <a target="_blank" rel="nofollow" href="atualizacoes.php">Veja todas atualizações do sistema &rarr;</a>
+                                    <?php
+// Obter as últimas 3 notificações não lidas no banco de dados
+$queryNotificacoes = "SELECT * FROM notificacoes n
+    LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+     AND vn.id_visualizacao IS NULL
+    ORDER BY n.id DESC
+    LIMIT 3";
+$resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
+
+// Exibir as notificações dinamicamente no dropdown
+while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
+    echo '<a class="dropdown-item d-flex align-items-center" href="notificacoes.php">';
+    echo '<div class="mr-3">';
+    echo '<div class="icon-circle bg-primary">';
+    echo '<i class="' . ($rowNotificacao['icon'] ? $rowNotificacao['icon'] : 'fas fa-bell') . ' text-white"></i>';
+    echo '</div>';
+    echo '</div>';
+    echo '<div>';
+    echo '<div class="small text-gray-500">' . date('d/m/y', strtotime($rowNotificacao['data_publicacao'])) . '</div>';
+    echo '<span class="font-weight-bold">' . $rowNotificacao['titulo'] . '</span>';
+    echo '</div>';
+    echo '</a>';
+}
+?>
+
                                 </div>
                             </div>
 
