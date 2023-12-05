@@ -825,7 +825,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <div class="modal-body">
 
               <!-- INÍCIO DO CÓDIGO DAS TABS DE CADASTRO DE NOVA PROPOSTA-->
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <ul class="nav nav-tabs container mt-4" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">CLIENTE</a>
                 </li>
@@ -836,7 +836,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   <a class="nav-link" id="dadosbancarios-tab" data-toggle="tab" href="#dadosbancarios" role="tab" aria-controls="dadosbancarios" aria-selected="false">DADOS BANCÁRIOS</a>
                 </li>
               </ul>
-              <div class="tab-content" id="myTabContent">
+              <div class="tab-content mt-2" id="myTabContent">
                 <div class="tab-pane fade show active" id="cliente" role="tabpanel" aria-labelledby="cliente-tab">
                   <!-- CONTEÚDO TAB CLIENTE-->
                   <form method="POST" action="propostas.php" enctype="multipart/form-data">
