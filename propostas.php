@@ -893,9 +893,16 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </div>
                       <div class="form-group col-md-2">
                         <label for="inputCep">CEP</label>
-                        <input name="inputCep" type="number" class="form-control" id="cep" name="cep" placeholder="">
-                        <button type="button" class="btn btn-outline-dark btn-block" onclick="consultaEndereco()">BUSCAR CEP</button>
+                        <div class="input-group">
+                          <input name="inputCep" type="text" class="form-control" id="cep" name="cep" placeholder="">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-dark" type="button" onclick="consultaEndereco()">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
                       </div>
+
 
                       <div class="form-group col-md-4">
                         <label for="inputRua">RUA</label>
@@ -1119,14 +1126,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     </div>
 
                     <div class="form-group col-md-6">
-    <label for="inputValorParcelas">VALOR PARCELAS</label>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">R$</span>
-        </div>
-        <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-    </div>
-</div>
+                      <label for="inputValorParcelas">VALOR PARCELAS</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">R$</span>
+                        </div>
+                        <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                      </div>
+                    </div>
 
                     <div class="form-group col-md-6">
                       <label for="inputFormalizacao">FORMALIZAÇÃO</label>
@@ -1184,10 +1191,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
             <div class="modal-footer">
 
 
-              <button id="salvarBotao" type="submit" class="btn btn-success mb-3 btn-lg" name="button">Salvar </button>
+              <button id="salvarBotao" type="submit" class="btn btn-primary mb-3 btn-lg" name="button">Salvar </button>
 
 
-              <button type="button" class="btn btn-danger mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
+              <button type="button" class="btn btn-secondary mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
 
 
               </form>
@@ -1755,10 +1762,10 @@ if (@$_GET['func'] == 'editarcliente') {
           <div class="modal-footer">
 
 
-            <button id="salvarBotao" type="submit" class="btn btn-success mb-3 btn-lg" name="buttonEditar">Editar</button>
+            <button id="salvarBotao" type="submit" class="btn btn-primary mb-3 btn-lg" name="buttonEditar">Salvar</button>
 
 
-            <button type="button" class="btn btn-danger mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
 
 
             </form>
@@ -2143,10 +2150,10 @@ if (@$_GET['func'] == 'editarpropostas') {
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success mb-3" name="buttonEditarProposta">Salvar </button>
+            <button type="submit" class="btn btn-primary mb-3" name="buttonEditarProposta">Salvar </button>
 
 
-            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
             </form>
           </div>
         </div>
@@ -2492,10 +2499,10 @@ if (@$_GET['func'] == 'editardadosbancarios') {
 
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success mb-3" name="buttonEditarDadosBancarios">Salvar </button>
+            <button type="submit" class="btn btn-primary mb-3" name="buttonEditarDadosBancarios">Salvar </button>
 
 
-            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
             </form>
           </div>
         </div>
@@ -3160,10 +3167,10 @@ if (@$_GET['func'] == 'editarstatus') {
 
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success mb-3" name="buttonEditarStatus">Salvar </button>
+            <button type="submit" class="btn btn-primary mb-3" name="buttonEditarStatus">Salvar </button>
 
 
-            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
             </form>
           </div>
         </div>
