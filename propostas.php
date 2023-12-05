@@ -1110,12 +1110,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputValor">VALOR</label>
-                      <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">R$</span>
+                        </div>
+                        <input name="inputValor" id="inputValor" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                      </div>
                     </div>
+
                     <div class="form-group col-md-6">
-                      <label for="inputValorParcelas">VALOR PARCELAS</label>
-                      <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
-                    </div>
+    <label for="inputValorParcelas">VALOR PARCELAS</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">R$</span>
+        </div>
+        <input name="inputValorParcelas" id="inputValorParcelas" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+    </div>
+</div>
+
                     <div class="form-group col-md-6">
                       <label for="inputFormalizacao">FORMALIZAÇÃO</label>
                       <select name="inputFormalizacao" id="inputFormalizacao" class="form-control canais required cadVenda select2-hidden-accessible" tabindex="-1" aria-hidden="true">
