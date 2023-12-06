@@ -792,17 +792,26 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </li>
 
                       <?php
-                      $num_links = 3; // Número de links para exibir antes e depois da página atual
-                      $inicio = max(1, $pagina - $num_links);
-                      $fim = min($num_paginas, $pagina + $num_links);
-
-                      for ($i = $inicio; $i <= $fim; $i++) {
-                        $estilo = ($pagina == $i) ? "active" : "";
-                      ?>
-                        <li class="page-item <?php echo $estilo; ?>">
-                          <a class="page-link" href="<?php echo adicionarParametro("propostas.php", "pagina", $i) . adicionarParametro("", "statusproposta", $statusproposta); ?>"><?php echo $i; ?></a>
-                        </li>
-                      <?php } ?>
+                     $num_links = 3; // Número de links para exibir antes e depois da página atual
+                     $inicio = max(1, $pagina - $num_links);
+                     $fim = min($num_paginas, $pagina + $num_links);
+                     
+                     for ($i = $inicio; $i <= $fim; $i++) {
+                         $estilo = ($pagina == $i) ? "active" : "";
+                     ?>
+                         <li class="page-item <?php echo $estilo; ?>">
+                             <?php
+                             // Construir a URL preservando os parâmetros existentes
+                             $url = "propostas.php?pagina=$i";
+                             foreach ($_GET as $key => $value) {
+                                 if ($key != 'pagina') {
+                                     $url .= "&$key=$value";
+                                 }
+                             }
+                             ?>
+                             <a class="page-link" href="<?php echo $url; ?>"><?php echo $i; ?></a>
+                         </li>
+                     <?php } ?>
 
                       <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
                         <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
