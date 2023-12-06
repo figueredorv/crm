@@ -18,7 +18,7 @@ include('verificar_login.php');
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  
+
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -47,7 +47,7 @@ include('verificar_login.php');
 
 
 
-   
+
 
 
 
@@ -141,17 +141,17 @@ include('verificar_login.php');
                       <table class="table">
                         <thead class=" text-primary">
 
-                        <th>
+                          <th>
                             Título
                           </th>
                           <th>
-                           Data
+                            Data
                           </th>
                           <th>
-                           Descrição
+                            Descrição
                           </th>
                           <th>
-                          Link
+                            Link
                           </th>
                           </th>
                           <th>
@@ -236,6 +236,12 @@ include('verificar_login.php');
                       <label for="id_produto">Descrição</label>
                       <textarea type="text" class="form-control mr-2" name="txtdescricao" id="txtdescricao" placeholder="Descrição da notificação" required rows="3"></textarea>
                     </div>
+                    <div class="form-check form-check-xl">
+                      <input class="form-check-input" type="checkbox" value="1" id="checkbox_alertar" name="checkbox_alertar" checked>
+                      <label class="form-check-label" for="checkbox_alertar">
+                        Alertar sobre a notificação
+                      </label>
+                    </div>
                     <div class="form-group">
                       <label for="quantidade">Link</label>
                       <input type="text" class="form-control mr-2" name="txtlink" placeholder="Link a ser direcionado ao clicar">
@@ -273,16 +279,27 @@ include('verificar_login.php');
 
 <?php
 if (isset($_POST['button'])) {
-  $titulo= $_POST['txttitulo'];
+  $titulo = $_POST['txttitulo'];
   $descricao = $_POST['txtdescricao'];
   $link = $_POST['txtlink'];
+  $lida = $_POST['checkbox_alertar'];
   $data = date('d/m/Y H:i');
 
+   
+  // Verifica se o checkbox está marcado por padrão
+  $lida = isset($_POST['checkbox_alertar']) && $_POST['checkbox_alertar'] == '1' ? 1 : 0;
+  
+  if ($lida == 1) {
+    $lida = 0;
+  } else {
+    $lida = 1;
+  }
 
 
 
 
-  $query = "INSERT into notificacoes (titulo, descricao, link, lida, data_publicacao) VALUES ('$titulo', '$descricao', '$link','0', curDate())";
+
+  $query = "INSERT into notificacoes (titulo, descricao, link, lida, data_publicacao) VALUES ('$titulo', '$descricao', '$link','$lida', curDate())";
 
   $result = mysqli_query($conexao, $query);
 
@@ -338,7 +355,7 @@ if (@$_GET['func'] == 'edita') {
               </div>
               <div class="form-group">
                 <label for="id_produto">Descrição</label>
-                <textarea type="text" class="form-control mr-2" name="txtdescricao" id="txtdescricao" placeholder="Usuário" value="<?php echo $res_1['descricao']; ?>" required  rows="3"><?php echo $res_1['descricao']; ?></textarea>
+                <textarea type="text" class="form-control mr-2" name="txtdescricao" id="txtdescricao" placeholder="Usuário" value="<?php echo $res_1['descricao']; ?>" required rows="3"><?php echo $res_1['descricao']; ?></textarea>
               </div>
               <div class="form-group">
                 <label for="quantidade">Link</label>
