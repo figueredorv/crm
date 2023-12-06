@@ -709,22 +709,33 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                             <div class="btn-group" role="group" aria-label="Exemplo básico">
+                            <?php
+// Verificar se o usuário é 'Master'
+if ($_SESSION['cargo_usuario'] == 'Master') : ?>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+            <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+            <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+        </ul>
+    </div>
+<?php elseif ($statusproposta == 'PENDENTE' || $statusproposta == 'AGUARD DIGITAÇÃO' ) : ?>
+    <!-- Se não for 'Master' e o status for 'PENDENTE', exiba o botão de edição -->
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+            <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+            <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+        </ul>
+    </div>
+<?php endif; ?>
 
-                              <?php
-                              // lógica para só conseguir editar a proposta quem for master do sistema
-                              if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                                <div class="dropdown">
-                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span></button>
-                                  <ul class="dropdown-menu">
-                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-                                  </ul>
-                                </div>
-
-                              <?php
-                              endif;
-                              ?>
 
 
 
@@ -748,7 +759,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                               <?php
-                              // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                              // lógica para só conseguir excluir o status da proposta quem for master do sistema
                               if ($_SESSION['cargo_usuario'] == 'Master') : ?>
                                 <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
                                   <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -792,26 +803,26 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </li>
 
                       <?php
-                     $num_links = 3; // Número de links para exibir antes e depois da página atual
-                     $inicio = max(1, $pagina - $num_links);
-                     $fim = min($num_paginas, $pagina + $num_links);
-                     
-                     for ($i = $inicio; $i <= $fim; $i++) {
-                         $estilo = ($pagina == $i) ? "active" : "";
-                     ?>
-                         <li class="page-item <?php echo $estilo; ?>">
-                             <?php
-                             // Construir a URL preservando os parâmetros existentes
-                             $url = "propostas.php?pagina=$i";
-                             foreach ($_GET as $key => $value) {
-                                 if ($key != 'pagina') {
-                                     $url .= "&$key=$value";
-                                 }
-                             }
-                             ?>
-                             <a class="page-link" href="<?php echo $url; ?>"><?php echo $i; ?></a>
-                         </li>
-                     <?php } ?>
+                      $num_links = 3; // Número de links para exibir antes e depois da página atual
+                      $inicio = max(1, $pagina - $num_links);
+                      $fim = min($num_paginas, $pagina + $num_links);
+
+                      for ($i = $inicio; $i <= $fim; $i++) {
+                        $estilo = ($pagina == $i) ? "active" : "";
+                      ?>
+                        <li class="page-item <?php echo $estilo; ?>">
+                          <?php
+                          // Construir a URL preservando os parâmetros existentes
+                          $url = "propostas.php?pagina=$i";
+                          foreach ($_GET as $key => $value) {
+                            if ($key != 'pagina') {
+                              $url .= "&$key=$value";
+                            }
+                          }
+                          ?>
+                          <a class="page-link" href="<?php echo $url; ?>"><?php echo $i; ?></a>
+                        </li>
+                      <?php } ?>
 
                       <li class="page-item <?php echo ($pagina >= $num_paginas) ? 'disabled' : ''; ?>">
                         <a class="page-link" href="propostas.php?pagina=<?php echo $pagina + 1; ?>" aria-label="Next">
@@ -3152,7 +3163,8 @@ if (@$_GET['func'] == 'editarstatus') {
                   <select name="statusproposta" class="custom-select" id="statusproposta">
                     <?php
                     // Se o usuário não é 'Master', você continua com o código para exibir as opções de status
-                    $query = "SELECT id, statusproposta FROM statusproposta WHERE statusproposta = 'AGUARD DIGITAÇÃO' OR statusproposta = 'PENDENCIA RESOLVIDA'";
+                    $query = "SELECT id, statusproposta FROM statusproposta WHERE statusproposta = 'AGUARD DIGITAÇÃO' OR statusproposta = 'PENDENCIA RESOLVIDA' OR statusproposta = 'PENDENTE'";
+
                     $result = mysqli_query($conexao, $query);
 
                     // Verificar se a consulta teve sucesso
