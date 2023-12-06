@@ -234,20 +234,24 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                 // Definir o número de itens por página
                 $itens_por_pagina = 10;
-
-                // Pegar a página atual
                 $pagina = isset($_GET['pagina']) ? intval($_GET['pagina']) : 1;
-
-                // Calcular o deslocamento para a consulta SQL
                 $offset = max(0, ($pagina - 1) * $itens_por_pagina);
 
+                $statusproposta = isset($_GET['statusproposta']) ? $_GET['statusproposta'] : 'PENDENTE';
+
+                // Calcula o deslocamento para a consulta SQL
+                $offset = max(0, ($pagina - 1) * $itens_por_pagina);
 
                 // Consulta SQL para obter os registros da página atual
                 $sql_code = "SELECT * FROM propostas LIMIT $offset, $itens_por_pagina";
                 $result = $conexao->query($sql_code) or die($conexao->error);
 
+                // Ajusta a URL para incluir o filtro de statusproposta nas páginas
+                $pagina_anterior = max(1, $pagina - 1);
+                $pagina_seguinte = $pagina + 1;
+
                 // Obter os resultados da consulta
-                $propostas = $result->fetch_assoc();
+                //$propostas = $result->fetch_assoc();
 
 
                 // Número total de registros
@@ -257,7 +261,20 @@ $nomeusuario = $_SESSION['nome_usuario'];
                 $num_paginas = ceil($num_total / $itens_por_pagina);
 
 
-                
+                function adicionarParametro($url, $parametro, $valor)
+                {
+                  // Verifica se a URL já contém algum parâmetro
+                  if (strpos($url, '?') !== false) {
+                    // Se já existir parâmetro, adiciona o novo com "&"
+                    $url .= "&$parametro=$valor";
+                  } else {
+                    // Se não existir parâmetro, adiciona o novo com "?"
+                    $url .= "?$parametro=$valor";
+                  }
+
+                  return $url;
+                }
+
 
 
                 // novo codigo ( procurar proposta pelo nome da pessoa)
@@ -783,7 +800,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         $estilo = ($pagina == $i) ? "active" : "";
                       ?>
                         <li class="page-item <?php echo $estilo; ?>">
-                          <a class="page-link" href="propostas.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
+                          <a class="page-link" href="<?php echo adicionarParametro("propostas.php", "pagina", $i) . adicionarParametro("", "statusproposta", $statusproposta); ?>"><?php echo $i; ?></a>
                         </li>
                       <?php } ?>
 
@@ -1313,7 +1330,7 @@ if (isset($_POST['button'])) {
 
 
 
- 
+
 
 
 
@@ -1545,27 +1562,27 @@ if (isset($_POST['button'])) {
 
   $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
-  
-$idproposta = mysqli_insert_id($conexao); // Obtém o último ID inserido da proposta acima para usar no cadastro de documentos abaixo e recuperar o documento apenas referente a proposta.
+
+  $idproposta = mysqli_insert_id($conexao); // Obtém o último ID inserido da proposta acima para usar no cadastro de documentos abaixo e recuperar o documento apenas referente a proposta.
 
 
-   //marcador
-   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  //marcador
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
 
     foreach ($imagens['name'] as $key => $nomedocumento) {
-        if ($imagens['error'][$key] === 0) {
-            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-            $novo_nome = md5(uniqid()) . '.' . $extensao;
+      if ($imagens['error'][$key] === 0) {
+        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+        $novo_nome = md5(uniqid()) . '.' . $extensao;
 
-            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-                // Insira o nome do arquivo no banco de dados, usando o $idproposta obtido anteriormente
-                $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome', '$novo_nome', '$idproposta')";
-                mysqli_query($conexao, $query);
-            }
+        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+          // Insira o nome do arquivo no banco de dados, usando o $idproposta obtido anteriormente
+          $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome', '$novo_nome', '$idproposta')";
+          mysqli_query($conexao, $query);
         }
+      }
     }
-}
+  }
 
   //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
   /*
