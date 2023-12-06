@@ -3377,7 +3377,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   echo '<table class="table table-striped">';
                   echo '<thead>';
                   echo '<tr>';
-                  echo '<th>Nome do Documento</th>';
+                  echo '<th>Nome do cliente</th>';
                   echo '<th>Prévia</th>';
                   echo '<th>Ações</th>';
                   echo '</tr>';
