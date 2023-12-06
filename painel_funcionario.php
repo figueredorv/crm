@@ -437,11 +437,17 @@ $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
 $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
 $pagas = $rowPagas['pagas'];
 
-// Calcule a porcentagem de propostas pagas
-$porcentagemPagas = ($pagas / $totalPropostas) * 100;
+// Verifique se o total de propostas é diferente de zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas pagas
+    $porcentagemPagas = ($pagas / $totalPropostas) * 100;
 
-// Formate a porcentagem com duas casas decimais
-$porcentagemFormatada = number_format($porcentagemPagas, 2);
+    // Formate a porcentagem com duas casas decimais
+    $porcentagemFormatada = number_format($porcentagemPagas, 2);
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $porcentagemFormatada = 0.00;
+}
 ?>
 
 <div class="col mr-2">
@@ -593,11 +599,20 @@ $resultPropostasCanceladas = mysqli_query($conexao, $queryPropostasCanceladas);
 $rowCanceladas = mysqli_fetch_assoc($resultPropostasCanceladas);
 $canceladas = $rowCanceladas['canceladas'];
 
-$percentage = ($canceladas / $totalPropostas) * 100;
+// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas canceladas
+    $percentage = ($canceladas / $totalPropostas) * 100;
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $percentage = 0.0;
+}
 
+// Certifique-se de que $canceladas seja definido, mesmo que inicialmente seja vazio
 if ($canceladas == '') {
     $canceladas = 0;
 }
+
 
 // Formatar a porcentagem com 1 casa decimal
 $percentageFormatted = number_format($percentage, 1);
@@ -615,11 +630,20 @@ $resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
 $rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
 $pendentes = $rowPendentes['pendentes'];
 
-$percentagePendentes = ($pendentes / $totalPropostas) * 100;
+// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas pendentes
+    $percentagePendentes = ($pendentes / $totalPropostas) * 100;
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $percentagePendentes = 0.0;
+}
 
+// Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
 if ($pendentes == '') {
     $pendentes = 0;
 }
+
 
 // Formatar a porcentagem de pendentes com 1 casa decimal
 $percentagePendentesFormatted = number_format($percentagePendentes, 1);
@@ -639,11 +663,20 @@ $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
 $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
 $pagas = $rowPagas['pagas'];
 
-$percentagePagas = ($pagas / $totalPropostas) * 100;
+// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas pagas
+    $percentagePagas = ($pagas / $totalPropostas) * 100;
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $percentagePagas = 0.0;
+}
 
+// Certifique-se de que $pagas seja definido, mesmo que inicialmente seja vazio
 if ($pagas == '') {
     $pagas = 0;
 }
+
 
 // Formatar a porcentagem de propostas pagas com 1 casa decimal
 $percentagePagasFormatted = number_format($percentagePagas, 1);
@@ -661,11 +694,20 @@ $resultFormalizacaoConcluida = mysqli_query($conexao, $queryFormalizacaoConcluid
 $rowConcluida = mysqli_fetch_assoc($resultFormalizacaoConcluida);
 $concluida = $rowConcluida['concluida'];
 
-$percentageConcluida = ($concluida / $totalPropostas) * 100;
+// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas concluídas
+    $percentageConcluida = ($concluida / $totalPropostas) * 100;
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $percentageConcluida = 0.0;
+}
 
+// Certifique-se de que $concluida seja definido, mesmo que inicialmente seja vazio
 if ($concluida == '') {
     $concluida = 0;
 }
+
 
 // Formatar a porcentagem de formalização concluída com 1 casa decimal
 $percentageConcluidaFormatted = number_format($percentageConcluida, 1);

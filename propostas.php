@@ -709,32 +709,32 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                             <div class="btn-group" role="group" aria-label="Exemplo básico">
-                            <?php
-// Verificar se o usuário é 'Master'
-if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-            <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-            <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-        </ul>
-    </div>
-<?php elseif ($statusproposta == 'PENDENTE' || $statusproposta == 'AGUARD DIGITAÇÃO' ) : ?>
-    <!-- Se não for 'Master' e o status for 'PENDENTE', exiba o botão de edição -->
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-            <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-            <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-        </ul>
-    </div>
-<?php endif; ?>
+                              <?php
+                              // Verificar se o usuário é 'Master'
+                              if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+                                <div class="dropdown">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                  </ul>
+                                </div>
+                              <?php elseif ($statusproposta == 'PENDENTE' || $statusproposta == 'AGUARD DIGITAÇÃO') : ?>
+                                <!-- Se não for 'Master' e o status for 'PENDENTE', exiba o botão de edição -->
+                                <div class="dropdown">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                  </ul>
+                                </div>
+                              <?php endif; ?>
 
 
 
