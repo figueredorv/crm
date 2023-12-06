@@ -168,7 +168,15 @@ function excluirDocumento($conexao, $id)
 
 
                         <!-- Campo de pesquisa dentro do modal -->
-                        <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
+                        <div class="form-group col-md-12">
+                            <label for="inputNome">Nome*</label>
+                            <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
+
+                            <label for="inputNome">
+                                Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento</label>
+                            <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
+                        </div>
+
                         <!-- Lista suspensa para resultados da pesquisa -->
                         <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
 
@@ -262,6 +270,8 @@ function excluirDocumento($conexao, $id)
 if (isset($_POST['button'])) {
     $nome = $_POST['nome'];
     $documentoanexado = $_FILES['imagens'];
+    $idproposta = $_POST['idproposta'];
+
 
     if (empty($_POST['nome'])) {
         $_SESSION['erro_enviardoc'] = ' Por favor, preencha o campo com o nome do cliente antes de enviar o documento.';
@@ -280,7 +290,7 @@ if (isset($_POST['button'])) {
 
                 if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
                     // Insira o nome do arquivo no banco de dados
-                    $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
+                    $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome','$novo_nome','$idproposta')";
                     mysqli_query($conexao, $query);
                 }
             }
