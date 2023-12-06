@@ -2974,7 +2974,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     $('#inputTelefone').mask('(00) 00000-0000');
     $(".inputTelefone").mask("(00) 00000-0000");
     $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
-    $("#inputCep").mask("99999-999");
+    $("#cep").mask("49095-999");
   });
 </script>
 
@@ -3406,7 +3406,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
     // Obter o valor do CEP digitado
     let cep = document.querySelector('#cep').value;
 
-    if (cep.length !== 8) {
+    if (cep.length !== 9) {
       alert('Cep inválido!');
     }
 
