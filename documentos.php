@@ -272,13 +272,18 @@ if (isset($_POST['button'])) {
     $documentoanexado = $_FILES['imagens'];
     $idproposta = $_POST['idproposta'];
 
+    // Verifica se pelo menos um documento foi enviado
+    if (empty($_FILES['imagens']['name'][0])) {
+        echo "<script language='javascript'> window.alert('Por favor, selecione pelo menos um documento antes de enviar.'); </script>";
+        echo "<script language='javascript'> window.location='documentos.php'; </script>";
+        exit; // Interrompe a execução do script se nenhum documento for selecionado
+    }
 
     if (empty($_POST['nome'])) {
         $_SESSION['erro_enviardoc'] = ' Por favor, preencha o campo com o nome do cliente antes de enviar o documento.';
         echo "<script language='javascript'> window.location='documentos.php'; </script>";
         exit; // Interrompe a execução do script se o campo nome do cliente não estiver preenchido
     }
-
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagens = $_FILES['imagens'];
@@ -301,6 +306,7 @@ if (isset($_POST['button'])) {
     echo "<script language='javascript'> window.location='documentos.php'; </script>";
 }
 ?>
+
 
 
 
