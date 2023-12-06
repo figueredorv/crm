@@ -118,7 +118,7 @@ include('verificar_login.php');
                     //final do código
 
                     else {
-                      $query = "select * from notificacoes order by id asc";
+                      $query = "select * from notificacoes order by id desc";
                     }
 
 
@@ -282,7 +282,7 @@ if (isset($_POST['button'])) {
 
 
 
-  $query = "INSERT into notificacoes (titulo, descricao, link, data_publicacao) VALUES ('$titulo', '$descricao', '$link', curDate())";
+  $query = "INSERT into notificacoes (titulo, descricao, link, lida, data_publicacao) VALUES ('$titulo', '$descricao', '$link','0', curDate())";
 
   $result = mysqli_query($conexao, $query);
 
