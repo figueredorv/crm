@@ -315,7 +315,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   }
                 } else if (isset($_GET['statuspropostaconsultapendente'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
@@ -2978,7 +2978,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     $('#inputTelefone').mask('(00) 00000-0000');
     $(".inputTelefone").mask("(00) 00000-0000");
     $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
-    $("#cep").mask("49095-999");
+    //$("#cep").mask("49095-999");
   });
 </script>
 
@@ -3410,7 +3410,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
     // Obter o valor do CEP digitado
     let cep = document.querySelector('#cep').value;
 
-    if (cep.length !== 9) {
+    if (cep.length !== 8) {
       alert('Cep inválido!');
     }
 
