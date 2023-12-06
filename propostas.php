@@ -1312,24 +1312,7 @@ if (isset($_POST['button'])) {
 
 
 
-  //marcador
-
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $imagens = $_FILES['imagens'];
-    $novo_nome = '';
-    foreach ($imagens['name'] as $key => $nomedocumento) {
-      if ($imagens['error'][$key] === 0) {
-        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-        $novo_nome = md5(uniqid()) . '.' . $extensao;
-
-        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-          // Insira o nome do arquivo no banco de dados
-          $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nome','$novo_nome')";
-          mysqli_query($conexao, $query);
-        }
-      }
-    }
-  }
+ 
 
 
 
@@ -1545,6 +1528,7 @@ if (isset($_POST['button'])) {
 
 
 
+
   //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO ANTES DE CADASTRAR UMA NOVA
   /*$query_verificar = "select * from propostas where nome = '$nome' ";
 
@@ -1558,10 +1542,29 @@ if (isset($_POST['button'])) {
 */
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, documentoanexado, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal',' $novo_nome','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$observacao','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
+  
+$idproposta = mysqli_insert_id($conexao); // Obtém o último ID inserido da proposta acima para usar no cadastro de documentos abaixo e recuperar o documento apenas referente a proposta.
 
 
+   //marcador
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imagens = $_FILES['imagens'];
+
+    foreach ($imagens['name'] as $key => $nomedocumento) {
+        if ($imagens['error'][$key] === 0) {
+            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+            $novo_nome = md5(uniqid()) . '.' . $extensao;
+
+            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                // Insira o nome do arquivo no banco de dados, usando o $idproposta obtido anteriormente
+                $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome', '$novo_nome', '$idproposta')";
+                mysqli_query($conexao, $query);
+            }
+        }
+    }
+}
 
   //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
   /*
@@ -3328,8 +3331,8 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
 
                   // Adicione o código PHP para recuperar os documentos do cliente
-                  $nome =  $rowProposta['nome'];
-                  $queryDocumentos = "SELECT * FROM documentos WHERE nome = '$nome'";
+                  $id = $_GET['id'];
+                  $queryDocumentos = "SELECT * FROM documentos WHERE idproposta = '$id'";
                   $resultDocumentos = mysqli_query($conexao, $queryDocumentos);
 
                   echo '<table class="table table-striped">';
