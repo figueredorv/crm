@@ -3320,7 +3320,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
                 while ($rowProposta = mysqli_fetch_assoc($resultProposta)) {
                   echo '<div class="card mb-4">';
-                  echo '<div class="card-header"><strong>ID: </strong>' . $rowProposta['idpropostas'] . '</div>';
+                  echo '<div class="card-header"><strong>ID: </strong><span class="badge badge-primary" style="font-size: larger;">' . $rowProposta['idpropostas'] . '</span></div>';
                   echo '<div class="card-body">';
 
                   // Informações da proposta em duas colunas

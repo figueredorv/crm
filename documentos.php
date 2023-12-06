@@ -173,7 +173,7 @@ function excluirDocumento($conexao, $id)
                             <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
 
                             <label for="inputNome">
-                                Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento</label>
+                                Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento?</label>
                             <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
                         </div>
 
