@@ -315,7 +315,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   }
                 } else if (isset($_GET['statuspropostaconsultapendente'])) {
                   if ($cargo_usuario == 'Master' || $cargo_usuario == 'Adm') {
-                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC";
+                    $query = "SELECT * FROM propostas WHERE statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   } else {
                     $query = "SELECT * FROM propostas WHERE idusuario = $id AND statusproposta = 'PENDENTE' ORDER BY idpropostas DESC LIMIT $offset, $itens_por_pagina";
                   }
