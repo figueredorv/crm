@@ -257,6 +257,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                 $num_paginas = ceil($num_total / $itens_por_pagina);
 
 
+                
 
 
                 // novo codigo ( procurar proposta pelo nome da pessoa)
