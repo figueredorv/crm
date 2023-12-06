@@ -246,10 +246,10 @@ function excluirDocumento($conexao, $id)
 
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success mb-3" name="button">Salvar </button>
+                    <button type="submit" class="btn btn-primary mb-3" name="button">Salvar </button>
 
 
-                    <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Cancelar </button>
+                    <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
                     </form>
 
 
