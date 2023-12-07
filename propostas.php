@@ -2206,7 +2206,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                   <div class="form-group">
                     <br>
                     <label for="exampleFormControlTextarea1">Observação (opcional)</label>
-                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"><?php echo $res_1['observacao']; ?></textarea>
+                    <textarea name="inputObservacao" class="form-control" id="inputObservacao" rows="3"></textarea>
                   </div>
                 </div>
 

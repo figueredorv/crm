@@ -55,7 +55,7 @@ session_start();
 
                     // Consulta para obter observações da proposta
                     $idpropostas = $rowProposta['idpropostas'];
-                    $queryObservacoes = "SELECT * FROM observacoes";
+                    $queryObservacoes = "SELECT * FROM observacoes order by id desc";
                     $resultObservacoes = mysqli_query($conexao, $queryObservacoes);
 
                     if ($resultObservacoes) {
