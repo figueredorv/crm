@@ -253,7 +253,7 @@ include("conexao.php");
                         </li>
 
 
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -262,41 +262,41 @@ include("conexao.php");
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $_SESSION['nome_usuario']; ?></span>
                                 <?php
-                                                // Defina um caminho padrão para a imagem de placeholder
-                                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
+                                // Defina um caminho padrão para a imagem de placeholder
+                                $caminhoDaImagemPadrao = 'https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg';
 
-                                                // Verifique se o usuário está logado
-                                                if (isset($_SESSION['idusuarios'])) {
-                                                    $idUsuario = $_SESSION['idusuarios'];
+                                // Verifique se o usuário está logado
+                                if (isset($_SESSION['idusuarios'])) {
+                                    $idUsuario = $_SESSION['idusuarios'];
 
-                                                    // Consulta SQL para buscar o caminho da imagem do usuário
-                                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
+                                    // Consulta SQL para buscar o caminho da imagem do usuário
+                                    $sql = "SELECT imagem FROM usuarios WHERE idusuarios = $idUsuario";
 
-                                                    // Executa a consulta
-                                                    $resultado = mysqli_query($conexao, $sql);
+                                    // Executa a consulta
+                                    $resultado = mysqli_query($conexao, $sql);
 
-                                                    if ($resultado) {
-                                                        $linha = mysqli_fetch_assoc($resultado);
+                                    if ($resultado) {
+                                        $linha = mysqli_fetch_assoc($resultado);
 
-                                                        if ($linha && !empty($linha['imagem'])) {
-                                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
-                                                        } else {
-                                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
-                                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
-                                                        }
-                                                    }
-                                                } else {
-                                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
-                                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
-                                                }
+                                        if ($linha && !empty($linha['imagem'])) {
+                                            $caminhoDaImagem = 'assets/img/faces/' . $linha['imagem']; // Supondo que as imagens estejam na pasta 'assets/img/faces/'
+                                        } else {
+                                            // Se o caminho da imagem estiver vazio, use o caminho da imagem de placeholder
+                                            $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                        }
+                                    }
+                                } else {
+                                    // Se o usuário não estiver logado, use o caminho da imagem de placeholder
+                                    $caminhoDaImagem = $caminhoDaImagemPadrao;
+                                }
 
-                                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
-                                                ?>
+                                // Aqui, você pode continuar a renderização da página, e a imagem será exibida no local desejado no HTML.
+                                ?>
 
-                                                <!-- Exibir a imagem -->
-                                                <img class="img-profile rounded-circle" src="<?php echo $caminhoDaImagem; ?>">
+                                <!-- Exibir a imagem -->
+                                <img class="img-profile rounded-circle" src="<?php echo $caminhoDaImagem; ?>">
 
-                                
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -335,22 +335,22 @@ include("conexao.php");
                     </div>
 
                     <?php
-        $query = "SELECT * FROM propostas WHERE data = CURDATE() ORDER BY data ASC";
-        $result = mysqli_query($conexao, $query);
-        $row = mysqli_num_rows($result);
+                    $query = "SELECT * FROM propostas WHERE data = CURDATE() ORDER BY data ASC";
+                    $result = mysqli_query($conexao, $query);
+                    $row = mysqli_num_rows($result);
 
-        if ($row > 0) :
-        ?>
-          <div class="alert alert-success alert-dismissible fade show text-dark">
-            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
-              <i class="nc-icon nc-simple-remove"></i>
-            </button>
-            <span>
-              <b>Muito bem!</b> Você possui <?php echo $row; ?>
-              <?php echo ($row === 1) ? 'nova proposta!' : 'novas propostas!'; ?>
-            </span>
-          </div>
-        <?php endif; ?>
+                    if ($row > 0) :
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show text-dark">
+                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="nc-icon nc-simple-remove"></i>
+                            </button>
+                            <span>
+                                <b>Muito bem!</b> Você possui <?php echo $row; ?>
+                                <?php echo ($row === 1) ? 'nova proposta!' : 'novas propostas!'; ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -430,45 +430,45 @@ FROM propostas;";
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                    <?php
-// Consulta SQL para obter o número total de propostas
-$queryTotalPropostas = "SELECT COUNT(*) as totalPropostas FROM propostas";
-$resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
-$rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
-$totalPropostas = $rowTotalPropostas['totalPropostas'];
+                                        <?php
+                                        // Consulta SQL para obter o número total de propostas
+                                        $queryTotalPropostas = "SELECT COUNT(*) as totalPropostas FROM propostas";
+                                        $resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
+                                        $rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
+                                        $totalPropostas = $rowTotalPropostas['totalPropostas'];
 
-// Consulta SQL para obter o número de propostas pagas
-$queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
-$resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
-$rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
-$pagas = $rowPagas['pagas'];
+                                        // Consulta SQL para obter o número de propostas pagas
+                                        $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
+                                        $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+                                        $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+                                        $pagas = $rowPagas['pagas'];
 
-// Verifique se o total de propostas é diferente de zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas pagas
-    $porcentagemPagas = ($pagas / $totalPropostas) * 100;
+                                        // Verifique se o total de propostas é diferente de zero antes de calcular a porcentagem
+                                        if ($totalPropostas != 0) {
+                                            // Calcule a porcentagem de propostas pagas
+                                            $porcentagemPagas = ($pagas / $totalPropostas) * 100;
 
-    // Formate a porcentagem com duas casas decimais
-    $porcentagemFormatada = number_format($porcentagemPagas, 2);
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $porcentagemFormatada = 0.00;
-}
-?>
+                                            // Formate a porcentagem com duas casas decimais
+                                            $porcentagemFormatada = number_format($porcentagemPagas, 2);
+                                        } else {
+                                            // Se não houver propostas, defina a porcentagem como zero
+                                            $porcentagemFormatada = 0.00;
+                                        }
+                                        ?>
 
-<div class="col mr-2">
-    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Desempenho das vendas</div>
-    <div class="row no-gutters align-items-center">
-        <div class="col-auto">
-            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $porcentagemFormatada . '%'; ?></div>
-        </div>
-        <div class="col">
-            <div class="progress progress-sm mr-2">
-                <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $porcentagemFormatada; ?>%" aria-valuenow="<?php echo $porcentagemPagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-        </div>
-    </div>
-</div>
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Desempenho das vendas</div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $porcentagemFormatada . '%'; ?></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $porcentagemFormatada; ?>%" aria-valuenow="<?php echo $porcentagemPagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="col-auto">
                                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -573,9 +573,9 @@ if ($totalPropostas != 0) {
                                     </div>
                                     <div class="mt-4 text-start small">
                                         <span class="mr-2">
-                                            <i class="fa fa-pie-chart text-primary"></i> Distribuição de Propostas por Status 
+                                            <i class="fa fa-pie-chart text-primary"></i> Distribuição de Propostas por Status
                                         </span>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -594,172 +594,172 @@ if ($totalPropostas != 0) {
                                     <h6 class="m-0 font-weight-bold text-primary">Propostas</h6>
                                 </div>
                                 <div class="card-body">
-                                <?php
-$queryTotalPropostas = "SELECT COUNT(*) as total FROM propostas";
-$resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
-$rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
-$totalPropostas = $rowTotalPropostas['total'];
+                                    <?php
+                                    $queryTotalPropostas = "SELECT COUNT(*) as total FROM propostas";
+                                    $resultTotalPropostas = mysqli_query($conexao, $queryTotalPropostas);
+                                    $rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
+                                    $totalPropostas = $rowTotalPropostas['total'];
 
-$queryPropostasCanceladas = "SELECT COUNT(*) as canceladas FROM propostas WHERE statusproposta = 'CANCELADO'";
-$resultPropostasCanceladas = mysqli_query($conexao, $queryPropostasCanceladas);
-$rowCanceladas = mysqli_fetch_assoc($resultPropostasCanceladas);
-$canceladas = $rowCanceladas['canceladas'];
+                                    $queryPropostasCanceladas = "SELECT COUNT(*) as canceladas FROM propostas WHERE statusproposta = 'CANCELADO'";
+                                    $resultPropostasCanceladas = mysqli_query($conexao, $queryPropostasCanceladas);
+                                    $rowCanceladas = mysqli_fetch_assoc($resultPropostasCanceladas);
+                                    $canceladas = $rowCanceladas['canceladas'];
 
-// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas canceladas
-    $percentage = ($canceladas / $totalPropostas) * 100;
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $percentage = 0.0;
-}
+                                    // Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+                                    if ($totalPropostas != 0) {
+                                        // Calcule a porcentagem de propostas canceladas
+                                        $percentage = ($canceladas / $totalPropostas) * 100;
+                                    } else {
+                                        // Se não houver propostas, defina a porcentagem como zero
+                                        $percentage = 0.0;
+                                    }
 
-// Certifique-se de que $canceladas seja definido, mesmo que inicialmente seja vazio
-if ($canceladas == '') {
-    $canceladas = 0;
-}
-
-
-// Formatar a porcentagem com 1 casa decimal
-$percentageFormatted = number_format($percentage, 1);
-?>
-
-<h4 class="small font-weight-bold">Canceladas <span class="float-right"><?php echo $percentageFormatted; ?>%</span></h4>
-<div class="progress mb-4">
-    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+                                    // Certifique-se de que $canceladas seja definido, mesmo que inicialmente seja vazio
+                                    if ($canceladas == '') {
+                                        $canceladas = 0;
+                                    }
 
 
-<?php
-$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO'";
-$resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
-$rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
-$pendentes = $rowPendentes['pendentes'];
+                                    // Formatar a porcentagem com 1 casa decimal
+                                    $percentageFormatted = number_format($percentage, 1);
+                                    ?>
 
-// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas pendentes
-    $percentagePendentes = ($pendentes / $totalPropostas) * 100;
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $percentagePendentes = 0.0;
-}
-
-// Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
-if ($pendentes == '') {
-    $pendentes = 0;
-}
+                                    <h4 class="small font-weight-bold">Canceladas <span class="float-right"><?php echo $percentageFormatted; ?>%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $percentage; ?>%" aria-valuenow="<?php echo $percentage; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
 
 
-// Formatar a porcentagem de pendentes com 1 casa decimal
-$percentagePendentesFormatted = number_format($percentagePendentes, 1);
-?>
+                                    <?php
+                                    $queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'AGUARD DIGITAÇÃO'";
+                                    $resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
+                                    $rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
+                                    $pendentes = $rowPendentes['pendentes'];
 
-<h4 class="small font-weight-bold">Aguardando digitação <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
-<div class="progress mb-4">
-    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+                                    // Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+                                    if ($totalPropostas != 0) {
+                                        // Calcule a porcentagem de propostas pendentes
+                                        $percentagePendentes = ($pendentes / $totalPropostas) * 100;
+                                    } else {
+                                        // Se não houver propostas, defina a porcentagem como zero
+                                        $percentagePendentes = 0.0;
+                                    }
 
-
-
-<?php
-$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
-$resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
-$rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
-$pendentes = $rowPendentes['pendentes'];
-
-// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas pendentes
-    $percentagePendentes = ($pendentes / $totalPropostas) * 100;
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $percentagePendentes = 0.0;
-}
-
-// Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
-if ($pendentes == '') {
-    $pendentes = 0;
-}
+                                    // Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
+                                    if ($pendentes == '') {
+                                        $pendentes = 0;
+                                    }
 
 
-// Formatar a porcentagem de pendentes com 1 casa decimal
-$percentagePendentesFormatted = number_format($percentagePendentes, 1);
-?>
+                                    // Formatar a porcentagem de pendentes com 1 casa decimal
+                                    $percentagePendentesFormatted = number_format($percentagePendentes, 1);
+                                    ?>
 
-<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
-<div class="progress mb-4">
-    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+                                    <h4 class="small font-weight-bold">Aguardando digitação <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
 
 
 
-                                    
-<?php
-$queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
-$resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
-$rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
-$pagas = $rowPagas['pagas'];
+                                    <?php
+                                    $queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
+                                    $resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
+                                    $rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
+                                    $pendentes = $rowPendentes['pendentes'];
 
-// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas pagas
-    $percentagePagas = ($pagas / $totalPropostas) * 100;
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $percentagePagas = 0.0;
-}
+                                    // Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+                                    if ($totalPropostas != 0) {
+                                        // Calcule a porcentagem de propostas pendentes
+                                        $percentagePendentes = ($pendentes / $totalPropostas) * 100;
+                                    } else {
+                                        // Se não houver propostas, defina a porcentagem como zero
+                                        $percentagePendentes = 0.0;
+                                    }
 
-// Certifique-se de que $pagas seja definido, mesmo que inicialmente seja vazio
-if ($pagas == '') {
-    $pagas = 0;
-}
-
-
-// Formatar a porcentagem de propostas pagas com 1 casa decimal
-$percentagePagasFormatted = number_format($percentagePagas, 1);
-?>
-
-<h4 class="small font-weight-bold">Paga <span class="float-right"><?php echo $percentagePagasFormatted; ?>%</span></h4>
-<div class="progress mb-4">
-    <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $percentagePagas; ?>%" aria-valuenow="<?php echo $percentagePagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+                                    // Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
+                                    if ($pendentes == '') {
+                                        $pendentes = 0;
+                                    }
 
 
-<?php
-$queryFormalizacaoConcluida = "SELECT COUNT(*) as concluida FROM propostas WHERE statusproposta = 'FORMALIZACAO CONCLUIDA'";
-$resultFormalizacaoConcluida = mysqli_query($conexao, $queryFormalizacaoConcluida);
-$rowConcluida = mysqli_fetch_assoc($resultFormalizacaoConcluida);
-$concluida = $rowConcluida['concluida'];
+                                    // Formatar a porcentagem de pendentes com 1 casa decimal
+                                    $percentagePendentesFormatted = number_format($percentagePendentes, 1);
+                                    ?>
 
-// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
-if ($totalPropostas != 0) {
-    // Calcule a porcentagem de propostas concluídas
-    $percentageConcluida = ($concluida / $totalPropostas) * 100;
-} else {
-    // Se não houver propostas, defina a porcentagem como zero
-    $percentageConcluida = 0.0;
-}
-
-// Certifique-se de que $concluida seja definido, mesmo que inicialmente seja vazio
-if ($concluida == '') {
-    $concluida = 0;
-}
+                                    <h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
 
 
-// Formatar a porcentagem de formalização concluída com 1 casa decimal
-$percentageConcluidaFormatted = number_format($percentageConcluida, 1);
-?>
 
-<?php if ($percentageConcluida >= 100): ?>
-    <h4 class="small font-weight-bold">Concluída <span class="float-right">Complete!</span></h4>
-<?php else: ?>
-    <h4 class="small font-weight-bold">Concluída <span class="float-right"><?php echo $percentageConcluidaFormatted; ?>%</span></h4>
-<?php endif; ?>
 
-<div class="progress">
-    <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percentageConcluida; ?>%" aria-valuenow="<?php echo $percentageConcluida; ?>" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+                                    <?php
+                                    $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
+                                    $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+                                    $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+                                    $pagas = $rowPagas['pagas'];
+
+                                    // Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+                                    if ($totalPropostas != 0) {
+                                        // Calcule a porcentagem de propostas pagas
+                                        $percentagePagas = ($pagas / $totalPropostas) * 100;
+                                    } else {
+                                        // Se não houver propostas, defina a porcentagem como zero
+                                        $percentagePagas = 0.0;
+                                    }
+
+                                    // Certifique-se de que $pagas seja definido, mesmo que inicialmente seja vazio
+                                    if ($pagas == '') {
+                                        $pagas = 0;
+                                    }
+
+
+                                    // Formatar a porcentagem de propostas pagas com 1 casa decimal
+                                    $percentagePagasFormatted = number_format($percentagePagas, 1);
+                                    ?>
+
+                                    <h4 class="small font-weight-bold">Paga <span class="float-right"><?php echo $percentagePagasFormatted; ?>%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: <?php echo $percentagePagas; ?>%" aria-valuenow="<?php echo $percentagePagas; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+
+                                    <?php
+                                    $queryFormalizacaoConcluida = "SELECT COUNT(*) as concluida FROM propostas WHERE statusproposta = 'FORMALIZACAO CONCLUIDA'";
+                                    $resultFormalizacaoConcluida = mysqli_query($conexao, $queryFormalizacaoConcluida);
+                                    $rowConcluida = mysqli_fetch_assoc($resultFormalizacaoConcluida);
+                                    $concluida = $rowConcluida['concluida'];
+
+                                    // Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+                                    if ($totalPropostas != 0) {
+                                        // Calcule a porcentagem de propostas concluídas
+                                        $percentageConcluida = ($concluida / $totalPropostas) * 100;
+                                    } else {
+                                        // Se não houver propostas, defina a porcentagem como zero
+                                        $percentageConcluida = 0.0;
+                                    }
+
+                                    // Certifique-se de que $concluida seja definido, mesmo que inicialmente seja vazio
+                                    if ($concluida == '') {
+                                        $concluida = 0;
+                                    }
+
+
+                                    // Formatar a porcentagem de formalização concluída com 1 casa decimal
+                                    $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
+                                    ?>
+
+                                    <?php if ($percentageConcluida >= 100) : ?>
+                                        <h4 class="small font-weight-bold">Concluída <span class="float-right">Complete!</span></h4>
+                                    <?php else : ?>
+                                        <h4 class="small font-weight-bold">Concluída <span class="float-right"><?php echo $percentageConcluidaFormatted; ?>%</span></h4>
+                                    <?php endif; ?>
+
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $percentageConcluida; ?>%" aria-valuenow="<?php echo $percentageConcluida; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
 
 
                                 </div>
@@ -981,25 +981,25 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                                                     <div class="btn-group" role="group" aria-label="Exemplo básico">
 
 
-                                                                    <?php
-                                                                    // Verificando se o usuario é Master ou Adm, se nao for, nao consegue editar as propostas em (propostas recentes)
-                                                                    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+                                                                        <?php
+                                                                        // Verificando se o usuario é Master ou Adm, se nao for, nao consegue editar as propostas em (propostas recentes)
+                                                                        if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
                                                                             <div class="dropdown">
-                                                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                                                                                <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
-                                                                            </button>
-                                                                            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-up">
-                                                                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                                                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                                                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
-                                                                            </ul>
-                                                                        </div>
+                                                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                                                    <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
+                                                                                </button>
+                                                                                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-up">
+                                                                                    <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
+                                                                                    <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
+                                                                                    <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                                                                </ul>
+                                                                            </div>
                                                                         <?php
 
                                                                         endif;
 
                                                                         ?>
-                                             
+
                                                                         <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                                                                         <!-- Botão de exclusão de proposta -->
@@ -1012,8 +1012,16 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
 
                                                                         <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
+
+                                                                        <!-- Botão de visualizar proposta -->
+                                                                        <a class='btn btn-primary' href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><i class='fa fa-eye'></i></a>
+                                                                        
+
+                                                                        <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
+
+
                                                                         <?php
-                                                                        // lógica para só conseguir alterar o status da proposta quem for master do sistema
+                                                                        // lógica para só conseguir excluir a proposta quem for master do sistema
                                                                         if ($_SESSION['cargo_usuario'] == 'Master') : ?>
                                                                             <a class="btn btn-primary btn btn-danger" style="color: white;" data-toggle="modal" data-target="#confirmModal" data-id="<?php echo $id; ?>">
                                                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -1024,6 +1032,7 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                                                         endif;
 
                                                                         ?>
+
 
 
 
@@ -1070,29 +1079,29 @@ $percentageConcluidaFormatted = number_format($percentageConcluida, 1);
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
                                     </div>
                                     <?php
-// Obter as últimas 3 notificações não lidas no banco de dados
-$queryNotificacoes = "SELECT * FROM notificacoes n
+                                    // Obter as últimas 3 notificações não lidas no banco de dados
+                                    $queryNotificacoes = "SELECT * FROM notificacoes n
     LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
      AND vn.id_visualizacao IS NULL
     ORDER BY n.id DESC
     LIMIT 3";
-$resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
+                                    $resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
 
-// Exibir as notificações dinamicamente no dropdown
-while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
-    echo '<a class="dropdown-item d-flex align-items-center" href="notificacoes.php">';
-    echo '<div class="mr-3">';
-    echo '<div class="icon-circle bg-primary">';
-    echo '<i class="' . ($rowNotificacao['icon'] ? $rowNotificacao['icon'] : 'fas fa-bell') . ' text-white"></i>';
-    echo '</div>';
-    echo '</div>';
-    echo '<div>';
-    echo '<div class="small text-gray-500">' . date('d/m/y', strtotime($rowNotificacao['data_publicacao'])) . '</div>';
-    echo '<span class="font-weight-bold">' . $rowNotificacao['titulo'] . '</span>';
-    echo '</div>';
-    echo '</a>';
-}
-?>
+                                    // Exibir as notificações dinamicamente no dropdown
+                                    while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
+                                        echo '<a class="dropdown-item d-flex align-items-center" href="notificacoes.php">';
+                                        echo '<div class="mr-3">';
+                                        echo '<div class="icon-circle bg-primary">';
+                                        echo '<i class="' . ($rowNotificacao['icon'] ? $rowNotificacao['icon'] : 'fas fa-bell') . ' text-white"></i>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                        echo '<div>';
+                                        echo '<div class="small text-gray-500">' . date('d/m/y', strtotime($rowNotificacao['data_publicacao'])) . '</div>';
+                                        echo '<span class="font-weight-bold">' . $rowNotificacao['titulo'] . '</span>';
+                                        echo '</div>';
+                                        echo '</a>';
+                                    }
+                                    ?>
 
                                 </div>
                             </div>

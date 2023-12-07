@@ -32,7 +32,12 @@ session_start();
 
 
 
-
+        <style>
+        .qa-message-list {
+            max-height: 500px; /* Defina a altura máxima desejada */
+            overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando necessário */
+        }
+        </style>
 
 
 

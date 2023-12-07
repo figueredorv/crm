@@ -17,6 +17,14 @@ include("conexao.php");
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
+
 
 
 
@@ -63,6 +71,31 @@ include("conexao.php");
 
                         </a>
                     </li>
+
+                    <li class="">
+                    <a class="nav-link" href="propostas.php">
+                    <i class="fa fa-search"></i>
+                    <span>Propostas</span></a>
+                    </li>
+
+                    <li class="">
+                    <a class="nav-link" href="documentos.php">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Documentos</span></a>
+                    </li>
+
+                    <li class="">
+                    <a class="nav-link" href="observacoes.php">
+                    <i class="fa fa-comment"></i>
+                    <span>Observações</span></a>
+                    </li>
+
+
+
+
+
+
+
 
                     <li class="active-pro">
                         <a href="logout.php">
