@@ -138,7 +138,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                 <!-- Botão de filtro "Nova/Antiga" -->
                 <form class="form-inline mr-2">
                   <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-filter"></i> Nova/Antiga
+                    <i class="fa fa-filter"></i> Ordenar por
                   </button>
                   <div class="dropdown-menu">
                     <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
@@ -587,7 +587,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-                  <table class="table table-borderless">
+                  <table class="table table-hover table-borderless">
                     <thead class=" text-primary">
                       <th>
                         id
@@ -672,7 +672,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                       ?>
 
-                        <tr>
+                        <tr class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>">
                           <td><?php echo $id; ?></td>
                           <td><?php echo $nome; ?></td>
                           <td><?php echo  $cpf; ?></td>
@@ -773,7 +773,14 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
 
-
+                              <script>
+                                // Adicione um script para redirecionar ao clicar na linha
+                                $(document).ready(function() {
+                                  $(".linha-clicavel").click(function() {
+                                    window.location = $(this).data("href");
+                                  });
+                                });
+                              </script>
 
 
 
