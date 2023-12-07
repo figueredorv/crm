@@ -97,7 +97,15 @@ function excluirDocumento($conexao, $id)
                     color: #64ABE7;
                     /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (cor do ícone)*/
                 }
+
+                .table-container {
+                    max-height: 500px;
+                    /* Defina a altura máxima desejada */
+                    overflow-y: auto;
+                    /* Adiciona uma barra de rolagem vertical quando necessário */
+                }
             </style>
+
 
 
             <!-- Botão para cadastrar um novo documento -->
@@ -105,45 +113,45 @@ function excluirDocumento($conexao, $id)
             <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modalExemplo" style="background-color: #FF4D75;">
                 <i class="fa fa-cloud-upload"></i> Upload
             </button>
+            <div class="table-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Prévia</th>
+                            <th>Nome do Documento</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if (isset($result)) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $nome = $row['nome'];
+                                $documentoAnexado = $row['caminho'];
+                                $id = $row["id"];
 
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Prévia</th>
-                        <th>Nome do Documento</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (isset($result)) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $nome = $row['nome'];
-                            $documentoAnexado = $row['caminho'];
-                            $id = $row["id"];
 
 
-
-                            echo "<tr>";
-                            echo "<td>$nome</td>";
-                            echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
-                            echo "<td>$documentoAnexado</td>";
-                            echo "<td>";
-                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a> ";
-                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a> ";
-                            if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
-                                echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
+                                echo "<tr>";
+                                echo "<td>$nome</td>";
+                                echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
+                                echo "<td>$documentoAnexado</td>";
+                                echo "<td>";
+                                echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a> ";
+                                echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a> ";
+                                if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                                    echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
+                                }
+                                echo "</td>";
+                                echo "</tr>";
                             }
-                            echo "</td>";
-                            echo "</tr>";
                         }
-                    }
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
 
 
@@ -151,114 +159,114 @@ function excluirDocumento($conexao, $id)
 
 
 
-    <!-- Modal -->
-    <div id="modalExemplo" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
+        <!-- Modal -->
+        <div id="modalExemplo" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
 
-                    <h4 class="modal-title">Cadastrar documento</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                        <h4 class="modal-title">Cadastrar documento</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="" enctype="multipart/form-data">
 
-                        <!-- Exibir mensagem de erro -->
+                            <!-- Exibir mensagem de erro -->
 
 
-                        <!-- Campo de pesquisa dentro do modal -->
-                        <div class="form-group col-md-12">
-                            <label for="inputNome">Nome*</label>
-                            <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
+                            <!-- Campo de pesquisa dentro do modal -->
+                            <div class="form-group col-md-12">
+                                <label for="inputNome">Nome*</label>
+                                <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
 
-                            <label for="inputNome">
-                                Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento?</label>
-                            <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
-                        </div>
+                                <label for="inputNome">
+                                    Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento?</label>
+                                <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
+                            </div>
 
-                        <!-- Lista suspensa para resultados da pesquisa -->
-                        <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
+                            <!-- Lista suspensa para resultados da pesquisa -->
+                            <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
 
-                        <script>
-                            // Função para atualizar a lista suspensa com os resultados da pesquisa
-                            function atualizarListaSuspensa(resultados) {
-                                var listaSuspensa = document.getElementById("lista-resultados");
+                            <script>
+                                // Função para atualizar a lista suspensa com os resultados da pesquisa
+                                function atualizarListaSuspensa(resultados) {
+                                    var listaSuspensa = document.getElementById("lista-resultados");
 
-                                // Limpa a lista suspensa
-                                listaSuspensa.innerHTML = "";
+                                    // Limpa a lista suspensa
+                                    listaSuspensa.innerHTML = "";
 
-                                // Preenche a lista suspensa com os resultados
-                                resultados.forEach(function(resultado) {
-                                    var listItem = document.createElement("li");
-                                    listItem.classList.add("dropdown-item");
-                                    listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
-                                    listaSuspensa.appendChild(listItem);
+                                    // Preenche a lista suspensa com os resultados
+                                    resultados.forEach(function(resultado) {
+                                        var listItem = document.createElement("li");
+                                        listItem.classList.add("dropdown-item");
+                                        listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
+                                        listaSuspensa.appendChild(listItem);
+                                    });
+
+                                    // Exibe a lista suspensa
+                                    listaSuspensa.style.display = "block";
+                                }
+
+                                // Função para preencher o campo de entrada com o nome selecionado
+                                function selecionarNome(e) {
+                                    var nomeSelecionado = e.target.textContent;
+                                    document.getElementById("nome-modal").value = nomeSelecionado;
+                                    document.getElementById("lista-resultados").style.display = "none";
+                                }
+
+                                // Adiciona um evento de entrada ao campo de pesquisa
+                                document.getElementById("nome-modal").addEventListener("input", function() {
+                                    var nomePesquisa = document.getElementById("nome-modal").value;
+                                    var listaSuspensa = document.getElementById("lista-resultados");
+
+                                    if (nomePesquisa !== "") {
+                                        // Fazer uma solicitação AJAX para buscar os registros em tempo real
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
+
+                                        xhr.onreadystatechange = function() {
+                                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                                var registros = JSON.parse(xhr.responseText);
+                                                atualizarListaSuspensa(registros);
+                                            }
+                                        };
+
+                                        xhr.send();
+                                    } else {
+                                        listaSuspensa.style.display = "none";
+                                    }
                                 });
 
-                                // Exibe a lista suspensa
-                                listaSuspensa.style.display = "block";
-                            }
-
-                            // Função para preencher o campo de entrada com o nome selecionado
-                            function selecionarNome(e) {
-                                var nomeSelecionado = e.target.textContent;
-                                document.getElementById("nome-modal").value = nomeSelecionado;
-                                document.getElementById("lista-resultados").style.display = "none";
-                            }
-
-                            // Adiciona um evento de entrada ao campo de pesquisa
-                            document.getElementById("nome-modal").addEventListener("input", function() {
-                                var nomePesquisa = document.getElementById("nome-modal").value;
-                                var listaSuspensa = document.getElementById("lista-resultados");
-
-                                if (nomePesquisa !== "") {
-                                    // Fazer uma solicitação AJAX para buscar os registros em tempo real
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
-
-                                    xhr.onreadystatechange = function() {
-                                        if (xhr.readyState == 4 && xhr.status == 200) {
-                                            var registros = JSON.parse(xhr.responseText);
-                                            atualizarListaSuspensa(registros);
-                                        }
-                                    };
-
-                                    xhr.send();
-                                } else {
-                                    listaSuspensa.style.display = "none";
-                                }
-                            });
-
-                            // Adicionar um evento de clique aos itens da lista suspensa
-                            document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
-                        </script>
+                                // Adicionar um evento de clique aos itens da lista suspensa
+                                document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
+                            </script>
 
 
-                        <div class="form-group col-md-12">
-                            <label for="inputDocumento">Deseja anexar algum documento?</label>
-                            <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
-                        </div>
+                            <div class="form-group col-md-12">
+                                <label for="inputDocumento">Deseja anexar algum documento?</label>
+                                <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                            </div>
 
 
 
-                </div>
+                    </div>
 
 
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary mb-3" name="button">Salvar </button>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary mb-3" name="button">Salvar </button>
 
 
-                    <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
-                    </form>
+                        <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
+                        </form>
 
 
-                    </form>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 </body>
