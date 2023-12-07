@@ -656,6 +656,38 @@ $percentagePendentesFormatted = number_format($percentagePendentes, 1);
 
 
 
+<?php
+$queryPropostasPendentes = "SELECT COUNT(*) as pendentes FROM propostas WHERE statusproposta = 'PENDENTE'";
+$resultPropostasPendentes = mysqli_query($conexao, $queryPropostasPendentes);
+$rowPendentes = mysqli_fetch_assoc($resultPropostasPendentes);
+$pendentes = $rowPendentes['pendentes'];
+
+// Certifique-se de que $totalPropostas não é zero antes de calcular a porcentagem
+if ($totalPropostas != 0) {
+    // Calcule a porcentagem de propostas pendentes
+    $percentagePendentes = ($pendentes / $totalPropostas) * 100;
+} else {
+    // Se não houver propostas, defina a porcentagem como zero
+    $percentagePendentes = 0.0;
+}
+
+// Certifique-se de que $pendentes seja definido, mesmo que inicialmente seja vazio
+if ($pendentes == '') {
+    $pendentes = 0;
+}
+
+
+// Formatar a porcentagem de pendentes com 1 casa decimal
+$percentagePendentesFormatted = number_format($percentagePendentes, 1);
+?>
+
+<h4 class="small font-weight-bold">Pendentes <span class="float-right"><?php echo $percentagePendentesFormatted; ?>%</span></h4>
+<div class="progress mb-4">
+    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $percentagePendentes; ?>%" aria-valuenow="<?php echo $percentagePendentes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+
+
+
                                     
 <?php
 $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
