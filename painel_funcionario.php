@@ -69,6 +69,12 @@ include("conexao.php");
                     <span>Documentos</span></a>
             </li>
 
+            <li class="nav-item active">
+                <a class="nav-link" href="observacoes.php">
+                    <i class="fa fa-comment"></i>
+                    <span>Observações</span></a>
+            </li>
+
 
 
             <!-- Heading 

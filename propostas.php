@@ -1356,7 +1356,6 @@ if (isset($_POST['button'])) {
   $formalizacao = $_POST['inputFormalizacao'];
   $canal = $_POST['inputCanal'];
   $documentoanexado   = $_FILES['imagens'];
-  $observacao   = $_POST['inputObservacao'];
   $statusproposta = 'AGUARD DIGITAÇÃO';
   $data = date('d/m/Y H:i');
 
@@ -1592,13 +1591,25 @@ if (isset($_POST['button'])) {
 */
 
 
-  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, observacao, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$observacao','$statusproposta',curDate())";
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$statusproposta',curDate())";
   $result = mysqli_query($conexao, $query);
 
   $idproposta = mysqli_insert_id($conexao); // Obtém o último ID inserido da proposta acima para usar no cadastro de documentos abaixo e recuperar o documento apenas referente a proposta.
 
+      //marcador para editar observacoes
+      if($_POST['inputObservacao'] != ""){
+        $nomeusuario = $_SESSION['nome_usuario'];
+        $observacao = $_POST['inputObservacao'];
+        $idproposta = mysqli_insert_id($conexao);
 
-  //marcador
+        
+        
+        $query = "INSERT into observacoes (usuario, observacao, idpropostas, data) VALUES ('$nomeusuario','$observacao',' $idproposta',curDate())";
+        $result = mysqli_query($conexao, $query);
+
+      }
+
+  
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imagens = $_FILES['imagens'];
 
@@ -2232,30 +2243,22 @@ if (@$_GET['func'] == 'editarpropostas') {
       $valorparcelas = $_POST['inputValorParcelas'];
       $formalizacao = $_POST['inputFormalizacao'];
       $canal = $_POST['inputCanal'];
-      $documentoanexado   = $_FILES['imagens'];
       $observacao   = $_POST['inputObservacao'];
-      //marcador
+      
 
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $imagens = $_FILES['imagens'];
-        foreach ($imagens['name'] as $key => $nomedocumento) {
-          if ($imagens['error'][$key] === 0) {
-            $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-            $novo_nome = md5(uniqid()) . '.' . $extensao;
+      
 
-            if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-              // Insira o nome do arquivo no banco de dados
-              $query = "INSERT INTO documentos (nome, caminho) VALUES ('$nomedocumento','$novo_nome')";
-              mysqli_query($conexao, $query);
-            }
-          }
-        }
+       //marcador para editar observacoes
+       if($_POST['inputObservacao'] != ""){
+        $nomeusuario = $_SESSION['nome_usuario'];
+        $query = "INSERT into observacoes (usuario, observacao, idpropostas, data) VALUES ('$nomeusuario','$observacao','$id',curDate())";
+        $result = mysqli_query($conexao, $query);
+
       }
 
 
 
-
-      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', documentoanexado = '$novo_nome', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set convenio = '$convenio', operacao = '$operacao', bancoproposta = '$banco', promotora = '$promotora', margem = '$margem', prazo = '$prazo', valor = '$valor', valorparcelas = '$valorparcelas', formalizacao = '$formalizacao', canal = '$canal', tabela = '$tabela', observacao = '$observacao' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -3375,11 +3378,54 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . '</p>';
                   echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . '</p>';
                   echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . '</p>';
-                  echo '<p><strong>Observação: </strong>' . $rowProposta['observacao'] . '</p>';
                   echo '</div>'; // Fim da coluna 2
 
                   echo '</div>'; // Fim da linha
 
+                    
+                            
+                             // Adicione o código PHP para recuperar as observações da proposta
+                    $queryObservacoes = "SELECT * FROM observacoes WHERE idpropostas = '$id'";
+                    $resultObservacoes = mysqli_query($conexao, $queryObservacoes);
+
+                    // Adicione o código para criar o botão de colapso
+                    echo '<p>';
+                    echo '<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#observacoesCollapse" aria-expanded="false" aria-controls="observacoesCollapse">';
+                    echo 'Ver Observações';
+                    echo '</button>';
+                    echo '</p>';
+
+                    // Adicione o código da tabela de observações dentro do colapso
+                    echo '<div class="collapse" id="observacoesCollapse">';
+                    echo '<table class="table table-striped">';
+                    echo '<thead>';
+                    echo '<tr>';
+                    echo '<th>Usuário</th>';
+                    echo '<th>Observação</th>';
+                    echo '<th>Data</th>';
+                    echo '</tr>';
+                    echo '</thead>';
+                    echo '<tbody>';
+
+                    if ($resultObservacoes && mysqli_num_rows($resultObservacoes) > 0) {
+                        while ($rowObservacao = mysqli_fetch_assoc($resultObservacoes)) {
+                            $usuarioObservacao = $rowObservacao['usuario'];
+                            $observacao = $rowObservacao['observacao'];
+                            $dataObservacao = date('d/m/Y', strtotime($rowObservacao['data']));
+
+                            echo "<tr>";
+                            echo "<td>$usuarioObservacao</td>";
+                            echo "<td>$observacao</td>";
+                            echo "<td>$dataObservacao</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3'>Nenhuma observação encontrada.</td></tr>";
+                    }
+
+                    echo '</tbody>';
+                    echo '</table>';
+                    echo '</div>'; // Fim do colapso
 
                   // Adicione o código PHP para recuperar os documentos do cliente
                   $id = $_GET['id'];
