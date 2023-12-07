@@ -672,17 +672,17 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                       ?>
 
-                        <tr class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>">
-                          <td><?php echo $id; ?></td>
-                          <td><?php echo $nome; ?></td>
-                          <td><?php echo  $cpf; ?></td>
-                          <td><?php echo  $operacao;  ?></td>
-                          <td><?php echo $convenio; ?></td>
-                          <td><?php echo $banco; ?></td>
-                          <td><?php echo number_format($valor, 2, ",", "."); ?></td>
-                          <td><?php echo  $promotora; ?></td>
-                          <td><?php echo  $nome_usuario; ?></td>
-                          <td><?php echo  $data2; ?></td>
+                        <tr>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $id; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $nome; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $cpf; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $operacao;  ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $convenio; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $banco; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo number_format($valor, 2, ",", "."); ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $promotora; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $nome_usuario; ?></td>
+                          <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $data2; ?></td>
 
 
 
@@ -771,12 +771,17 @@ $nomeusuario = $_SESSION['nome_usuario'];
                               ?>
 
 
-
-
                               <script>
-                                // Adicione um script para redirecionar ao clicar na linha
+                                // Adicione um script para redirecionar ao clicar na linha, exceto no dropdown
                                 $(document).ready(function() {
-                                  $(".linha-clicavel").click(function() {
+                                  $(".linha-clicavel").click(function(e) {
+                                    // Verifica se o clique foi no dropdown ou em algum de seus itens
+                                    if ($(e.target).hasClass("dropdown-toggle") || $(e.target).closest(".dropdown-menu").length > 0) {
+                                      // Clique no dropdown, não redirecionar
+                                      return;
+                                    }
+
+                                    // Redireciona para o URL da linha
                                     window.location = $(this).data("href");
                                   });
                                 });
