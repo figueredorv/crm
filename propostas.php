@@ -2188,7 +2188,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 <div class="form-group col-md-12">
                   <label for="inputDocumento" style="display: none;">Deseja anexar algum documento?</label>
                   <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png" disabled>
-                  <small class="text-muted">Para editar documentos, vá para a <a href="documentos.php">área de Documentos</a>.</small>
+                  <small class="text-muted">Para editar documentos, vá para a <a href="documentos.php"  target="_blank">área de Documentos</a>.</small>
 
 
 
