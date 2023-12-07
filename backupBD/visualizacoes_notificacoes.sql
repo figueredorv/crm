@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 15/11/2023 às 06:10
+-- Tempo de geração: 07/12/2023 às 02:57
 -- Versão do servidor: 10.6.15-MariaDB-cll-lve
 -- Versão do PHP: 7.2.34
 
@@ -34,6 +34,22 @@ CREATE TABLE `visualizacoes_notificacoes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Despejando dados para a tabela `visualizacoes_notificacoes`
+--
+
+INSERT INTO `visualizacoes_notificacoes` (`id_visualizacao`, `id_usuario`, `id_notificacao`) VALUES
+(1, 28, 1),
+(2, 6, 1),
+(3, 21, 1),
+(4, 21, 1),
+(5, 21, 1),
+(6, 28, 1),
+(7, 28, 1),
+(8, 28, 1),
+(9, 28, 1),
+(10, 28, 6);
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -53,7 +69,7 @@ ALTER TABLE `visualizacoes_notificacoes`
 -- AUTO_INCREMENT de tabela `visualizacoes_notificacoes`
 --
 ALTER TABLE `visualizacoes_notificacoes`
-  MODIFY `id_visualizacao` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_visualizacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restrições para tabelas despejadas
