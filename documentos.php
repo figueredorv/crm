@@ -99,7 +99,7 @@ function excluirDocumento($conexao, $id)
                 }
 
                 .table-container {
-                    max-height: 500px;
+                    max-height: 510px;
                     /* Defina a altura máxima desejada */
                     overflow-y: auto;
                     /* Adiciona uma barra de rolagem vertical quando necessário */
