@@ -27,6 +27,7 @@ include("conexao.php");
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/observacoes.css"> <!-- Certifique-se de ajustar o caminho conforme necessário -->
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 </head>
 
 <body id="page-top">
@@ -110,6 +111,8 @@ include("conexao.php");
             endif;
             ?>
 
+             <!-- Divider -->
+             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
