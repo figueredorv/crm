@@ -365,8 +365,14 @@ include("conexao.php");
                                                 Total de propostas</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <?php
+                                                if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
 
-                                                $query = "select * from propostas order by nome asc";
+                                                    $query = "select * from propostas order by nome asc";
+                                                } else {
+                                                    $id = $_SESSION['idusuarios'];
+                                                    $query = "select * from propostas WHERE idusuario = $id order by nome asc";
+                                                }
+
                                                 $result = mysqli_query($conexao, $query);
                                                 //$dado = mysqli_fetch_array($result);
                                                 $row = mysqli_num_rows($result);
@@ -399,8 +405,17 @@ include("conexao.php");
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <h5><?php
 
-                                                    $query = "SELECT SUM(valor) AS total_valor
-FROM propostas;";
+                                                    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                                                        $query = "SELECT SUM(valor) AS total_valor
+                                                        FROM propostas;";
+                                                    } else {
+                                                        //se nao tiver privilegios, ver os valores apenas cadastrados pelo usuário
+                                                        $id = $_SESSION['idusuarios'];
+                                                        $query = "SELECT SUM(valor) AS total_valor
+                                                        FROM propostas  WHERE idusuario = $id;";
+                                                    }
+
+
                                                     $result = mysqli_query($conexao, $query);
                                                     //$dado = mysqli_fetch_array($result);
                                                     $row = mysqli_num_rows($result);
@@ -437,11 +452,23 @@ FROM propostas;";
                                         $rowTotalPropostas = mysqli_fetch_assoc($resultTotalPropostas);
                                         $totalPropostas = $rowTotalPropostas['totalPropostas'];
 
-                                        // Consulta SQL para obter o número de propostas pagas
-                                        $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
-                                        $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
-                                        $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
-                                        $pagas = $rowPagas['pagas'];
+
+                                        if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                                            // Consulta SQL para obter o número de propostas pagas
+                                            $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE statusproposta = 'PAGA'";
+                                            $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+                                            $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+                                            $pagas = $rowPagas['pagas'];
+                                        } else {
+                                            //se nao tiver privilegios, ver os valores apenas cadastrados pelo usuário
+                                            $id = $_SESSION['idusuarios'];
+                                            // Consulta SQL para obter o número de propostas pagas por um usuário específico
+                                            $queryPropostasPagas = "SELECT COUNT(*) as pagas FROM propostas WHERE idusuario = $id AND statusproposta = 'PAGA'";
+                                            $resultPropostasPagas = mysqli_query($conexao, $queryPropostasPagas);
+                                            $rowPagas = mysqli_fetch_assoc($resultPropostasPagas);
+                                            $pagas = $rowPagas['pagas'];
+                                        }
+
 
                                         // Verifique se o total de propostas é diferente de zero antes de calcular a porcentagem
                                         if ($totalPropostas != 0) {
@@ -488,7 +515,18 @@ FROM propostas;";
                                                 Média de vendas</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
 
-                                                                                                $query = "SELECT AVG(valor) AS media FROM propostas";
+
+                                                 
+    if($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm'){
+                                    
+        $query = "SELECT AVG(valor) AS media FROM propostas";                
+     
+    }else{
+        //se nao tiver privilegios, ver os valores apenas cadastrados pelo usuário
+         $id = $_SESSION['idusuarios'];
+         $query = "SELECT AVG(valor) AS media FROM propostas  WHERE idusuario = $id";     
+    }
+
                                                                                                 $result = mysqli_query($conexao, $query);
 
 
@@ -1015,7 +1053,7 @@ FROM propostas;";
 
                                                                         <!-- Botão de visualizar proposta -->
                                                                         <a class='btn btn-primary' href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><i class='fa fa-eye'></i></a>
-                                                                        
+
 
                                                                         <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
