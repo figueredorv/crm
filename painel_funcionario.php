@@ -142,6 +142,11 @@ include("conexao.php");
 
             </div>
 
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
         </ul>
         <!-- End of Sidebar -->
 
@@ -516,16 +521,15 @@ include("conexao.php");
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php
 
 
-                                                 
-    if($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm'){
-                                    
-        $query = "SELECT AVG(valor) AS media FROM propostas";                
-     
-    }else{
-        //se nao tiver privilegios, ver os valores apenas cadastrados pelo usuário
-         $id = $_SESSION['idusuarios'];
-         $query = "SELECT AVG(valor) AS media FROM propostas  WHERE idusuario = $id";     
-    }
+
+                                                                                                if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+
+                                                                                                    $query = "SELECT AVG(valor) AS media FROM propostas";
+                                                                                                } else {
+                                                                                                    //se nao tiver privilegios, ver os valores apenas cadastrados pelo usuário
+                                                                                                    $id = $_SESSION['idusuarios'];
+                                                                                                    $query = "SELECT AVG(valor) AS media FROM propostas  WHERE idusuario = $id";
+                                                                                                }
 
                                                                                                 $result = mysqli_query($conexao, $query);
 
