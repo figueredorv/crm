@@ -3,9 +3,8 @@
 session_start();
 include('verificar_login.php');
 include("conexao.php");
-?>
 
-<?php
+
 // Verifique se o formulário de pesquisa foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nomePesquisado = $_POST['nome'];
@@ -48,9 +47,7 @@ function excluirDocumento($conexao, $id)
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DOCUMENTOS</title>
-
-
+    <title>Observações</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -59,9 +56,8 @@ function excluirDocumento($conexao, $id)
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/observacoes.css"> <!-- Certifique-se de ajustar o caminho conforme necessário -->
     <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
-
 </head>
 
 <body id="page-top">
@@ -145,27 +141,8 @@ function excluirDocumento($conexao, $id)
             endif;
             ?>
 
-
-
-
-
-
-
-
-
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading 
-            <div class="sidebar-heading">
-                Addons
-            </div>
-                -->
-
-
-
-
-
+            <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
@@ -235,13 +212,63 @@ function excluirDocumento($conexao, $id)
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts codigo abaixo -->
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <?php
+                                $idUsuario = $_SESSION['idusuarios'];
 
+                                // Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
+                                $query = "SELECT COUNT(*) AS total
+            FROM notificacoes n
+            LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+            WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
+                                $result = mysqli_query($conexao, $query);
+                                $row = mysqli_fetch_assoc($result);
 
+                                $totalNotificacoesNaoLidas = $row['total'];
 
-                        <!-- Final Nav Item - Alerts -->
+                                if ($totalNotificacoesNaoLidas > 0) {
+                                    echo '<span class="badge badge-danger badge-counter">' . $totalNotificacoesNaoLidas . '</span>';
+                                }
+                                ?>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notificações
+                                </h6>
 
+                                <?php
+                                // Obter notificações não lidas no banco de dados
+                                $queryNotificacoes = "SELECT * FROM notificacoes n
+            LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+            WHERE n.lida = 0 AND vn.id_visualizacao IS NULL
+            ORDER BY n.id DESC";
+                                $resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
 
+                                // Exibir as notificações dinamicamente no dropdown
+                                while ($rowNotificacao = mysqli_fetch_assoc($resultNotificacoes)) {
+                                    echo '<a class="dropdown-item d-flex align-items-center" href="notificacoes.php">';
+                                    echo '<div class="mr-3">';
+                                    echo '<div class="icon-circle bg-primary">';
+                                    echo '<i class="' . ($rowNotificacao['icon'] ? $rowNotificacao['icon'] : 'fas fa-bell') . ' text-white"></i>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                    echo '<div>';
+                                    echo '<div class="small text-gray-500">' . date('d/m/y', strtotime($rowNotificacao['data_publicacao'])) . '</div>';
+                                    echo '<span class="font-weight-bold">' . $rowNotificacao['titulo'] . '</span>';
+                                    echo '</div>';
+                                    echo '</a>';
+                                }
+
+                                ?>
+
+                                <a class="dropdown-item text-center small text-gray-500" href="notificacoes.php">Ver todas notificações</a>
+                            </div>
+                        </li>
 
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -309,7 +336,6 @@ function excluirDocumento($conexao, $id)
                             </div>
                         </li>
 
-
                     </ul>
 
                 </nav>
@@ -317,105 +343,100 @@ function excluirDocumento($conexao, $id)
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800" style="padding-bottom: 30px;">ENVIO E CONSULTA DE DOCUMENTOS</h1>
-
-
-                    <div class="container">
-
-                        <?php if (isset($_SESSION['erro_enviardoc'])) : ?>
-                            <br>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Atenção!</strong><?php echo $_SESSION['erro_enviardoc']; ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <?php
-                            unset($_SESSION['erro_enviardoc']); // Limpa a mensagem de erro após exibição
-                        endif;
-                        ?>
-
-                        <div class="container mt-4">
-
-                            <!-- Formulário de pesquisa -->
-                            <form method="POST" action="documentos.php" class="mb-4">
-                                <div class="form-row">
-                                    <div class="col-md-8">
-                                        <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary btn-block">Pesquisar</button>
-                                    </div>
-                                </div>
-                            </form>
-
-                            <style>
-                                .custom-text-color {
-                                    color: #64ABE7;
-                                    /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (Cor do texto ENVIO E CONSULTA DE DOCUMENTOS)*/
-                                }
-
-                                .custom-icon-color {
-                                    color: #64ABE7;
-                                    /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (cor do ícone)*/
-                                }
-
-                                .table-container {
-                                    max-height: 510px;
-                                    /* Defina a altura máxima desejada */
-                                    overflow-y: auto;
-                                    /* Adiciona uma barra de rolagem vertical quando necessário */
-                                }
-                            </style>
-
-
-
-                            <!-- Botão para cadastrar um novo documento -->
-
-                            <button type="button" class="btn btn-primary btn-block mb-3" data-toggle="modal" data-target="#modalExemplo">
-                                <i class="fa fa-cloud-upload"></i> Enviar documentos
+                    <?php if (isset($_SESSION['erro_enviardoc'])) : ?>
+                        <br>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Atenção!</strong><?php echo $_SESSION['erro_enviardoc']; ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
                             </button>
-                            <div class="table-container">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Prévia</th>
-                                            <th>Nome do Documento</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        if (isset($result)) {
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                $nome = $row['nome'];
-                                                $documentoAnexado = $row['caminho'];
-                                                $id = $row["id"];
-
-
-
-                                                echo "<tr>";
-                                                echo "<td>$nome</td>";
-                                                echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
-                                                echo "<td>$documentoAnexado</td>";
-                                                echo "<td>";
-                                                echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a> ";
-                                                echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a> ";
-                                                if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
-                                                    echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
-                                                }
-                                                echo "</td>";
-                                                echo "</tr>";
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
+                    <?php
+                        unset($_SESSION['erro_enviardoc']); // Limpa a mensagem de erro após exibição
+                    endif;
+                    ?>
+
+                    <div class="container mt-4">
+                        <h4 class="text-center mb-4 custom-text-color">
+                            <i class="fa fa-file-text-o custom-icon-color" aria-hidden="true"></i> ENVIO E CONSULTA DE DOCUMENTOS
+                        </h4>
+                        <!-- Formulário de pesquisa -->
+                        <form method="POST" action="documentos.php" class="mb-4">
+                            <div class="form-row">
+                                <div class="col-md-8">
+                                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary btn-block">Pesquisar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <style>
+                            .custom-text-color {
+                                color: #64ABE7;
+                                /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (Cor do texto ENVIO E CONSULTA DE DOCUMENTOS)*/
+                            }
+
+                            .custom-icon-color {
+                                color: #64ABE7;
+                                /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (cor do ícone)*/
+                            }
+
+                            .table-container {
+                                max-height: 510px;
+                                /* Defina a altura máxima desejada */
+                                overflow-y: auto;
+                                /* Adiciona uma barra de rolagem vertical quando necessário */
+                            }
+                        </style>
+
+
+
+                        <!-- Botão para cadastrar um novo documento -->
+
+                        <button type="button" class="btn btn-success btn-block mb-3" data-toggle="modal" data-target="#modalExemplo" style="background-color: #FF4D75;">
+                            <i class="fa fa-cloud-upload"></i> Upload
+                        </button>
+                        <div class="table-container">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Prévia</th>
+                                        <th>Nome do Documento</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    if (isset($result)) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $nome = $row['nome'];
+                                            $documentoAnexado = $row['caminho'];
+                                            $id = $row["id"];
+
+
+
+                                            echo "<tr>";
+                                            echo "<td>$nome</td>";
+                                            echo "<td><img src='documentos/$documentoAnexado' class='img-thumbnail' width='100' height='100' alt='Prévia' /></td>";
+                                            echo "<td>$documentoAnexado</td>";
+                                            echo "<td>";
+                                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' target='_blank'><i class='fa fa-eye'></i></a> ";
+                                            echo "<a class='btn btn-primary' href='documentos/$documentoAnexado' download><i class='fa fa-download'></i></a> ";
+                                            if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') {
+                                                echo "<a class='btn btn-danger' href='documentos.php?func=deletar&id=$id'><i class='fa fa-trash'></i></a>";
+                                            }
+                                            echo "</td>";
+                                            echo "</tr>";
+                                        }
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
 
 
@@ -423,117 +444,192 @@ function excluirDocumento($conexao, $id)
 
 
 
-                        <!-- Modal -->
-                        <div id="modalExemplo" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
+                    <!-- Modal -->
+                    <div id="modalExemplo" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
 
-                                        <h4 class="modal-title">Cadastrar documento</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" action="" enctype="multipart/form-data">
+                                    <h4 class="modal-title">Cadastrar documento</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="" enctype="multipart/form-data">
 
-                                            <!-- Exibir mensagem de erro -->
+                                        <!-- Exibir mensagem de erro -->
 
 
-                                            <!-- Campo de pesquisa dentro do modal -->
-                                            <div class="form-group col-md-12">
-                                                <label for="inputNome">Nome*</label>
-                                                <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
+                                        <!-- Campo de pesquisa dentro do modal -->
+                                        <div class="form-group col-md-12">
+                                            <label for="inputNome">Nome*</label>
+                                            <input type="text" id="nome-modal" name="nome" class="form-control" placeholder="Nome do cliente">
 
-                                                <label for="inputNome">
-                                                    Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento?</label>
-                                                <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
-                                            </div>
+                                            <label for="inputNome">
+                                                Qual o <a href="propostas.php" target="_blank">id da proposta</a> que deseja atribuir esse documento?</label>
+                                            <input type="text" id="idproposta" name="idproposta" class="form-control" placeholder="ID da proposta">
+                                        </div>
 
-                                            <!-- Lista suspensa para resultados da pesquisa -->
-                                            <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
+                                        <!-- Lista suspensa para resultados da pesquisa -->
+                                        <ul id="lista-resultados" class="dropdown-menu" style="display: none;"></ul>
 
-                                            <script>
-                                                // Função para atualizar a lista suspensa com os resultados da pesquisa
-                                                function atualizarListaSuspensa(resultados) {
-                                                    var listaSuspensa = document.getElementById("lista-resultados");
+                                        <script>
+                                            // Função para atualizar a lista suspensa com os resultados da pesquisa
+                                            function atualizarListaSuspensa(resultados) {
+                                                var listaSuspensa = document.getElementById("lista-resultados");
 
-                                                    // Limpa a lista suspensa
-                                                    listaSuspensa.innerHTML = "";
+                                                // Limpa a lista suspensa
+                                                listaSuspensa.innerHTML = "";
 
-                                                    // Preenche a lista suspensa com os resultados
-                                                    resultados.forEach(function(resultado) {
-                                                        var listItem = document.createElement("li");
-                                                        listItem.classList.add("dropdown-item");
-                                                        listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
-                                                        listaSuspensa.appendChild(listItem);
-                                                    });
-
-                                                    // Exibe a lista suspensa
-                                                    listaSuspensa.style.display = "block";
-                                                }
-
-                                                // Função para preencher o campo de entrada com o nome selecionado
-                                                function selecionarNome(e) {
-                                                    var nomeSelecionado = e.target.textContent;
-                                                    document.getElementById("nome-modal").value = nomeSelecionado;
-                                                    document.getElementById("lista-resultados").style.display = "none";
-                                                }
-
-                                                // Adiciona um evento de entrada ao campo de pesquisa
-                                                document.getElementById("nome-modal").addEventListener("input", function() {
-                                                    var nomePesquisa = document.getElementById("nome-modal").value;
-                                                    var listaSuspensa = document.getElementById("lista-resultados");
-
-                                                    if (nomePesquisa !== "") {
-                                                        // Fazer uma solicitação AJAX para buscar os registros em tempo real
-                                                        var xhr = new XMLHttpRequest();
-                                                        xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
-
-                                                        xhr.onreadystatechange = function() {
-                                                            if (xhr.readyState == 4 && xhr.status == 200) {
-                                                                var registros = JSON.parse(xhr.responseText);
-                                                                atualizarListaSuspensa(registros);
-                                                            }
-                                                        };
-
-                                                        xhr.send();
-                                                    } else {
-                                                        listaSuspensa.style.display = "none";
-                                                    }
+                                                // Preenche a lista suspensa com os resultados
+                                                resultados.forEach(function(resultado) {
+                                                    var listItem = document.createElement("li");
+                                                    listItem.classList.add("dropdown-item");
+                                                    listItem.textContent = resultado.nome; // Mostra apenas o nome do cliente
+                                                    listaSuspensa.appendChild(listItem);
                                                 });
 
-                                                // Adicionar um evento de clique aos itens da lista suspensa
-                                                document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
-                                            </script>
+                                                // Exibe a lista suspensa
+                                                listaSuspensa.style.display = "block";
+                                            }
+
+                                            // Função para preencher o campo de entrada com o nome selecionado
+                                            function selecionarNome(e) {
+                                                var nomeSelecionado = e.target.textContent;
+                                                document.getElementById("nome-modal").value = nomeSelecionado;
+                                                document.getElementById("lista-resultados").style.display = "none";
+                                            }
+
+                                            // Adiciona um evento de entrada ao campo de pesquisa
+                                            document.getElementById("nome-modal").addEventListener("input", function() {
+                                                var nomePesquisa = document.getElementById("nome-modal").value;
+                                                var listaSuspensa = document.getElementById("lista-resultados");
+
+                                                if (nomePesquisa !== "") {
+                                                    // Fazer uma solicitação AJAX para buscar os registros em tempo real
+                                                    var xhr = new XMLHttpRequest();
+                                                    xhr.open("GET", "buscar_registros.php?nome=" + nomePesquisa, true);
+
+                                                    xhr.onreadystatechange = function() {
+                                                        if (xhr.readyState == 4 && xhr.status == 200) {
+                                                            var registros = JSON.parse(xhr.responseText);
+                                                            atualizarListaSuspensa(registros);
+                                                        }
+                                                    };
+
+                                                    xhr.send();
+                                                } else {
+                                                    listaSuspensa.style.display = "none";
+                                                }
+                                            });
+
+                                            // Adicionar um evento de clique aos itens da lista suspensa
+                                            document.getElementById("lista-resultados").addEventListener("click", selecionarNome);
+                                        </script>
 
 
-                                            <div class="form-group col-md-12">
-                                                <label for="inputDocumento">Deseja anexar algum documento?</label>
-                                                <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
-                                            </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="inputDocumento">Deseja anexar algum documento?</label>
+                                            <input name="imagens[]" multiple type="file" class="form-control-file" id="inputDocumento" accept=".pdf, .jpg, jpeg, .png">
+                                        </div>
 
 
 
-                                    </div>
+                                </div>
 
 
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary mb-3" name="button">Salvar </button>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary mb-3" name="button">Salvar </button>
 
 
-                                        <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
-                                        </form>
+                                    <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
+                                    </form>
 
 
-                                        </form>
+                                    </form>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <?php
+                    if (isset($_POST['button'])) {
+                        $nome = $_POST['nome'];
+                        $documentoanexado = $_FILES['imagens'];
+                        $idproposta = $_POST['idproposta'];
 
+                        // Verifica se pelo menos um documento foi enviado
+                        if (empty($_FILES['imagens']['name'][0])) {
+                            echo "<script language='javascript'> window.alert('Por favor, selecione pelo menos um documento antes de enviar.'); </script>";
+                            echo "<script language='javascript'> window.location='documentos.php'; </script>";
+                            exit; // Interrompe a execução do script se nenhum documento for selecionado
+                        }
+
+                        if (empty($_POST['nome'])) {
+                            $_SESSION['erro_enviardoc'] = ' Por favor, preencha o campo com o nome do cliente antes de enviar o documento.';
+                            echo "<script language='javascript'> window.location='documentos.php'; </script>";
+                            exit; // Interrompe a execução do script se o campo nome do cliente não estiver preenchido
+                        }
+
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            $imagens = $_FILES['imagens'];
+                            $novo_nome = '';
+                            foreach ($imagens['name'] as $key => $nomedocumento) {
+                                if ($imagens['error'][$key] === 0) {
+                                    $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+                                    $novo_nome = md5(uniqid()) . '.' . $extensao;
+
+                                    if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+                                        // Insira o nome do arquivo no banco de dados
+                                        $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome','$novo_nome','$idproposta')";
+                                        mysqli_query($conexao, $query);
+                                    }
+                                }
+                            }
+                        }
+
+                        echo "<script language='javascript'> window.alert('Documento cadastrado com Sucesso!'); </script>";
+                        echo "<script language='javascript'> window.location='documentos.php'; </script>";
+                    }
+                    ?>
+
+
+
+
+                    <?php
+
+                    if (@$_GET['func'] == 'deletar') {
+                        $id = $_GET['id'];
+                        $query = "DELETE FROM documentos where id = '$id'";
+
+                        $registro_id = $id; // O ID do registro a ser excluído
+
+                        // Consulta para recuperar o nome do arquivo associado ao registro
+                        $consulta = "SELECT caminho FROM documentos WHERE id = $registro_id";
+                        $resultado = mysqli_query($conexao, $consulta);
+
+                        if ($resultado) {
+                            $linha = mysqli_fetch_assoc($resultado);
+                            $novo_nome = $linha['caminho']; // Usando o mesmo nome da variável
+
+                            // Excluir o arquivo do servidor
+                            if (file_exists('documentos/' . $novo_nome)) {
+                                unlink('documentos/' . $novo_nome);
+                            }
+
+                            // Excluir o registro do banco de dados
+                            $consulta_exclusao = "DELETE FROM documentos WHERE id = $registro_id";
+                            mysqli_query($conexao, $consulta_exclusao);
+                        }
+
+                        mysqli_query($conexao, $query);
+                        echo "<script language='javascript'> window.alert('Documento excluído com Sucesso!'); </script>";
+                        echo "<script language='javascript'> window.location='documentos.php'; </script>";
+                    }
+
+
+                    ?>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -545,7 +641,7 @@ function excluirDocumento($conexao, $id)
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; CRMCORBAN 2023</span>
                     </div>
                 </div>
             </footer>
@@ -591,94 +687,6 @@ function excluirDocumento($conexao, $id)
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
-
 </body>
 
 </html>
-
-
-
-
-<?php
-if (isset($_POST['button'])) {
-    $nome = $_POST['nome'];
-    $documentoanexado = $_FILES['imagens'];
-    $idproposta = $_POST['idproposta'];
-
-    // Verifica se pelo menos um documento foi enviado
-    if (empty($_FILES['imagens']['name'][0])) {
-        echo "<script language='javascript'> window.alert('Por favor, selecione pelo menos um documento antes de enviar.'); </script>";
-        echo "<script language='javascript'> window.location='documentos.php'; </script>";
-        exit; // Interrompe a execução do script se nenhum documento for selecionado
-    }
-
-    if (empty($_POST['nome'])) {
-        $_SESSION['erro_enviardoc'] = ' Por favor, preencha o campo com o nome do cliente antes de enviar o documento.';
-        echo "<script language='javascript'> window.location='documentos.php'; </script>";
-        exit; // Interrompe a execução do script se o campo nome do cliente não estiver preenchido
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $imagens = $_FILES['imagens'];
-        $novo_nome = '';
-        foreach ($imagens['name'] as $key => $nomedocumento) {
-            if ($imagens['error'][$key] === 0) {
-                $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
-                $novo_nome = md5(uniqid()) . '.' . $extensao;
-
-                if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
-                    // Insira o nome do arquivo no banco de dados
-                    $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome','$novo_nome','$idproposta')";
-                    mysqli_query($conexao, $query);
-                }
-            }
-        }
-    }
-
-    echo "<script language='javascript'> window.alert('Documento cadastrado com Sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='documentos.php'; </script>";
-}
-?>
-
-
-
-
-<?php
-
-if (@$_GET['func'] == 'deletar') {
-    $id = $_GET['id'];
-    $query = "DELETE FROM documentos where id = '$id'";
-
-    $registro_id = $id; // O ID do registro a ser excluído
-
-    // Consulta para recuperar o nome do arquivo associado ao registro
-    $consulta = "SELECT caminho FROM documentos WHERE id = $registro_id";
-    $resultado = mysqli_query($conexao, $consulta);
-
-    if ($resultado) {
-        $linha = mysqli_fetch_assoc($resultado);
-        $novo_nome = $linha['caminho']; // Usando o mesmo nome da variável
-
-        // Excluir o arquivo do servidor
-        if (file_exists('documentos/' . $novo_nome)) {
-            unlink('documentos/' . $novo_nome);
-        }
-
-        // Excluir o registro do banco de dados
-        $consulta_exclusao = "DELETE FROM documentos WHERE id = $registro_id";
-        mysqli_query($conexao, $consulta_exclusao);
-    }
-
-    mysqli_query($conexao, $query);
-    echo "<script language='javascript'> window.alert('Documento excluído com Sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='documentos.php'; </script>";
-}
-
-
-?>

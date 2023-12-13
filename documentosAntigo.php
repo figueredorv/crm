@@ -76,7 +76,7 @@ function excluirDocumento($conexao, $id)
                 <i class="fa fa-file-text-o custom-icon-color" aria-hidden="true"></i> ENVIO E CONSULTA DE DOCUMENTOS
             </h4>
             <!-- Formulário de pesquisa -->
-            <form method="POST" action="documentos.php" class="mb-4">
+            <form method="POST" action="documentosantigo.php" class="mb-4">
                 <div class="form-row">
                     <div class="col-md-8">
                         <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do cliente">
