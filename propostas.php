@@ -838,7 +838,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
 
                             <table class="table table-hover table-borderless">
-                                <thead class=" text-primary">
+                                <thead class=" text-primary thead-light">
                                     <th>
                                         id
                                     </th>
