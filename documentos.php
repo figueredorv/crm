@@ -48,7 +48,7 @@ function excluirDocumento($conexao, $id)
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DOCUMENTOS</title>
+    <title>Documentos</title>
 
 
 
@@ -365,9 +365,10 @@ function excluirDocumento($conexao, $id)
                                 }
 
                                 .table-container {
-                                    max-height: 510px;
-                                    max-width: auto;
                                     /* Defina a altura máxima desejada */
+                                    max-height: 510px;
+                                      
+                                    
                                     overflow-y: auto;
                                     /* Adiciona uma barra de rolagem vertical quando necessário */
                                 }
