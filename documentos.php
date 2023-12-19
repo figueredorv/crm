@@ -199,13 +199,13 @@ function excluirDocumento($conexao, $id)
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
+                   
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form  method="POST" action="documentos.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" name="nome" id="nome" class="form-control bg-light border-0 small" placeholder="Pesquisar pelo nome" aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -237,8 +237,9 @@ function excluirDocumento($conexao, $id)
 
                         <!-- Nav Item - Alerts codigo abaixo -->
 
-
-
+                        <!-- Nav Item - Alerts -->
+                        
+                            
                         <!-- Final Nav Item - Alerts -->
 
 
@@ -339,7 +340,7 @@ function excluirDocumento($conexao, $id)
 
                         <div class="container mt-4">
 
-                            <!-- Formulário de pesquisa -->
+                            <!-- Formulário de pesquisa 
                             <form method="POST" action="documentos.php" class="mb-4">
                                 <div class="form-row">
                                     <div class="col-md-8">
@@ -350,6 +351,7 @@ function excluirDocumento($conexao, $id)
                                     </div>
                                 </div>
                             </form>
+                            -->
 
                             <style>
                                 .custom-text-color {
@@ -364,6 +366,7 @@ function excluirDocumento($conexao, $id)
 
                                 .table-container {
                                     max-height: 510px;
+                                    max-width: auto;
                                     /* Defina a altura máxima desejada */
                                     overflow-y: auto;
                                     /* Adiciona uma barra de rolagem vertical quando necessário */
