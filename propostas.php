@@ -52,6 +52,13 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
+
+  <!--     Toast alerts javascript     -->
+  <script src="https://jsuites.net/v4/jsuites.js"></script>
+  <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
 </head>
 
 <body id="page-top">
@@ -420,6 +427,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                 <div class="form-inline my-2 my-lg-0">
                   <div class="btn-group">
+                    
+                  
 
                     <!-- Botão "ADICIONAR" -->
                     <form class="form-inline mr-2">
@@ -1958,13 +1967,31 @@ if (isset($_POST['button'])) {
 
 
 
-  if ($result == '') {
-    echo "<script language='javascript'> window.alert('Ocorreu um erro ao Cadastrar!'); </script>";
-  } else {
+if ($result == '') {
+  echo "<script>
+  jSuites.notification({
+    error: 1,
+    name: 'Erro.',
+    message: 'Ocorreu um erro ao cadastrar!',
+});
+        </script>";
+} else {
+  echo "<script>
+          jSuites.notification({ 
+            name: 'Sucesso!', 
+            message: 'Proposta cadastrada com sucesso!',
+            timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+          });
 
-    echo "<script language='javascript'> window.alert('Proposta cadastrada com sucesso!'); </script>";
-    echo "<script language='javascript'> window.location='propostas.php'; </script>";
-  }
+          // Aguardar 3 segundos antes de redirecionar
+          setTimeout(function() {
+              window.location.href = 'propostas.php';
+          }, 3000);
+        </script>";
+}
+
+
+
 }
 
 ?>
@@ -2300,11 +2327,27 @@ if (@$_GET['func'] == 'editarcliente') {
       $queryeditar = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Editou um pet de espécie: $especie', curDate())";
       $resulteditar = mysqli_query($conexao, $queryeditar);
       */
-      if ($result_editar == '') {
-        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      if ($result == '') {
+        echo "<script>
+        jSuites.notification({
+          error: 1,
+          name: 'Erro.',
+          message: 'Ocorreu um erro ao editar!',
+      });
+              </script>";
       } else {
-        echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
-        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+        echo "<script>
+                jSuites.notification({ 
+                  name: 'Sucesso!', 
+                  message: 'Editado com sucesso!',
+                  timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+                });
+      
+                // Aguardar 3 segundos antes de redirecionar
+                setTimeout(function() {
+                    window.location.href = 'propostas.php';
+                }, 3000);
+              </script>";
       }
     }
     ?>
@@ -2767,11 +2810,27 @@ if (@$_GET['func'] == 'editarpropostas') {
       $queryeditar = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Editou um pet de espécie: $especie', curDate())";
       $resulteditar = mysqli_query($conexao, $queryeditar);
       */
-      if ($result_editar == '') {
-        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      if ($result == '') {
+        echo "<script>
+        jSuites.notification({
+          error: 1,
+          name: 'Erro.',
+          message: 'Ocorreu um erro ao editar!',
+      });
+              </script>";
       } else {
-        echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
-        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+        echo "<script>
+                jSuites.notification({ 
+                  name: 'Sucesso!', 
+                  message: 'Editado com sucesso!',
+                  timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+                });
+      
+                // Aguardar 3 segundos antes de redirecionar
+                setTimeout(function() {
+                    window.location.href = 'propostas.php';
+                }, 3000);
+              </script>";
       }
     }
     ?>
@@ -3320,11 +3379,27 @@ if (@$_GET['func'] == 'editardadosbancarios') {
       $queryeditar = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Editou um pet de espécie: $especie', curDate())";
       $resulteditar = mysqli_query($conexao, $queryeditar);
       */
-      if ($result_editar == '') {
-        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+      if ($result == '') {
+        echo "<script>
+        jSuites.notification({
+          error: 1,
+          name: 'Erro.',
+          message: 'Ocorreu um erro ao editar!',
+      });
+              </script>";
       } else {
-        echo "<script language='javascript'> window.alert('Editado com Sucesso!'); </script>";
-        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+        echo "<script>
+                jSuites.notification({ 
+                  name: 'Sucesso!', 
+                  message: 'Editado com sucesso!',
+                  timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+                });
+      
+                // Aguardar 3 segundos antes de redirecionar
+                setTimeout(function() {
+                    window.location.href = 'propostas.php';
+                }, 3000);
+              </script>";
       }
     }
     ?>
@@ -3408,6 +3483,10 @@ if (@$_GET['func'] == 'editardadosbancarios') {
     </div>
   </div>
 </div>
+
+
+
+
 
 <script>
   // lógica para obter o id corretamento no modal antes de excluir um registro.
@@ -3793,7 +3872,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Fechar</button>
           </div>
         </div>
       </div>
@@ -3810,6 +3889,18 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
 
 
+
+<script>
+  // Função para remover todos os parâmetros, exceto 'pagina', da URL
+  // isso evita que ao clicar para visualizar uma proposta, depois clicar em alguma pagina do paginate, nao abra em visualizar a proposta.
+  function removerParametrosExcetoPagina() {
+    var paginaAtual = <?php echo $pagina; ?>;
+    var novaURL = "propostas.php?pagina=" + paginaAtual;
+    
+    // Redireciona para a nova URL
+    window.location.href = novaURL;
+  }
+</script>
 
 
 
