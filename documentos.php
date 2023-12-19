@@ -364,9 +364,10 @@ function excluirDocumento($conexao, $id)
                                     /* Substitua pela cor desejada em formato hexadecimal, RGB, ou nome da cor (cor do ícone)*/
                                 }
 
-                                .table-container {
+                                .container {
                                     /* Defina a altura máxima desejada */
                                     max-height: 510px;
+                                    max-width: 100%;
                                       
                                     
                                     overflow-y: auto;
