@@ -54,7 +54,7 @@ if (isset($_POST['btn'])) {
                 exit();
             }
         } else {
-            $_SESSION['erro_login'] = 'Credenciais inválidas.';
+            $_SESSION['erro_login'] = 'Usúario ou senha incorretos.';
             header('Location: index.php');
             exit();
         }
