@@ -45,9 +45,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
+ 
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -1623,6 +1621,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
     </div>
   </div>
 
+ <!-- Custom scripts for all pages-->
+ <script src="js/sb-admin-2.min.js"></script>
 
 
 </body>
