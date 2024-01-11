@@ -17,6 +17,14 @@ include("conexao.php");
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
+
 
 
 
@@ -41,7 +49,7 @@ include("conexao.php");
 
 <body class="">
     <div class="wrapper ">
-        <div class="sidebar" data-color="white" data-active-color="danger">
+        <div class="sidebar" data-color="blue" data-active-color="danger">
             <div class="logo">
                 <a href="" class="simple-text logo-mini">
 
@@ -65,155 +73,25 @@ include("conexao.php");
                     </li>
 
                     <li class="">
-                        <a href="propostas.php">
-                            <i class="fa fa-search"></i>
-                            <p>Propostas</p>
-                        </a>
+                    <a class="nav-link" href="propostas.php">
+                    <i class="fa fa-search"></i>
+                    <span>Propostas</span></a>
                     </li>
-
-
-
-                    <?php
-$idUsuario = $_SESSION['idusuarios'];
-
-// Consulta para contar notificações não lidas associadas ao usuário na tabela visualizacoes_notificacoes
-$query = "SELECT COUNT(*) AS total
-          FROM notificacoes n
-          LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
-          WHERE n.lida = 0 AND vn.id_visualizacao IS NULL";
-$result = mysqli_query($conexao, $query);
-$row = mysqli_fetch_assoc($result);
-
-$totalNotificacoesNaoLidas = $row['total'];
-?>
-<!-- No seu HTML, onde deseja exibir o número de notificações não lidas -->
-<li class="">
-    <a href="notificacoes.php">
-        <i class="fa fa-bell-o"></i>
-        <p>Notificações
-            <?php
-            if ($totalNotificacoesNaoLidas > 0) {
-                echo '<span class="badge badge-secondary" style="font-size: larger;">' . $totalNotificacoesNaoLidas . '</span>';
-              }
-            ?>
-        </p>
-    </a>
-</li>
-
-
-<script>
-// Verifica se a última vez que o usuário visualizou as notificações está armazenada no localStorage
-var ultimaVisualizacao = localStorage.getItem('ultimaVisualizacao');
-
-// Se não houver registro ou se já passou mais de 24 horas, zera o contador e atualiza a última visualização
-if (!ultimaVisualizacao || (Date.now() - ultimaVisualizacao > 24 * 60 * 60 * 1000)) {
-    localStorage.setItem('ultimaVisualizacao', Date.now());
-    // Código para zerar o badge
-    document.querySelector('.badge').innerText = '0';
-}
-
-// Adicione este código à parte do seu script JavaScript onde a lógica das notificações é tratada
-</script>
-
-
-
-
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <p>Campanhas <i class="fa fa-angle-right"></i></p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Minhas campanhas</a></li>
-                            <li><a href="#">Atendimento</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                            <p>Relatórios<i class="fa fa-angle-right"></i></p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Propostas</a>
-                            <a class="dropdown-item" href="#">Campanhas</a>
-                        </ul>
-                    </li>
-
-                    <?php
-                    // lógica para só conseguir visualizar o dropdown financeiro quem for master ou Adm do sistema
-                    if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                <p>Financeiro<i class="fa fa-angle-right"></i></p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Comissionamento</a>
-                                <a class="dropdown-item" href="#">Lançamentos</a>
-                                <a class="dropdown-item" href="#">Pagamentos</a>
-                            </ul>
-                        </li>
-
-                    <?php
-
-                    endif;
-
-                    ?>
-
-
-
-
-
-                    <?php
-                    // lógica para só conseguir visualizar o dropdown Administração quem for nível Master do sistema.
-                    if ($_SESSION['cargo_usuario'] == 'Master') : ?>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                <p>Administração<i class="fa fa-angle-right"></i></p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <a class="dropdown-item" href="usuarios.php">Usuários</a>
-                                <a class="dropdown-item" href="#">Grupos</a>
-                                <a class="dropdown-item" href="#">Tabelas</a>
-                                <a class="dropdown-item" href="#">Status</a>
-                                <a class="dropdown-item" href="promotora.php">Promotoras</a>
-                                <a class="dropdown-item" href="#">Tabulação</a>
-                                <a class="dropdown-item" href="#">Canais de vendas</a>
-                            </ul>
-                        </li>
-
-                    <?php
-                    endif;
-                    ?>
-
-
-
-
-                    <style>
-                        .dropdown-toggle::after {
-                            display: none;
-                        }
-                    </style>
-
-                    <style>
-                        .dropdown-menu a {
-                            text-align: right;
-                        }
-                    </style>
 
                     <li class="">
-                        <a href="documentos.php">
-                            <i class="fa fa-id-card-o"></i>
-                            <p>Documentos</p>
-                        </a>
+                    <a class="nav-link" href="documentos.php">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Documentos</span></a>
                     </li>
-
-
 
                     <li class="">
-                        <a href="">
-                            <i class="fa fa-users"></i>
-                            <p>Bases</p>
-                        </a>
+                    <a class="nav-link" href="observacoes.php">
+                    <i class="fa fa-comment"></i>
+                    <span>Observações</span></a>
                     </li>
+
+
+
 
 
 
