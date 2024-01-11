@@ -1157,11 +1157,11 @@ include("conexao.php");
                                     <div class="table-responsive">
                                         <?php
                                         $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas
-                                        FROM usuarios u
-                                        LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-                                        GROUP BY u.idusuarios, u.usuario
-                                        ORDER BY propostas DESC
-                                        LIMIT 3 OFFSET 0;";
+            FROM usuarios u
+            LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+            GROUP BY u.idusuarios, u.usuario
+            ORDER BY propostas DESC
+            LIMIT 3 OFFSET 0;";
 
                                         $result = mysqli_query($conexao, $query);
                                         $row = mysqli_num_rows($result);
@@ -1172,8 +1172,10 @@ include("conexao.php");
                                         ?>
                                             <table class="table">
                                                 <thead class="text-primary">
+                                                    <th>Imagem</th>
                                                     <th>Usuário</th>
                                                     <th>Propostas cadastradas</th>
+                                                     
                                                 </thead>
                                                 <tbody>
                                                     <?php
@@ -1194,8 +1196,12 @@ include("conexao.php");
                                                         }
                                                     ?>
                                                         <tr>
+                                                            <td>
+                                                                <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
+                                                            </td>
                                                             <td><?php echo $nome; ?></td>
                                                             <td><?php echo $propostas; ?></td>
+
                                                         </tr>
                                                     <?php
                                                     }
@@ -1243,7 +1249,7 @@ include("conexao.php");
         -->
 
 
-        <!-- Logout Modal-->
+    <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -1263,28 +1269,28 @@ include("conexao.php");
     </div>
 
     <!-- Modal de confirmação de exclusão de registro -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Confirmação de Exclusão</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Tem certeza de que deseja excluir este registro?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
-      </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmação de Exclusão</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza de que deseja excluir este registro?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary btn btn-danger" href="propostas.php?func=deleta&id=<?php echo $id; ?>">Excluir</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 
-  
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
