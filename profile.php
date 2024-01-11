@@ -27,8 +27,8 @@ include("conexao.php");
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/userprofile.css" rel="stylesheet">
     <link href="assets" rel="stylesheet">
-        <!--     Fonts and icons     -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 
@@ -260,7 +260,7 @@ include("conexao.php");
                             </div>
                         </li>
 
-                       
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -380,23 +380,23 @@ include("conexao.php");
                                             Proposta mais alta que cadastrei</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <h5><?php
-                                            $query = "SELECT MAX(valor) AS max_valor FROM propostas WHERE idusuario = '$idUsuario'";
-                                            $result = mysqli_query($conexao, $query);
+                                                $query = "SELECT MAX(valor) AS max_valor FROM propostas WHERE idusuario = '$idUsuario'";
+                                                $result = mysqli_query($conexao, $query);
 
-                                            if ($result) {
-                                                $row = mysqli_fetch_assoc($result);
-                                                $max_valor = $row['max_valor'];
+                                                if ($result) {
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $max_valor = $row['max_valor'];
 
-                                                if ($max_valor !== null) {
-                                                    $max_valor_em_reais = number_format($max_valor, 2, ",", "."); // Dividimos por 100 para converter de centavos para reais
-                                                    echo "<h5>R$ $max_valor_em_reais</h5>";
+                                                    if ($max_valor !== null) {
+                                                        $max_valor_em_reais = number_format($max_valor, 2, ",", "."); // Dividimos por 100 para converter de centavos para reais
+                                                        echo "<h5>R$ $max_valor_em_reais</h5>";
+                                                    } else {
+                                                        echo "<h5>R$ 0,00</h5>";
+                                                    }
                                                 } else {
                                                     echo "<h5>R$ 0,00</h5>";
                                                 }
-                                            } else {
-                                                echo "<h5>R$ 0,00</h5>";
-                                            }
-                                            ?></h5>
+                                                ?></h5>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -413,25 +413,25 @@ include("conexao.php");
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Valor total que cadastrei</div>
+                                            Valor total que cadastrei</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                                             <h5><?php
-                                            $query = "SELECT SUM(valor) AS soma_valor FROM propostas WHERE idusuario = '$idUsuario'";
-                                            $result = mysqli_query($conexao, $query);
+                                                $query = "SELECT SUM(valor) AS soma_valor FROM propostas WHERE idusuario = '$idUsuario'";
+                                                $result = mysqli_query($conexao, $query);
 
-                                            if ($result) {
-                                                $row = mysqli_fetch_assoc($result);
-                                                $somaValor = $row['soma_valor']; // Alterei de $maxValor para $somaValor
+                                                if ($result) {
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $somaValor = $row['soma_valor']; // Alterei de $maxValor para $somaValor
 
-                                                if (isset($somaValor)) {
-                                                    echo "<h5>R$ " . number_format($somaValor, 2, ',', '.') . "</h5>";
+                                                    if (isset($somaValor)) {
+                                                        echo "<h5>R$ " . number_format($somaValor, 2, ',', '.') . "</h5>";
+                                                    } else {
+                                                        echo "<h5>R$ 0,00</h5>";
+                                                    }
                                                 } else {
                                                     echo "<h5>R$ 0,00</h5>";
                                                 }
-                                            } else {
-                                                echo "<h5>R$ 0,00</h5>";
-                                            }
-                                            ?></h5>
+                                                ?></h5>
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -518,11 +518,12 @@ include("conexao.php");
                                             <div class="card-body">
                                                 <div class="table-responsive">
                                                     <?php
-                                                    $query = "SELECT u.idusuarios, u.usuario, COALESCE(COUNT(p.idusuario), 0) as propostas, u.ultima_autenticacao
-                                                FROM usuarios u
-                                                LEFT JOIN propostas p ON u.idusuarios = p.idusuario
-                                                GROUP BY u.idusuarios, u.usuario, u.ultima_autenticacao
-                                                ORDER BY propostas DESC;";
+                                                    $query = "SELECT u.idusuarios, u.usuario, u.sobremim, COALESCE(COUNT(p.idusuario), 0) as propostas, u.ultima_autenticacao
+                                                    FROM usuarios u
+                                                    LEFT JOIN propostas p ON u.idusuarios = p.idusuario
+                                                    GROUP BY u.idusuarios, u.usuario, u.sobremim, u.ultima_autenticacao
+                                                    ORDER BY propostas DESC;";
+                                          
 
 
 
@@ -548,6 +549,7 @@ include("conexao.php");
                                                                     $propostas = $res_1["propostas"];
                                                                     $idUsuario = $res_1["idusuarios"];
                                                                     $ultima_autenticacao = $res_1["ultima_autenticacao"];
+                                                                    $sobreMim = $res_1["sobremim"]; 
 
 
 
@@ -572,7 +574,11 @@ include("conexao.php");
                                                                             <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
                                                                             <span style="vertical-align: middle; margin-right: 5px;"></span>
                                                                         </td>
-                                                                        <td><?php echo $nome ?></td>
+                                                                        <td>
+                                                                            <h3><?php echo $nome ?></h3>
+                                                                            <p><?php echo $sobreMim ?><p>
+
+                                                                        </td>
                                                                         <td><?php
                                                                             $ultima_autenticacao = strtotime($ultima_autenticacao); // Converte a última autenticação para um timestamp
 
@@ -661,7 +667,7 @@ include("conexao.php");
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Sobre mim</label>
+                                                        <label>Descrição</label>
                                                         <textarea name="inputSobreMim" class="form-control textarea"><?php echo $_SESSION['sobremim']; ?></textarea>
                                                     </div>
                                                     <label>Atualizar imagem do perfil</label>
