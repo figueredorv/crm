@@ -3872,7 +3872,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Fechar</button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Fechar</button>
           </div>
         </div>
       </div>

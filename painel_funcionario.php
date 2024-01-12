@@ -911,32 +911,18 @@ include("conexao.php");
                                                     <thead class=" text-primary">
 
                                                         <th>
-                                                            Nome
+                                                            Nome do cliente
                                                         </th>
-                                                        <th>
-                                                            Cpf
-                                                        </th>
+                                                        
                                                         <th>
                                                             Operação
                                                         </th>
-                                                        <th>
-                                                            Convênio
-                                                        </th>
-                                                        <th>
-                                                            Banco
-                                                        </th>
-
                                                         <th>
                                                             Valor
                                                         </th>
                                                         <th>
                                                             Usuário
                                                         </th>
-
-                                                        <th>
-                                                            Data
-                                                        </th>
-
                                                         <th>
                                                             Status
                                                         </th>
@@ -968,7 +954,7 @@ include("conexao.php");
                                                             $convenio = $res_1["convenio"];
                                                             $banco = $res_1["banco"];
                                                             $valor = $res_1["valor"];
-                                                            //$promotora = $res_1["promotora"];
+                                                            $promotora = $res_1["promotora"];
                                                             $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                                                             $statusproposta = $res_1["statusproposta"];
                                                             $data = $res_1["data"];
@@ -989,13 +975,10 @@ include("conexao.php");
                                                             <tr>
 
                                                                 <td><?php echo $nome; ?></td>
-                                                                <td><?php echo  $cpf; ?></td>
                                                                 <td><?php echo  $operacao;  ?></td>
-                                                                <td><?php echo $convenio; ?></td>
-                                                                <td><?php echo $banco; ?></td>
                                                                 <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                                                                 <td><?php echo  $nome_usuario; ?></td>
-                                                                <td><?php echo  $data2; ?></td>
+                                                                
 
 
 
