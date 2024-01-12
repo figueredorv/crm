@@ -1321,7 +1321,11 @@ include("conexao.php");
     <script>
         const bannerSlider = document.getElementById('banner-slider');
 
-        function nextBanner() {
+        let ativarBanner = 1;
+
+        if (ativarBanner == 1){
+
+            function nextBanner() {
             bannerSlider.style.transition = 'transform 0.5s ease-in-out';
             bannerSlider.style.transform = 'translateX(-100%)';
             setTimeout(() => {
@@ -1331,7 +1335,10 @@ include("conexao.php");
             }, 500);
         }
 
-        setInterval(nextBanner, 5000); // Intervalo de 3 segundos
+        setInterval(nextBanner, 9000); // Intervalo de 9 segundos
+
+        }
+        
     </script>
 
 </body>
