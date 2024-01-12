@@ -913,7 +913,7 @@ include("conexao.php");
                                                         <th>
                                                             Nome do cliente
                                                         </th>
-                                                        
+
                                                         <th>
                                                             Operação
                                                         </th>
@@ -978,7 +978,7 @@ include("conexao.php");
                                                                 <td><?php echo  $operacao;  ?></td>
                                                                 <td><?php echo number_format($valor, 2, ",", "."); ?></td>
                                                                 <td><?php echo  $nome_usuario; ?></td>
-                                                                
+
 
 
 
@@ -1092,6 +1092,26 @@ include("conexao.php");
 
                         </div>
 
+                        <style>
+                            /* Estilo para o banner rotativo */
+                            #banner-container {
+                                max-width: 25rem;
+                                margin: auto;
+                                overflow: hidden;
+                            }
+
+                            #banner-slider {
+                                display: flex;
+                                transition: transform 0.5s ease-in-out;
+                            }
+
+                            .banner-image {
+                                width: 100%;
+                            }
+                        </style>
+
+
+
                         <div class="col-lg-6 mb-4">
 
                             <!-- Illustrations -->
@@ -1100,16 +1120,20 @@ include("conexao.php");
                                     <h6 class="m-0 font-weight-bold text-primary">Últimas Informações</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="...">
+                                    <div id="banner-container">
+                                        <div id="banner-slider">
+                                            <img class="banner-image" src="img/undraw_data_reports_706v.svg" alt="Banner 1">
+                                            <img class="banner-image" src="img/undraw_posting_photo.svg" alt="Banner 2">
+                                            
+                                        </div>
                                     </div>
                                     <?php
                                     // Obter as últimas 3 notificações não lidas no banco de dados
                                     $queryNotificacoes = "SELECT * FROM notificacoes n
-    LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
-     AND vn.id_visualizacao IS NULL
-    ORDER BY n.id DESC
-    LIMIT 3";
+                                    LEFT JOIN visualizacoes_notificacoes vn ON n.id = vn.id_notificacao AND vn.id_usuario = $idUsuario
+                                    AND vn.id_visualizacao IS NULL
+                                    ORDER BY n.id DESC
+                                    LIMIT 3";
                                     $resultNotificacoes = mysqli_query($conexao, $queryNotificacoes);
 
                                     // Exibir as notificações dinamicamente no dropdown
@@ -1158,7 +1182,7 @@ include("conexao.php");
                                                     <th>Imagem</th>
                                                     <th>Usuário</th>
                                                     <th>Propostas cadastradas</th>
-                                                     
+
                                                 </thead>
                                                 <tbody>
                                                     <?php
@@ -1293,6 +1317,22 @@ include("conexao.php");
     <script src="js/demo/chart-pie-demo.js"></script>
 
 
+    <!-- script banner rotativo -->
+    <script>
+        const bannerSlider = document.getElementById('banner-slider');
+
+        function nextBanner() {
+            bannerSlider.style.transition = 'transform 0.5s ease-in-out';
+            bannerSlider.style.transform = 'translateX(-100%)';
+            setTimeout(() => {
+                bannerSlider.appendChild(bannerSlider.firstElementChild);
+                bannerSlider.style.transition = 'none';
+                bannerSlider.style.transform = 'translateX(0)';
+            }, 500);
+        }
+
+        setInterval(nextBanner, 5000); // Intervalo de 3 segundos
+    </script>
 
 </body>
 
