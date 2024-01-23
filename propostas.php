@@ -56,6 +56,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+     <!-- Inclua o modal -->
+     <?php include 'modal_cpf.php'; ?>
+
+  
  
 </head>
 
@@ -430,7 +435,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                     <!-- Botão "ADICIONAR" -->
                     <form class="form-inline mr-2">
-                      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalExemplo">ADICIONAR</button>
+                      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_cpf">ADICIONAR</button>
                     </form>
 
                     <!-- Botão de filtro "Nova/Antiga" -->
@@ -1623,6 +1628,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
  <!-- Custom scripts for all pages-->
  <script src="js/sb-admin-2.min.js"></script>
+
+ 
 
 
 </body>
@@ -3942,3 +3949,8 @@ if (@$_GET['func'] == 'visualizarproposta') {
     document.getElementById('inputUf').value = dados.uf || '';
   }
 </script>
+
+
+
+
+

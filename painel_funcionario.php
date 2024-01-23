@@ -28,6 +28,7 @@ include("conexao.php");
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
+   
 
 </head>
 
@@ -1422,3 +1423,8 @@ include("conexao.php");
         chartStatus.draw(dataStatus, optionsStatus);
     }
 </script>
+
+
+
+
+
