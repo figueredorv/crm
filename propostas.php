@@ -2220,6 +2220,7 @@ if (@$_GET['func'] == 'editarcliente') {
       $complemento = $_POST['inputComplemento'];
       $bairro = $_POST['inputBairro'];
       $cidade = $_POST['inputCidade'];
+      $naturalidade = $_POST['inputNaturalidade'];
       $uf = $_POST['inputUf'];
       $data = date('d/m/Y H:i');
 
@@ -2326,7 +2327,7 @@ if (@$_GET['func'] == 'editarcliente') {
 
 
 
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg',numerobeneficio = '$numerobeneficio', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg',numerobeneficio = '$numerobeneficio', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade',naturalidade = '$naturalidade', uf = '$uf' where idpropostas = '$id' ";
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
@@ -2502,7 +2503,7 @@ if (@$_GET['func'] == 'editarpropostas') {
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputMargem">MARGEM</label>
-                  <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="">
+                  <input name="inputMargem" id="inputMargem" type="Text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" value="<?php echo $res_1['margem']; ?>">
                 </div>
                 <div class="form-group col-md-3">
                   <label for="inputPrazo">PRAZO</label>
@@ -2601,7 +2602,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       $convenio = $_POST['inputConvenio'];
       $operacao = $_POST['inputOperacao'];
       $banco = $_POST['inputBanco'];
-      $promotora = ""; //Obtendo dado diretamente do banco de dados
+      $promotora = $_POST['promotora']; 
       $margem = $_POST['inputMargem'];
       $prazo = $_POST['inputPrazo'];
       $valor = $_POST['inputValor'];
@@ -3913,42 +3914,7 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
 
 
-<script>
-  function consultaEndereco() {
-    // Obter o valor do CEP digitado
-    let cep = document.querySelector('#cep').value;
 
-    if (cep.length !== 8) {
-      alert('Cep inválido!');
-    }
-
-    let url = 'https://viacep.com.br/ws/' + cep + '/json/';
-
-    fetch(url)
-      .then(function(response) {
-        if (!response.ok) {
-          throw new Error('Erro na requisição');
-        }
-        return response.json();
-      })
-      .then(function(data) {
-        console.log(data);
-        mostrarEndereco(data); // Chama a função para preencher os inputs
-      })
-      .catch(function(error) {
-        console.error('Erro:', error);
-      });
-  }
-
-  function mostrarEndereco(dados) {
-    document.getElementById('inputRua').value = dados.logradouro || '';
-    document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
-    document.getElementById('inputComplemento').value = dados.complemento || '';
-    document.getElementById('inputBairro').value = dados.bairro || '';
-    document.getElementById('inputCidade').value = dados.localidade || '';
-    document.getElementById('inputUf').value = dados.uf || '';
-  }
-</script>
 
 
 

@@ -49,8 +49,8 @@
             <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="button_prosseguir" id="button_prosseguir" class="btn btn-primary">Prosseguir</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" name="button_prosseguir" id="button_prosseguir" class="btn btn-primary">Avançar</button>
           </div>
         </form>
       </div>
@@ -116,7 +116,7 @@ if (isset($_POST['button_prosseguir'])) {
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputCpf">CPF</label>
-                        <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>" disabled>
+                        <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $res_1['cpf']; ?>" readonly>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputRg">RG</label>
@@ -263,23 +263,24 @@ if (isset($_POST['button_prosseguir'])) {
                     <div class="form-group col-md-6">
                       <label for="inputTipoConta">TIPO DE CONTA</label>
                       <select name="inputTipoConta" class="form-control" id="inputTipoConta">
+                      <option selected><?php echo $res_1['tipodeconta']; ?></option>
                         <option value="1">CONTA CORRENTE</option>
                         <option value="2">CONTA SALÁRIO</option>
                       </select>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputAgencia">AGENCIA</label>
-                      <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="">
+                      <input name="inputAgencia" type="text" class="form-control" id="inputAgencia" placeholder="" value="<?php echo $res_1['agencia']; ?>">
                       <small class="text-muted">Com o dígito verificador se existir</small>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputConta">CONTA</label>
-                      <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="">
+                      <input name="inputConta" type="text" class="form-control" id="inputConta" placeholder="" value="<?php echo $res_1['conta']; ?>">
                       <small class="text-muted">Com o dígito verificador</small>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="inputRenda">RENDA</label>
-                      <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="" size="12" onKeyUp="mascaraMoeda(this, event)">
+                      <input name="inputRenda" type="text" class="form-control" id="inputRenda" placeholder="" value="<?php echo $res_1['renda']; ?>" size="12" onKeyUp="mascaraMoeda(this, event)">
                     </div>
                   </div>
 
@@ -483,168 +484,363 @@ if (isset($_POST['button_prosseguir'])) {
 
 
 
-    <!--Comando para editar os dados UPDATE -->
+    <!--Comando paraCADASTRAR os dados -->
     <?php
     if (isset($_POST['buttonEditar'])) {
-      $usuario = $_SESSION['nome_usuario'];
-      $nome = $_POST['inputNome'];
-      $cpf = $_POST["inputCpf"];
-      $rg = $_POST['inputRg'];
-      $numerobeneficio = $_POST['inputNumeroBeneficio'];
-      $dataemissao = $_POST['inputDataEmissao'];
-      $orgaoemissor = $_POST['inputOrgaoEmissor'];
-      $telefone = $_POST['inputTelefone'];
-      $email = $_POST['inputEmail'];
-      $nascimento = $_POST['inputDataNascimento'];
-      $nomedamae = $_POST["inputNomeMae"];
-      $nomedopai = $_POST['inputNomePai'];
-      $cep = $_POST['inputCep'];
-      $rua = $_POST['inputRua'];
-      $numero = $_POST['inputNumero'];
-      $complemento = $_POST['inputComplemento'];
-      $bairro = $_POST['inputBairro'];
-      $cidade = $_POST['inputCidade'];
-      $uf = $_POST['inputUf'];
-      $data = date('d/m/Y H:i');
+      $usuario = $_SESSION['idusuarios'];
+  $nome = $_POST['inputNome'];
+  $cpf = $_POST["inputCpf"];
+  $rg = $_POST['inputRg'];
+  $numerobeneficio = $_POST['inputNumeroBeneficio'];
+  $dataemissao = $_POST['inputDataEmissao'];
+  $orgaoemissor = $_POST['inputOrgaoEmissor'];
+  $nascimento = $_POST['inputDataNascimento'];
+  $nomedamae = $_POST["inputNomeMae"];
+  $nomedopai = $_POST['inputNomePai'];
+  $cep = $_POST['inputCep'];
+  $rua = $_POST['inputRua'];
+  $numero = $_POST['inputNumero'];
+  $complemento = $_POST['inputComplemento'];
+  $bairro = $_POST['inputBairro'];
+  $cidade = $_POST['inputCidade'];
+  $naturalidade = $_POST['inputNaturalidade'];
+  $uf = $_POST['inputUf'];
+  $telefone = $_POST['inputTelefone'];
+  $email = $_POST['inputEmail'];
+  $convenio = $_POST['inputConvenio'];
+  $banco = $_POST['inputBanco'];
+  $bancoproposta = $_POST['inputBancoProposta'];
+  $tipodeconta = $_POST['inputTipoConta'];
+  $agencia = $_POST['inputAgencia'];
+  $conta = $_POST['inputConta'];
+  $renda = $_POST['inputRenda'];
+  $operacao = $_POST['inputOperacao'];
+  $tabela = $_POST['inputTabela'];
+  $promotora = ""; //Obtendo dado diretamente do banco de dados
+  $margem = $_POST['inputMargem'];
+  $prazo = $_POST['inputPrazo'];
+  $valor = $_POST['inputValor'];
+  $valorparcelas = $_POST['inputValorParcelas'];
+  $formalizacao = $_POST['inputFormalizacao'];
+  $canal = $_POST['inputCanal'];
+  $documentoanexado   = $_FILES['imagens'];
+  $statusproposta = 'AGUARD DIGITAÇÃO';
+  $data = date('d/m/Y H:i');
 
 
 
 
 
 
+  if ($_POST["inputTipoConta"] == 1) {
+    $tipodeconta = "CONTA CORRENTE";
+  } elseif ($_POST["inputTipoConta"] == 2) {
+    $tipodeconta = "CONTA SALÁRIO";
+  }
 
-      //Marcando o uf com base no valor do input bairro
-      if (isset($_POST["inputUf"])) {
-        $inputUf = $_POST["inputUf"];
+  // Verifica se o formulário foi enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if ($uf == "AC") {
-          $uf = "Acre (AC)";
-        }
-        if ($uf == "AL") {
-          $$uf = "Alagoas (AL)";
-        }
-        if ($uf == "AP") {
-          $uf = "Amapá (AP)";
-        }
-        if ($uf == "AM") {
-          $uf = "Amazonas (AM)";
-        }
-        if ($uf == "BA") {
-          $uf = "Bahia (BA)";
-        }
-        if ($uf == "CE") {
-          $uf = "Ceará (CE)";
-        }
-        if ($uf == "DF") {
-          $uf = "Distrito Federal (DF)";
-        }
-        if ($inputUf == "ES") {
-          $bairro = "Espírito Santo (ES)";
-        }
-        if ($uf == "GO") {
-          $uf = "Goiás (GO)";
-        }
-        if ($uf == "MA") {
-          $uf = "Maranhão (MA)";
-        }
-        if ($uf == "MT") {
-          $uf = "Mato Grosso (MT)";
-        }
-        if ($uf == "MS") {
-          $uf = "Mato Grosso do Sul (MS)";
-        }
-        if ($uf == "MG") {
-          $uf = "Minas Gerais (MG)";
-        }
-        if ($uf == "PA") {
-          $uf = "Pará (PA)";
-        }
-        if ($uf == "PB") {
-          $uf = "Paraíba (PB)";
-        }
-        if ($uf == "PR") {
-          $uf = "Paraná (PR)";
-        }
-        if ($uf == "PE") {
-          $uf = "Pernambuco (PE)";
-        }
-        if ($uf == "PI") {
-          $uf = "Piauí (PI)";
-        }
-        if ($uf == "RJ") {
-          $uf = "Rio de Janeiro (RJ)";
-        }
-        if ($uf == "RN") {
-          $uf = "Rio Grande do Norte (RN)";
-        }
-        if ($uf == "RS") {
-          $uf = "Rio Grande do Sul (RS)";
-        }
-        if ($uf == "RO") {
-          $uf = "Rondônia (RO)";
-        }
-        if ($uf == "RR") {
-          $uf = "Roraima (RR)";
-        }
-        if ($uf == "SC") {
-          $uf = "Santa Catarina (SC)";
-        }
-        if ($uf == "SP") {
-          $uf = "São Paulo (SP)";
-        }
-        if ($uf == "SE") {
-          $uf = "Sergipe (SE)";
-        }
-        if ($uf == "TO") {
-          $uf = "Tocantins (TO)";
-        }
-      }
+    // Verifica se a chave 'nome' existe no $_POST
+    if (isset($_POST["inputBanco"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["inputBanco"];
+
+      // Consulta SQL para obter o nome correspondente ao valor selecionado
+      $query = "SELECT banco FROM bancos WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $banco);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+    }
+  }
+
+
+  // Verifica se o formulário foi enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Verifica se a chave 'nome' existe no $_POST
+    if (isset($_POST["inputBancoProposta"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["inputBancoProposta"];
+
+      // Consulta SQL para obter o nome correspondente ao valor selecionado
+      $query = "SELECT banco FROM bancos WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $bancoproposta);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+    }
+  }
 
 
 
 
 
+  if ($_POST['inputValorParcelas'] == 120) {
+    $parcela = "120x";
+  } elseif ($_POST['inputValorParcelas'] == 96) {
+    $parcela = "96x";
+  } elseif ($_POST['inputValorParcelas'] == 84) {
+    $parcela = "84x";
+  } elseif ($_POST['inputValorParcelas'] == 72) {
+    $parcela = "72x";
+  } elseif ($_POST['inputValorParcelas'] == 60) {
+    $parcela = "60x";
+  } elseif ($_POST['inputValorParcelas'] == 48) {
+    $parcela = "48x";
+  } elseif ($_POST['inputValorParcelas'] == 36) {
+    $parcela = "36x";
+  } elseif ($_POST['inputValorParcelas'] == 24) {
+    $parcela = "24x";
+  } elseif ($_POST['inputValorParcelas'] == 12) {
+    $parcela = "12x";
+  }
+
+
+  if ($_POST['inputCanal'] == 1) {
+    $canal = "TELEMARKETING";
+  } elseif ($_POST['inputCanal'] == 2) {
+    $canal = "SMS";
+  } elseif ($_POST['inputCanal'] == 3) {
+    $canal = "OUTROS";
+  } elseif ($_POST['inputCanal'] == 4) {
+    $canal = "WHATSAPP";
+  } elseif ($_POST['inputCanal'] == 5) {
+    $canal = "FACEBOOK";
+  } elseif ($_POST['inputCanal'] == 6) {
+    $canal = "ANUNCIO";
+  } elseif ($_POST['inputCanal'] == 7) {
+    $canal = "DISPAROS WATZAP";
+  } elseif ($_POST['inputCanal'] == 8) {
+    $canal = "INDICAÇÃO";
+  } elseif ($_POST['inputCanal'] == 9) {
+    $canal = "LIGAÇÃO";
+  } elseif ($_POST['inputCanal'] == 10) {
+    $canal = "CLIENTE BALCÃO";
+  } elseif ($_POST['inputCanal'] == 11) {
+    $canal = "CLIENTE LIGOU NA LOJA";
+  } elseif ($_POST['inputCanal'] == 12) {
+    $canal = "INSTAGRAM";
+  } elseif ($_POST['inputCanal'] == 13) {
+    $canal = "FACE";
+  } elseif ($_POST['inputCanal'] == 14) {
+    $canal = "CARTEIRA";
+  }
+
+
+  // Verifica se o formulário foi enviado
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Verifica se a chave 'nome' existe no $_POST
+    if (isset($_POST["promotora"])) {
+
+      // Obtém o valor selecionado no formulário
+      $selectedValue = $_POST["promotora"];
+
+      // Consulta SQL para obter o nome correspondente ao valor selecionado
+      $query = "SELECT nome FROM promotoras WHERE id = ?";
+      $stmt = mysqli_prepare($conexao, $query);
+
+      // Vincula o parâmetro e executa a consulta
+      mysqli_stmt_bind_param($stmt, "i", $selectedValue);
+      mysqli_stmt_execute($stmt);
+
+      // Vincula o resultado da consulta
+      mysqli_stmt_bind_result($stmt, $promotora);
+
+      // Obtém o resultado
+      mysqli_stmt_fetch($stmt);
+
+      // Fecha a consulta preparada
+      mysqli_stmt_close($stmt);
+    }
+  }
+
+
+  if ($_POST['inputFormalizacao'] == 1) {
+    $formalizacao = "FÍSICO";
+  } elseif ($_POST['inputFormalizacao'] == 2) {
+    $formalizacao = "DIGITAL";
+  }
+
+  if ($_POST['inputCanal'] == 1) {
+    $canal = "TELEMARKETING";
+  } elseif ($_POST['inputCanal'] == 2) {
+    $canal = "SMS";
+  }
+
+  if ($_POST['inputConvenio'] == 1) {
+    $convenio = "INSS";
+  } elseif ($_POST['inputConvenio'] == 2) {
+    $convenio = "FGTS";
+  } elseif ($_POST['inputConvenio'] == 3) {
+    $convenio = "AUXÍLIO BRASIL";
+  } elseif ($_POST['inputConvenio'] == 4) {
+    $convenio = "GOVERNO DE SÃO PAULO";
+  } elseif ($_POST['inputConvenio'] == 5) {
+    $convenio = "PREFEITURA DE SÃO PAULO";
+  } elseif ($_POST['inputConvenio'] == 6) {
+    $convenio = "GOVERNO DO RIO DE JANEIRO";
+  } elseif ($_POST['inputConvenio'] == 7) {
+    $convenio = "SIAPE";
+  } elseif ($_POST['inputConvenio'] == 8) {
+    $convenio = "GOVERNO DA BAHIA";
+  } elseif ($_POST['inputConvenio'] == 9) {
+    $convenio = "PESSOAL";
+  }
+
+
+
+
+  if ($_POST['inputOperacao'] == 1) {
+    $operacao = "NOVO";
+  } elseif ($_POST['inputOperacao'] == 2) {
+    $operacao = "PORTABILIDADE";
+  } elseif ($_POST['inputOperacao'] == 3) {
+    $operacao = "REFINANCIAMENTO";
+  } elseif ($_POST['inputOperacao'] == 4) {
+    $operacao = "CARTÃO PLÁSTICO";
+  } elseif ($_POST['inputOperacao'] == 5) {
+    $operacao = "PORTABILIDADE COM REFIN";
+  } elseif ($_POST['inputOperacao'] == 6) {
+    $operacao = "CARTÃO COM SAQUE";
+  } elseif ($_POST['inputOperacao'] == 7) {
+    $operacao = "CARTÃO BENEFÍCIO COM SEGURO";
+  } elseif ($_POST['inputOperacao'] == 8) {
+    $operacao = "CARTÃO BENEFÍCIO SEM SEGURO";
+  } elseif ($_POST['inputOperacao'] == 9) {
+    $operacao = "CARTÃO BENEFÍCIO INSS";
+  } elseif ($_POST['inputOperacao'] == 10) {
+    $operacao = "NOVO REPRESENTANTE LEGAL";
+  } elseif ($_POST['inputOperacao'] == 11) {
+    $operacao = "NOVO AUMENTO DE SALÁRIO";
+  } elseif ($_POST['inputOperacao'] == 12) {
+    $operacao = "SAQUE CARTÃO BENEFÍCIO";
+  }
 
 
 
 
 
+  //VERIFICAR SE O NOME JÁ ESTÁ CADASTRADO ANTES DE CADASTRAR UMA NOVA
+  /*$query_verificar = "select * from propostas where nome = '$nome' ";
 
-      $query_editar = "UPDATE propostas set nome = '$nome', cpf = '$cpf', rg = '$rg',numerobeneficio = '$numerobeneficio', dataemissao = '$dataemissao',orgaoemissor = '$orgaoemissor', telefone = '$telefone', email = '$email', nascimento = '$nascimento',nomedamae = '$nomedamae', nomedopai = '$nomedopai', cep = '$cep', rua = '$rua', numero = '$numero', complemento = '$complemento', bairro = '$bairro', cidade = '$cidade', uf = '$uf' where idpropostas = '$id' ";
+  $result_verificar = mysqli_query($conexao, $query_verificar);
+  $row_verificar = mysqli_num_rows($result_verificar);
 
-      $result_editar = mysqli_query($conexao, $query_editar);
+  if ($row_verificar > 0) {
+    echo "<script language='javascript'> window.alert('Proposta para esse cliente já Cadastrada!'); </scrip>";
+    exit();
+  }
+*/
 
-      /*
-      $queryeditar = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Editou um pet de espécie: $especie', curDate())";
-      $resulteditar = mysqli_query($conexao, $queryeditar);
-      */
-      if ($result == '') {
-        echo "<script>
-        jSuites.notification({
-          error: 1,
-          name: 'Erro.',
-          message: 'Ocorreu um erro ao editar!',
-      });
-              </script>";
-      } else {
-        echo "<script>
-                jSuites.notification({ 
-                  name: 'Sucesso!', 
-                  message: 'Editado com sucesso!',
-                  timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
-                });
-      
-                // Aguardar 3 segundos antes de redirecionar
-                setTimeout(function() {
-                    window.location.href = 'propostas.php';
-                }, 3000);
-              </script>";
+
+  $query = "INSERT into propostas (idusuario, nome,cpf, rg, numerobeneficio, dataemissao, orgaoemissor, nascimento, nomedamae, nomedopai, cep, rua, numero, complemento, bairro, cidade, naturalidade, uf, telefone, email, convenio, banco, bancoproposta, tipodeconta, agencia, conta, renda, operacao, tabela, promotora, margem, prazo, valor, valorparcelas, formalizacao, canal, statusproposta, data) VALUES ('$usuario','$nome','$cpf', '$rg','$numerobeneficio','$dataemissao','$orgaoemissor', '$nascimento','$nomedamae', '$nomedopai', '$cep', '$rua', '$numero','$complemento','$bairro','$cidade','$naturalidade','$uf','$telefone','$email','$convenio','$banco','$bancoproposta','$tipodeconta','$agencia','$conta','$renda','$operacao','$tabela','$promotora','$margem','$prazo','$valor','$valorparcelas','$formalizacao','$canal','$statusproposta',curDate())";
+  $result = mysqli_query($conexao, $query);
+
+  $idproposta = mysqli_insert_id($conexao); // Obtém o último ID inserido da proposta acima para usar no cadastro de documentos abaixo e recuperar o documento apenas referente a proposta.
+
+  //marcador para editar observacoes
+  if ($_POST['inputObservacao'] != "") {
+    $nomeusuario = $_SESSION['nome_usuario'];
+    $observacao = $_POST['inputObservacao'];
+    $idproposta = mysqli_insert_id($conexao);
+
+
+
+    $query = "INSERT into observacoes (usuario, observacao, idpropostas, data) VALUES ('$nomeusuario','$observacao',' $idproposta',curDate())";
+    $result = mysqli_query($conexao, $query);
+  }
+
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imagens = $_FILES['imagens'];
+
+    foreach ($imagens['name'] as $key => $nomedocumento) {
+      if ($imagens['error'][$key] === 0) {
+        $extensao = pathinfo($nomedocumento, PATHINFO_EXTENSION);
+        $novo_nome = md5(uniqid()) . '.' . $extensao;
+
+        if (move_uploaded_file($imagens['tmp_name'][$key], 'documentos/' . $novo_nome)) {
+          // Insira o nome do arquivo no banco de dados, usando o $idproposta obtido anteriormente
+          $query = "INSERT INTO documentos (nome, caminho, idproposta) VALUES ('$nome', '$novo_nome', '$idproposta')";
+          mysqli_query($conexao, $query);
+        }
       }
     }
-    ?>
+  }
+
+  //Editando LOG de usuário, informando que foi adicionada uma nova ocorrÊncia por ele
+  /*
+  if ($row_verificar > 0) {
+    echo "<script language='javascript'> window.alert('Nome já Cadastrado!'); </script>";
+    exit();
+  }
+  */
+
+  /*
+  $querylog = "INSERT into loguser (nome, acao, data) VALUES ('$nomeusuario', 'Cadastrou uma proposta: $especie', curDate())";
+  $resultlog = mysqli_query($conexao, $querylog);
+  // Final do LOG de usuário
+*/
 
 
-<?php }
+
+if ($result == '') {
+  echo "<script>
+  jSuites.notification({
+    error: 1,
+    name: 'Erro.',
+    message: 'Ocorreu um erro ao cadastrar!',
+});
+        </script>";
+} else {
+  echo "<script>
+          jSuites.notification({ 
+            name: 'Sucesso!', 
+            message: 'Proposta cadastrada com sucesso!',
+            timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+          });
+
+          // Aguardar 3 segundos antes de redirecionar
+          setTimeout(function() {
+              window.location.href = 'propostas.php';
+          }, 3000);
+        </script>";
+}
+
+
+
+}
+
+?>
+    
+    
+
+<?php  }
 }  ?>
 
 
@@ -661,3 +857,47 @@ if (isset($_POST['button_prosseguir'])) {
 
 
 
+<script>
+function consultaEndereco() {
+  // Obter o valor do CEP digitado
+  let cep = document.querySelector('#inputCep').value;
+
+  if (cep.length !== 8) {
+    alert('CEP inválido!');
+    return;
+  }
+
+  let url = 'https://viacep.com.br/ws/' + cep + '/json/';
+
+  fetch(url)
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Erro na requisição');
+      }
+      return response.json();
+    })
+    .then(function(data) {
+      if (data.erro) {
+        alert('CEP não encontrado!');
+        return;
+      }
+      console.log(data);
+      mostrarEndereco(data); // Chama a função para preencher os inputs
+    })
+    .catch(function(error) {
+      console.error('Erro:', error);
+    });
+}
+
+
+  function mostrarEndereco(dados) {
+  document.getElementById('inputRua').value = dados.logradouro || '';
+  document.getElementById('inputNumero').value = ''; // Defina a lógica para o número
+  document.getElementById('inputComplemento').value = dados.complemento || '';
+  document.getElementById('inputBairro').value = dados.bairro || '';
+  document.getElementById('inputCidade').value = dados.localidade || '';
+  document.getElementById('inputUf').value = dados.uf || '';
+  document.getElementById('inputCep').value = dados.cep || '';
+
+}
+</script>
