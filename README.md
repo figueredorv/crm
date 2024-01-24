@@ -79,7 +79,7 @@ Tutorial de como instalar e usar o sistema.
 ```
 
 ```bash
-  Acesse o seudominio/index.php 
+  Acesse o seudominio.com/index.php 
 ```
 
 ```bash
