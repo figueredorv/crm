@@ -1127,10 +1127,11 @@ include("conexao.php");
                                             <img class="banner-image" src="img/automatize-digitacao.png" alt="Banner 2">
                                         </div>
 
-                                        <div id="navigation-buttons" class="d-flex justify-content-between mt-3">
+                                        <div id="navigation-buttons" class="d-flex justify-content-between mt-3 mb-3">
                                             <button class="btn btn-primary" onclick="prevBanner()">Anterior</button>
                                             <button class="btn btn-primary" onclick="nextBanner()">Próxima</button>
                                         </div>
+
                                     </div>
 
                                     <?php
@@ -1325,39 +1326,39 @@ include("conexao.php");
 
     <!-- script banner rotativo -->
     <script>
-    const bannerSlider = document.getElementById('banner-slider');
+        const bannerSlider = document.getElementById('banner-slider');
 
-    function nextBanner() {
-        bannerSlider.style.transition = 'transform 0.5s ease-in-out';
-        bannerSlider.style.transform = 'translateX(-100%)';
-        setTimeout(() => {
-            bannerSlider.appendChild(bannerSlider.firstElementChild);
-            bannerSlider.style.transition = 'none';
-            bannerSlider.style.transform = 'translateX(0)';
-            updateActiveClass();
-        }, 500);
-    }
+        function nextBanner() {
+            bannerSlider.style.transition = 'transform 0.5s ease-in-out';
+            bannerSlider.style.transform = 'translateX(-100%)';
+            setTimeout(() => {
+                bannerSlider.appendChild(bannerSlider.firstElementChild);
+                bannerSlider.style.transition = 'none';
+                bannerSlider.style.transform = 'translateX(0)';
+                updateActiveClass();
+            }, 500);
+        }
 
-    function prevBanner() {
-        bannerSlider.style.transition = 'transform 0.5s ease-in-out';
-        bannerSlider.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-            bannerSlider.prepend(bannerSlider.lastElementChild);
-            bannerSlider.style.transition = 'none';
-            bannerSlider.style.transform = 'translateX(0)';
-            updateActiveClass();
-        }, 500);
-    }
+        function prevBanner() {
+            bannerSlider.style.transition = 'transform 0.5s ease-in-out';
+            bannerSlider.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                bannerSlider.prepend(bannerSlider.lastElementChild);
+                bannerSlider.style.transition = 'none';
+                bannerSlider.style.transform = 'translateX(0)';
+                updateActiveClass();
+            }, 500);
+        }
 
-    function updateActiveClass() {
-        // Adicionar classe active à imagem corrente
-        Array.from(bannerSlider.children).forEach((image, index) => {
-            image.classList.toggle('active', index === 0);
-        });
-    }
+        function updateActiveClass() {
+            // Adicionar classe active à imagem corrente
+            Array.from(bannerSlider.children).forEach((image, index) => {
+                image.classList.toggle('active', index === 0);
+            });
+        }
 
-    setInterval(nextBanner, 9000); // Intervalo de 9 segundos
-</script>
+        setInterval(nextBanner, 9000); // Intervalo de 9 segundos
+    </script>
     <style>
         .banner-image {
             display: none;
