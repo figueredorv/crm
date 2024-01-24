@@ -28,7 +28,7 @@ include("conexao.php");
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
-   
+
 
 </head>
 
@@ -1096,7 +1096,7 @@ include("conexao.php");
                         <style>
                             /* Estilo para o banner rotativo */
                             #banner-container {
-                                max-width: 25rem;
+                                max-width: 80%;
                                 margin: auto;
                                 overflow: hidden;
                             }
@@ -1121,13 +1121,18 @@ include("conexao.php");
                                     <h6 class="m-0 font-weight-bold text-primary">Últimas Informações</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div id="banner-container">
-                                        <div id="banner-slider">
-                                            <img class="banner-image" src="img/undraw_data_reports_706v.svg" alt="Banner 1">
-                                            <img class="banner-image" src="img/undraw_posting_photo.svg" alt="Banner 2">
-                                            
+                                    <div id="banner-container" class="container">
+                                        <div id="banner-slider" class="carousel">
+                                            <img class="banner-image active" src="img/sistema-responsivo.png" alt="Banner 1">
+                                            <img class="banner-image" src="img/automatize-digitacao.png" alt="Banner 2">
+                                        </div>
+
+                                        <div id="navigation-buttons" class="d-flex justify-content-between mt-3">
+                                            <button class="btn btn-primary" onclick="prevBanner()">Anterior</button>
+                                            <button class="btn btn-primary" onclick="nextBanner()">Próxima</button>
                                         </div>
                                     </div>
+
                                     <?php
                                     // Obter as últimas 3 notificações não lidas no banco de dados
                                     $queryNotificacoes = "SELECT * FROM notificacoes n
@@ -1320,27 +1325,48 @@ include("conexao.php");
 
     <!-- script banner rotativo -->
     <script>
-        const bannerSlider = document.getElementById('banner-slider');
+    const bannerSlider = document.getElementById('banner-slider');
 
-        let ativarBanner = 1;
+    function nextBanner() {
+        bannerSlider.style.transition = 'transform 0.5s ease-in-out';
+        bannerSlider.style.transform = 'translateX(-100%)';
+        setTimeout(() => {
+            bannerSlider.appendChild(bannerSlider.firstElementChild);
+            bannerSlider.style.transition = 'none';
+            bannerSlider.style.transform = 'translateX(0)';
+            updateActiveClass();
+        }, 500);
+    }
 
-        if (ativarBanner == 1){
+    function prevBanner() {
+        bannerSlider.style.transition = 'transform 0.5s ease-in-out';
+        bannerSlider.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            bannerSlider.prepend(bannerSlider.lastElementChild);
+            bannerSlider.style.transition = 'none';
+            bannerSlider.style.transform = 'translateX(0)';
+            updateActiveClass();
+        }, 500);
+    }
 
-            function nextBanner() {
-            bannerSlider.style.transition = 'transform 0.5s ease-in-out';
-            bannerSlider.style.transform = 'translateX(-100%)';
-            setTimeout(() => {
-                bannerSlider.appendChild(bannerSlider.firstElementChild);
-                bannerSlider.style.transition = 'none';
-                bannerSlider.style.transform = 'translateX(0)';
-            }, 500);
+    function updateActiveClass() {
+        // Adicionar classe active à imagem corrente
+        Array.from(bannerSlider.children).forEach((image, index) => {
+            image.classList.toggle('active', index === 0);
+        });
+    }
+
+    setInterval(nextBanner, 9000); // Intervalo de 9 segundos
+</script>
+    <style>
+        .banner-image {
+            display: none;
         }
 
-        setInterval(nextBanner, 9000); // Intervalo de 9 segundos
-
+        .banner-image.active {
+            display: block;
         }
-        
-    </script>
+    </style>
 
 </body>
 
@@ -1423,8 +1449,3 @@ include("conexao.php");
         chartStatus.draw(dataStatus, optionsStatus);
     }
 </script>
-
-
-
-
-
