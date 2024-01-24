@@ -68,6 +68,29 @@ if (isset($_POST['button_prosseguir'])) {
   $query = "select * from propostas where cpf = '$cpf'";
   $result = mysqli_query($conexao, $query);
 
+  if (isset($_POST['button_prosseguir'])) {
+    $cpf = $_POST['inputCpf'];
+    $query_verifica_cpf = "SELECT * FROM propostas WHERE cpf = '$cpf'";
+    $result_verifica_cpf = mysqli_query($conexao, $query_verifica_cpf);
+
+    if (mysqli_num_rows($result_verifica_cpf) > 0) {
+        // Se houver resultados (CPF cadastrado), execute o restante do código
+        while ($res_1 = mysqli_fetch_array($result_verifica_cpf)) {
+            // restante do código
+            echo "CPF cadastrado.";
+        }
+    } else {
+        // Se não houver resultados (CPF não cadastrado), exiba uma mensagem ou faça o que desejar
+        echo "CPF não cadastrado. Insira um CPF válido.";
+
+        // Abra o modal usando jQuery após o carregamento completo da página
+        echo '<script>';
+        echo '$(document).ready(function() {';
+        echo '  $("#modalExemplo").modal("show");';
+        echo '});';
+        echo '</script>';
+    }
+}
 
 
 
@@ -848,7 +871,7 @@ if ($result == '') {
 
 
     
-    <?php echo "$cpf" ?>
+   
     
     
 </body>

@@ -1174,7 +1174,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputCpf">CPF</label>
-                        <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="">
+                         <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $_POST["inputCpf"]; ?>" readonly>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputRg">RG</label>
@@ -1221,7 +1221,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       <div class="form-group col-md-2">
                         <label for="inputCep">CEP</label>
                         <div class="input-group">
-                          <input name="inputCep" type="text" class="form-control" id="cep" name="cep" placeholder="">
+                          <input name="inputCep" type="text" class="form-control" id="inputCep" name="inputCep" placeholder="">
                           <div class="input-group-append">
                             <button class="btn btn-outline-dark" type="button" onclick="consultaEndereco()">
                               <i class="fa fa-search"></i>
