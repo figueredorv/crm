@@ -45,7 +45,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
- 
+
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -57,11 +57,11 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-     <!-- Inclua o modal -->
-     <?php include 'modal_cpf.php'; ?>
+  <!-- Inclua o modal -->
+  <?php include 'modal_cpf.php'; ?>
 
-  
- 
+
+
 </head>
 
 <body id="page-top">
@@ -430,10 +430,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
 
                 <div class="form-inline my-2 my-lg-0">
                   <div class="btn-group">
-                    
-                  
 
-                    <!-- Botão "ADICIONAR" -->
+                    <div class="form-inline my-2 my-lg-0 d-flex flex-wrap">
+                      <!-- Seus botões aqui -->
+                      <!-- Botão "ADICIONAR" -->
                     <form class="form-inline mr-2">
                       <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_cpf">ADICIONAR</button>
                     </form>
@@ -491,6 +491,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                         <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
                       </div>
                     </form>
+                    </div>
+
+                    
 
                   </div>
                 </div>
@@ -1174,7 +1177,7 @@ $nomeusuario = $_SESSION['nome_usuario'];
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputCpf">CPF</label>
-                         <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $_POST["inputCpf"]; ?>" readonly>
+                        <input name="inputCpf" type="text" class="form-control inputCpf" id="inputCpf" placeholder="" value="<?php echo $_POST["inputCpf"]; ?>" readonly>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputRg">RG</label>
@@ -1626,10 +1629,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
     </div>
   </div>
 
- <!-- Custom scripts for all pages-->
- <script src="js/sb-admin-2.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
 
- 
+
 
 
 </body>
@@ -1974,16 +1977,16 @@ if (isset($_POST['button'])) {
 
 
 
-if ($result == '') {
-  echo "<script>
+  if ($result == '') {
+    echo "<script>
   jSuites.notification({
     error: 1,
     name: 'Erro.',
     message: 'Ocorreu um erro ao cadastrar!',
 });
         </script>";
-} else {
-  echo "<script>
+  } else {
+    echo "<script>
           jSuites.notification({ 
             name: 'Sucesso!', 
             message: 'Proposta cadastrada com sucesso!',
@@ -1995,10 +1998,7 @@ if ($result == '') {
               window.location.href = 'propostas.php';
           }, 3000);
         </script>";
-}
-
-
-
+  }
 }
 
 ?>
@@ -2602,7 +2602,7 @@ if (@$_GET['func'] == 'editarpropostas') {
       $convenio = $_POST['inputConvenio'];
       $operacao = $_POST['inputOperacao'];
       $banco = $_POST['inputBanco'];
-      $promotora = $_POST['promotora']; 
+      $promotora = $_POST['promotora'];
       $margem = $_POST['inputMargem'];
       $prazo = $_POST['inputPrazo'];
       $valor = $_POST['inputValor'];
@@ -3904,19 +3904,8 @@ if (@$_GET['func'] == 'visualizarproposta') {
   function removerParametrosExcetoPagina() {
     var paginaAtual = <?php echo $pagina; ?>;
     var novaURL = "propostas.php?pagina=" + paginaAtual;
-    
+
     // Redireciona para a nova URL
     window.location.href = novaURL;
   }
 </script>
-
-
-
-
-
-
-
-
-
-
-
