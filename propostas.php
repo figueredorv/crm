@@ -1033,12 +1033,12 @@ $nomeusuario = $_SESSION['nome_usuario'];
                           <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                           <!-- Botão de edição de status da proposta -->
-                          <a class='btn btn-primary' href="propostas.php?func=editarstatus&id=<?php echo $id; ?>"><i class='fa fa-check-square-o'></i></a>
+                          <a class='btn btn-primary' href="#" onclick="addParam('func=editarstatus&id=<?php echo $id; ?>')"><i class='fa fa-check-square-o'></i></a>
 
                           <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
                           <!-- Botão de visualizar proposta -->
-                          <a class='btn btn-primary' href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><i class='fa fa-eye'></i></a>
+                          <a class='btn btn-primary' href="#" onclick="addParam('func=visualizarproposta&id=<?php echo $id; ?>')"><i class='fa fa-eye'></i></a>
 
                           <span style="margin-right: 5px;"></span> <!-- Isso vai criar um espaçamento de 10 pixels -->
 
