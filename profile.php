@@ -571,11 +571,11 @@ include("conexao.php");
                                                                 ?>
                                                                     <tr>
                                                                         <td>
-                                                                            <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 50px; height: 50px;">
+                                                                            <img class="avatar border-gray" src="<?php echo $caminhoDaImagem; ?>" alt="Imagem de Perfil" style="width: 60px; height: 60px;">
                                                                             <span style="vertical-align: middle; margin-right: 5px;"></span>
                                                                         </td>
                                                                         <td>
-                                                                            <h3><?php echo $nome ?></h3>
+                                                                            <h4><?php echo $nome ?></h4>
                                                                             <p><?php echo $sobreMim ?><p>
 
                                                                         </td>
@@ -657,7 +657,7 @@ include("conexao.php");
                                                 <div class="col-md-4 pl-1">
                                                     <div class="form-group">
                                                         <label for="InputSenha">Senha</label>
-                                                        <input type="password" name="inputSenha" class="form-control" placeholder="" value="<?php echo $_SESSION['senha']; ?>">
+                                                        <input type="password" name="inputSenha" class="form-control" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
