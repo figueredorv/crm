@@ -434,66 +434,66 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     <div class="form-inline my-2 my-lg-0 d-flex flex-wrap">
                       <!-- Seus botões aqui -->
                       <!-- Botão "ADICIONAR" -->
-                    <form class="form-inline mr-2">
-                      <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_cpf">ADICIONAR</button>
-                    </form>
+                      <form class="form-inline mr-2">
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#modal_cpf">ADICIONAR</button>
+                      </form>
 
-                    <!-- Botão de filtro "Nova/Antiga" -->
-                    <form class="form-inline mr-2">
-                      <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-filter"></i> Ordenar por
-                      </button>
-                      <div class="dropdown-menu">
-                        <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
-                        <button name="buttonpropostamaisantiga" class="dropdown-item" type="submit">Mais Antiga</button>
-                      </div>
-                    </form>
+                      <!-- Botão de filtro "Nova/Antiga" -->
+                      <form class="form-inline mr-2">
+                        <button name="buttonproposta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-filter"></i> Ordenar por
+                        </button>
+                        <div class="dropdown-menu">
+                          <button name="buttonpropostamaisnova" class="dropdown-item" type="submit">Mais Nova</button>
+                          <button name="buttonpropostamaisantiga" class="dropdown-item" type="submit">Mais Antiga</button>
+                        </div>
+                      </form>
 
-                    <!-- Botão de filtro por "Status" -->
-                    <form class="form-inline mr-2">
-                      <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-filter"></i> Status
-                      </button>
-                      <div class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
-                        <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
-                        <button name="statuspropostaconsultaaverbada" class="dropdown-item" type="submit">AVERBADA</button>
-                        <button name="statuspropostaconsultaintegrado" class="dropdown-item" type="submit">INTEGRADO</button>
-                        <button name="statuspropostaconsultaaguardando" class="dropdown-item" type="submit">AGUARDANDO AVERBAÇÃO</button>
-                        <button name="statuspropostaconsultacancelado" class="dropdown-item" type="submit">CANCELADO</button>
-                        <button name="statuspropostaconsultapaga" class="dropdown-item" type="submit">PAGA</button>
-                        <button name="statuspropostaconsultadigitado" class="dropdown-item" type="submit">DIGITADO</button>
-                        <button name="statuspropostaconsultaretornado" class="dropdown-item" type="submit">SALDO RETORNADO</button>
-                        <button name="statuspropostaconsultaemdig" class="dropdown-item" type="submit">EM DIGITAÇÃO</button>
-                        <button name="statuspropostaconsultaformalizada" class="dropdown-item" type="submit">FORMALIZAÇÃO CONCLUÍDA</button>
-                        <button name="statuspropostaconsultapendform" class="dropdown-item" type="submit">PEND FORMALIZAÇÃO</button>
-                        <button name="statuspropostaconsultaanalisebanco" class="dropdown-item" type="submit">ANALISE BANCO</button>
-                        <button name="statuspropostaconsultaaguardcip" class="dropdown-item" type="submit">AGUARDANDO CIP</button>
-                        <button name="statuspropostaconsultataxafora" class="dropdown-item" type="submit">TAXA FORA DO ENQUADRAMENTO</button>
-                        <button name="statuspropostaconsultafdpolitica" class="dropdown-item" type="submit">FORA DA POLITICA</button>
-                        <button name="statuspropostaconsultaaguardabco" class="dropdown-item" type="submit">AGUARDA BCO</button>
-                        <button name="statuspropostaconsultaesp92" class="dropdown-item" type="submit">ESP32/92&lt;60</button>
-                        <button name="statuspropostaconsultaaguard5dloas" class="dropdown-item" type="submit">AGUARDA 5D LOAS</button>
-                        <button name="statuspropostaconsultaportpaga" class="dropdown-item" type="submit">PORTABILIDADE PAGA</button>
-                        <button name="statuspropostaconsultaaguardlink" class="dropdown-item" type="submit">AGUARD LINK</button>
-                        <button name="statuspropostaconsultanbbloq" class="dropdown-item" type="submit">NB BLOQUEADO</button>
-                        <button name="statuspropostaconsultacancelpolitica" class="dropdown-item" type="submit">CANCELADO POR POLITICA INTERNA</button>
-                        <button name="statuspropostaconsultaaguardaumento" class="dropdown-item" type="submit">AGUARD AUMENTO</button>
-                        <button name="statuspropostaconsultaaguarddesbloqbnf" class="dropdown-item" type="submit">AGUARDA DESBLOQ BNF</button>
-                        <button name="statuspropostaconsultacpfrestrição" class="dropdown-item" type="submit">CPF C/ RESTRIÇÃO INTERNA-IMBURSA</button>
-                        <button name="statuspropostaconsultaaguarddig" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
-                        <button name="statuspropostaconsultapendencia" class="dropdown-item" type="submit">PENDENCIA RESOLVIDA</button>
-                        <button name="statuspropostaconsultasrccativo" class="dropdown-item" type="submit">SRCC ATIVO</button>
-                        <button name="statuspropostaconsultaaguardbco" class="dropdown-item" type="submit">AGUARD BCO/SRCC</button>
-                        <button name="statuspropostaconsultaaguardbancobpc" class="dropdown-item" type="submit">AGUARD BANCO/BPC PORT</button>
-                        <button name="statuspropostaconsultaretidapelai" class="dropdown-item" type="submit">RETIDO PELA IF CREDORA</button>
-                        <button name="statuspropostaconsultaretidacip" class="dropdown-item" type="submit">RETIDA CIP-CTO NÃO LOCALIZADO</button>
-                        <button name="statuspropostaconsultanbbloqtbm" class="dropdown-item" type="submit">NB BLOQUEADO TBM</button>
-                        <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
-                      </div>
-                    </form>
+                      <!-- Botão de filtro por "Status" -->
+                      <form class="form-inline mr-2">
+                        <button name="statuspropostaconsulta" class="btn btn-secondary mb-3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-filter"></i> Status
+                        </button>
+                        <div class="dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+                          <button name="statuspropostaconsultapendente" class="dropdown-item" type="submit">PENDENTE</button>
+                          <button name="statuspropostaconsultaaverbada" class="dropdown-item" type="submit">AVERBADA</button>
+                          <button name="statuspropostaconsultaintegrado" class="dropdown-item" type="submit">INTEGRADO</button>
+                          <button name="statuspropostaconsultaaguardando" class="dropdown-item" type="submit">AGUARDANDO AVERBAÇÃO</button>
+                          <button name="statuspropostaconsultacancelado" class="dropdown-item" type="submit">CANCELADO</button>
+                          <button name="statuspropostaconsultapaga" class="dropdown-item" type="submit">PAGA</button>
+                          <button name="statuspropostaconsultadigitado" class="dropdown-item" type="submit">DIGITADO</button>
+                          <button name="statuspropostaconsultaretornado" class="dropdown-item" type="submit">SALDO RETORNADO</button>
+                          <button name="statuspropostaconsultaemdig" class="dropdown-item" type="submit">EM DIGITAÇÃO</button>
+                          <button name="statuspropostaconsultaformalizada" class="dropdown-item" type="submit">FORMALIZAÇÃO CONCLUÍDA</button>
+                          <button name="statuspropostaconsultapendform" class="dropdown-item" type="submit">PEND FORMALIZAÇÃO</button>
+                          <button name="statuspropostaconsultaanalisebanco" class="dropdown-item" type="submit">ANALISE BANCO</button>
+                          <button name="statuspropostaconsultaaguardcip" class="dropdown-item" type="submit">AGUARDANDO CIP</button>
+                          <button name="statuspropostaconsultataxafora" class="dropdown-item" type="submit">TAXA FORA DO ENQUADRAMENTO</button>
+                          <button name="statuspropostaconsultafdpolitica" class="dropdown-item" type="submit">FORA DA POLITICA</button>
+                          <button name="statuspropostaconsultaaguardabco" class="dropdown-item" type="submit">AGUARDA BCO</button>
+                          <button name="statuspropostaconsultaesp92" class="dropdown-item" type="submit">ESP32/92&lt;60</button>
+                          <button name="statuspropostaconsultaaguard5dloas" class="dropdown-item" type="submit">AGUARDA 5D LOAS</button>
+                          <button name="statuspropostaconsultaportpaga" class="dropdown-item" type="submit">PORTABILIDADE PAGA</button>
+                          <button name="statuspropostaconsultaaguardlink" class="dropdown-item" type="submit">AGUARD LINK</button>
+                          <button name="statuspropostaconsultanbbloq" class="dropdown-item" type="submit">NB BLOQUEADO</button>
+                          <button name="statuspropostaconsultacancelpolitica" class="dropdown-item" type="submit">CANCELADO POR POLITICA INTERNA</button>
+                          <button name="statuspropostaconsultaaguardaumento" class="dropdown-item" type="submit">AGUARD AUMENTO</button>
+                          <button name="statuspropostaconsultaaguarddesbloqbnf" class="dropdown-item" type="submit">AGUARDA DESBLOQ BNF</button>
+                          <button name="statuspropostaconsultacpfrestrição" class="dropdown-item" type="submit">CPF C/ RESTRIÇÃO INTERNA-IMBURSA</button>
+                          <button name="statuspropostaconsultaaguarddig" class="dropdown-item" type="submit">AGUARD DIGITAÇÃO</button>
+                          <button name="statuspropostaconsultapendencia" class="dropdown-item" type="submit">PENDENCIA RESOLVIDA</button>
+                          <button name="statuspropostaconsultasrccativo" class="dropdown-item" type="submit">SRCC ATIVO</button>
+                          <button name="statuspropostaconsultaaguardbco" class="dropdown-item" type="submit">AGUARD BCO/SRCC</button>
+                          <button name="statuspropostaconsultaaguardbancobpc" class="dropdown-item" type="submit">AGUARD BANCO/BPC PORT</button>
+                          <button name="statuspropostaconsultaretidapelai" class="dropdown-item" type="submit">RETIDO PELA IF CREDORA</button>
+                          <button name="statuspropostaconsultaretidacip" class="dropdown-item" type="submit">RETIDA CIP-CTO NÃO LOCALIZADO</button>
+                          <button name="statuspropostaconsultanbbloqtbm" class="dropdown-item" type="submit">NB BLOQUEADO TBM</button>
+                          <button name="statuspropostaconsultanbbloqconcessao" class="dropdown-item" type="submit">NB BLOQUEADO CONCESSÃO</button>
+                        </div>
+                      </form>
                     </div>
 
-                    
+
 
                   </div>
                 </div>
@@ -1001,11 +1001,12 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                 <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                <li><a href="#" onclick="addParam('func=editarcliente&id=<?php echo $id; ?>')">Editar cliente</a></li>
+                                <li><a href="#" onclick="addParam('func=editarpropostas&id=<?php echo $id; ?>')">Editar propostas</a></li>
+                                <li><a href="#" onclick="addParam('func=editardadosbancarios&id=<?php echo $id; ?>')">Editar dados bancários</a></li>
                               </ul>
                             </div>
+
                           <?php elseif ($statusproposta == 'PENDENTE' || $statusproposta == 'AGUARD DIGITAÇÃO') : ?>
                             <!-- Se não for 'Master' e o status for 'PENDENTE', exiba o botão de edição -->
                             <div class="dropdown">
@@ -1013,9 +1014,9 @@ $nomeusuario = $_SESSION['nome_usuario'];
                                 <i class="fa fa-cog" aria-hidden="true"></i><span class="caret"></span>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a href="propostas.php?func=editarcliente&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar cliente</a></li>
-                                <li><a href="propostas.php?func=editarpropostas&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar propostas</a></li>
-                                <li><a href="propostas.php?func=editardadosbancarios&id=<?php echo $id; ?>" style="white-space: nowrap;">Editar dados bancários</a></li>
+                                <li><a href="#" onclick="addParam('func=editarcliente&id=<?php echo $id; ?>')">Editar cliente</a></li>
+                                <li><a href="#" onclick="addParam('func=editarpropostas&id=<?php echo $id; ?>')">Editar propostas</a></li>
+                                <li><a href="#" onclick="addParam('func=editardadosbancarios&id=<?php echo $id; ?>')">Editar dados bancários</a></li>
                               </ul>
                             </div>
                           <?php endif; ?>
@@ -2178,7 +2179,7 @@ if (@$_GET['func'] == 'editarcliente') {
             <button id="salvarBotao" type="submit" class="btn btn-primary mb-3 btn-lg" name="buttonEditar">Salvar</button>
 
 
-            <button type="button" class="btn btn-secondary mb-3 btn-lg" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3 btn-lg" onclick="removerParametrosExcetoPagina()" data-dismiss="modal">Cancelar</button>
 
 
             </form>
@@ -2583,7 +2584,7 @@ if (@$_GET['func'] == 'editarpropostas') {
             <button type="submit" class="btn btn-primary mb-3" name="buttonEditarProposta">Salvar </button>
 
 
-            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Cancelar </button>
             </form>
           </div>
         </div>
@@ -2939,7 +2940,7 @@ if (@$_GET['func'] == 'editardadosbancarios') {
             <button type="submit" class="btn btn-primary mb-3" name="buttonEditarDadosBancarios">Salvar </button>
 
 
-            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Cancelar </button>
             </form>
           </div>
         </div>
@@ -3628,7 +3629,7 @@ if (@$_GET['func'] == 'editarstatus') {
             <button type="submit" class="btn btn-primary mb-3" name="buttonEditarStatus">Salvar </button>
 
 
-            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal">Cancelar </button>
+            <button type="button" class="btn btn-secondary mb-3" data-dismiss="modal" onclick="removerParametrosExcetoPagina()">Cancelar </button>
             </form>
           </div>
         </div>
@@ -3907,5 +3908,21 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
     // Redireciona para a nova URL
     window.location.href = novaURL;
+  }
+</script>
+
+
+<script>
+    // A função addParam() verifica se a URL atual já possui parâmetros. Se sim, usa o caractere & como separador, caso contrário, usa ?.
+    //Em seguida, verifica se o parâmetro que você deseja adicionar já existe na URL. Se não existir, o parâmetro é adicionado à URL usando window.location.href.
+    //Dessa forma, ao clicar em um dos links como editar usuario,proposta ou dados bancários, o parâmetro especificado será adicionado à URL atual sem substituir os parâmetros existentes. (exemplo da página atual passada por param)
+  function addParam(paramString) {
+    var url = window.location.href;
+    var separator = (url.indexOf('?') !== -1) ? '&' : '?'; // Verifica se a URL já possui parâmetros
+
+    // Adiciona o parâmetro apenas se não existir na URL
+    if (url.indexOf(paramString) === -1) {
+      window.location.href = url + separator + paramString;
+    }
   }
 </script>
