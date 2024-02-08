@@ -657,7 +657,7 @@ include("conexao.php");
                                                 <div class="col-md-4 pl-1">
                                                     <div class="form-group">
                                                         <label for="InputSenha">Senha</label>
-                                                        <input type="password" name="inputSenha" class="form-control" placeholder="">
+                                                        <input type="password" name="inputSenha" class="form-control" placeholder="Nova senha">
                                                     </div>
                                                 </div>
                                             </div>
