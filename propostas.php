@@ -957,16 +957,16 @@ $nomeusuario = $_SESSION['nome_usuario'];
                   ?>
 
                     <tr>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $id; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $nome; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $cpf; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $operacao;  ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $convenio; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $banco; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo number_format($valor, 2, ",", "."); ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $promotora; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $nome_usuario; ?></td>
-                      <td class="linha-clicavel" data-href="propostas.php?func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $data2; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $id; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $nome; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $cpf; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $operacao;  ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $convenio; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo $banco; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo number_format($valor, 2, ",", "."); ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $promotora; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $nome_usuario; ?></td>
+                      <td class="linha-clicavel" data-href="<?php echo "?pagina=" . "$pagina" ?>&func=visualizarproposta&id=<?php echo $id; ?>"><?php echo  $data2; ?></td>
 
 
 
@@ -2350,12 +2350,7 @@ if (@$_GET['func'] == 'editarcliente') {
                   name: 'Sucesso!', 
                   message: 'Editado com sucesso!',
                   timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
-                });
-      
-                // Aguardar 3 segundos antes de redirecionar
-                setTimeout(function() {
-                    window.location.href = 'propostas.php';
-                }, 3000);
+                }); 
               </script>";
       }
     }
@@ -2834,11 +2829,6 @@ if (@$_GET['func'] == 'editarpropostas') {
                   message: 'Editado com sucesso!',
                   timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
                 });
-      
-                // Aguardar 3 segundos antes de redirecionar
-                setTimeout(function() {
-                    window.location.href = 'propostas.php';
-                }, 3000);
               </script>";
       }
     }
@@ -3403,11 +3393,6 @@ if (@$_GET['func'] == 'editardadosbancarios') {
                   message: 'Editado com sucesso!',
                   timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
                 });
-      
-                // Aguardar 3 segundos antes de redirecionar
-                setTimeout(function() {
-                    window.location.href = 'propostas.php';
-                }, 3000);
               </script>";
       }
     }
@@ -3642,6 +3627,8 @@ if (@$_GET['func'] == 'editarstatus') {
       $("#modalEditarStatus").modal("show");
     </script>
 
+
+
     <!--Comando para editar os dados UPDATE -->
     <?php
     if (isset($_POST['buttonEditarStatus'])) {
@@ -3689,11 +3676,23 @@ if (@$_GET['func'] == 'editarstatus') {
 
       $result_editar = mysqli_query($conexao, $query_editar);
 
-      if ($result_editar == '') {
-        echo "<script language='javascript'> window.alert('Ocorreu um erro ao Editar!'); </script>";
+
+      if ($result == '') {
+        echo "<script>
+        jSuites.notification({
+          error: 1,
+          name: 'Erro.',
+          message: 'Ocorreu um erro ao editar!',
+      });
+              </script>";
       } else {
-        echo "<script language='javascript'> window.alert('Status alterado com Sucesso!'); </script>";
-        echo "<script language='javascript'> window.location='propostas.php'; </script>";
+        echo "<script>
+                jSuites.notification({ 
+                  name: 'Sucesso!', 
+                  message: 'Status alterado com sucesso!',
+                  timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+                });
+              </script>";
       }
     }
     ?>
@@ -3701,8 +3700,6 @@ if (@$_GET['func'] == 'editarstatus') {
 
 <?php }
 } ?>
-
-
 
 
 
@@ -3913,9 +3910,9 @@ if (@$_GET['func'] == 'visualizarproposta') {
 
 
 <script>
-    // A função addParam() verifica se a URL atual já possui parâmetros. Se sim, usa o caractere & como separador, caso contrário, usa ?.
-    //Em seguida, verifica se o parâmetro que você deseja adicionar já existe na URL. Se não existir, o parâmetro é adicionado à URL usando window.location.href.
-    //Dessa forma, ao clicar em um dos links como editar usuario,proposta ou dados bancários, o parâmetro especificado será adicionado à URL atual sem substituir os parâmetros existentes. (exemplo da página atual passada por param)
+  // A função addParam() verifica se a URL atual já possui parâmetros. Se sim, usa o caractere & como separador, caso contrário, usa ?.
+  //Em seguida, verifica se o parâmetro que você deseja adicionar já existe na URL. Se não existir, o parâmetro é adicionado à URL usando window.location.href.
+  //Dessa forma, ao clicar em um dos links como editar usuario,proposta ou dados bancários, o parâmetro especificado será adicionado à URL atual sem substituir os parâmetros existentes. (exemplo da página atual passada por param)
   function addParam(paramString) {
     var url = window.location.href;
     var separator = (url.indexOf('?') !== -1) ? '&' : '?'; // Verifica se a URL já possui parâmetros
@@ -3925,4 +3922,50 @@ if (@$_GET['func'] == 'visualizarproposta') {
       window.location.href = url + separator + paramString;
     }
   }
+</script>
+
+
+<script>
+  // Adiciona um ouvinte de evento para o evento 'hidden.bs.modal'
+  $('#modalEditarStatus').on('hidden.bs.modal', function(e) {
+    // Este código será executado quando o modal modalEditarStatus for fechado para remover os params da url e manter apenas o param da pagina atual.
+    removerParametrosExcetoPagina();
+    // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
+  });
+</script>
+
+<script>
+  // Adiciona um ouvinte de evento para o evento 'hidden.bs.modal'
+  $('#modalEditar').on('hidden.bs.modal', function(e) {
+    // Este código será executado quando o modal modalEditar  (cliente) for fechado para remover os params da url e manter apenas o param da pagina atual.
+    removerParametrosExcetoPagina();
+    // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
+  });
+</script>
+
+<script>
+  // Adiciona um ouvinte de evento para o evento 'hidden.bs.modal'
+  $('#modalpropostas').on('hidden.bs.modal', function(e) {
+    // Este código será executado quando o modal modalpropostas for fechado para remover os params da url e manter apenas o param da pagina atual.
+    removerParametrosExcetoPagina();
+    // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
+  });
+</script>
+
+<script>
+  // Adiciona um ouvinte de evento para o evento 'hidden.bs.modal'
+  $('#modaldadosbancarios').on('hidden.bs.modal', function(e) {
+    // Este código será executado quando o modal modaldadosbancarios for fechado para remover os params da url e manter apenas o param da pagina atual.
+    removerParametrosExcetoPagina();
+    // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
+  });
+</script>
+
+<script>
+  // Adiciona um ouvinte de evento para o evento 'hidden.bs.modal'
+  $('#modalVisualizarProposta').on('hidden.bs.modal', function(e) {
+    // Este código será executado quando o modal modalVisualizarProposta for fechado para remover os params da url e manter apenas o param da pagina atual.
+    removerParametrosExcetoPagina();
+    // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
+  });
 </script>
