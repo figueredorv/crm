@@ -38,6 +38,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <link rel="stylesheet" href="css/observacoes.css"> <!-- Certifique-se de ajustar o caminho conforme necessário -->
   <script src="//code.jivosite.com/widget/fgSW8k1Bo7" async></script>
 
+  <script src="js/clipboard.js"></script>
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -56,6 +58,10 @@ $nomeusuario = $_SESSION['nome_usuario'];
   <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
 
   <!-- Inclua o modal -->
   <?php include 'modal_cpf.php'; ?>
@@ -941,6 +947,8 @@ $nomeusuario = $_SESSION['nome_usuario'];
                     $usuario_id = $res_1["idusuario"]; // Aqui armazenamos o ID do usuário
                     $statusproposta = $res_1["statusproposta"];
                     $data = $res_1["data"];
+
+                    
 
 
                     $data2 = implode('/', array_reverse(explode('-', $data)));
@@ -3740,46 +3748,48 @@ if (@$_GET['func'] == 'visualizarproposta') {
                   // Informações da proposta em duas colunas
                   echo '<div class="row">';
                   echo '<div class="col-md-6">';
-                  echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . '</p>';
-                  echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . '</p>';
-                  echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . '</p>';
-                  echo '<p><strong>Data Nasc: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . '</p>';
-                  echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . '</p>';
-                  echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . '</p>';
-                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . '</p>';
-                  echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . '</p>';
-                  echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . '</p>';
-                  echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . '</p>';
-                  echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . '</p>';
-                  echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . '</p>';
-                  echo '<p><strong>Rua: </strong>' . $rowProposta['rua'] . '</p>';
-                  echo '<p><strong>Número: </strong>' . $rowProposta['numero'] . '</p>';
-                  echo '<p><strong>Complemento: </strong>' . $rowProposta['complemento'] . '</p>';
-                  echo '<p><strong>Bairro: </strong>' . $rowProposta['bairro'] . '</p>';
-                  echo '<p><strong>Cidade: </strong>' . $rowProposta['cidade'] . '</p>';
-                  echo '<p><strong>UF: </strong>' . $rowProposta['uf'] . '</p>';
+                  echo '<p><strong>CPF: </strong>' . $rowProposta['cpf'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['cpf']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Número Benefício: </strong>' . $rowProposta['numerobeneficio'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['numerobeneficio']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Nome: </strong>' . $rowProposta['nome'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['nome']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Data Nasc: </strong>' . date('d/m/Y', strtotime($rowProposta['nascimento'])) . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars(date('d/m/Y', strtotime($rowProposta['nascimento']))) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>RG: </strong>' . $rowProposta['rg'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['rg']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Órgão Emissor: </strong>' . $rowProposta['orgaoemissor'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['orgaoemissor']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Data Emissão: </strong>' . date('d/m/Y', strtotime($rowProposta['dataemissao'])) . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars(date('d/m/Y', strtotime($rowProposta['dataemissao']))) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Naturalidade: </strong>' . $rowProposta['naturalidade'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['naturalidade']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Nome da Mãe: </strong>' . $rowProposta['nomedamae'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['nomedamae']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Nome do Pai: </strong>' . $rowProposta['nomedopai'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['nomedopai']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Telefone: </strong>' . $rowProposta['telefone'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['telefone']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>CEP: </strong>' . $rowProposta['cep'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['cep']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Rua: </strong>' . $rowProposta['rua'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['rua']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Número: </strong>' . $rowProposta['numero'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['numero']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Complemento: </strong>' . $rowProposta['complemento'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['complemento']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Bairro: </strong>' . $rowProposta['bairro'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['bairro']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Cidade: </strong>' . $rowProposta['cidade'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['cidade']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>UF: </strong>' . $rowProposta['uf'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['uf']) . '"><i class="far fa-copy"></i></button></p>';
                   echo '</div>'; // Fim da coluna 1
                   echo '<div class="col-md-6">';
-                  echo '<p><strong>Email: </strong>' . $rowProposta['email'] . '</p>';
-                  echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . '</p>';
-                  echo '<p><strong>Banco da proposta: </strong>' . $rowProposta['bancoproposta'] . '</p>';
-                  echo '<p><strong>Banco: </strong>' . $rowProposta['banco'] . '</p>';
-                  echo '<p><strong>Tipo de Conta: </strong>' . $rowProposta['tipodeconta'] . '</p>';
-                  echo '<p><strong>Agência: </strong>' . $rowProposta['agencia'] . '</p>';
-                  echo '<p><strong>Conta: </strong>' . $rowProposta['conta'] . '</p>';
-                  echo '<p><strong>Renda: </strong>' . $rowProposta['renda'] . '</p>';
-                  echo '<p><strong>Operação: </strong>' . $rowProposta['operacao'] . '</p>';
-                  echo '<p><strong>Tabela: </strong>' . $rowProposta['tabela'] . '</p>';
-                  echo '<p><strong>Promotora: </strong>' . $rowProposta['promotora'] . '</p>';
-                  echo '<p><strong>Margem: </strong>' . $rowProposta['margem'] . '</p>';
-                  echo '<p><strong>Prazo: </strong>' . $rowProposta['prazo'] . '</p>';
-                  echo '<p><strong>Valor: </strong>' . $rowProposta['valor'] . '</p>';
-                  echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . '</p>';
-                  echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . '</p>';
-                  echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . '</p>';
+                  echo '<p><strong>Email: </strong>' . $rowProposta['email'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['email']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Convênio: </strong>' . $rowProposta['convenio'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['convenio']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Banco da proposta: </strong>' . $rowProposta['bancoproposta'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['bancoproposta']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Banco: </strong>' . $rowProposta['banco'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['banco']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Tipo de Conta: </strong>' . $rowProposta['tipodeconta'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['tipodeconta']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Agência: </strong>' . $rowProposta['agencia'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['agencia']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Conta: </strong>' . $rowProposta['conta'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['conta']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Renda: </strong>' . $rowProposta['renda'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['renda']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Operação: </strong>' . $rowProposta['operacao'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['operacao']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Tabela: </strong>' . $rowProposta['tabela'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['tabela']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Promotora: </strong>' . $rowProposta['promotora'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['promotora']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Margem: </strong>' . $rowProposta['margem'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['margem']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Prazo: </strong>' . $rowProposta['prazo'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['prazo']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Valor: </strong>' . $rowProposta['valor'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['valor']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Valor Parcelas: </strong>' . $rowProposta['valorparcelas'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['valorparcelas']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Formalização: </strong>' . $rowProposta['formalizacao'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['formalizacao']) . '"><i class="far fa-copy"></i></button></p>';
+                  echo '<p><strong>Canal: </strong>' . $rowProposta['canal'] . ' <button class="btn btn-sm copy-button" data-clipboard-text="' . htmlspecialchars($rowProposta['canal']) . '"><i class="far fa-copy"></i></button></p>';
                   echo '</div>'; // Fim da coluna 2
-
                   echo '</div>'; // Fim da linha
+
+
+
 
 
 
@@ -3968,4 +3978,46 @@ if (@$_GET['func'] == 'visualizarproposta') {
     removerParametrosExcetoPagina();
     // Adicione aqui qualquer ação que você deseja realizar após o fechamento do modal
   });
+</script>
+
+
+<script>
+  // FUNÇÃO PARA COPIAR OS DADOS DA VISUALIZAÇÃO DA PROPOSTA AO CLICAR NO BOTÃO DE COPIAR
+  // Defina uma função ou objeto para encapsular o código
+  var Clipboard = (function() {
+    // Selecione todos os botões de cópia
+    var copyButtons = document.querySelectorAll('.copy-button');
+
+    // Adicione um ouvinte de evento de clique a cada botão
+    copyButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        // Obtenha o texto a ser copiado do atributo data-clipboard-text
+        var textToCopy = button.getAttribute('data-clipboard-text');
+
+        // Copie o texto para a área de transferência
+        navigator.clipboard.writeText(textToCopy)
+          .then(function() {
+            // Se a cópia for bem-sucedida, exiba uma notificação de sucesso
+            jSuites.notification({
+              name: 'Sucesso!',
+              message: 'Copiado com sucesso!',
+              timeout: 3000, // Ajuste o tempo em milissegundos conforme necessário
+            });
+          })
+          .catch(function(error) {
+            // Se ocorrer um erro durante a cópia, exiba uma mensagem de erro
+            console.error('Erro ao copiar texto: ', error);
+            alert('Erro ao copiar texto');
+          });
+      });
+    });
+
+    // Retorna qualquer coisa que deseja expor publicamente, se necessário
+    return {
+      // Por exemplo, você poderia retornar uma função para inicializar o Clipboard
+      initialize: function() {
+        // Inicialize o Clipboard
+      }
+    };
+  })();
 </script>

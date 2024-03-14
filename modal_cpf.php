@@ -9,6 +9,7 @@
 
 
 
+
 <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">      
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -922,4 +923,14 @@ function consultaEndereco() {
   document.getElementById('inputCep').value = dados.cep || '';
 
 }
+</script>
+
+
+<!-- Scripts de máscara dos inputs -->
+<script type="text/javascript">
+  $(document).ready(function() {
+   
+    $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
+    
+  });
 </script>

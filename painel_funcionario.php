@@ -1126,8 +1126,8 @@ include("conexao.php");
                                 <div class="card-body">
                                     <div id="banner-container" class="container">
                                         <div id="banner-slider" class="carousel">
-                                            <img class="banner-image active" src="img/sistema-responsivo.png" alt="Banner 1">
-                                            <img class="banner-image" src="img/automatize-digitacao.png" alt="Banner 2">
+                                            <img class="banner-image active" src="img/novidade1.jpg" alt="Banner 1">
+                                            <!-- <img class="banner-image active" src="img/novidade1.jpg" alt="Banner 1"> -->
                                         </div>
 
                                         <div id="navigation-buttons" class="d-flex justify-content-between mt-3 mb-3">
