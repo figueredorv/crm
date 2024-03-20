@@ -337,9 +337,26 @@ include("conexao.php");
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <button onclick="window.open('relatorio.php', '_blank')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+
+
+                        <?php
+                        // lógica para só conseguir visualizar o botão Gerar relatório quem for nível Master ou Adm do sistema.
+                        if ($_SESSION['cargo_usuario'] == 'Master' || $_SESSION['cargo_usuario'] == 'Adm') : ?>
+
+                            <button data-toggle="modal" data-target="#modal-relatorio" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-download fa-sm text-white"></i> Gerar relatório
+                            </button>
+
+                        <?php
+                        endif;
+                        ?>
+
+
+
+                        <!-- <button onclick="window.open('relatorio.php', '_blank')" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
     <i class="fas fa-download fa-sm text-white"></i> Gerar relatório
-</button>
+</button> -->
+
 
                     </div>
 
@@ -1136,7 +1153,7 @@ include("conexao.php");
                                         </div>
 
                                     </div>
-                                        
+
                                     <?php
                                     // Obter as últimas 3 notificações não lidas no banco de dados
                                     $queryNotificacoes = "SELECT * FROM notificacoes n
@@ -1452,4 +1469,41 @@ include("conexao.php");
         var chartStatus = new google.visualization.PieChart(document.getElementById('chart_pie_div'));
         chartStatus.draw(dataStatus, optionsStatus);
     }
+</script>
+
+<!-- MODAL QUE APARECE AO CLICAR EM GERAR RELATÓRIO -->
+
+<div class="modal fade" id="modal-relatorio" tabindex="-1" role="dialog" aria-labelledby="modal-relatorio" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">GERAR RELATÓRIO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja gerar o relatório de qual usuário?</p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                    </div>
+                    <input type="text" id="txt-usuario-relatorio" class="form-control" placeholder="Usuário" aria-label="Username" aria-describedby="basic-addon1">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" name="button-relatorio" class="btn btn-primary">Concluir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // script do modal de modal-relatorio para obter o nome de usuário informado no input
+    document.querySelector('button[name="button-relatorio"]').addEventListener('click', function() {
+        var usuario = document.getElementById('txt-usuario-relatorio').value;
+        window.open('relatorio.php?usuario=' + usuario, '_blank');
+    });
 </script>
