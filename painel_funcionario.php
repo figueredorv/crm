@@ -1493,7 +1493,7 @@ include("conexao.php");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" name="button-relatorio" class="btn btn-primary">Concluir</button>
+                <button type="button" name="button-relatorio" class="btn btn-primary" disabled>Concluir</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
