@@ -929,7 +929,7 @@ function consultaEndereco() {
 <script type="text/javascript">
   $(document).ready(function() {
    
-    $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf
+    $('.inputCpf').mask('000.000.000-00'); // aplicando a máscara em todos os inputs que tem a classe inputCpf.
     
   });
 </script>
