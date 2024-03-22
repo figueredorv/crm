@@ -378,6 +378,13 @@ include("conexao.php");
                         </div>
                     <?php endif; ?>
 
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Atenção! </strong>Em breve, nosso sistema passará por manutenção para melhorias. Algumas funcionalidades podem ficar temporariamente indisponíveis. Agradecemos sua compreensão!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
                     <!-- Content Row -->
                     <div class="row">
 
@@ -1493,7 +1500,7 @@ include("conexao.php");
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" name="button-relatorio" class="btn btn-primary" disabled>Concluir</button>
+                <button type="button" name="button-relatorio" class="btn btn-primary">Concluir</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
