@@ -310,11 +310,7 @@ CREATE TABLE `documentos` (
 -- Despejando dados para a tabela `documentos`
 --
 
-INSERT INTO `documentos` (`id`, `idusuario`, `nome`, `caminho`, `idproposta`) VALUES
-(100, 0, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '9d579818605ecc4461891771bb320451.jpg', 547),
-(101, 0, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '13ee36f2ba9b7e5e2990fd202aadb1a7.jpg', 547),
-(104, 0, 'RUAN VICTOR FIGUEREDO DOS SANTOS', 'a831b208d71dd8c2e3af50fe9f264cf4.png', 547),
-(106, 0, 'VICTOR SANTOS', '727a95101a116e0783c2b4c98a2d0a78.png', 559);
+
 
 -- --------------------------------------------------------
 
@@ -357,14 +353,6 @@ CREATE TABLE `observacoes` (
 -- Despejando dados para a tabela `observacoes`
 --
 
-INSERT INTO `observacoes` (`id`, `usuario`, `observacao`, `idpropostas`, `data`) VALUES
-(17, 'Operador', 'MUITO BOM!', 553, '2023-12-07'),
-(18, 'Operador', 'MUITO BOM MAIS NOVA', 553, '2023-12-07'),
-(19, 'CRM CORBAN', 'CIENTE DA PROPOSTA', 553, '2023-12-07'),
-(20, 'CRM CORBAN', 'CIENTE DA PROPOSTA (MAIS NOVA)', 554, '2023-12-07'),
-(21, 'CRM CORBAN', 'NOVA', 555, '2023-12-07'),
-(22, 'CRM CORBAN', 'UMA EMPRESA RENOMADA NO MERCADO DE JÓIAS.', 577, '2023-12-19'),
-(23, 'CRM CORBAN', 'ÓTIMO CLIENTE', 579, '2023-12-22');
 
 -- --------------------------------------------------------
 
@@ -441,37 +429,6 @@ CREATE TABLE `propostas` (
 -- Despejando dados para a tabela `propostas`
 --
 
-INSERT INTO `propostas` (`idpropostas`, `idusuario`, `nome`, `cpf`, `rg`, `numerobeneficio`, `dataemissao`, `orgaoemissor`, `nascimento`, `nomedamae`, `nomedopai`, `cep`, `rua`, `numero`, `complemento`, `bairro`, `cidade`, `naturalidade`, `uf`, `telefone`, `email`, `convenio`, `banco`, `bancoproposta`, `tipodeconta`, `agencia`, `conta`, `renda`, `operacao`, `tabela`, `promotora`, `margem`, `prazo`, `valor`, `valorparcelas`, `formalizacao`, `canal`, `documentoanexado`, `observacao`, `statusproposta`, `data`) VALUES
-(547, 14, 'RUAN VICTOR FIGUEREDO', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', '', 'Muito boa essa nova atualização para adicionar observações.', 'PENDENTE', '2023-12-06'),
-(552, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, 'IDÉIA MUITO CRIATIVA', 'AGUARD DIGITAÇÃO', '2023-12-07'),
-(553, 1, 'satijoias', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 5.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, '', 'AGUARD DIGITAÇÃO', '2023-12-07'),
-(554, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-07'),
-(555, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-07'),
-(556, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 100.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, '', 'AGUARD DIGITAÇÃO', '2023-12-07'),
-(557, 14, 'MUITO BOM!', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'PAGA', '2023-12-07'),
-(558, 14, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(79) 99844-5065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'PAGA', '2023-12-07'),
-(559, 1, ' VICTOR FIGUEREDO', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '(55) 79998-4450', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'PAGA', '2023-12-13'),
-(561, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(562, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(563, 6, 'teste', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(564, 6, 'teste2', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(565, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(566, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(567, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(568, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(569, 6, 'teste', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(570, 6, 'test22', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(571, 6, 'test22', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(572, 6, 'teste 3', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(573, 6, 'teste4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(574, 6, 'teste5', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(575, 6, 'Teste6', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'FGTS', '007 - BNDES', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, '', 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(576, 6, 'teste7', '111.111.111-11', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(577, 6, 'satijoias', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, 'UMA EMPRESA RENOMADA NO MERCADO DE JÓIAS.', 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(578, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 150.25, 150.25, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(579, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', '', '', '120', 125.00, 50.00, 'FÍSICO', 'TELEMARKETING', NULL, 'ÓTIMO CLIENTE', 'AGUARD DIGITAÇÃO', '2023-12-19'),
-(581, 6, 'satijoias', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', '', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2024-01-10'),
-(582, 6, 'RUAN VICTOR FIGUEREDO DOS SANTOS', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Escolher...', '79998445065', 'vitinhomusic2014@gmail.com', 'INSS', 'Deu certo!', 'Deu certo!', 'CONTA CORRENTE', '', '', 0.00, 'REFINANCIAMENTO', '', 'CREDIBRASIL LOJASs', '', '120', 0.00, 0.00, 'FÍSICO', 'TELEMARKETING', NULL, NULL, 'AGUARD DIGITAÇÃO', '2024-01-11');
 
 -- --------------------------------------------------------
 
