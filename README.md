@@ -13,6 +13,21 @@ Comunicação Efetiva: Otimize a comunicação com seus clientes, fortalecendo r
 
 Análise Inteligente: Utilize análises de dados avançadas para identificar oportunidades de crescimento e antecipar tendências.
 
+## ⚡ Sobre o Projeto  
+
+![Status](https://img.shields.io/badge/Status-Em%20Evolução-yellow?style=for-the-badge)  
+![PHP](https://img.shields.io/badge/PHP-7.x-blue?style=for-the-badge&logo=php)  
+![Sem Framework](https://img.shields.io/badge/Framework-Nenhum-lightgrey?style=for-the-badge)  
+![Origem](https://img.shields.io/badge/Origem-Projeto%20Acadêmico-green?style=for-the-badge)  
+
+> 🚀 O **CRM CORBAN** nasceu quando eu ainda era estudante do **curso técnico em informática**.  
+> Foi o **primeiro projeto** que desenvolvi em **PHP Puro**, sem uso de frameworks.  
+> Por isso, o código pode não ser dos mais eficientes, mas tem muito valor histórico e prático.  
+> O projeto surgiu de uma **necessidade real** e também como um **desafio acadêmico**, sendo a base para minha evolução como desenvolvedor.  
+
+---
+
+
 
 # Funcionalidades
 
