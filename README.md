@@ -15,15 +15,28 @@ Análise Inteligente: Utilize análises de dados avançadas para identificar opo
 
 ## ⚡ Sobre o Projeto  
 
-![Status](https://img.shields.io/badge/Status-Em%20Evolução-yellow?style=for-the-badge)  
+![Status](https://img.shields.io/badge/Status-Descontinuado-red?style=for-the-badge)  
 ![PHP](https://img.shields.io/badge/PHP-7.x-blue?style=for-the-badge&logo=php)  
 ![Sem Framework](https://img.shields.io/badge/Framework-Nenhum-lightgrey?style=for-the-badge)  
 ![Origem](https://img.shields.io/badge/Origem-Projeto%20Acadêmico-green?style=for-the-badge)  
+![Nova Versão](https://img.shields.io/badge/Nova%20Versão-Em%20Produção-success?style=for-the-badge&logo=laravel)  
 
 > 🚀 O **CRM CORBAN** nasceu quando eu ainda era estudante do **curso técnico em informática**.  
 > Foi o **primeiro projeto** que desenvolvi em **PHP Puro**, sem uso de frameworks.  
 > Por isso, o código pode não ser dos mais eficientes, mas tem muito valor histórico e prático.  
 > O projeto surgiu de uma **necessidade real** e também como um **desafio acadêmico**, sendo a base para minha evolução como desenvolvedor.  
+
+---
+
+## ⚠️ Aviso Importante  
+
+🔴 **Este projeto foi descontinuado**.  
+✅ Atualmente, o **CRM CORBAN** está em **produção** em uma **nova versão feita com Laravel**, trazendo:  
+- Código muito mais **eficiente e escalável**  
+- Uso das **boas práticas** do framework  
+- Estrutura moderna para produção  
+
+✨ Essa nova versão reflete a evolução do projeto e minha maturidade como desenvolvedor.  
 
 ---
 
